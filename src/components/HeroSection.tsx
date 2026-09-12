@@ -96,7 +96,6 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-<<<<<<< HEAD
         {/* Right Content - Map Illustration & Stamps */}
         <motion.div
           className="lg:w-[55%] relative h-[500px] md:h-[600px] w-full flex justify-center items-center z-10"
@@ -158,18 +157,6 @@ const HeroSection = () => {
             </motion.div>
           </div>
         </motion.div>
-=======
-          {/* Right Content - India / Vikas Bharat Artwork */}
-          <motion.div
-            className="w-full lg:w-[48%] xl:w-[50%] relative h-[260px] sm:h-[320px] md:h-[380px] lg:h-[clamp(340px,46vh,480px)] xl:h-[clamp(380px,50vh,560px)] 2xl:h-[clamp(440px,54vh,640px)] flex justify-center items-center z-10 my-2 lg:my-0"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          >
-            {/* Central India Map Illustration - Prominent and Large */}
-            <div className="w-full h-full max-w-[420px] sm:max-w-[480px] md:max-w-[540px] lg:max-w-[580px] xl:max-w-[650px] 2xl:max-w-[720px] bg-[url('/india-map-new.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
-          </motion.div>
->>>>>>> 71719620ccac3392feb740abf348d9a526395a05
 
         </div>
       </div>
