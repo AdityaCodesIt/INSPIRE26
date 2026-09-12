@@ -5,23 +5,34 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply text-brand-navy font-sans antialiased overflow-x-clip bg-[#FAF6EE];
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-sans text-brand-navy font-bold tracking-tight;
   }
 }
 
 @layer components {
+
   /* Postage Stamp Card */
   .stamp-card {
     border: 3px solid theme('colors.stamp-border');
     border-radius: 4px;
     padding: 12px;
     background: theme('colors.bg-cream');
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
     /* Basic serrated edge fallback */
     position: relative;
   }
@@ -35,13 +46,15 @@
     z-index: -1;
     pointer-events: none;
     border-radius: 6px;
-    opacity: 0.5; /* Makes the border look like a shadow/cutout */
+    opacity: 0.5;
+    /* Makes the border look like a shadow/cutout */
   }
 
   /* Primary CTA Button */
   .btn-primary {
     @apply bg-brand-orange text-white rounded-full px-7 py-3 font-semibold text-base transition-colors duration-200 shadow-md;
   }
+
   .btn-primary:hover {
     @apply bg-[#E05500];
   }
@@ -50,9 +63,11 @@
   .stat-card {
     @apply text-center flex flex-col items-center justify-center;
   }
+
   .stat-card .number {
     @apply font-display text-[2.5rem] font-bold text-brand-navy leading-none mb-2;
   }
+
   .stat-card .label {
     @apply font-sans text-[0.85rem] text-text-muted uppercase tracking-wider font-semibold;
   }
@@ -75,9 +90,11 @@
   .award-card {
     @apply flex flex-col items-center gap-2 text-white text-center;
   }
+
   .award-card .icon {
     @apply text-[2.5rem] text-accent-gold mb-2 drop-shadow-md;
   }
+
   .award-card .title {
     @apply font-sans text-[0.9rem] font-semibold;
   }
@@ -92,13 +109,16 @@
   .perspective-1000 {
     perspective: 1000px;
   }
+
   .preserve-3d {
     transform-style: preserve-3d;
   }
+
   .backface-hidden {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
+
   .rotate-y-180 {
     transform: rotateY(180deg);
   }

@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative w-full h-auto min-h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] lg:max-h-[calc(100vh-56px)] flex flex-col justify-between bg-[#F9E7B7] overflow-hidden">
       {/* Layer 1: Clean Cream Paper Texture Background */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none z-0 bg-[#F9E7B7] bg-no-repeat bg-center bg-cover"
         style={{
           backgroundImage: "url('/paper-texture-clean.jpg')",
@@ -15,17 +15,17 @@ const HeroSection = () => {
       />
 
       {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-0 w-full pointer-events-none z-[5] leading-none select-none flex items-end"
         initial={shouldReduceMotion ? false : { y: '34%' }}
         animate={{ y: '0%' }}
         transition={
-          shouldReduceMotion 
-            ? { duration: 0 } 
+          shouldReduceMotion
+            ? { duration: 0 }
             : {
-                duration: 1.9,
-                ease: [0.16, 1, 0.3, 1], // Smooth, premium ease-out curve
-              }
+              duration: 1.9,
+              ease: [0.16, 1, 0.3, 1], // Smooth, premium ease-out curve
+            }
         }
       >
         <img
@@ -96,67 +96,67 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-        {/* Right Content - Map Illustration & Stamps */}
-        <motion.div
-          className="lg:w-[55%] relative h-[500px] md:h-[600px] w-full flex justify-center items-center z-10"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-        >
-          {/* Central India Map Illustration */}
-          <div className="w-[95%] h-[95%] bg-[url('/india-map-new.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
+          {/* Right Content - Map Illustration & Stamps */}
+          <motion.div
+            className="lg:w-[55%] relative h-[500px] md:h-[600px] w-full flex justify-center items-center z-10"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          >
+            {/* Central India Map Illustration */}
+            <div className="w-[95%] h-[95%] bg-[url('/india-map-new.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
 
-          {/* Floating Images */}
-          <div className="absolute inset-0 z-20 pointer-events-none">
-            {/* Image 1 */}
-            <motion.div
-              className="absolute top-[5%] left-[5%] w-24 md:w-36 rotate-[-6deg]"
-              animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
-            >
-              <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-auto rounded-md" />
-            </motion.div>
+            {/* Floating Images */}
+            <div className="absolute inset-0 z-20 pointer-events-none">
+              {/* Image 1 */}
+              <motion.div
+                className="absolute top-[5%] left-[5%] w-24 md:w-36 rotate-[-6deg]"
+                animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
+              >
+                <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-auto rounded-md" />
+              </motion.div>
 
-            {/* Image 2 */}
-            <motion.div
-              className="absolute top-[2%] right-[15%] w-24 md:w-32 rotate-[4deg]"
-              animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
-            >
-              <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-auto rounded-md" />
-            </motion.div>
+              {/* Image 2 */}
+              <motion.div
+                className="absolute top-[2%] right-[15%] w-24 md:w-32 rotate-[4deg]"
+                animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
+              >
+                <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-auto rounded-md" />
+              </motion.div>
 
-            {/* Image 3 */}
-            <motion.div
-              className="absolute top-[40%] left-[-5%] w-28 md:w-40 rotate-[-2deg]"
-              animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
-            >
-              <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-auto rounded-md" />
-            </motion.div>
+              {/* Image 3 */}
+              <motion.div
+                className="absolute top-[40%] left-[-5%] w-28 md:w-40 rotate-[-2deg]"
+                animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
+              >
+                <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-auto rounded-md" />
+              </motion.div>
 
-            {/* Image 4 */}
-            <motion.div
-              className="absolute top-[45%] right-[-5%] w-24 md:w-36 rotate-[8deg]"
-              animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
-            >
-              <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-auto rounded-md" />
-            </motion.div>
+              {/* Image 4 */}
+              <motion.div
+                className="absolute top-[45%] right-[-5%] w-24 md:w-36 rotate-[8deg]"
+                animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
+              >
+                <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-auto rounded-md" />
+              </motion.div>
 
-            {/* Image 5 */}
-            <motion.div
-              className="absolute bottom-[10%] left-[10%] w-20 md:w-32 rotate-[-8deg]"
-              animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
-            >
-              <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-auto rounded-md" />
-            </motion.div>
+              {/* Image 5 */}
+              <motion.div
+                className="absolute bottom-[10%] left-[10%] w-20 md:w-32 rotate-[-8deg]"
+                animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
+              >
+                <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-auto rounded-md" />
+              </motion.div>
 
-            {/* Image 6 */}
-            <motion.div
-              className="absolute bottom-[5%] right-[15%] w-28 md:w-40 rotate-[5deg]"
-              animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
-            >
-              <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-auto rounded-md" />
-            </motion.div>
-          </div>
-        </motion.div>
+              {/* Image 6 */}
+              <motion.div
+                className="absolute bottom-[5%] right-[15%] w-28 md:w-40 rotate-[5deg]"
+                animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
+              >
+                <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-auto rounded-md" />
+              </motion.div>
+            </div>
+          </motion.div>
 
         </div>
       </div>

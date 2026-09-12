@@ -32,7 +32,7 @@ const themes = [
 const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const rotation = index % 2 === 0 ? 3 : -3;
-  
+
   return (
     <motion.div
       className="relative group cursor-pointer w-[155px] sm:w-[170px] md:w-[175px] lg:w-[190px] justify-self-center perspective-1000"
@@ -40,7 +40,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      whileHover={{ 
+      whileHover={{
         y: -4,
         rotate: 0,
         scale: 1.05,
@@ -64,7 +64,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
       }}
     >
       {/* 3D Flippable Box */}
-      <div 
+      <div
         className="w-full h-[170px] sm:h-[185px] md:h-[190px] lg:h-[205px] relative preserve-3d transition-transform duration-600 ease-out motion-reduce:transition-none motion-reduce:duration-0"
         style={{
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -74,7 +74,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className="stamp-card w-full h-full flex flex-col !p-1.5">
             <div className="flex-grow relative overflow-hidden flex flex-col bg-white rounded-[2px]">
-              
+
               {/* Inner Image/Visual area */}
               <div className={`${theme.color} w-full h-[66%] flex items-center justify-center relative overflow-hidden`}>
                 {/* Visual Image */}
@@ -87,7 +87,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
                 {/* Texture overlay */}
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stucco.png')] opacity-20 mix-blend-overlay pointer-events-none z-20"></div>
               </div>
-              
+
               {/* Title area */}
               <div className="h-[34%] bg-bg-cream flex items-center justify-center text-center p-1.5">
                 <h4 className="font-semibold text-brand-navy text-[0.75rem] sm:text-[0.8rem] lg:text-[0.85rem] leading-tight font-sans">{theme.title}</h4>
@@ -98,13 +98,13 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
         </div>
 
         {/* BACK SIDE */}
-        <div 
+        <div
           className="absolute inset-0 w-full h-full backface-hidden rotate-y-180"
           style={{ transform: 'rotateY(180deg)' }}
         >
           <div className="stamp-card w-full h-full flex flex-col !p-1.5">
             <div className="flex-grow relative overflow-hidden flex flex-col justify-between bg-bg-cream rounded-[2px] p-2.5 sm:p-3 border border-[#E5E0D8]">
-              
+
               {/* Header */}
               <div className="text-center pb-1.5 border-b border-stamp-border/30">
                 <span className="font-sans text-[0.6rem] sm:text-[0.65rem] font-bold text-text-muted tracking-widest uppercase block">
@@ -147,12 +147,12 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
 const ThemesSection = () => {
   return (
     <section id="themes" className="py-24 relative overflow-hidden bg-transparent">
-      
+
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
-        
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -165,8 +165,8 @@ const ThemesSection = () => {
               Explore multidisciplinary domains that drive innovation for a Viksit Bharat.
             </p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -180,32 +180,32 @@ const ThemesSection = () => {
 
         {/* Stamps Grid - 5 cards top, 4 cards bottom */}
         <div className="flex flex-col gap-6 lg:gap-8 items-center">
-           {/* Row 1 */}
-           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 lg:gap-6 w-full place-items-center">
-              {themes.slice(0, 5).map((theme, index) => (
-                <ThemeStamp key={theme.id} theme={theme} index={index} />
-              ))}
-           </div>
-           
-           {/* Row 2 */}
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:gap-6 w-full max-w-[960px] place-items-center relative">
-              {themes.slice(5).map((theme, index) => (
-                <ThemeStamp key={theme.id} theme={theme} index={index + 5} />
-              ))}
-              
-              {/* Call to action stamp placeholder (Handwritten aside) */}
-              <motion.div
-                className="hidden xl:block absolute left-[calc(100%+28px)] top-4 transform rotate-6 pointer-events-none select-none"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <p className="font-handwriting text-2xl text-brand-navy leading-tight whitespace-nowrap">
-                  Ideas<br/>that build<br/>a better<br/>tomorrow <span className="text-brand-orange text-3xl ml-1">↗</span>
-                </p>
-              </motion.div>
-           </div>
+          {/* Row 1 */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 lg:gap-6 w-full place-items-center">
+            {themes.slice(0, 5).map((theme, index) => (
+              <ThemeStamp key={theme.id} theme={theme} index={index} />
+            ))}
+          </div>
+
+          {/* Row 2 */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:gap-6 w-full max-w-[960px] place-items-center relative">
+            {themes.slice(5).map((theme, index) => (
+              <ThemeStamp key={theme.id} theme={theme} index={index + 5} />
+            ))}
+
+            {/* Call to action stamp placeholder (Handwritten aside) */}
+            <motion.div
+              className="hidden xl:block absolute left-[calc(100%+28px)] top-4 transform rotate-6 pointer-events-none select-none"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <p className="font-handwriting text-2xl text-brand-navy leading-tight whitespace-nowrap">
+                Ideas<br />that build<br />a better<br />tomorrow <span className="text-brand-orange text-3xl ml-1">↗</span>
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
