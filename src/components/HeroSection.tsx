@@ -79,50 +79,50 @@ const HeroSection = () => {
           <div className="absolute inset-0 z-20 pointer-events-none">
             {/* Image 1 */}
             <motion.div
-              className="absolute top-[5%] left-[5%] w-24 h-24 md:w-36 md:h-36 rotate-[-6deg]"
+              className="absolute top-[5%] left-[5%] w-24 md:w-36 rotate-[-6deg]"
               animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
             >
-              <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-full object-contain" />
+              <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-auto rounded-md" />
             </motion.div>
 
             {/* Image 2 */}
             <motion.div
-              className="absolute top-[2%] right-[15%] w-24 h-24 md:w-32 md:h-32 rotate-[4deg]"
+              className="absolute top-[2%] right-[15%] w-24 md:w-32 rotate-[4deg]"
               animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
             >
-              <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-full object-contain" />
+              <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-auto rounded-md" />
             </motion.div>
 
             {/* Image 3 */}
             <motion.div
-              className="absolute top-[40%] left-[-5%] w-28 h-28 md:w-40 md:h-40 rotate-[-2deg]"
+              className="absolute top-[40%] left-[-5%] w-28 md:w-40 rotate-[-2deg]"
               animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
             >
-              <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-full object-contain" />
+              <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-auto rounded-md" />
             </motion.div>
 
             {/* Image 4 */}
             <motion.div
-              className="absolute top-[45%] right-[-5%] w-24 h-24 md:w-36 md:h-36 rotate-[8deg]"
+              className="absolute top-[45%] right-[-5%] w-24 md:w-36 rotate-[8deg]"
               animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
             >
-              <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-full object-contain" />
+              <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-auto rounded-md" />
             </motion.div>
 
             {/* Image 5 */}
             <motion.div
-              className="absolute bottom-[10%] left-[10%] w-20 h-20 md:w-32 md:h-32 rotate-[-8deg]"
+              className="absolute bottom-[10%] left-[10%] w-20 md:w-32 rotate-[-8deg]"
               animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
             >
-              <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-full object-contain" />
+              <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-auto rounded-md" />
             </motion.div>
 
             {/* Image 6 */}
             <motion.div
-              className="absolute bottom-[5%] right-[15%] w-28 h-28 md:w-40 md:h-40 rotate-[5deg]"
+              className="absolute bottom-[5%] right-[15%] w-28 md:w-40 rotate-[5deg]"
               animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
             >
-              <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-full object-contain" />
+              <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-auto rounded-md" />
             </motion.div>
           </div>
         </motion.div>
