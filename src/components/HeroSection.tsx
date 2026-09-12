@@ -14,6 +14,22 @@ const HeroSection = () => {
         }}
       />
 
+      {/* Layer 1.5: Side Heritage Buildings (Watermark effect) */}
+      <div className="absolute inset-0 pointer-events-none z-[2] overflow-hidden opacity-40 mix-blend-multiply">
+        {/* Left Side Background Buildings */}
+        <img
+          src={heritageCombinedImg}
+          alt=""
+          className="absolute -left-[40%] md:-left-[20%] lg:-left-[10%] top-[15%] h-[60%] lg:h-[80%] w-auto object-cover opacity-60"
+        />
+        {/* Right Side Background Buildings (flipped) */}
+        <img
+          src={heritageCombinedImg}
+          alt=""
+          className="absolute -right-[40%] md:-right-[20%] lg:-right-[10%] top-[25%] h-[50%] lg:h-[70%] w-auto object-cover opacity-60 -scale-x-100"
+        />
+      </div>
+
       {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
       <motion.div
         className="absolute bottom-0 left-0 w-full pointer-events-none z-[5] leading-none select-none flex items-end"
@@ -104,56 +120,56 @@ const HeroSection = () => {
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           >
             {/* Central India Map Illustration */}
-            <div className="w-[95%] h-[95%] bg-[url('/india-map-new.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
+            <div className="w-[95%] h-[95%] bg-[url('/hero-map.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
 
             {/* Floating Images */}
             <div className="absolute inset-0 z-20 pointer-events-none">
-              {/* Image 1 */}
+              {/* Image 1 - Space */}
               <motion.div
                 className="absolute top-[5%] left-[5%] w-24 md:w-36 rotate-[-6deg]"
                 animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
               >
-                <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-1.png" alt="Viksit Bharat Space" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
-              {/* Image 2 */}
+              {/* Image 2 - 5G/6G */}
               <motion.div
                 className="absolute top-[2%] right-[15%] w-24 md:w-32 rotate-[4deg]"
                 animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
               >
-                <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-2.png" alt="Digital Communications" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
-              {/* Image 3 */}
+              {/* Image 3 - Semiconductors (Middle Left) */}
               <motion.div
-                className="absolute top-[40%] left-[-5%] w-28 md:w-40 rotate-[-2deg]"
+                className="absolute top-[42%] left-[-2%] w-28 md:w-36 lg:w-40 rotate-[-2deg]"
                 animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
               >
-                <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-3.png" alt="Semiconductors" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
-              {/* Image 4 */}
+              {/* Image 4 - UPI (Middle Right) */}
               <motion.div
-                className="absolute top-[45%] right-[-5%] w-24 md:w-36 rotate-[8deg]"
+                className="absolute top-[35%] right-[-8%] sm:right-[-5%] w-28 md:w-36 lg:w-40 rotate-[8deg]"
                 animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
               >
-                <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-4.png" alt="UPI Payments" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
-              {/* Image 5 */}
+              {/* Image 5 - Biotechnology */}
               <motion.div
                 className="absolute bottom-[10%] left-[10%] w-20 md:w-32 rotate-[-8deg]"
                 animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
               >
-                <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-5.png" alt="Biotechnology" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
-              {/* Image 6 */}
+              {/* Image 6 - Logistics & Transport */}
               <motion.div
                 className="absolute bottom-[5%] right-[15%] w-28 md:w-40 rotate-[5deg]"
                 animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
               >
-                <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-auto rounded-md" />
+                <img src="/hero-badge-6.png" alt="Logistics & Transport" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
             </div>
           </motion.div>
