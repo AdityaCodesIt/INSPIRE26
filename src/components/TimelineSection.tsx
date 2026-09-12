@@ -1,83 +1,183 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const milestones = [
-  { id: 1, title: 'Abstract Submission Opens', date: '1 Aug 2025', icon: '📄', color: '#138808' },
-  { id: 2, title: 'Abstract Submission Deadline', date: '30 Oct 2025', icon: '⌛', color: '#CC0000' },
-  { id: 3, title: 'Acceptance Notification', date: '15 Nov 2025', icon: '✉️', color: '#0A2A5E' },
-  { id: 4, title: 'Early Bird Registration Deadline', date: '15 Dec 2025', icon: '🎟️', color: '#FF6B00' },
-  { id: 5, title: 'Final Registration Deadline', date: '5 Jan 2026', icon: '❗', color: '#CC0000' },
-  { id: 6, title: 'Conference Dates', date: '16 – 18 Jan 2026', icon: '🎉', color: '#8B008B' },
+interface Milestone {
+  id: number;
+  title: string;
+  date: string;
+  color: string;
+  icon: React.ReactNode;
+}
+
+const milestones: Milestone[] = [
+  {
+    id: 1,
+    title: 'Abstract Submission Opens',
+    date: '1 Aug 2025',
+    color: '#10B981', // Green
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="12" y1="18" x2="12" y2="12" />
+        <line x1="9" y1="15" x2="15" y2="15" />
+      </svg>
+    ),
+  },
+  {
+    id: 2,
+    title: 'Abstract Submission Deadline',
+    date: '30 Oct 2025',
+    color: '#EF4444', // Orange/Red
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+        <path d="M4 12V4a2 2 0 0 1 2-2h8.5L20 7.5V12" />
+        <circle cx="12" cy="17" r="5" />
+        <polyline points="12 15 12 17 14 18" />
+      </svg>
+    ),
+  },
+  {
+    id: 3,
+    title: 'Acceptance Notification',
+    date: '15 Nov 2025',
+    color: '#2563EB', // Blue
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h9" />
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        <path d="m16 19 2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    id: 4,
+    title: 'Early Bird Registration Deadline',
+    date: '15 Dec 2025',
+    color: '#059669', // Emerald/Green
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+  },
+  {
+    id: 5,
+    title: 'Final Registration Deadline',
+    date: '5 Jan 2026',
+    color: '#EA580C', // Orange
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <path d="m9 14 2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    id: 6,
+    title: 'Conference Dates',
+    date: '16 – 18 Jan 2026',
+    color: '#7C3AED', // Purple
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="18" height="18" x="3" y="4" rx="2" />
+        <line x1="16" x2="16" y1="2" y2="6" />
+        <line x1="8" x2="8" y1="2" y2="6" />
+        <line x1="3" x2="21" y1="10" y2="10" />
+        <path d="m9 16 2 2 4-4" />
+      </svg>
+    ),
+  },
 ];
 
 const TimelineSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-80px" });
 
   return (
     <section id="schedule" className="py-24 relative overflow-hidden bg-transparent" ref={containerRef}>
-      
-      
-
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
+        
+        {/* Section Header */}
         <motion.div 
-          className="mb-20"
+          className="mb-16 md:mb-20 max-w-xl"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-3xl md:text-4xl font-semibold text-brand-navy mb-2">Key Dates</h2>
+          <div className="w-16 h-[3px] bg-tricolor-saffron rounded-full mb-3"></div>
           <p className="text-sm text-text-muted font-sans font-medium">
             Mark your calendar and be part of the journey.
           </p>
         </motion.div>
 
-        {/* Desktop Timeline Experience */}
-        <div className="hidden lg:block relative pb-10">
+        {/* Desktop Horizontal Alternating Timeline (lg and above) */}
+        <div className="hidden lg:block relative w-full h-[360px] my-6">
           
-          {/* Custom SVG Curved Path */}
-          <svg className="absolute top-7 left-0 w-full h-24 -z-10" preserveAspectRatio="none" viewBox="0 0 1000 100">
-             <motion.path 
-               d="M 50 50 Q 150 10, 250 50 T 450 50 T 650 50 T 850 50 T 950 50" 
-               className="timeline-connector"
-               initial={{ pathLength: 0, opacity: 0 }}
-               animate={isInView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
-               transition={{ duration: 2, ease: "easeInOut" }}
-             />
+          {/* Continuous Curved Blue Dotted Path Connecting All 6 Nodes */}
+          <svg 
+            className="absolute inset-0 w-full h-full pointer-events-none -z-0" 
+            viewBox="0 0 1200 360" 
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <motion.path 
+              d="M 20 50 L 100 50 C 190 50, 210 210, 300 210 C 390 210, 410 50, 500 50 C 590 50, 610 210, 700 210 C 790 210, 810 50, 900 50 C 990 50, 1010 210, 1100 210 L 1180 210" 
+              stroke="#2563EB"
+              strokeWidth="3.5"
+              strokeDasharray="6 8"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={isInView ? { pathLength: 1, opacity: 0.85 } : { pathLength: 0, opacity: 0 }}
+              transition={{ duration: 1.8, ease: "easeInOut" }}
+            />
           </svg>
 
-          <div className="flex justify-between items-start relative w-full">
+          {/* 6 Alternating Event Nodes */}
+          <div className="grid grid-cols-6 w-full h-full relative z-10">
             {milestones.map((milestone, index) => {
-              
+              const isTop = index % 2 === 0; // 0, 2, 4 are Top; 1, 3, 5 are Bottom
+
               return (
                 <div 
                   key={milestone.id} 
-                  className="flex flex-col items-center w-36 cursor-default"
+                  className={`flex flex-col items-center w-full px-1 ${
+                    isTop ? 'pt-[18px]' : 'pt-[178px]'
+                  }`}
                 >
-                  {/* Icon Circle */}
+                  {/* Circular Event Marker Sitting Directly on the Line */}
                   <motion.div 
-                    className="timeline-node text-2xl mb-4 text-white"
-                    style={{ '--node-color': milestone.color } as React.CSSProperties}
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center relative z-20 transition-all duration-300 hover:scale-110 cursor-default"
+                    style={{ 
+                      backgroundColor: milestone.color,
+                      boxShadow: `0 0 0 3px white, 0 0 0 6px ${milestone.color}, 0 8px 18px rgba(0,0,0,0.14)`
+                    }}
                     initial={{ scale: 0, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 }}
                   >
                     {milestone.icon}
                   </motion.div>
-                  
-                  {/* Text Details */}
+
+                  {/* Event Details Positioned Below the Circle */}
                   <motion.div 
-                    className="text-center mt-2"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 + 0.2 }}
+                    className="text-center w-full max-w-[160px] mt-3"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.25 }}
                   >
-                    <p className="font-bold text-[0.8rem] text-brand-navy leading-snug mb-1">
+                    <h4 className="font-bold text-[0.82rem] sm:text-[0.88rem] text-brand-navy leading-snug mb-1 font-sans">
                       {milestone.title}
-                    </p>
-                    <p className="text-xs font-semibold text-text-muted">
+                    </h4>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-white/90 border border-stamp-border/40 text-[0.75rem] font-bold text-brand-orange shadow-2xs font-sans">
                       {milestone.date}
-                    </p>
+                    </span>
                   </motion.div>
                 </div>
               );
@@ -85,50 +185,60 @@ const TimelineSection = () => {
           </div>
         </div>
 
-        {/* Mobile Vertical Timeline */}
-        <div className="lg:hidden mt-10 flex flex-col gap-8">
+        {/* Mobile & Tablet Vertical Timeline (< lg) */}
+        <div className="lg:hidden mt-8 relative pl-6 sm:pl-8">
+          
+          {/* Vertical Blue Dotted Line */}
+          <div className="absolute left-[34px] sm:left-[38px] top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#2563EB]/70"></div>
+
+          <div className="flex flex-col gap-6 relative z-10">
             {milestones.map((milestone, index) => (
               <motion.div 
                 key={milestone.id}
-                className="flex items-center gap-6"
+                className="flex items-center gap-4 sm:gap-6 bg-white/70 backdrop-blur-xs p-3 sm:p-4 rounded-lg border border-stamp-border/30 shadow-xs"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="relative">
-                   {index < milestones.length - 1 && (
-                     <div className="absolute top-14 left-1/2 -translate-x-1/2 w-0.5 h-12 border-l-2 border-dashed border-gray-400"></div>
-                   )}
-                   <div 
-                     className="w-12 h-12 rounded-full flex items-center justify-center text-xl text-white shadow-[0_0_0_3px_white,0_0_0_5px_var(--node-color)] relative z-10"
-                     style={{ '--node-color': milestone.color, backgroundColor: milestone.color } as React.CSSProperties}
-                   >
-                     {milestone.icon}
-                   </div>
+                {/* Circular Icon */}
+                <div 
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0"
+                  style={{ 
+                    backgroundColor: milestone.color,
+                    boxShadow: `0 0 0 3px white, 0 0 0 5px ${milestone.color}, 0 4px 10px rgba(0,0,0,0.12)`
+                  }}
+                >
+                  {milestone.icon}
                 </div>
-                <div>
-                  <h4 className="font-semibold text-brand-navy text-sm mb-1">{milestone.title}</h4>
-                  <span className="text-xs font-semibold text-text-muted">
+
+                {/* Event Details */}
+                <div className="flex flex-col">
+                  <h4 className="font-bold text-brand-navy text-[0.85rem] sm:text-base leading-snug mb-1 font-sans">
+                    {milestone.title}
+                  </h4>
+                  <span className="inline-block self-start px-2 py-0.5 rounded-md bg-white border border-stamp-border/40 text-xs font-bold text-brand-orange shadow-2xs font-sans">
                     {milestone.date}
                   </span>
                 </div>
               </motion.div>
             ))}
+          </div>
         </div>
         
-        {/* Decorative element */}
+        {/* Decorative handwritten aside */}
         <motion.div 
-           className="absolute right-0 bottom-[-40px] hidden lg:block"
-           initial={{ opacity: 0 }}
-           whileInView={{ opacity: 1 }}
-           viewport={{ once: true }}
-           transition={{ duration: 1 }}
+          className="mt-12 hidden lg:flex justify-end"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.8 }}
         >
-          <p className="font-handwriting text-2xl text-brand-navy transform -rotate-[10deg] opacity-80">
+          <p className="font-handwriting text-2xl text-brand-navy transform -rotate-[6deg] opacity-80">
             Different Minds.<br/>A Stronger Bharat.
           </p>
         </motion.div>
+
       </div>
     </section>
   );
