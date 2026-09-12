@@ -52,16 +52,16 @@ const InformationScrollSection = () => {
   return (
     <>
       {/* DESKTOP / LAPTOP: Horizontal Scroll Experience (md and above) */}
-      <div 
+      <div
         id="overview"
-        ref={containerRef} 
+        ref={containerRef}
         className="hidden md:block relative h-[300vh] bg-[#061426] text-white"
       >
         {/* Sticky Viewport pinned under the navbar */}
         <div className="sticky top-[56px] h-[calc(100vh-56px)] w-full overflow-hidden flex flex-col justify-between bg-[#061426] border-t border-b border-white/10">
-          
+
           {/* Subtle Technical Blueprint Background Grid */}
-          <div 
+          <div
             className="absolute inset-0 pointer-events-none opacity-[0.035]"
             style={{
               backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
@@ -85,11 +85,10 @@ const InformationScrollSection = () => {
             {/* Step Navigation Pill Indicator */}
             <div className="flex items-center space-x-6 text-xs font-mono">
               {topics.map((item, idx) => (
-                <div 
+                <div
                   key={item.number}
-                  className={`flex items-center space-x-2 transition-all duration-300 ${
-                    activeSlide === idx ? 'text-amber-400 font-bold' : 'text-white/40'
-                  }`}
+                  className={`flex items-center space-x-2 transition-all duration-300 ${activeSlide === idx ? 'text-amber-400 font-bold' : 'text-white/40'
+                    }`}
                 >
                   <span>{item.number}</span>
                   <span className="tracking-wider">{item.title}</span>
@@ -104,8 +103,8 @@ const InformationScrollSection = () => {
           </div>
 
           {/* Horizontal Track (300vw wide) */}
-          <motion.div 
-            style={shouldReduceMotion ? {} : { x }} 
+          <motion.div
+            style={shouldReduceMotion ? {} : { x }}
             className="flex h-full w-[300vw] will-change-transform relative z-10"
           >
             {/* ========================================================================= */}
@@ -113,7 +112,7 @@ const InformationScrollSection = () => {
             {/* ========================================================================= */}
             <div className="w-screen h-full flex-shrink-0 flex items-center justify-center px-8 lg:px-16 xl:px-20 relative">
               {/* Background Watermark */}
-              <motion.div 
+              <motion.div
                 style={shouldReduceMotion ? {} : { x: watermarkX1 }}
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-[14vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter"
               >
@@ -163,9 +162,9 @@ const InformationScrollSection = () => {
                 {/* Right Column: Architectural Photography Showcase */}
                 <div className="col-span-12 lg:col-span-5 flex justify-center">
                   <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-lg overflow-hidden border border-white/15 shadow-2xl group">
-                    <img 
-                      src="/college-photo.jpg" 
-                      alt="Shree L. R. Tiwari College of Engineering" 
+                    <img
+                      src="/college-photo.jpg"
+                      alt="Shree L. R. Tiwari College of Engineering"
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#061426] via-transparent to-transparent opacity-80" />
@@ -183,7 +182,7 @@ const InformationScrollSection = () => {
             {/* ========================================================================= */}
             <div className="w-screen h-full flex-shrink-0 flex items-center justify-center px-8 lg:px-16 xl:px-20 relative">
               {/* Background Watermark */}
-              <motion.div 
+              <motion.div
                 style={shouldReduceMotion ? {} : { x: watermarkX2 }}
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-[14vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter"
               >
@@ -279,7 +278,7 @@ const InformationScrollSection = () => {
             {/* ========================================================================= */}
             <div className="w-screen h-full flex-shrink-0 flex items-center justify-center px-8 lg:px-16 xl:px-20 relative">
               {/* Background Watermark */}
-              <motion.div 
+              <motion.div
                 style={shouldReduceMotion ? {} : { x: watermarkX3 }}
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-[14vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter"
               >
@@ -331,12 +330,12 @@ const InformationScrollSection = () => {
                   <div className="relative w-full max-w-[480px] aspect-[4/3] rounded-lg bg-gradient-to-br from-[#0c2240] to-[#07152b] border border-amber-500/20 p-8 flex flex-col items-center justify-center shadow-2xl text-center">
                     <div className="relative mb-6">
                       <div className="absolute inset-0 bg-amber-400/10 rounded-full blur-xl transform scale-125 pointer-events-none" />
-                      <svg 
-                        viewBox="0 0 24 24" 
-                        className="w-24 h-24 fill-current text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] relative z-10" 
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-24 h-24 fill-current text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] relative z-10"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z"/>
+                        <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z" />
                       </svg>
                     </div>
 
@@ -359,7 +358,7 @@ const InformationScrollSection = () => {
             <div className="flex items-center space-x-3 text-xs font-mono text-white/60">
               <span>01 / 03</span>
               <div className="w-48 lg:w-72 h-1 bg-white/10 rounded-full overflow-hidden">
-                <motion.div 
+                <motion.div
                   style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
                   className="h-full bg-gradient-to-r from-amber-400 to-orange-500 w-full"
                 />
@@ -377,7 +376,7 @@ const InformationScrollSection = () => {
 
       {/* MOBILE / TABLET ALTERNATIVE: Clean Vertically Stacked Editorial Experience (< md) */}
       <div className="block md:hidden bg-[#061426] text-white py-12 px-6 border-t border-b border-white/10">
-        
+
         {/* Section Header */}
         <div className="mb-10 text-center">
           <div className="inline-flex items-center gap-2 mb-2">

@@ -102,9 +102,9 @@ const TimelineSection = () => {
   return (
     <section id="schedule" className="py-24 relative overflow-hidden bg-transparent" ref={containerRef}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
-        
+
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className="mb-16 md:mb-20 max-w-xl"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -119,16 +119,16 @@ const TimelineSection = () => {
 
         {/* Desktop Horizontal Alternating Timeline (lg and above) */}
         <div className="hidden lg:block relative w-full h-[360px] my-6">
-          
+
           {/* Continuous Curved Blue Dotted Path Connecting All 6 Nodes */}
-          <svg 
-            className="absolute inset-0 w-full h-full pointer-events-none -z-0" 
-            viewBox="0 0 1200 360" 
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none -z-0"
+            viewBox="0 0 1200 360"
             fill="none"
             preserveAspectRatio="none"
           >
-            <motion.path 
-              d="M 20 50 L 100 50 C 190 50, 210 210, 300 210 C 390 210, 410 50, 500 50 C 590 50, 610 210, 700 210 C 790 210, 810 50, 900 50 C 990 50, 1010 210, 1100 210 L 1180 210" 
+            <motion.path
+              d="M 20 50 L 100 50 C 190 50, 210 210, 300 210 C 390 210, 410 50, 500 50 C 590 50, 610 210, 700 210 C 790 210, 810 50, 900 50 C 990 50, 1010 210, 1100 210 L 1180 210"
               stroke="#2563EB"
               strokeWidth="3.5"
               strokeDasharray="6 8"
@@ -145,16 +145,15 @@ const TimelineSection = () => {
               const isTop = index % 2 === 0; // 0, 2, 4 are Top; 1, 3, 5 are Bottom
 
               return (
-                <div 
-                  key={milestone.id} 
-                  className={`flex flex-col items-center w-full px-1 ${
-                    isTop ? 'pt-[18px]' : 'pt-[178px]'
-                  }`}
+                <div
+                  key={milestone.id}
+                  className={`flex flex-col items-center w-full px-1 ${isTop ? 'pt-[18px]' : 'pt-[178px]'
+                    }`}
                 >
                   {/* Circular Event Marker Sitting Directly on the Line */}
-                  <motion.div 
+                  <motion.div
                     className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center relative z-20 transition-all duration-300 hover:scale-110 cursor-default"
-                    style={{ 
+                    style={{
                       backgroundColor: milestone.color,
                       boxShadow: `0 0 0 3px white, 0 0 0 6px ${milestone.color}, 0 8px 18px rgba(0,0,0,0.14)`
                     }}
@@ -166,7 +165,7 @@ const TimelineSection = () => {
                   </motion.div>
 
                   {/* Event Details Positioned Below the Circle */}
-                  <motion.div 
+                  <motion.div
                     className="text-center w-full max-w-[160px] mt-3"
                     initial={{ opacity: 0, y: 12 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
@@ -187,13 +186,13 @@ const TimelineSection = () => {
 
         {/* Mobile & Tablet Vertical Timeline (< lg) */}
         <div className="lg:hidden mt-8 relative pl-6 sm:pl-8">
-          
+
           {/* Vertical Blue Dotted Line */}
           <div className="absolute left-[34px] sm:left-[38px] top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#2563EB]/70"></div>
 
           <div className="flex flex-col gap-6 relative z-10">
             {milestones.map((milestone, index) => (
-              <motion.div 
+              <motion.div
                 key={milestone.id}
                 className="flex items-center gap-4 sm:gap-6 bg-white/70 backdrop-blur-xs p-3 sm:p-4 rounded-lg border border-stamp-border/30 shadow-xs"
                 initial={{ opacity: 0, x: -20 }}
@@ -202,9 +201,9 @@ const TimelineSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Circular Icon */}
-                <div 
+                <div
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0"
-                  style={{ 
+                  style={{
                     backgroundColor: milestone.color,
                     boxShadow: `0 0 0 3px white, 0 0 0 5px ${milestone.color}, 0 4px 10px rgba(0,0,0,0.12)`
                   }}
@@ -225,9 +224,9 @@ const TimelineSection = () => {
             ))}
           </div>
         </div>
-        
+
         {/* Decorative handwritten aside */}
-        <motion.div 
+        <motion.div
           className="mt-12 hidden lg:flex justify-end"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -235,7 +234,7 @@ const TimelineSection = () => {
           transition={{ duration: 1, delay: 0.8 }}
         >
           <p className="font-handwriting text-2xl text-brand-navy transform -rotate-[6deg] opacity-80">
-            Different Minds.<br/>A Stronger Bharat.
+            Different Minds.<br />A Stronger Bharat.
           </p>
         </motion.div>
 
