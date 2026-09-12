@@ -87,3 +87,19 @@
     @apply border-[1.5px] border-dashed border-[#AAAAAA] rounded-lg py-4 px-6 flex flex-col items-center gap-2 text-[#AAAAAA] text-[0.75rem] font-sans hover:bg-white/5 transition-colors cursor-pointer;
   }
 }
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
