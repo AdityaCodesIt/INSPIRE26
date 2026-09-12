@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import PageBackground from './components/PageBackground';
 import HeroSection from './components/HeroSection';
+import InformationScrollSection from './components/InformationScrollSection';
 import AboutSection from './components/AboutSection';
 import ThemesSection from './components/ThemesSection';
 import TimelineSection from './components/TimelineSection';
@@ -15,6 +16,7 @@ function App() {
       
       <main className="flex-grow">
         <HeroSection />
+        <InformationScrollSection />
         <AboutSection />
         <ThemesSection />
         <TimelineSection />

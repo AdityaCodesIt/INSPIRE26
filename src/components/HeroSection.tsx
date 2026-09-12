@@ -1,6 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.png';
 
 const HeroSection = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="home" className="relative w-full h-auto min-h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] lg:max-h-[calc(100vh-56px)] flex flex-col justify-between bg-[#F9E7B7] overflow-hidden">
       {/* Layer 1: Clean Cream Paper Texture Background */}
@@ -11,20 +14,26 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer preserving aspect ratio */}
-      <div 
-        className="absolute bottom-0 left-0 w-full pointer-events-none z-[5] overflow-hidden leading-none select-none flex items-end"
-        style={{
-          maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-        }}
+      {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
+      <motion.div 
+        className="absolute bottom-0 left-0 w-full pointer-events-none z-[5] leading-none select-none flex items-end"
+        initial={shouldReduceMotion ? false : { y: '34%' }}
+        animate={{ y: '0%' }}
+        transition={
+          shouldReduceMotion 
+            ? { duration: 0 } 
+            : {
+                duration: 1.9,
+                ease: [0.16, 1, 0.3, 1], // Smooth, premium ease-out curve
+              }
+        }
       >
         <img
-          src="/heritage-skyline-clean.png"
+          src={heritageCombinedImg}
           alt="Indian Heritage Skyline"
           className="w-full h-auto block select-none"
         />
-      </div>
+      </motion.div>
 
       {/* Layer 3: Foreground Hero Content */}
       <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6 pb-20 sm:pb-24 md:pb-28 lg:pb-32 flex-1 flex items-center justify-center">
