@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -9,7 +9,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', id: 'home', href: '#home' },
     { name: 'About', id: 'about', href: '#about' },
-    { name: 'Tracks', id: 'tracks', href: '#tracks' },
+    { name: 'Themes', id: 'themes', href: '#themes' },
     { name: 'Prize Pool', id: 'awards', href: '#awards' },
     { name: 'Schedule', id: 'schedule', href: '#schedule' },
     { name: 'Contact', id: 'contact', href: '#contact' },
@@ -17,9 +17,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100; // offset for navbar height
+      const scrollPosition = window.scrollY + 120;
 
-      // Find the current section
       for (let i = navLinks.length - 1; i >= 0; i--) {
         const section = document.getElementById(navLinks[i].id);
         if (section && section.offsetTop <= scrollPosition) {
@@ -29,104 +28,171 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       <motion.header
-        className="w-full z-50 pt-2 pb-6 px-4 md:px-8 flex justify-between items-center fixed top-0"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="w-full max-w-full sticky top-0 z-50 bg-[#0A2A5E] text-white py-1.5 sm:py-2 transition-all duration-300"
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        {/* Background Layer with Multiply Blend */}
-        <div 
-          className="absolute inset-0 -z-10 bg-[url('/navbar-bg.png')] bg-[length:100%_100%] bg-no-repeat mix-blend-multiply"
-        />
-        
-        {/* Left: Logo */}
-        <div className="flex items-center space-x-2 text-white shrink-0">
-          <div className="flex flex-col">
-            <span className="font-bold text-2xl tracking-widest leading-none mb-1 flex items-center">
-               <svg viewBox="0 0 24 24" className="w-8 h-8 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z"/></svg>
-               IEEE
-            </span>
-            <span className="text-[0.6rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">Advancing Technology<br/>for Humanity</span>
-          </div>
-        </div>
-
-        {/* Center: Main Navigation */}
-        <nav className="hidden xl:flex space-x-2 items-center font-sans font-bold text-[0.8rem] tracking-wide">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`transition-colors px-3 py-1.5 rounded-full ${
-                activeSection === link.id 
-                  ? 'bg-white text-brand-navy' 
-                  : 'text-white/95 hover:text-white'
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right: Utility Links & Button */}
-        <div className="hidden lg:flex flex-col items-end justify-center space-y-1.5 shrink-0">
-          <div className="flex items-center text-[0.65rem] text-white/90 font-medium tracking-wide">
-            <a href="#" className="hover:text-white px-2 border-r border-white/40">IEEE.org</a>
-            <a href="#" className="hover:text-white px-2 border-r border-white/40">IEEE Xplore</a>
-            <a href="#" className="hover:text-white px-2 border-r border-white/40">Volunteer</a>
-            <a href="#" className="hover:text-white pl-2">Student Zone</a>
-          </div>
-          <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-sm px-6 py-2 rounded-full transition-colors shadow-md">
-            Register Now →
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
+          {/* Left: Logo */}
+          <a href="#home" className="flex items-center space-x-2 text-white shrink-0 group">
+            <div className="flex flex-col">
+              <span className="font-bold text-lg sm:text-xl tracking-widest leading-none mb-0.5 flex items-center group-hover:text-amber-300 transition-colors">
+                 <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 mr-1.5 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z"/></svg>
+                 IEEE
+              </span>
+              <span className="text-[0.52rem] sm:text-[0.58rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">Advancing Technology<br/>for Humanity</span>
+            </div>
           </a>
-        </div>
 
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="xl:hidden p-2 text-[#F4EFE6]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <motion.div 
-            className="absolute top-full left-0 w-full bg-brand-navy text-white shadow-xl flex flex-col items-center py-8 space-y-4 xl:hidden"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
+          {/* Center: Main Navigation */}
+          <nav className="hidden lg:flex space-x-1 xl:space-x-2 items-center font-sans font-bold text-[0.72rem] xl:text-[0.78rem] tracking-wide">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`text-lg transition-colors px-4 py-2 rounded-md ${
-                  activeSection === link.id ? 'bg-white text-brand-navy font-bold' : 'hover:text-tricolor-saffron'
+                className={`transition-all px-2.5 py-1 rounded-full ${
+                  activeSection === link.id 
+                    ? 'bg-white text-[#0A2A5E] shadow-sm scale-105' 
+                    : 'text-white/95 hover:text-white hover:bg-white/15'
                 }`}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setActiveSection(link.id);
-                }}
               >
                 {link.name}
               </a>
             ))}
-            <a 
-              href="#register" 
-              className="btn-primary mt-4"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+          </nav>
+
+          {/* Right: Utility Links & Button */}
+          <div className="hidden lg:flex flex-col items-end justify-center space-y-0.5 shrink-0">
+            <div className="flex items-center text-[0.58rem] xl:text-[0.62rem] text-white/90 font-medium tracking-wide">
+              <a href="https://www.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white px-2 border-r border-white/30">IEEE.org</a>
+              <a href="https://ieeexplore.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white px-2 border-r border-white/30">IEEE Xplore</a>
+              <a href="#register" className="hover:text-white px-2 border-r border-white/30">Volunteer</a>
+              <a href="#about" className="hover:text-white pl-2">Student Zone</a>
+            </div>
+            <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs xl:text-[0.8rem] px-3.5 xl:px-5 py-1 xl:py-1.5 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95">
               Register Now →
             </a>
-          </motion.div>
-        )}
+          </div>
+
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs px-3 py-1 rounded-full transition-colors shadow-sm">
+              Register
+            </a>
+            <button 
+              className="p-1.5 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors"
+              aria-label="Toggle Navigation Menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              className="w-full bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-5 space-y-2.5 lg:hidden border-t border-white/15"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm font-semibold transition-colors px-6 py-1.5 rounded-full w-[80%] text-center ${
+                    activeSection === link.id ? 'bg-white text-[#0A2A5E] font-bold shadow-sm' : 'text-white/90 hover:bg-white/10 hover:text-tricolor-saffron'
+                  }`}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveSection(link.id);
+                  }}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <div className="flex items-center gap-4 text-xs text-white/70 pt-1.5">
+                <a href="https://www.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white">IEEE.org</a>
+                <span>·</span>
+                <a href="https://ieeexplore.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white">IEEE Xplore</a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Realistic Code-Generated Hand-Torn Paper Deckle Edge */}
+        <div className="absolute top-[calc(100%-5px)] left-0 w-full max-w-full overflow-visible pointer-events-none z-30">
+          <svg
+            viewBox="0 0 1440 45"
+            preserveAspectRatio="none"
+            className="w-full h-6 sm:h-7 md:h-8 block"
+            style={{
+              clipPath: 'polygon(0 4px, 100% 4px, 100% 120px, 0 120px)',
+              filter: 'drop-shadow(0 3px 3px rgba(10, 42, 94, 0.16)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))'
+            }}
+          >
+            <defs>
+              {/* High-frequency cellulose pulp displacement filter for real fibrous paper tear */}
+              <filter id="torn-paper-roughness" x="-2%" y="-15%" width="104%" height="150%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.14 0.22" numOctaves="5" seed="83" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+              </filter>
+            </defs>
+
+            {/* Layer 1: Exposed Unbleached Paper Core Deckle Fringe (raw paper pulp extending 2-4px past blue sheet) */}
+            <path
+              d="M 1440,0 L 1440,19.5 L 1422,22 L 1410,19.5 L 1395,23.5 L 1386,20 L 1370,22.5 L 1358,27.5 L 1345,25 L 1334,19.5 L 1320,19 L 1308,22.5 L 1295,29 L 1282,33 L 1275,29 L 1264,33.5 L 1252,27.5 L 1240,21 L 1228,19.5 L 1215,22.5 L 1202,18 L 1190,20 L 1178,25.5 L 1165,30 L 1152,26 L 1140,30.5 L 1132,27 L 1120,22 L 1108,19.5 L 1095,18.5 L 1082,21 L 1070,19 L 1058,23.5 L 1045,27 L 1032,21 L 1020,19 L 1008,18 L 995,20.5 L 982,24 L 970,29 L 958,34 L 950,30.5 L 938,36 L 928,31.5 L 916,26 L 904,22 L 892,19 L 880,18 L 868,20.5 L 856,19 L 844,21 L 832,17.5 L 820,16 L 808,18 L 796,21 L 784,19 L 772,23.5 L 760,28.5 L 748,31 L 740,28 L 728,32.5 L 716,26 L 704,22 L 692,19 L 680,18 L 668,20 L 656,17.5 L 644,19 L 632,22.5 L 620,25.5 L 608,23 L 596,27.5 L 584,24 L 572,20 L 560,19 L 548,21.5 L 536,25.5 L 524,30.5 L 512,35 L 504,31 L 492,36 L 480,31 L 468,26 L 456,22 L 444,19 L 432,18.5 L 420,20 L 408,23.5 L 396,28 L 384,25 L 372,21 L 360,19.5 L 348,18 L 336,20 L 324,23 L 312,28 L 300,31 L 292,27.5 L 280,32 L 268,25 L 256,21 L 244,18 L 232,17 L 220,19 L 208,22.5 L 196,26 L 184,30 L 176,26 L 164,31 L 152,26 L 140,21 L 128,19 L 116,20.5 L 104,18 L 92,20 L 80,23 L 68,19 L 56,21 L 44,18.5 L 32,20 L 20,22.5 L 0,19.5 L 0,0 Z"
+              fill="#F8E7BE"
+              opacity="0.95"
+              filter="url(#torn-paper-roughness)"
+            />
+
+            {/* Layer 2: Main Dark Blue Navy Paper (#0A2A5E) - Pure fill, zero top stroke */}
+            <path
+              d="M 1440,0 L 1440,16 L 1422,18.5 L 1410,16.5 L 1395,20 L 1386,17 L 1370,19.5 L 1358,23.5 L 1345,22 L 1334,17 L 1320,16 L 1308,19.5 L 1295,25 L 1282,28.5 L 1275,26 L 1264,29.5 L 1252,24 L 1240,18 L 1228,16.5 L 1215,19 L 1202,15 L 1190,17 L 1178,22 L 1165,26 L 1152,23 L 1140,26.5 L 1132,24 L 1120,19 L 1108,17 L 1095,15.5 L 1082,18 L 1070,16 L 1058,20 L 1045,23 L 1032,18 L 1020,16 L 1008,15 L 995,17.5 L 982,20.5 L 970,25 L 958,30 L 950,27 L 938,32 L 928,28 L 916,23 L 904,19 L 892,16 L 880,15 L 868,17.5 L 856,16 L 844,18 L 832,14.5 L 820,13 L 808,15 L 796,17.5 L 784,16 L 772,20 L 760,24.5 L 748,27.5 L 740,25 L 728,29 L 716,23 L 704,19 L 692,16 L 680,15 L 668,17 L 656,14.5 L 644,16 L 632,19 L 620,22 L 608,20 L 596,23.5 L 584,21 L 572,17 L 560,16 L 548,18.5 L 536,22 L 524,27 L 512,30.5 L 504,27.5 L 492,32.5 L 480,28 L 468,23 L 456,19 L 444,16 L 432,15.5 L 420,17 L 408,20.5 L 396,24.5 L 384,22 L 372,18 L 360,16.5 L 348,15 L 336,17 L 324,19.5 L 312,24.5 L 300,27.5 L 292,24.5 L 280,28.5 L 268,22 L 256,18 L 244,15 L 232,14 L 220,16 L 208,19 L 196,22.5 L 184,26.5 L 176,23 L 164,27.5 L 152,23 L 140,18 L 128,16 L 116,17.5 L 104,15 L 92,17 L 80,19.5 L 68,16 L 56,18 L 44,15.5 L 32,17 L 20,19 L 0,16.5 L 0,0 Z"
+              fill="#0A2A5E"
+              filter="url(#torn-paper-roughness)"
+            />
+
+            {/* Layer 3: Paper Edge Bevel - OPEN path tracing only the bottom torn fracture, never the top */}
+            <path
+              d="M 1440,16 L 1422,18.5 L 1410,16.5 L 1395,20 L 1386,17 L 1370,19.5 L 1358,23.5 L 1345,22 L 1334,17 L 1320,16 L 1308,19.5 L 1295,25 L 1282,28.5 L 1275,26 L 1264,29.5 L 1252,24 L 1240,18 L 1228,16.5 L 1215,19 L 1202,15 L 1190,17 L 1178,22 L 1165,26 L 1152,23 L 1140,26.5 L 1132,24 L 1120,19 L 1108,17 L 1095,15.5 L 1082,18 L 1070,16 L 1058,20 L 1045,23 L 1032,18 L 1020,16 L 1008,15 L 995,17.5 L 982,20.5 L 970,25 L 958,30 L 950,27 L 938,32 L 928,28 L 916,23 L 904,19 L 892,16 L 880,15 L 868,17.5 L 856,16 L 844,18 L 832,14.5 L 820,13 L 808,15 L 796,17.5 L 784,16 L 772,20 L 760,24.5 L 748,27.5 L 740,25 L 728,29 L 716,23 L 704,19 L 692,16 L 680,15 L 668,17 L 656,14.5 L 644,16 L 632,19 L 620,22 L 608,20 L 596,23.5 L 584,21 L 572,17 L 560,16 L 548,18.5 L 536,22 L 524,27 L 512,30.5 L 504,27.5 L 492,32.5 L 480,28 L 468,23 L 456,19 L 444,16 L 432,15.5 L 420,17 L 408,20.5 L 396,24.5 L 384,22 L 372,18 L 360,16.5 L 348,15 L 336,17 L 324,19.5 L 312,24.5 L 300,27.5 L 292,24.5 L 280,28.5 L 268,22 L 256,18 L 244,15 L 232,14 L 220,16 L 208,19 L 196,22.5 L 184,26.5 L 176,23 L 164,27.5 L 152,23 L 140,18 L 128,16 L 116,17.5 L 104,15 L 92,17 L 80,19.5 L 68,16 L 56,18 L 44,15.5 L 32,17 L 20,19 L 0,16.5"
+              stroke="#061B3B"
+              strokeWidth="0.65"
+              fill="none"
+              filter="url(#torn-paper-roughness)"
+            />
+
+            {/* Layer 4: Exposed Pure White Cotton Cellulose Fibers */}
+            <path
+              d="M 1358,23.5 L 1345,25 M 1295,25 L 1282,30 M 1264,29.5 L 1252,25 M 1178,22 L 1165,27 M 970,25 L 958,31.5 M 938,32 L 928,29 M 760,24.5 L 748,28.5 M 728,29 L 716,24 M 536,22 L 524,28.5 M 512,30.5 L 492,33.5 M 396,24.5 L 384,23 M 312,24.5 L 300,29 M 196,22.5 L 184,28 M 164,27.5 L 152,24"
+              stroke="rgba(255, 255, 255, 0.75)"
+              strokeWidth="0.8"
+              fill="none"
+              filter="url(#torn-paper-roughness)"
+            />
+
+            {/* Layer 5: Paper Surface Light Highlights along Fractured Ridges */}
+            <path
+              d="M 1440,16 L 1410,16.5 M 1370,19.5 L 1358,23.5 M 1240,18 L 1202,15 M 1120,19 L 1070,16 M 904,19 L 880,15 M 844,18 L 820,13 M 704,19 L 656,14.5 M 584,21 L 560,16 M 444,16 L 420,17 M 256,18 L 232,14 M 128,16 L 92,17"
+              stroke="rgba(255, 255, 255, 0.2)"
+              strokeWidth="0.75"
+              fill="none"
+              filter="url(#torn-paper-roughness)"
+            />
+          </svg>
+        </div>
       </motion.header>
     </>
   );
