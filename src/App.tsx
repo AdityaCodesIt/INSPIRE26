@@ -14,7 +14,7 @@ function App() {
     <div className="min-h-screen flex flex-col relative font-sans selection:bg-theme-saffron/30">
       <PageBackground />
       <Navbar />
-      
+
       <main className="flex-grow">
         <HeroSection />
         <InformationScrollSection />

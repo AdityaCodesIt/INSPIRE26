@@ -1,29 +1,37 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 
+const SCROLL_THRESHOLD = 35; // Small, intentional scroll gesture
+const ANIMATION_DURATION = 850; // Slower, deliberate transition: 850ms
+const COOLDOWN_DURATION = 200; // Cooldown after animation to absorb momentum/inertia
+const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_DURATION; // 1050ms
+
 const InformationScrollSection = () => {
   const [activePanel, setActivePanel] = useState(0);
   const activePanelRef = useRef(0);
-  const isAnimatingRef = useRef(false);
+  const isLockedRef = useRef(false);
+  const accumulatedDeltaRef = useRef(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Navigate to target panel with lock and cooldown
-  const goToPanel = useCallback((index: number) => {
-    if (index < 0 || index > 2) return;
-    if (isAnimatingRef.current) return;
+  const goToPanel = useCallback((targetIndex: number) => {
+    if (targetIndex < 0 || targetIndex > 2) return;
+    if (isLockedRef.current) return;
 
-    isAnimatingRef.current = true;
-    setActivePanel(index);
-    activePanelRef.current = index;
+    isLockedRef.current = true;
+    accumulatedDeltaRef.current = 0;
+    setActivePanel(targetIndex);
+    activePanelRef.current = targetIndex;
 
-    // Cooldown duration: 650ms animation + 150ms buffer = 800ms
-    // This completely swallows momentum scrolling / trackpad inertia
+    // Cooldown timer: 850ms animation + 200ms buffer = 1050ms
+    // This completely swallows momentum scrolling and trackpad inertia
     setTimeout(() => {
-      isAnimatingRef.current = false;
-    }, 750);
+      isLockedRef.current = false;
+      accumulatedDeltaRef.current = 0;
+    }, TOTAL_LOCK_TIME);
   }, []);
 
-  // Sync scroll position when entering section from above vs below
+  // Sync panel index when scrolling past the section from Hero or About
   useEffect(() => {
     const handleScroll = () => {
       const section = sectionRef.current;
@@ -32,17 +40,19 @@ const InformationScrollSection = () => {
       const navbarHeight = 56;
 
       // If user has scrolled completely above the section into Hero
-      if (rect.top > window.innerHeight - 100) {
+      if (rect.top > window.innerHeight - 80) {
         if (activePanelRef.current !== 0) {
           setActivePanel(0);
           activePanelRef.current = 0;
+          accumulatedDeltaRef.current = 0;
         }
       }
-      // If user has scrolled completely below the section into About
+      // If user has scrolled completely below the section into About Colloquium
       else if (rect.bottom < navbarHeight - 50) {
         if (activePanelRef.current !== 2) {
           setActivePanel(2);
           activePanelRef.current = 2;
+          accumulatedDeltaRef.current = 0;
         }
       }
     };
@@ -51,55 +61,69 @@ const InformationScrollSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Wheel interception: A small scroll triggers exactly ONE panel snap
+  // Wheel interception: Strict 1-scroll = 1-panel snap state machine
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       const section = sectionRef.current;
       if (!section) return;
 
       // Filter out micro trackpad noise
-      if (Math.abs(e.deltaY) < 15) return;
+      if (Math.abs(e.deltaY) < 10) return;
 
       const rect = section.getBoundingClientRect();
       const navbarHeight = 56;
 
-      // Check if the section is currently active in viewport
-      // (top is near navbar and bottom extends significantly)
-      const isSectionInView = rect.top <= navbarHeight + 35 && rect.bottom >= navbarHeight + 100;
+      // Check if section is currently active and occupying the viewport
+      const isSectionInView = rect.top <= navbarHeight + 30 && rect.bottom >= navbarHeight + 100;
       if (!isSectionInView) return;
 
-      // If currently animating, block any further wheel triggers to avoid skipping panels
-      if (isAnimatingRef.current) {
+      const targetScrollTop = section.offsetTop - navbarHeight;
+
+      // If currently locked/animating, absorb all wheel events completely
+      if (isLockedRef.current) {
         e.preventDefault();
+        accumulatedDeltaRef.current = 0;
         return;
       }
-
-      const targetScrollTop = section.offsetTop - navbarHeight;
 
       if (e.deltaY > 0) {
         // User scrolling DOWN
         if (activePanelRef.current < 2) {
+          // In panels 0 or 1: prevent page vertical scroll and accumulate delta
           e.preventDefault();
-          window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-          goToPanel(activePanelRef.current + 1);
+          accumulatedDeltaRef.current += e.deltaY;
+
+          if (accumulatedDeltaRef.current >= SCROLL_THRESHOLD) {
+            // Align section flush to navbar
+            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
+            goToPanel(activePanelRef.current + 1);
+          }
         } else {
-          // At Panel 3 (index 2): User wants to continue down to the next section (About)!
-          // Allow normal vertical browser scroll.
+          // At Panel 2 (IEEE SLRTCE Student Branch): user scrolls down to continue to About Colloquium!
+          // Allow normal vertical browser scroll to AboutSection.
+          accumulatedDeltaRef.current = 0;
         }
       } else if (e.deltaY < 0) {
         // User scrolling UP
         if (activePanelRef.current > 0) {
+          // In panels 1 or 2: prevent page vertical scroll and accumulate delta
           e.preventDefault();
-          window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-          goToPanel(activePanelRef.current - 1);
+          accumulatedDeltaRef.current += e.deltaY;
+
+          if (accumulatedDeltaRef.current <= -SCROLL_THRESHOLD) {
+            // Align section flush to navbar
+            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
+            goToPanel(activePanelRef.current - 1);
+          }
         } else {
-          // At Panel 1 (index 0): User wants to return up to Hero!
-          // Allow normal vertical browser scroll.
+          // At Panel 0 (Our College): user scrolls up to return to Hero!
+          // Allow normal vertical browser scroll to HeroSection.
+          accumulatedDeltaRef.current = 0;
         }
       }
     };
 
-    // Attach non-passive wheel listener on window for responsive control
+    // Non-passive wheel listener on window ensures reliable interception
     window.addEventListener('wheel', onWheel, { passive: false });
     return () => window.removeEventListener('wheel', onWheel);
   }, [goToPanel]);
@@ -113,7 +137,7 @@ const InformationScrollSection = () => {
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (isAnimatingRef.current) return;
+    if (isLockedRef.current) return;
     const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
     const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
 
@@ -130,7 +154,7 @@ const InformationScrollSection = () => {
   const topics = [
     { number: '01', title: 'OUR COLLEGE', subtitle: 'Shree L. R. Tiwari College of Engineering' },
     { number: '02', title: 'OUR BRANCH', subtitle: 'Department of Engineering' },
-    { number: '03', title: 'ABOUT IEEE', subtitle: 'Advancing Technology for Humanity' },
+    { number: '03', title: 'IEEE SLRTCE STUDENT BRANCH', subtitle: 'Advancing Technology for Humanity' },
   ];
 
   return (
@@ -152,7 +176,7 @@ const InformationScrollSection = () => {
         </div>
 
         {/* Center: 3-Panel Clickable Tabs */}
-        <div className="flex items-center space-x-2 sm:space-x-4 text-xs font-mono">
+        <div className="flex items-center space-x-1.5 sm:space-x-3 text-xs font-mono">
           {topics.map((item, idx) => (
             <button
               key={item.number}
@@ -173,9 +197,9 @@ const InformationScrollSection = () => {
 
         {/* Right Scroll Status Cue */}
         <div className="text-[0.7rem] sm:text-xs font-mono text-white/60 tracking-wider">
-          {activePanel === 0 && 'SCROLL DOWN FOR PANEL 2 →'}
-          {activePanel === 1 && 'SCROLL DOWN FOR PANEL 3 →'}
-          {activePanel === 2 && 'SCROLL DOWN FOR NEXT SECTION ↓'}
+          {activePanel === 0 && 'SCROLL DOWN FOR OUR BRANCH →'}
+          {activePanel === 1 && 'SCROLL DOWN FOR IEEE STUDENT BRANCH →'}
+          {activePanel === 2 && 'SCROLL DOWN FOR ABOUT COLLOQUIUM ↓'}
         </div>
       </div>
 
@@ -184,11 +208,11 @@ const InformationScrollSection = () => {
         className="flex h-full w-[300vw] will-change-transform"
         style={{
           transform: `translateX(-${activePanel * 100}vw)`,
-          transition: 'transform 650ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 850ms cubic-bezier(0.25, 1, 0.5, 1)',
         }}
       >
         {/* ========================================================================= */}
-        {/* PANEL 1: OUR COLLEGE (Color: Deep Midnight Navy #081B38) */}
+        {/* PANEL 0: OUR COLLEGE (Color: Deep Midnight Navy #081B38) */}
         {/* ========================================================================= */}
         <div className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#081B38] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden">
           {/* Background Blueprint Grid */}
@@ -265,7 +289,7 @@ const InformationScrollSection = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* PANEL 2: OUR BRANCH (Color: Deep Forest Emerald #062E25) */}
+        {/* PANEL 1: OUR BRANCH (Color: Deep Forest Emerald #062E25) */}
         {/* ========================================================================= */}
         <div className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#062E25] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden">
           {/* Background Circuit Grid */}
@@ -368,7 +392,7 @@ const InformationScrollSection = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* PANEL 3: ABOUT IEEE (Color: Deep Royal Indigo #18183D) */}
+        {/* PANEL 2: IEEE SLRTCE STUDENT BRANCH (Color: Deep Royal Indigo #18183D) */}
         {/* ========================================================================= */}
         <div className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#18183D] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden">
           {/* Background Radial Dots */}
@@ -390,20 +414,20 @@ const InformationScrollSection = () => {
             {/* Left Column */}
             <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-2.5">
-                <span className="text-sky-400 font-mono text-xs sm:text-sm tracking-widest font-bold">03 / GLOBAL COMMUNITY</span>
+                <span className="text-sky-400 font-mono text-xs sm:text-sm tracking-widest font-bold">03 / GLOBAL NETWORK</span>
                 <span className="h-px w-10 bg-sky-400/50"></span>
-                <span className="text-white/60 text-xs font-mono uppercase tracking-wider">Student Branch</span>
+                <span className="text-white/60 text-xs font-mono uppercase tracking-wider">SLRTCE Student Branch</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-display font-bold text-white tracking-tight leading-[1.12] mb-4">
-                Advancing Technology <br />
+                IEEE SLRTCE <br />
                 <span className="bg-gradient-to-r from-sky-300 via-indigo-200 to-amber-300 bg-clip-text text-transparent">
-                  For Humanity
+                  Student Branch
                 </span>
               </h2>
 
               <p className="text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed mb-6 font-light max-w-2xl">
-                As the world's largest technical professional organization, IEEE connects over 400,000 members across 160+ countries. Our Student Branch serves as the catalyst for technical colloquiums, IEEE Xplore standards access, student research, and lifelong engineering networks.
+                As part of the world's largest technical professional organization, the IEEE SLRTCE Student Branch serves as the catalyst for technical colloquiums, IEEE Xplore research access, professional networking, and student leadership development.
               </p>
 
               {/* Clean Editorial Pillars */}
@@ -419,8 +443,8 @@ const InformationScrollSection = () => {
                   <div className="text-[0.7rem] text-white/60 mt-0.5">Wireless, Power, AI & Ethics</div>
                 </div>
                 <div>
-                  <div className="text-[0.7rem] sm:text-xs font-mono text-sky-400/90 uppercase tracking-wider mb-1">STUDENT BRANCH</div>
-                  <div className="text-xs sm:text-sm font-semibold text-white">Leadership Platform</div>
+                  <div className="text-[0.7rem] sm:text-xs font-mono text-sky-400/90 uppercase tracking-wider mb-1">STUDENT CHAPTER</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white">SLRTCE Hub</div>
                   <div className="text-[0.7rem] text-white/60 mt-0.5">Colloquiums & Competitions</div>
                 </div>
               </div>
@@ -440,13 +464,13 @@ const InformationScrollSection = () => {
                   </svg>
                 </div>
 
-                <div className="text-2xl font-bold font-display tracking-widest text-white mb-1">IEEE</div>
+                <div className="text-2xl font-bold font-display tracking-widest text-white mb-1">IEEE SLRTCE</div>
                 <div className="text-xs font-mono text-sky-300 tracking-wider mb-3 italic">
                   Advancing Technology for Humanity
                 </div>
 
                 <p className="text-xs text-white/60 max-w-xs leading-relaxed font-light">
-                  Fostering technological innovation and excellence for the benefit of humanity.
+                  Empowering students with international research standards, innovation culture, and global engineering networks.
                 </p>
               </div>
             </div>
