@@ -101,8 +101,7 @@ const TimelineSection = () => {
 
   return (
     <section id="schedule" className="py-24 relative overflow-hidden bg-transparent" ref={containerRef}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
-
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
           className="mb-16 md:mb-20 max-w-xl"
@@ -131,11 +130,11 @@ const TimelineSection = () => {
               d="M 20 50 L 100 50 C 190 50, 210 210, 300 210 C 390 210, 410 50, 500 50 C 590 50, 610 210, 700 210 C 790 210, 810 50, 900 50 C 990 50, 1010 210, 1100 210 L 1180 210"
               stroke="#2563EB"
               strokeWidth="3.5"
-              strokeDasharray="6 8"
+              strokeDasharray="8 10"
               strokeLinecap="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={isInView ? { pathLength: 1, opacity: 0.85 } : { pathLength: 0, opacity: 0 }}
-              transition={{ duration: 1.8, ease: "easeInOut" }}
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 0.9 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
             />
           </svg>
 
@@ -145,10 +144,11 @@ const TimelineSection = () => {
               const isTop = index % 2 === 0; // 0, 2, 4 are Top; 1, 3, 5 are Bottom
 
               return (
-                <div
-                  key={milestone.id}
-                  className={`flex flex-col items-center w-full px-1 ${isTop ? 'pt-[18px]' : 'pt-[178px]'
-                    }`}
+                <div 
+                  key={milestone.id} 
+                  className={`flex flex-col items-center w-full px-1.5 ${
+                    isTop ? 'pt-[18px]' : 'pt-[178px]'
+                  }`}
                 >
                   {/* Circular Event Marker Sitting Directly on the Line */}
                   <motion.div
@@ -165,8 +165,8 @@ const TimelineSection = () => {
                   </motion.div>
 
                   {/* Event Details Positioned Below the Circle */}
-                  <motion.div
-                    className="text-center w-full max-w-[160px] mt-3"
+                  <motion.div 
+                    className="text-center w-full max-w-[180px] mt-3"
                     initial={{ opacity: 0, y: 12 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
                     transition={{ duration: 0.5, delay: index * 0.15 + 0.25 }}
