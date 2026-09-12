@@ -146,7 +146,14 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
 
 const ThemesSection = () => {
   return (
-    <section id="themes" className="py-24 relative overflow-hidden bg-transparent">
+    <section 
+      id="themes" 
+      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(7, 22, 52, 0.92), rgba(5, 15, 38, 0.95)), url('/backgrounds/bg-blue.jpg')",
+        backgroundAttachment: 'fixed',
+      }}
+    >
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
 
@@ -159,9 +166,9 @@ const ThemesSection = () => {
             transition={{ duration: 0.8 }}
             className="max-w-xl"
           >
-            <h2 className="text-3xl md:text-4xl font-semibold text-brand-navy mb-2">Themes & Tracks</h2>
-            <div className="w-16 h-[3px] bg-tricolor-saffron rounded-full mb-3"></div>
-            <p className="text-sm text-text-muted font-sans">
+            <h2 className="text-3xl md:text-4xl font-semibold text-white mb-2">Themes & Tracks</h2>
+            <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3"></div>
+            <p className="text-sm text-blue-100/75 font-sans">
               Explore multidisciplinary domains that drive innovation for a Viksit Bharat.
             </p>
           </motion.div>
@@ -173,8 +180,8 @@ const ThemesSection = () => {
             transition={{ duration: 0.8 }}
             className="hidden md:flex flex-col items-end"
           >
-            <span className="font-handwriting text-2xl text-brand-navy transform -rotate-3 mb-0">Explore. Build.</span>
-            <span className="font-handwriting text-3xl text-brand-orange transform -rotate-2">Make an Impact.</span>
+            <span className="font-handwriting text-2xl text-amber-300 transform -rotate-3 mb-0">Explore. Build.</span>
+            <span className="font-handwriting text-3xl text-orange-400 transform -rotate-2">Make an Impact.</span>
           </motion.div>
         </div>
 

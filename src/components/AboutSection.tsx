@@ -2,8 +2,15 @@ import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="pt-8 sm:pt-10 md:pt-12 pb-16 md:pb-24 px-4 sm:px-6 md:px-12 relative z-10">
-      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+    <section 
+      id="about" 
+      className="py-16 md:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(38, 24, 12, 0.78), rgba(26, 16, 8, 0.88)), url('/backgrounds/bg-gold.jpg')",
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40">
 
         {/* Left: Stamp Card Image */}
         <motion.div

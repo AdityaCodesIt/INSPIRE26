@@ -2,7 +2,14 @@ import { motion } from 'framer-motion';
 
 const AwardsFAQSection = () => {
   return (
-    <section id="awards" className="relative flex flex-col lg:flex-row">
+    <section 
+      id="awards" 
+      className="relative flex flex-col lg:flex-row bg-cover bg-center border-t border-b border-rose-950/40"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(46, 8, 16, 0.92), rgba(30, 5, 10, 0.96)), url('/backgrounds/bg-maroon.jpg')",
+        backgroundAttachment: 'fixed',
+      }}
+    >
 
       {/* Left Panel: Awards */}
       <div className="lg:w-1/2 p-4 md:p-8 flex items-center justify-center">
@@ -59,27 +66,21 @@ const AwardsFAQSection = () => {
                       <path d="M75,25 Q65,20 71,10 Q80,15 75,25" fill="currentColor" stroke="none" />
                     </svg>
                     {/* Inner Icon */}
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-10 sm:h-10 text-[#F6D056] relative z-10 mt-1 drop-shadow-md">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 sm:w-8 sm:h-8 text-[#F6D056] relative z-10 drop-shadow-sm">
                       {award.icon}
                     </svg>
                   </div>
-                  <p className="font-sans text-[0.55rem] sm:text-[0.75rem] md:text-sm font-semibold text-white whitespace-pre-line leading-tight">
+                  <span className="text-[0.65rem] sm:text-xs font-semibold tracking-wider uppercase font-sans text-white/95 whitespace-pre-line leading-tight">
                     {award.title}
-                  </p>
+                  </span>
                 </div>
               ))}
             </div>
 
-            {/* Bottom Banner */}
-            <div className="relative inline-block mt-4 mb-2">
-              <svg className="absolute inset-0 w-[110%] h-[150%] -left-[5%] -top-[25%] text-[#F9E7B7] drop-shadow-md" preserveAspectRatio="none" viewBox="0 0 200 40">
-                <path fill="currentColor" d="M 5,20 C 15,10 50,8 100,8 C 150,8 185,10 195,20 C 190,32 150,34 100,34 C 50,34 10,32 5,20 Z" filter="url(#rough-edge2)" />
-                <defs>
-                  <filter id="rough-edge2">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
+            {/* Bottom Tagline */}
+            <div className="relative inline-block mt-2">
+              <svg className="absolute inset-0 w-[110%] h-[150%] -left-[5%] -top-[25%] text-[#F9E7B7] drop-shadow-sm" preserveAspectRatio="none" viewBox="0 0 200 40">
+                <path fill="currentColor" d="M 5,20 C 15,10 50,5 100,5 C 150,5 185,10 195,20 C 190,35 150,38 100,38 C 50,38 10,35 5,20 Z" filter="url(#rough-edge)" />
               </svg>
               <div className="relative z-10 flex items-center justify-center gap-2 px-4 py-1">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-6 md:h-6 text-[#0b4553]">
@@ -103,8 +104,8 @@ const AwardsFAQSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-10 text-center lg:text-left"
         >
-          <h2 className="text-2xl md:text-3xl font-semibold text-bg-dark-teal tracking-wide mb-1 font-sans uppercase">FREQUENTLY ASKED QUESTIONS</h2>
-          <p className="font-handwriting text-2xl opacity-90 text-text-muted">Your queries, answered</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-wide mb-1 font-sans uppercase">FREQUENTLY ASKED QUESTIONS</h2>
+          <p className="font-handwriting text-2xl opacity-90 text-amber-300">Your queries, answered</p>
         </motion.div>
 
         <div className="flex flex-col gap-4 pb-12">
@@ -117,14 +118,14 @@ const AwardsFAQSection = () => {
           ].map((faq, i) => (
             <motion.div
               key={i}
-              className="p-5 rounded-xl bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]"
+              className="p-5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 shadow-lg"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
             >
-              <h3 className="font-bold text-brand-navy mb-2 text-sm md:text-base">{faq.q}</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">{faq.a}</p>
+              <h3 className="font-bold text-amber-300 mb-2 text-sm md:text-base">{faq.q}</h3>
+              <p className="text-sm text-white/90 leading-relaxed">{faq.a}</p>
             </motion.div>
           ))}
         </div>

@@ -100,7 +100,15 @@ const TimelineSection = () => {
   const isInView = useInView(containerRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="schedule" className="py-24 relative overflow-hidden bg-transparent" ref={containerRef}>
+    <section 
+      id="schedule" 
+      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/40 text-white" 
+      ref={containerRef}
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(5, 36, 29, 0.92), rgba(3, 24, 19, 0.96)), url('/backgrounds/bg-teal.jpg')",
+        backgroundAttachment: 'fixed',
+      }}
+    >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -109,9 +117,9 @@ const TimelineSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-brand-navy mb-2">Key Dates</h2>
-          <div className="w-16 h-[3px] bg-tricolor-saffron rounded-full mb-3"></div>
-          <p className="text-sm text-text-muted font-sans font-medium">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-2">Key Dates</h2>
+          <div className="w-16 h-[3px] bg-emerald-400 rounded-full mb-3"></div>
+          <p className="text-sm text-teal-100/75 font-sans font-medium">
             Mark your calendar and be part of the journey.
           </p>
         </motion.div>
@@ -171,10 +179,10 @@ const TimelineSection = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
                     transition={{ duration: 0.5, delay: index * 0.15 + 0.25 }}
                   >
-                    <h4 className="font-bold text-[0.82rem] sm:text-[0.88rem] text-brand-navy leading-snug mb-1 font-sans">
+                    <h4 className="font-bold text-[0.82rem] sm:text-[0.88rem] text-white leading-snug mb-1 font-sans">
                       {milestone.title}
                     </h4>
-                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-white/90 border border-stamp-border/40 text-[0.75rem] font-bold text-brand-orange shadow-2xs font-sans">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-teal-950/80 border border-teal-400/30 text-[0.75rem] font-bold text-emerald-300 shadow-2xs font-sans">
                       {milestone.date}
                     </span>
                   </motion.div>
@@ -194,7 +202,7 @@ const TimelineSection = () => {
             {milestones.map((milestone, index) => (
               <motion.div
                 key={milestone.id}
-                className="flex items-center gap-4 sm:gap-6 bg-white/70 backdrop-blur-xs p-3 sm:p-4 rounded-lg border border-stamp-border/30 shadow-xs"
+                className="flex items-center gap-4 sm:gap-6 bg-white/10 backdrop-blur-md p-3 sm:p-4 rounded-lg border border-white/15 shadow-md"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -213,10 +221,10 @@ const TimelineSection = () => {
 
                 {/* Event Details */}
                 <div className="flex flex-col">
-                  <h4 className="font-bold text-brand-navy text-[0.85rem] sm:text-base leading-snug mb-1 font-sans">
+                  <h4 className="font-bold text-white text-[0.85rem] sm:text-base leading-snug mb-1 font-sans">
                     {milestone.title}
                   </h4>
-                  <span className="inline-block self-start px-2 py-0.5 rounded-md bg-white border border-stamp-border/40 text-xs font-bold text-brand-orange shadow-2xs font-sans">
+                  <span className="inline-block self-start px-2 py-0.5 rounded-md bg-teal-950/80 border border-teal-400/30 text-xs font-bold text-emerald-300 shadow-2xs font-sans">
                     {milestone.date}
                   </span>
                 </div>
@@ -233,7 +241,7 @@ const TimelineSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <p className="font-handwriting text-2xl text-brand-navy transform -rotate-[6deg] opacity-80">
+          <p className="font-handwriting text-2xl text-emerald-300 transform -rotate-[6deg] opacity-90">
             Different Minds.<br />A Stronger Bharat.
           </p>
         </motion.div>

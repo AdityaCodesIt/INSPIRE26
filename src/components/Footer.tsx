@@ -1,6 +1,12 @@
 const Footer = () => {
   return (
-    <footer id="contact" className="w-full bg-[#0A2A5E] text-white mt-16 relative z-10 font-sans">
+    <footer 
+      id="contact" 
+      className="w-full bg-[#071b38] text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(7, 27, 56, 0.94), rgba(4, 15, 32, 0.98)), url('/backgrounds/bg-blue.jpg')",
+      }}
+    >
       {/* Top Tricolor Accent Stripe */}
       <div className="flex h-1.5 w-full">
         <div className="bg-tricolor-saffron flex-1"></div>
