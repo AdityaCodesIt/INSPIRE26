@@ -50,6 +50,7 @@ const InformationScrollSection = () => {
   ];
 
   return (
+<<<<<<< Updated upstream
     <>
       {/* DESKTOP / LAPTOP: Horizontal Scroll Experience (md and above) */}
       <div
@@ -63,12 +64,75 @@ const InformationScrollSection = () => {
           {/* Subtle Technical Blueprint Background Grid */}
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.035]"
+=======
+    <section 
+      id="overview"
+      ref={sectionRef} 
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full h-[calc(100vh-56px)] min-h-[580px] max-h-[1080px] overflow-hidden select-none border-t border-b border-white/10"
+    >
+      {/* Top Floating Editorial Navigation Bar */}
+      <div className="absolute top-0 left-0 w-full z-30 px-6 sm:px-10 lg:px-16 pt-4 pb-3 flex items-center justify-between bg-black/30 backdrop-blur-md border-b border-white/10">
+        {/* Left Perspective Badge */}
+        <div className="flex items-center space-x-2.5">
+          <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+          <span className="text-[0.7rem] sm:text-xs font-mono tracking-widest text-white/80 uppercase">
+            Institutional Perspective
+          </span>
+        </div>
+
+        {/* Center: 3-Panel Clickable Tabs */}
+        <div className="flex items-center space-x-1.5 sm:space-x-3 text-xs font-mono">
+          {topics.map((item, idx) => (
+            <button
+              key={item.number}
+              onClick={() => goToPanel(idx)}
+              className={`flex items-center space-x-1.5 px-3 py-1 rounded-full transition-all duration-300 cursor-pointer ${
+                activePanel === idx 
+                  ? 'bg-white/15 text-white font-bold shadow-sm ring-1 ring-white/30' 
+                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+              }`}
+            >
+              <span className={activePanel === idx ? 'text-amber-400' : 'text-white/40'}>
+                {item.number}
+              </span>
+              <span className="tracking-wider hidden sm:inline">{item.title}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Right Scroll Status Cue */}
+        <div className="text-[0.7rem] sm:text-xs font-mono text-white/60 tracking-wider">
+          {activePanel === 0 && 'SCROLL DOWN FOR OUR BRANCH →'}
+          {activePanel === 1 && 'SCROLL DOWN FOR IEEE STUDENT BRANCH →'}
+          {activePanel === 2 && 'SCROLL DOWN FOR ABOUT COLLOQUIUM ↓'}
+        </div>
+      </div>
+
+      {/* Horizontal Track: 300vw wide, snaps using CSS transform */}
+      <div 
+        className="flex h-full w-[300vw] will-change-transform"
+        style={{
+          transform: `translateX(-${activePanel * 100}vw)`,
+          transition: 'transform 850ms cubic-bezier(0.25, 1, 0.5, 1)',
+        }}
+      >
+        {/* ========================================================================= */}
+        {/* PANEL 0: OUR COLLEGE (Color: Deep Midnight Navy #081B38) */}
+        {/* ========================================================================= */}
+        <div className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#081B38] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden">
+          {/* Background Blueprint Grid */}
+          <div 
+            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+>>>>>>> Stashed changes
             style={{
               backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
               backgroundSize: '40px 40px, 80px 80px, 80px 80px',
             }}
           />
 
+<<<<<<< Updated upstream
           {/* Ambient Lighting Gradients */}
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -118,6 +182,22 @@ const InformationScrollSection = () => {
               >
                 SLRTCE
               </motion.div>
+=======
+          {/* Large Watermark Typography */}
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter leading-none">
+            SLRTCE
+          </div>
+
+          {/* Content Layout */}
+          <div className="max-w-[1400px] w-full mx-auto grid grid-cols-12 gap-6 lg:gap-14 items-center relative z-10">
+            {/* Left Column */}
+            <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="text-amber-400 font-mono text-xs sm:text-sm tracking-widest font-bold">01 / INSTITUTION</span>
+                <span className="h-px w-10 bg-amber-400/50"></span>
+                <span className="text-white/60 text-xs font-mono uppercase tracking-wider">Rahul Education</span>
+              </div>
+>>>>>>> Stashed changes
 
               <div className="max-w-[1440px] w-full mx-auto grid grid-cols-12 gap-8 lg:gap-14 items-center">
                 {/* Left Column: Narrative & Philosophy */}
@@ -158,6 +238,7 @@ const InformationScrollSection = () => {
                     </div>
                   </div>
                 </div>
+<<<<<<< Updated upstream
 
                 {/* Right Column: Architectural Photography Showcase */}
                 <div className="col-span-12 lg:col-span-5 flex justify-center">
@@ -173,10 +254,22 @@ const InformationScrollSection = () => {
                       <span className="text-amber-400">Hub of Excellence</span>
                     </div>
                   </div>
+=======
+                <div>
+                  <div className="text-[0.7rem] sm:text-xs font-mono text-amber-400/90 uppercase tracking-wider mb-1">CAMPUS</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white">Kanakia Park</div>
+                  <div className="text-[0.7rem] text-white/60 mt-0.5">Mira Road, Maharashtra</div>
+                </div>
+                <div>
+                  <div className="text-[0.7rem] sm:text-xs font-mono text-amber-400/90 uppercase tracking-wider mb-1">CULTURE</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white">Research First</div>
+                  <div className="text-[0.7rem] text-white/60 mt-0.5">Innovation & Incubation labs</div>
+>>>>>>> Stashed changes
                 </div>
               </div>
             </div>
 
+<<<<<<< Updated upstream
             {/* ========================================================================= */}
             {/* SLIDE 2: OUR BRANCH */}
             {/* ========================================================================= */}
@@ -361,6 +454,15 @@ const InformationScrollSection = () => {
                 <motion.div
                   style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
                   className="h-full bg-gradient-to-r from-amber-400 to-orange-500 w-full"
+=======
+            {/* Right Column: Campus Photograph */}
+            <div className="col-span-12 lg:col-span-5 flex justify-center">
+              <div className="relative w-full max-w-[460px] aspect-[4/3] rounded-lg overflow-hidden border border-white/20 shadow-2xl group">
+                <img 
+                  src="/college-photo.jpg" 
+                  alt="Shree L. R. Tiwari College of Engineering Campus" 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+>>>>>>> Stashed changes
                 />
               </div>
               <span>03 / 03</span>
@@ -374,6 +476,7 @@ const InformationScrollSection = () => {
         </div>
       </div>
 
+<<<<<<< Updated upstream
       {/* MOBILE / TABLET ALTERNATIVE: Clean Vertically Stacked Editorial Experience (< md) */}
       <div className="block md:hidden bg-[#061426] text-white py-12 px-6 border-t border-b border-white/10">
 
@@ -420,6 +523,27 @@ const InformationScrollSection = () => {
               Advancing Technology for Humanity. The world's largest technical professional organization connecting students with global standards and research.
             </p>
             <div className="text-xs font-mono text-amber-400">IEEE Student Branch · SLRTCE</div>
+=======
+      {/* Bottom Floating Step Bar */}
+      <div className="absolute bottom-0 left-0 w-full z-30 px-6 sm:px-10 lg:px-16 py-3.5 bg-black/30 backdrop-blur-md border-t border-white/10 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <span className="text-xs font-mono text-white/70">
+            PANEL {activePanel + 1} OF 3
+          </span>
+          <div className="flex space-x-1.5">
+            {[0, 1, 2].map((idx) => (
+              <button
+                key={idx}
+                onClick={() => goToPanel(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  activePanel === idx 
+                    ? 'w-8 bg-amber-400' 
+                    : 'w-2.5 bg-white/20 hover:bg-white/40'
+                }`}
+                aria-label={`Jump to panel ${idx + 1}`}
+              />
+            ))}
+>>>>>>> Stashed changes
           </div>
         </div>
 
