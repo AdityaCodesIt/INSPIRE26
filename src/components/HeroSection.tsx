@@ -15,7 +15,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="bg-brand-navy text-white text-xs font-bold px-4 py-1.5 rounded-sm uppercase tracking-wider mb-6">
+          <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-widest mb-6 bg-gradient-to-b from-blue-300 via-blue-500 to-blue-800 bg-clip-text text-transparent drop-shadow-md" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}>
             IEEE Colloquium 2026
           </div>
 
@@ -43,12 +43,16 @@ const HeroSection = () => {
             technologically advanced Viksit Bharat.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 mb-10 w-full sm:w-auto">
-            <a href="#register" className="btn-primary flex items-center justify-center w-full sm:w-auto">
-              Register Now <span className="ml-2">→</span>
+          <div className="flex flex-col items-start gap-4 mb-10 w-full sm:w-auto">
+            <a href="#register" className="btn-primary flex items-center justify-center w-full sm:w-auto relative group px-8 py-3 bg-brand-navy rounded-md shadow-md border border-white/20">
+              <span className="bg-gradient-to-b from-orange-300 via-orange-500 to-orange-700 bg-clip-text text-transparent font-bold text-lg tracking-wide group-hover:brightness-110 transition-all">
+                Register Now
+              </span>
+              <span className="ml-2 text-brand-orange group-hover:text-orange-400 transition-colors">→</span>
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md"></div>
             </a>
 
-            <div className="flex items-center gap-4 text-sm font-semibold text-brand-navy">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm font-semibold text-brand-navy mt-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">📅</span>
                 <span>16–18 Jan 2026</span>
@@ -71,52 +75,55 @@ const HeroSection = () => {
           {/* Central India Map Illustration */}
           <div className="w-[95%] h-[95%] bg-[url('/india-map-new.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
 
-          {/* Floating Stamp Cards */}
-          <div className="absolute inset-0">
-            {/* Stamp 1 */}
+          {/* Floating Images */}
+          <div className="absolute inset-0 z-20 pointer-events-none">
+            {/* Image 1 */}
             <motion.div
-              className="stamp-card absolute top-[10%] left-[10%] w-32 rotate-[-5deg]"
+              className="absolute top-[5%] left-[5%] w-24 h-24 md:w-36 md:h-36 rotate-[-6deg]"
               animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
             >
-              <div className="w-full h-16 bg-tricolor-green/20 mb-2 flex items-center justify-center text-2xl">🌱</div>
-              <p className="text-[0.6rem] font-bold text-center leading-tight text-brand-navy">CLEAN INDIA<br />GREENER TOMORROW</p>
+              <img src="/hero-img-1.jpeg" alt="Hero 1" className="w-full h-full object-contain" />
             </motion.div>
 
-            {/* Stamp 2 */}
+            {/* Image 2 */}
             <motion.div
-              className="stamp-card absolute top-[5%] right-[20%] w-36 rotate-[4deg]"
+              className="absolute top-[2%] right-[15%] w-24 h-24 md:w-32 md:h-32 rotate-[4deg]"
               animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
             >
-              <div className="w-full h-16 bg-brand-navy/10 mb-2 flex items-center justify-center text-2xl">🤝</div>
-              <p className="text-[0.6rem] font-bold text-center leading-tight text-brand-navy">A BRIGHTER<br />TOMORROW TOGETHER</p>
+              <img src="/hero-img-2.jpeg" alt="Hero 2" className="w-full h-full object-contain" />
             </motion.div>
 
-            {/* Stamp 3 */}
+            {/* Image 3 */}
             <motion.div
-              className="stamp-card absolute bottom-[20%] left-[5%] w-32 rotate-[-3deg]"
+              className="absolute top-[40%] left-[-5%] w-28 h-28 md:w-40 md:h-40 rotate-[-2deg]"
               animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
             >
-              <div className="w-full h-16 bg-brand-orange/10 mb-2 flex items-center justify-center text-2xl">🚀</div>
-              <p className="text-[0.6rem] font-bold text-center leading-tight text-brand-navy">INNOVATION<br />DRIVES PROGRESS</p>
+              <img src="/hero-img-3.jpeg" alt="Hero 3" className="w-full h-full object-contain" />
             </motion.div>
 
-            {/* Stamp 4 */}
+            {/* Image 4 */}
             <motion.div
-              className="stamp-card absolute bottom-[10%] right-[15%] w-36 rotate-[6deg]"
+              className="absolute top-[45%] right-[-5%] w-24 h-24 md:w-36 md:h-36 rotate-[8deg]"
               animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
             >
-              <div className="w-full h-16 bg-tricolor-saffron/10 mb-2 flex items-center justify-center text-2xl">🏙️</div>
-              <p className="text-[0.6rem] font-bold text-center leading-tight text-brand-navy">INFRASTRUCTURE<br />BUILDS OPPORTUNITIES</p>
+              <img src="/hero-img-4.jpeg" alt="Hero 4" className="w-full h-full object-contain" />
             </motion.div>
 
-            {/* Handwritten annotation */}
-            <div className="absolute top-[30%] left-0 font-handwriting text-2xl text-brand-orange transform -rotate-[15deg] opacity-90 max-w-[150px]">
-              Ideas for a Stronger Tomorrow
-            </div>
+            {/* Image 5 */}
+            <motion.div
+              className="absolute bottom-[10%] left-[10%] w-20 h-20 md:w-32 md:h-32 rotate-[-8deg]"
+              animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
+            >
+              <img src="/hero-img-5.jpeg" alt="Hero 5" className="w-full h-full object-contain" />
+            </motion.div>
 
-            <div className="absolute bottom-[30%] right-[-5%] font-handwriting text-2xl text-brand-navy transform rotate-[10deg] opacity-90 max-w-[150px]">
-              Research Innovation Impact
-            </div>
+            {/* Image 6 */}
+            <motion.div
+              className="absolute bottom-[5%] right-[15%] w-28 h-28 md:w-40 md:h-40 rotate-[5deg]"
+              animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
+            >
+              <img src="/hero-img-6.jpeg" alt="Hero 6" className="w-full h-full object-contain" />
+            </motion.div>
           </div>
         </motion.div>
 
