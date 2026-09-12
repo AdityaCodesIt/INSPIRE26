@@ -1,5 +1,4 @@
 import Navbar from './components/Navbar';
-import PageBackground from './components/PageBackground';
 import HeroSection from './components/HeroSection';
 import InformationScrollSection from './components/InformationScrollSection';
 import AboutSection from './components/AboutSection';
