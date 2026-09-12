@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-24 relative z-10">
-      <div className="max-w-[1200px] mx-auto stamp-card p-8 md:p-12 flex flex-col md:flex-row gap-12 items-center">
+    <section id="about" className="pt-8 sm:pt-10 md:pt-12 pb-16 md:pb-24 px-4 sm:px-6 md:px-12 relative z-10">
+      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center">
         
         {/* Left: Stamp Card Image */}
         <motion.div 
