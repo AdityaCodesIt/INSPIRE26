@@ -102,7 +102,7 @@ const TimelineSection = () => {
   return (
     <section 
       id="schedule" 
-      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/40 text-white" 
+      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/40 text-white scroll-mt-[68px]" 
       ref={containerRef}
       style={{
         backgroundImage: "url('/backgrounds/bg-teal.jpg')",

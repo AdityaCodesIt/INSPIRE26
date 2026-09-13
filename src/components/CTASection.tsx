@@ -4,7 +4,7 @@ const CTASection = () => {
   return (
     <section 
       id="register" 
-      className="relative py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white"
+      className="relative py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white scroll-mt-[68px]"
       style={{
         backgroundImage: "url('/backgrounds/bg-saffron.jpg')",
         backgroundAttachment: 'fixed',

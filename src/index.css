@@ -8,6 +8,7 @@
   html {
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    scroll-padding-top: 68px;
   }
 
   body {
@@ -48,6 +49,25 @@
     border-radius: 6px;
     opacity: 0.5;
     /* Makes the border look like a shadow/cutout */
+  }
+
+  /* Archival Document / Cream Paper Card */
+  .archival-card {
+    background-color: #FCF9F2;
+    border: 1px solid #C8B89A;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+  }
+
+  /* Double hairline vintage border */
+  .vintage-double-border {
+    border: 3px double #C8B89A;
+  }
+
+  /* Postmark cancellation mark */
+  .postmark-seal {
+    border: 1.5px dashed rgba(200, 184, 154, 0.6);
+    border-radius: 9999px;
   }
 
   /* Primary CTA Button */

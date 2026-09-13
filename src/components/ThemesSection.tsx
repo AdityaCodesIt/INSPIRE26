@@ -148,7 +148,7 @@ const ThemesSection = () => {
   return (
     <section 
       id="themes" 
-      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white"
+      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white scroll-mt-[68px]"
       style={{
         backgroundImage: "url('/backgrounds/bg-blue.jpg')",
         backgroundAttachment: 'fixed',
