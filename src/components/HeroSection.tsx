@@ -66,8 +66,13 @@ const HeroSection = () => {
               IEEE Colloquium 2026
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] xl:text-[3.5rem] 2xl:text-[4.5rem] leading-[1.08] font-display font-bold text-brand-navy mb-2 sm:mb-3">
-              Vikas<br />Viksit Bharat
+            <h1 className="flex flex-col items-start mb-3 sm:mb-5">
+              <span className="sr-only">VIKAS</span>
+              <img 
+                src="/vikas-logo-transparent.png" 
+                alt="VIKAS" 
+                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-[8.5rem] 2xl:h-[10rem] object-contain drop-shadow-md mb-2 sm:mb-3" 
+              />
             </h1>
 
             {/* Tricolor Accent Line */}
@@ -91,13 +96,26 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col items-start gap-3 sm:gap-4 mb-2 sm:mb-4 w-full sm:w-auto">
-              <a href="#register" className="btn-primary flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-navy rounded-md shadow-md border border-white/20">
-                <span className="bg-gradient-to-b from-orange-300 via-orange-500 to-orange-700 bg-clip-text text-transparent font-bold text-sm sm:text-base tracking-wide group-hover:brightness-110 transition-all">
-                  Register Now
-                </span>
-                <span className="ml-2 text-brand-orange group-hover:text-orange-400 transition-colors">→</span>
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md"></div>
-              </a>
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full">
+                <a href="#register" className="btn-primary flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-navy rounded-md shadow-md border border-white/20 hover:shadow-lg transition-all">
+                  <span className="bg-gradient-to-b from-orange-300 via-orange-500 to-orange-700 bg-clip-text text-transparent font-bold text-sm sm:text-base tracking-wide group-hover:brightness-110 transition-all">
+                    Register Now
+                  </span>
+                  <span className="ml-2 text-brand-orange group-hover:text-orange-400 transition-colors">→</span>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md"></div>
+                </a>
+                
+                <a href="#" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-white/40 backdrop-blur-sm rounded-md shadow-sm border border-brand-navy/20 hover:bg-white/70 transition-all hover:shadow-md">
+                  <span className="text-brand-navy font-bold text-sm sm:text-base tracking-wide flex items-center gap-2">
+                    <svg className="w-4 h-4 text-brand-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Brochure
+                  </span>
+                </a>
+              </div>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-xs sm:text-sm font-semibold text-brand-navy mt-0.5">
                 <div className="flex items-center gap-1.5 sm:gap-2">
