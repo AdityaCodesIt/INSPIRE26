@@ -15,10 +15,7 @@ const AboutSection = () => {
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
       <div 
-        className="max-w-[1200px] mx-auto rounded-xl ticket-border p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center shadow-2xl border border-white/40 relative z-10 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/about-box-bg.jpg')",
-        }}
+        className="max-w-[1200px] mx-auto rounded-xl ticket-border p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center shadow-2xl border border-white/40 relative z-10 bg-[#4169E1]"
       >
 
         {/* Left: Stamp Card Image */}
@@ -34,8 +31,8 @@ const AboutSection = () => {
               {/* College Image */}
               <div className="aspect-[4/3] bg-[url('/college-photo.jpg')] bg-cover bg-center rounded-sm"></div>
               <div className="pt-4 text-center">
-                <p className="font-bold text-brand-navy text-sm">IDEAS TODAY</p>
-                <p className="font-bold text-brand-navy text-[0.65rem] tracking-wider mt-0.5">A BRIGHTER BHARAT TOMORROW</p>
+                <p className="font-bold text-[#4169E1] text-sm">IDEAS TODAY</p>
+                <p className="font-bold text-[#4169E1] text-[0.65rem] tracking-wider mt-0.5">A BRIGHTER BHARAT TOMORROW</p>
               </div>
             </div>
           </div>

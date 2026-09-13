@@ -32,6 +32,30 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    // Target date: 3 October 2026, 9:00 AM
+    const targetDate = new Date('2026-10-03T09:00:00').getTime();
+    
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        });
+      }
+    };
+
+    updateTimer();
+    const timer = setInterval(updateTimer, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <>
       <motion.header
@@ -74,6 +98,32 @@ const Navbar = () => {
               </a>
             ))}
           </nav>
+
+          <AnimatePresence>
+            {activeSection !== 'home' && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="hidden xl:flex items-center mx-3 bg-[#FF6B00]/10 px-3 py-1 rounded-md border border-[#FF6B00]/30 shadow-inner"
+              >
+                <div className="flex items-center space-x-2 text-xs font-mono font-bold tracking-wider">
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.days}</span>
+                    <span className="text-[#FF6B00]">d</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.hours}</span>
+                    <span className="text-[#FF6B00]">h</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.minutes}</span>
+                    <span className="text-[#FF6B00]">m</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Right: Utility Links & Button */}
           <div className="hidden lg:flex flex-col items-end justify-center space-y-0.5 shrink-0">

@@ -205,9 +205,17 @@ const HeroSection = () => {
                 <img src="/hero-badge-1.png" alt="Viksit Bharat Space" className="w-full h-auto drop-shadow-lg" />
               </motion.div>
 
+              {/* Dr APJ Abdul Kalam Portrait */}
+              <motion.div
+                className="absolute top-[2%] right-[-35%] sm:right-[-30%] md:right-[-20%] lg:right-[-15%] w-24 md:w-28 lg:w-36 rotate-[2deg] z-30"
+                animate={{ y: [4, -4, 4] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img src="/apj-abdul-kalam-transparent.png" alt="Dr APJ Abdul Kalam" className="w-full h-auto drop-shadow-2xl" />
+              </motion.div>
+
               {/* Image 2 - 5G/6G */}
               <motion.div
-                className="absolute top-[2%] right-[15%] w-24 md:w-32 rotate-[4deg]"
+                className="absolute top-[10%] right-[25%] w-24 md:w-32 rotate-[4deg]"
                 animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
               >
                 <img src="/hero-badge-2.png" alt="Digital Communications" className="w-full h-auto drop-shadow-lg" />

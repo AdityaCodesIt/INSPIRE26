@@ -72,10 +72,10 @@ const TimelineSection = () => {
   return (
     <section 
       id="schedule" 
-      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/40 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center" 
+      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-orange-900/10 text-brand-navy scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center bg-[#F9E7B7]" 
       ref={containerRef}
       style={{
-        backgroundImage: "url('/backgrounds/bg-teal.jpg')",
+        backgroundImage: "url('/paper-texture-clean.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
@@ -98,9 +98,9 @@ const TimelineSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-2">Key Dates</h2>
-          <div className="w-16 h-[3px] bg-emerald-400 rounded-full mb-3 mx-auto md:mx-0"></div>
-          <p className="text-sm text-teal-100/75 font-sans font-medium">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#0A2A5E] mb-2">Key Dates</h2>
+          <div className="w-16 h-[3px] bg-orange-500 rounded-full mb-3 mx-auto md:mx-0"></div>
+          <p className="text-sm text-[#0A2A5E]/80 font-sans font-medium">
             The journey of VIKAS 2026. Hover over any stage for details.
           </p>
         </motion.div>
@@ -115,10 +115,10 @@ const TimelineSection = () => {
               initial={{ opacity: 0, x: -20, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.4 }}
-              className={`p-8 lg:p-12 rounded-2xl border shadow-2xl backdrop-blur-md relative overflow-hidden ${
+              className={`p-8 lg:p-12 rounded-2xl border shadow-xl relative overflow-hidden ${
                 activeMilestone.isLive 
-                  ? 'bg-emerald-950/40 border-emerald-500/40 ring-1 ring-emerald-500/20' 
-                  : 'bg-black/40 border-white/10'
+                  ? 'bg-white/95 border-emerald-500/30 ring-1 ring-emerald-500/20' 
+                  : 'bg-white/70 border-[#0A2A5E]/10'
               }`}
             >
               {/* Large Background Icon */}
@@ -135,26 +135,26 @@ const TimelineSection = () => {
                     {activeMilestone.icon}
                   </div>
                   <div>
-                    <span className={`inline-block px-3 py-1 rounded-full border text-[0.8rem] font-bold shadow-2xs font-sans mb-2 ${
+                    <span className={`inline-block px-3 py-1 rounded-full border text-[0.8rem] font-bold shadow-sm font-sans mb-2 ${
                       activeMilestone.isLive 
-                        ? 'bg-teal-950 border-teal-400/30 text-emerald-300' 
-                        : 'bg-gray-800 border-gray-600/30 text-gray-400'
+                        ? 'bg-emerald-50 border-emerald-400/40 text-emerald-700' 
+                        : 'bg-gray-100 border-gray-300 text-gray-700'
                     }`}>
                       {activeMilestone.date}
                     </span>
                     {activeMilestone.isLive && (
-                      <span className="ml-3 bg-emerald-500 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded animate-pulse">
+                      <span className="ml-3 bg-emerald-500 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded animate-pulse shadow-sm">
                         Live Now
                       </span>
                     )}
                   </div>
                 </div>
 
-                <h3 className={`text-2xl lg:text-3xl font-bold mb-4 font-sans ${activeMilestone.isLive ? 'text-white' : 'text-gray-200'}`}>
+                <h3 className={`text-2xl lg:text-3xl font-bold mb-4 font-sans ${activeMilestone.isLive ? 'text-[#0A2A5E]' : 'text-gray-800'}`}>
                   {activeMilestone.title}
                 </h3>
                 
-                <p className="text-base lg:text-lg text-teal-50/90 leading-relaxed font-sans">
+                <p className="text-base lg:text-lg text-gray-700 leading-relaxed font-sans">
                   {activeMilestone.description}
                 </p>
               </div>
@@ -167,9 +167,9 @@ const TimelineSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <h1 className="text-5xl lg:text-6xl xl:text-[5.5rem] font-black font-serif text-white/5 uppercase tracking-tighter leading-[0.85]">
+              <h1 className="text-5xl lg:text-6xl xl:text-[5.5rem] font-black font-serif text-[#0A2A5E]/[0.03] uppercase tracking-tighter leading-[0.85]">
                 TIMELINE <br />
-                <span className="text-emerald-500/10 italic font-display">TO VIKAS</span> <br />
+                <span className="text-[#FF6B00]/10 italic font-display">TO VIKAS</span> <br />
                 2026.
               </h1>
             </motion.div>
@@ -221,24 +221,24 @@ const TimelineSection = () => {
                         </svg>
                       )}
 
-                      <div className={`p-4 lg:p-5 rounded-xl border shadow-lg transition-all duration-300 transform ${
+                      <div className={`p-4 lg:p-5 rounded-xl border shadow-md transition-all duration-300 transform ${
                         activeNode === milestone.id ? 'scale-[1.03] z-20' : 'hover:scale-[1.01] z-10'
                       } ${
                         milestone.isLive 
-                          ? (activeNode === milestone.id ? 'bg-emerald-900/30 border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-emerald-950/20 border-emerald-500/30')
-                          : (activeNode === milestone.id ? 'bg-white/15 border-white/30' : 'bg-black/20 border-gray-700/50')
-                      } backdrop-blur-md`}>
+                          ? (activeNode === milestone.id ? 'bg-white border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-white/80 border-emerald-500/20')
+                          : (activeNode === milestone.id ? 'bg-white border-[#0A2A5E]/20' : 'bg-white/60 border-gray-300/50 hover:bg-white/80')
+                      } backdrop-blur-sm`}>
                         <div className="flex justify-between items-start w-full mb-2">
-                          <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] lg:text-[0.7rem] font-bold font-sans ${milestone.isLive ? 'bg-teal-950/80 border-teal-400/30 text-emerald-300' : 'bg-gray-800/80 border-gray-600/30 text-gray-400'}`}>
+                          <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] lg:text-[0.7rem] font-bold font-sans ${milestone.isLive ? 'bg-emerald-50 border-emerald-400/30 text-emerald-700' : 'bg-gray-100 border-gray-300 text-gray-700'}`}>
                             {milestone.date}
                           </span>
                           {milestone.isLive && (
-                            <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse">
+                            <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse shadow-sm">
                               Live
                             </span>
                           )}
                         </div>
-                        <h4 className={`font-bold text-sm lg:text-base leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-white' : (milestone.isLive ? 'text-white/90' : 'text-gray-400 group-hover:text-gray-200')}`}>
+                        <h4 className={`font-bold text-sm lg:text-base leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-[#0A2A5E]' : (milestone.isLive ? 'text-[#0A2A5E]/90' : 'text-gray-600 group-hover:text-gray-800')}`}>
                           {milestone.title}
                         </h4>
                       </div>
@@ -250,7 +250,7 @@ const TimelineSection = () => {
                         } ${activeNode === milestone.id ? 'scale-110 shadow-lg' : 'opacity-80 group-hover:opacity-100'}`}
                         style={{
                           backgroundColor: milestone.color,
-                          boxShadow: activeNode === milestone.id ? `0 0 0 4px #031813, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #031813, 0 0 0 2px ${milestone.color}`
+                          boxShadow: activeNode === milestone.id ? `0 0 0 4px #F9E7B7, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #F9E7B7, 0 0 0 2px ${milestone.color}`
                         }}
                       >
                         {milestone.icon}
@@ -267,36 +267,36 @@ const TimelineSection = () => {
                           className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 absolute left-2 sm:left-4 transition-all duration-300 ${activeNode === milestone.id ? 'scale-110 shadow-lg' : 'opacity-80 group-hover:opacity-100'}`}
                           style={{
                             backgroundColor: milestone.color,
-                            boxShadow: activeNode === milestone.id ? `0 0 0 4px #031813, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #031813, 0 0 0 2px ${milestone.color}`
+                            boxShadow: activeNode === milestone.id ? `0 0 0 4px #F9E7B7, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #F9E7B7, 0 0 0 2px ${milestone.color}`
                           }}
                         >
                           {milestone.icon}
                         </div>
                         
                         {/* Mobile Box */}
-                        <div className={`flex flex-col gap-2 p-4 w-full rounded-xl border shadow-lg transition-all duration-300 ${
+                        <div className={`flex flex-col gap-2 p-4 w-full rounded-xl border shadow-md transition-all duration-300 ${
                           milestone.isLive 
-                            ? (activeNode === milestone.id ? 'bg-emerald-900/30 border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-emerald-950/20 border-emerald-500/30')
-                            : (activeNode === milestone.id ? 'bg-white/15 border-white/30' : 'bg-black/20 border-gray-700/50')
-                        } backdrop-blur-md`}>
+                            ? (activeNode === milestone.id ? 'bg-white border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-white/80 border-emerald-500/20')
+                            : (activeNode === milestone.id ? 'bg-white border-[#0A2A5E]/20' : 'bg-white/60 border-gray-300/50')
+                        } backdrop-blur-sm`}>
                           
                           <div className="flex justify-between items-start w-full mb-1">
-                            <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] font-bold font-sans ${milestone.isLive ? 'bg-teal-950/80 border-teal-400/30 text-emerald-300' : 'bg-gray-800/80 border-gray-600/30 text-gray-400'}`}>
+                            <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] font-bold font-sans ${milestone.isLive ? 'bg-emerald-50 border-emerald-400/30 text-emerald-700' : 'bg-gray-100 border-gray-300 text-gray-700'}`}>
                               {milestone.date}
                             </span>
                             {milestone.isLive && (
-                              <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse">
+                              <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse shadow-sm">
                                 Live
                               </span>
                             )}
                           </div>
-                          <h4 className={`font-bold text-sm leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-white' : (milestone.isLive ? 'text-white/90' : 'text-gray-400 group-hover:text-gray-200')}`}>
+                          <h4 className={`font-bold text-sm leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-[#0A2A5E]' : (milestone.isLive ? 'text-[#0A2A5E]/90' : 'text-gray-600')}`}>
                             {milestone.title}
                           </h4>
 
                           {/* Expandable Info on Mobile Only */}
                           <div className="overflow-hidden transition-all duration-300" style={{ height: activeNode === milestone.id ? 'auto' : 0, opacity: activeNode === milestone.id ? 1 : 0, marginTop: activeNode === milestone.id ? '8px' : 0 }}>
-                            <p className="text-xs text-teal-50 bg-teal-950/60 p-2.5 rounded-lg border border-teal-800/50 leading-relaxed shadow-inner">
+                            <p className="text-xs text-gray-700 bg-gray-50 p-2.5 rounded-lg border border-gray-200 leading-relaxed shadow-inner">
                               {milestone.description}
                             </p>
                           </div>
