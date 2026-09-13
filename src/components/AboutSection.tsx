@@ -4,7 +4,7 @@ const AboutSection = () => {
   return (
     <section 
       id="about" 
-      className="py-16 md:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[68px]"
+      className="relative z-10 w-full max-w-full min-h-[calc(100vh-65px)] flex items-center justify-center py-10 md:py-16 px-4 sm:px-6 md:px-12 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[65px]"
       style={{
         backgroundImage: "url('/backgrounds/bg-gold.jpg')",
         backgroundAttachment: 'fixed',
@@ -21,7 +21,7 @@ const AboutSection = () => {
       {/* Subtle Warm Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
-      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40 relative z-10">
+      <div className="w-full max-w-[1400px] mx-auto stamp-card p-6 sm:p-10 md:p-14 flex flex-col md:flex-row gap-8 md:gap-14 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40 relative z-10">
 
         {/* Left: Stamp Card Image */}
         <motion.div

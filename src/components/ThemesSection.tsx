@@ -148,7 +148,7 @@ const ThemesSection = () => {
   return (
     <section 
       id="themes" 
-      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white scroll-mt-[68px]"
+      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
       style={{
         backgroundImage: "url('/backgrounds/bg-blue.jpg')",
         backgroundAttachment: 'fixed',
@@ -165,7 +165,7 @@ const ThemesSection = () => {
       {/* Subtle Vignette for Depth */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 relative z-10">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">

@@ -4,7 +4,7 @@ const CTASection = () => {
   return (
     <section 
       id="register" 
-      className="relative py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white scroll-mt-[68px]"
+      className="relative py-16 md:py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
       style={{
         backgroundImage: "linear-gradient(to bottom, rgba(20, 15, 10, 0.35), rgba(5, 5, 5, 0.65)), url('/cta-college-bg.jpg')",
         backgroundAttachment: 'fixed',

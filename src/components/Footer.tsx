@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer 
       id="contact" 
-      className="w-full text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50 scroll-mt-[68px]"
+      className="w-full text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50 scroll-mt-[65px]"
       style={{
         backgroundImage: "url('/backgrounds/bg-blue.jpg')",
       }}
