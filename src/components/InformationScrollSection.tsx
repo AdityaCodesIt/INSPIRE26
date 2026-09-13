@@ -219,9 +219,8 @@ const InformationScrollSection = () => {
         <div className="absolute top-0 left-0 w-full z-30 px-4 sm:px-8 lg:px-16 py-2.5 flex items-center justify-between bg-[#07172E]/92 backdrop-blur-md border-b border-[#C8B89A]/30 text-xs">
           {/* Left: Archival Docket Badge */}
           <div className="flex items-center space-x-2">
-            <span className="text-[#D4AF37] font-serif text-sm leading-none">✦</span>
+            <span className="text-[#D4AF37] font-serif text-sm leading-none"></span>
             <span className="text-[0.68rem] sm:text-xs font-mono tracking-widest text-[#FBF7EE]/90 uppercase font-semibold">
-              ARCHIVAL FOLIO · DISPATCH 2026
             </span>
           </div>
 
@@ -246,9 +245,9 @@ const InformationScrollSection = () => {
 
           {/* Right: Scroll Navigation Hint */}
           <div className="text-[0.65rem] sm:text-[0.72rem] font-mono text-amber-200/80 tracking-wider">
-            {activePanel === 0 && 'SCROLL FOR FOLIO II →'}
-            {activePanel === 1 && 'SCROLL FOR FOLIO III →'}
-            {activePanel === 2 && 'SCROLL FOR COLLOQUIUM ↓'}
+            {activePanel === 0 && 'SCROLL'}
+            {activePanel === 1 && 'SCROLL'}
+            {activePanel === 2 && 'SCROLL'}
           </div>
         </div>
 
@@ -294,7 +293,7 @@ const InformationScrollSection = () => {
                 {/* Postal Tag */}
                 <div className="flex items-center gap-2 mb-2.5">
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#0A2A5E] font-mono text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
-                    ✦ ARCHIVAL REGISTER · FOLIO I
+                    ✦ SLRTCE
                   </span>
                   <span className="h-px w-6 bg-[#C8B89A]/40 hidden sm:inline-block" />
                   <span className="text-amber-200/80 text-[0.72rem] font-serif uppercase tracking-wider">
@@ -412,7 +411,7 @@ const InformationScrollSection = () => {
                 {/* Postal Tag */}
                 <div className="flex items-center gap-2 mb-2.5">
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#062E25] font-mono text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
-                    ✦ TECHNICAL MONOGRAPH · FOLIO II
+                    ✦ COMPUTER DEPARTMENT
                   </span>
                   <span className="h-px w-6 bg-[#C8B89A]/40 hidden sm:inline-block" />
                   <span className="text-emerald-200/80 text-[0.72rem] font-serif uppercase tracking-wider">
@@ -540,7 +539,7 @@ const InformationScrollSection = () => {
                 {/* Postal Tag */}
                 <div className="flex items-center gap-2 mb-2.5">
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#0A2A5E] font-mono text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
-                    ✦ CHARTERED BRANCH · FOLIO III
+                    ✦ IEEE SLRTCE 
                   </span>
                   <span className="h-px w-6 bg-[#C8B89A]/40 hidden sm:inline-block" />
                   <span className="text-amber-200/80 text-[0.72rem] font-serif uppercase tracking-wider">
@@ -669,7 +668,6 @@ const InformationScrollSection = () => {
           </div>
 
           <div className="flex items-center space-x-2 text-[0.65rem] sm:text-[0.72rem] font-mono text-amber-200/80">
-            <span>ONE GESTURE SNAPS TO NEXT FOLIO</span>
           </div>
         </div>
       </div>
