@@ -9,22 +9,31 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', id: 'home', href: '#home' },
     { name: 'About', id: 'about', href: '#about' },
-    { name: 'Themes', id: 'themes', href: '#themes' },
-    { name: 'Prize Pool', id: 'awards', href: '#awards' },
+    { name: 'Eligibility', id: 'eligibility', href: '#eligibility' },
+    { name: 'Tracks', id: 'tracks', href: '#tracks' },
     { name: 'Schedule', id: 'schedule', href: '#schedule' },
+    { name: 'Prize Pool', id: 'awards', href: '#awards' },
+    { name: 'FAQ', id: 'faq', href: '#faq' },
     { name: 'Contact', id: 'contact', href: '#contact' },
   ];
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 120;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + 120;
 
-      for (let i = navLinks.length - 1; i >= 0; i--) {
-        const section = document.getElementById(navLinks[i].id);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navLinks[i].id);
-          break;
-        }
+          for (let i = navLinks.length - 1; i >= 0; i--) {
+            const section = document.getElementById(navLinks[i].id);
+            if (section && section.offsetTop <= scrollPosition) {
+              setActiveSection((prev) => (prev !== navLinks[i].id ? navLinks[i].id : prev));
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -64,9 +73,9 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center relative">
           {/* Left: Logos */}
-          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group">
+          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group z-10">
             <img
               src="/slrtce-logo.png"
               alt="SLRTCE Logo"
@@ -80,13 +89,13 @@ const Navbar = () => {
             />
           </a>
 
-          {/* Center: Main Navigation */}
-          <nav className="hidden lg:flex space-x-1 xl:space-x-2 items-center font-sans font-bold text-[0.72rem] xl:text-[0.78rem] tracking-wide">
+          {/* Center: Main Navigation (Locked to Center so navigating buttons NEVER shift) */}
+          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-0.5 xl:space-x-1.5 items-center font-sans font-bold text-[0.66rem] xl:text-[0.74rem] tracking-wide z-10 pointer-events-auto">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`transition-all px-2.5 py-1 rounded-full ${
+                className={`transition-all px-2 xl:px-2.5 py-1 rounded-full whitespace-nowrap ${
                   activeSection === link.id 
                     ? 'bg-white text-[#0A2A5E] shadow-sm scale-105' 
                     : 'text-white/95 hover:text-white hover:bg-white/15'
@@ -97,35 +106,38 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <AnimatePresence>
-            {activeSection !== 'home' && (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="hidden xl:flex items-center mx-3 bg-[#FF6B00]/10 px-3 py-1 rounded-md border border-[#FF6B00]/30 shadow-inner"
-              >
-                <div className="flex items-center space-x-2 text-xs font-mono font-bold tracking-wider">
-                  <div className="flex items-center gap-1">
+          {/* Right: Counter Beside Register + Register Button */}
+          <div className="hidden lg:flex items-center space-x-2.5 xl:space-x-3 shrink-0 z-10">
+            {/* Persistent GPU-composited counter badge (No layout thrashing / DOM unmounting) */}
+            <div 
+              className={`transition-all duration-300 ease-out flex items-center ${
+                activeSection !== 'home'
+                  ? 'opacity-100 scale-100 max-w-[200px] pointer-events-auto'
+                  : 'opacity-0 scale-95 max-w-0 pointer-events-none overflow-hidden'
+              }`}
+            >
+              <div className="flex items-center bg-[#FF6B00]/10 px-2.5 py-1 rounded-md border border-[#FF6B00]/30 shadow-inner whitespace-nowrap">
+                <div className="flex items-center space-x-1.5 text-xs font-mono font-bold tracking-wider">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.days}</span>
                     <span className="text-[#FF6B00]">d</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.hours}</span>
                     <span className="text-[#FF6B00]">h</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.minutes}</span>
                     <span className="text-[#FF6B00]">m</span>
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
 
-          {/* Right: Utility Links & Button */}
-          <div className="hidden lg:flex flex-col items-end justify-center space-y-0.5 shrink-0">
-            <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs xl:text-[0.8rem] px-3.5 xl:px-5 py-1 xl:py-1.5 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95">
+            <a 
+              href="#register" 
+              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs xl:text-[0.8rem] px-3.5 xl:px-5 py-1 xl:py-1.5 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
+            >
               Register Now →
             </a>
           </div>

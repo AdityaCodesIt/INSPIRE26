@@ -6,7 +6,6 @@
 
 @layer base {
   html {
-    scroll-snap-type: y proximity;
     scroll-behavior: smooth;
   }
 
@@ -28,26 +27,44 @@
 
   /* Postage Stamp Card */
   .stamp-card {
-    border: 3px solid theme('colors.stamp-border');
-    border-radius: 4px;
-    padding: 12px;
-    background: theme('colors.bg-cream');
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
-    /* Basic serrated edge fallback */
+    background: #F5F0E6;
     position: relative;
+    /* Internal border */
+    border: 1px dashed rgba(200, 184, 154, 0.4);
+    
+    /* Modern composite mask to cut holes ONLY on the edges */
+    -webkit-mask-image: 
+      linear-gradient(black, black),
+      radial-gradient(circle, transparent 5px, black 5.5px);
+    -webkit-mask-size: 
+      calc(100% - 18px) calc(100% - 18px),
+      16px 16px;
+    -webkit-mask-position: 
+      center,
+      -8px -8px;
+    -webkit-mask-repeat: 
+      no-repeat,
+      round;
+    -webkit-mask-composite: source-over;
+
+    mask-image: 
+      linear-gradient(black, black),
+      radial-gradient(circle, transparent 5px, black 5.5px);
+    mask-size: 
+      calc(100% - 18px) calc(100% - 18px),
+      16px 16px;
+    mask-position: 
+      center,
+      -8px -8px;
+    mask-repeat: 
+      no-repeat,
+      round;
+    mask-composite: add;
   }
 
-  /* Serrated edges using pseudo-elements for better browser support */
-  .stamp-card::before {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    background: radial-gradient(circle at 4px 4px, transparent 4px, theme('colors.stamp-border') 5px) -4px -4px / 16px 16px;
-    z-index: -1;
-    pointer-events: none;
-    border-radius: 6px;
-    opacity: 0.5;
-    /* Makes the border look like a shadow/cutout */
+  .stamp-card-wrapper {
+    /* Shadow applied to the wrapper to trace the perforated edges */
+    filter: drop-shadow(2px 3px 6px rgba(0,0,0,0.15));
   }
 
   /* Archival Document / Cream Paper Card */
@@ -78,21 +95,59 @@
     @apply bg-[#E05500];
   }
 
-  /* Ticket Border Effect */
+  /* Ticket Border Effect - True Transparent Semicircle Cutouts */
   .ticket-border {
     -webkit-mask-image: 
-      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
-      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+      radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
+      radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
     -webkit-mask-size: 51% 100%;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: left top, right top;
     
     mask-image: 
-      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
-      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+      radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
+      radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
     mask-size: 51% 100%;
     mask-repeat: no-repeat;
     mask-position: left top, right top;
+  }
+
+  @media (min-width: 640px) {
+    .ticket-border {
+      -webkit-mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 22px, black 22.5px),
+        radial-gradient(circle at 100% 50%, transparent 22px, black 22.5px);
+      mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 22px, black 22.5px),
+        radial-gradient(circle at 100% 50%, transparent 22px, black 22.5px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ticket-border {
+      -webkit-mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 26px, black 26.5px),
+        radial-gradient(circle at 100% 50%, transparent 26px, black 26.5px);
+      mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 26px, black 26.5px),
+        radial-gradient(circle at 100% 50%, transparent 26px, black 26.5px);
+    }
+  }
+
+  /* Physical Ticket Tear Notches at column perforation lines */
+  @media (min-width: 1024px) {
+    .ticket-stub-notches {
+      -webkit-mask-image: 
+        radial-gradient(circle at 41% 0px, transparent 11px, black 11.5px),
+        radial-gradient(circle at 41% 100%, transparent 11px, black 11.5px),
+        radial-gradient(circle at 78% 0px, transparent 13px, black 13.5px),
+        radial-gradient(circle at 78% 100%, transparent 13px, black 13.5px);
+      mask-image: 
+        radial-gradient(circle at 41% 0px, transparent 11px, black 11.5px),
+        radial-gradient(circle at 41% 100%, transparent 11px, black 11.5px),
+        radial-gradient(circle at 78% 0px, transparent 13px, black 13.5px),
+        radial-gradient(circle at 78% 100%, transparent 13px, black 13.5px);
+    }
   }
 
   /* Stat Card */

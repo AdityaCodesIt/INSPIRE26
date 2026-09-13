@@ -3,9 +3,11 @@ import PageBackground from './components/PageBackground';
 import HeroSection from './components/HeroSection';
 import InformationScrollSection from './components/InformationScrollSection';
 import AboutSection from './components/AboutSection';
-import ThemesSection from './components/ThemesSection';
+import WhoCanParticipateSection from './components/WhoCanParticipateSection';
+import TracksSection from './components/TracksSection';
 import TimelineSection from './components/TimelineSection';
-import AwardsFAQSection from './components/AwardsFAQSection';
+import PrizePoolSection from './components/PrizePoolSection';
+import FAQSection from './components/FAQSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 
@@ -19,9 +21,11 @@ function App() {
         <HeroSection />
         <InformationScrollSection />
         <AboutSection />
-        <ThemesSection />
+        <WhoCanParticipateSection />
+        <TracksSection />
         <TimelineSection />
-        <AwardsFAQSection />
+        <PrizePoolSection />
+        <FAQSection />
         <CTASection />
       </main>
 
