@@ -150,10 +150,20 @@ const ThemesSection = () => {
       id="themes" 
       className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(7, 22, 52, 0.92), rgba(5, 15, 38, 0.95)), url('/backgrounds/bg-blue.jpg')",
+        backgroundImage: "url('/backgrounds/bg-blue.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Vignette for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
 
@@ -208,7 +218,7 @@ const ThemesSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <p className="font-handwriting text-2xl text-brand-navy leading-tight whitespace-nowrap">
+              <p className="font-handwriting text-2xl text-amber-300 opacity-90 leading-tight">
                 Ideas<br />that build<br />a better<br />tomorrow <span className="text-brand-orange text-3xl ml-1">↗</span>
               </p>
             </motion.div>

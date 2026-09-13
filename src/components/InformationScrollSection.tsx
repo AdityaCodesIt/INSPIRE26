@@ -215,13 +215,21 @@ const InformationScrollSection = () => {
         {/* PANEL 0: OUR COLLEGE (Color: Deep Midnight Navy #081B38) */}
         {/* ========================================================================= */}
         <div 
-          className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#081B38] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
+          className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
           style={{
-            backgroundImage: "linear-gradient(to right, rgba(8, 27, 56, 0.88), rgba(8, 27, 56, 0.7)), url('/backgrounds/bg-blue.jpg')",
+            backgroundImage: "url('/backgrounds/bg-blue.jpg')",
           }}
         >
-          {/* Background Textured Overlay */}
-          <div className="absolute inset-0 bg-[#081B38]/30 pointer-events-none" />
+          {/* Tactile Fine Grain Texture Overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+            style={{
+              backgroundImage: "url('/backgrounds/noise-texture.svg')",
+              backgroundRepeat: 'repeat',
+            }}
+          />
+          {/* Subtle vignette for edge contrast */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/35 via-transparent to-black/25 z-0" />
 
           {/* Large Watermark Typography */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter leading-none">
@@ -291,13 +299,21 @@ const InformationScrollSection = () => {
         {/* PANEL 1: OUR BRANCH (Color: Deep Forest Emerald #062E25) */}
         {/* ========================================================================= */}
         <div 
-          className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#062E25] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
+          className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
           style={{
-            backgroundImage: "linear-gradient(to right, rgba(6, 46, 37, 0.88), rgba(6, 46, 37, 0.7)), url('/backgrounds/bg-teal.jpg')",
+            backgroundImage: "url('/backgrounds/bg-teal.jpg')",
           }}
         >
-          {/* Background Textured Overlay */}
-          <div className="absolute inset-0 bg-[#062E25]/30 pointer-events-none" />
+          {/* Tactile Fine Grain Texture Overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+            style={{
+              backgroundImage: "url('/backgrounds/noise-texture.svg')",
+              backgroundRepeat: 'repeat',
+            }}
+          />
+          {/* Subtle vignette for edge contrast */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/35 via-transparent to-black/25 z-0" />
 
           {/* Large Watermark Typography */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter leading-none">
@@ -393,13 +409,21 @@ const InformationScrollSection = () => {
         {/* PANEL 2: IEEE SLRTCE STUDENT BRANCH (Color: Deep Royal Indigo #18183D) */}
         {/* ========================================================================= */}
         <div 
-          className="w-screen h-full flex-shrink-0 flex items-center justify-center bg-[#18183D] text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
+          className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-6 sm:px-12 lg:px-20 pt-16 pb-16 relative overflow-hidden bg-cover bg-center"
           style={{
-            backgroundImage: "linear-gradient(to right, rgba(24, 24, 61, 0.88), rgba(24, 24, 61, 0.7)), url('/backgrounds/bg-purple.jpg')",
+            backgroundImage: "url('/backgrounds/bg-purple.jpg')",
           }}
         >
-          {/* Background Textured Overlay */}
-          <div className="absolute inset-0 bg-[#18183D]/30 pointer-events-none" />
+          {/* Tactile Fine Grain Texture Overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+            style={{
+              backgroundImage: "url('/backgrounds/noise-texture.svg')",
+              backgroundRepeat: 'repeat',
+            }}
+          />
+          {/* Subtle vignette for edge contrast */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/35 via-transparent to-black/25 z-0" />
 
           {/* Large Watermark Typography */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.025] select-none pointer-events-none tracking-tighter leading-none">

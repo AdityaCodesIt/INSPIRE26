@@ -2,11 +2,21 @@ const Footer = () => {
   return (
     <footer 
       id="contact" 
-      className="w-full bg-[#071b38] text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50"
+      className="w-full text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(7, 27, 56, 0.94), rgba(4, 15, 32, 0.98)), url('/backgrounds/bg-blue.jpg')",
+        backgroundImage: "url('/backgrounds/bg-blue.jpg')",
       }}
     >
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Vignette for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
       {/* Top Tricolor Accent Stripe */}
       <div className="flex h-1.5 w-full">
         <div className="bg-tricolor-saffron flex-1"></div>

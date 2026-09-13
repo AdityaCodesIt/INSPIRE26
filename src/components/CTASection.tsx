@@ -6,10 +6,20 @@ const CTASection = () => {
       id="register" 
       className="relative py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(55, 20, 5, 0.86), rgba(35, 12, 2, 0.93)), url('/backgrounds/bg-saffron.jpg')",
+        backgroundImage: "url('/backgrounds/bg-saffron.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Vignette for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
 
       <div className="max-w-[1000px] mx-auto px-6 md:px-12 relative z-10 text-center flex flex-col items-center">
 

@@ -105,10 +105,21 @@ const TimelineSection = () => {
       className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/40 text-white" 
       ref={containerRef}
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(5, 36, 29, 0.92), rgba(3, 24, 19, 0.96)), url('/backgrounds/bg-teal.jpg')",
+        backgroundImage: "url('/backgrounds/bg-teal.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Vignette for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
+
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10">
         {/* Section Header */}
         <motion.div

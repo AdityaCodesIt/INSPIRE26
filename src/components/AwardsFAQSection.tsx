@@ -6,13 +6,23 @@ const AwardsFAQSection = () => {
       id="awards" 
       className="relative flex flex-col lg:flex-row bg-cover bg-center border-t border-b border-rose-950/40"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(46, 8, 16, 0.92), rgba(30, 5, 10, 0.96)), url('/backgrounds/bg-maroon.jpg')",
+        backgroundImage: "url('/backgrounds/bg-maroon.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Vignette for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
       {/* Left Panel: Awards */}
-      <div className="lg:w-1/2 p-4 md:p-8 flex items-center justify-center">
+      <div className="lg:w-1/2 p-4 md:p-8 flex items-center justify-center relative z-10">
         <div 
           className="bg-[#0b4553] w-full text-white pt-10 pb-6 px-2 lg:px-6 relative rounded-sm shadow-2xl overflow-hidden flex flex-col justify-center bg-cover bg-center bg-no-repeat border-[2px] border-white/10"
           style={{ backgroundImage: "url('/award-bg.jpg')" }}
@@ -96,7 +106,7 @@ const AwardsFAQSection = () => {
       </div>
 
       {/* Right Panel: FAQ */}
-      <div className="lg:w-1/2 bg-transparent py-12 px-6 lg:px-16 flex flex-col justify-start overflow-y-auto" style={{ maxHeight: '800px' }}>
+      <div className="lg:w-1/2 bg-transparent py-12 px-6 lg:px-16 flex flex-col justify-start overflow-y-auto relative z-10" style={{ maxHeight: '800px' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

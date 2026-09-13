@@ -6,11 +6,22 @@ const AboutSection = () => {
       id="about" 
       className="py-16 md:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(38, 24, 12, 0.78), rgba(26, 16, 8, 0.88)), url('/backgrounds/bg-gold.jpg')",
+        backgroundImage: "url('/backgrounds/bg-gold.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
-      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40">
+      {/* Tactile Fine Grain Texture Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        style={{
+          backgroundImage: "url('/backgrounds/noise-texture.svg')",
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      {/* Subtle Warm Vignette */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
+
+      <div className="max-w-[1200px] mx-auto stamp-card p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40 relative z-10">
 
         {/* Left: Stamp Card Image */}
         <motion.div
