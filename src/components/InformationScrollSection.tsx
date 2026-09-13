@@ -1,156 +1,41 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-
-const SCROLL_THRESHOLD = 35; // Small, intentional scroll gesture
-const ANIMATION_DURATION = 1200; // Deliberate slow-motion transition: 1200ms
-const COOLDOWN_DURATION = 300; // Cooldown after animation to absorb momentum/inertia
-const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_DURATION; // 1500ms
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
 const InformationScrollSection = () => {
   const [activePanel, setActivePanel] = useState(0);
-  const activePanelRef = useRef(0);
-  const isLockedRef = useRef(false);
-  const accumulatedDeltaRef = useRef(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const targetRef = useRef<HTMLElement>(null);
 
-  // Dynamically get the exact navbar height so we never hide behind it
-  const getNavbarHeight = useCallback(() => {
-    const header = document.querySelector('header');
-    return header ? header.getBoundingClientRect().height : 65;
-  }, []);
+  // Track the scroll progress of the 300vh section container
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  });
 
-  // Navigate to target panel with lock and cooldown
-  const goToPanel = useCallback((targetIndex: number) => {
-    if (targetIndex < 0 || targetIndex > 2) return;
-    if (isLockedRef.current) return;
+  // Map vertical scroll progress (0 to 1) to horizontal translation (0% to -66.666%)
+  // -66.666% of a 300vw container means we slide exactly 200vw to the left.
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.666666%"]);
 
-    isLockedRef.current = true;
-    accumulatedDeltaRef.current = 0;
-    setActivePanel(targetIndex);
-    activePanelRef.current = targetIndex;
+  // Update the active panel state for the navigation dots based on scroll progress
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest < 0.33) {
+      if (activePanel !== 0) setActivePanel(0);
+    } else if (latest < 0.66) {
+      if (activePanel !== 1) setActivePanel(1);
+    } else {
+      if (activePanel !== 2) setActivePanel(2);
+    }
+  });
 
-    // Cooldown timer: 850ms animation + 200ms buffer = 1050ms
-    setTimeout(() => {
-      isLockedRef.current = false;
-      accumulatedDeltaRef.current = 0;
-    }, TOTAL_LOCK_TIME);
-  }, []);
-
-  // Sync panel index when scrolling past the section from Hero or About
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const navbarHeight = getNavbarHeight();
-
-      // If user has scrolled completely above the section into Hero
-      if (rect.top > window.innerHeight - 80) {
-        if (activePanelRef.current !== 0) {
-          setActivePanel(0);
-          activePanelRef.current = 0;
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-      // If user has scrolled completely below the section into About Colloquium
-      else if (rect.bottom < navbarHeight - 40) {
-        if (activePanelRef.current !== 2) {
-          setActivePanel(2);
-          activePanelRef.current = 2;
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [getNavbarHeight]);
-
-  // Wheel interception: Strict 1-scroll = 1-panel snap state machine
-  useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      // Filter out micro trackpad noise
-      if (Math.abs(e.deltaY) < 10) return;
-
-      const rect = section.getBoundingClientRect();
-      const navbarHeight = getNavbarHeight();
-
-      // Only intercept wheel events if the section is perfectly aligned/pinned to the navbar
-      // This prevents the page from violently snapping when halfway scrolled into the next/previous section.
-      const isPinned = Math.abs(rect.top - navbarHeight) <= 10;
-      if (!isPinned) return;
-
-      const targetScrollTop = section.offsetTop - navbarHeight;
-
-      // If currently locked/animating, absorb all wheel events completely
-      if (isLockedRef.current) {
-        e.preventDefault();
-        accumulatedDeltaRef.current = 0;
-        return;
-      }
-
-      if (e.deltaY > 0) {
-        // User scrolling DOWN
-        if (activePanelRef.current < 2) {
-          // In panels 0 or 1: prevent page vertical scroll and accumulate delta
-          e.preventDefault();
-          accumulatedDeltaRef.current += e.deltaY;
-
-          if (accumulatedDeltaRef.current >= SCROLL_THRESHOLD) {
-            // Align section flush to navbar
-            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-            goToPanel(activePanelRef.current + 1);
-          }
-        } else {
-          // At Panel 2 (IEEE SLRTCE Student Branch): user scrolls down to continue to About Colloquium!
-          accumulatedDeltaRef.current = 0;
-        }
-      } else if (e.deltaY < 0) {
-        // User scrolling UP
-        if (activePanelRef.current > 0) {
-          // In panels 1 or 2: prevent page vertical scroll and accumulate delta
-          e.preventDefault();
-          accumulatedDeltaRef.current += e.deltaY;
-
-          if (accumulatedDeltaRef.current <= -SCROLL_THRESHOLD) {
-            // Align section flush to navbar
-            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-            goToPanel(activePanelRef.current - 1);
-          }
-        } else {
-          // At Panel 0 (Our College): user scrolls up to return to Hero!
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-    };
-
-    window.addEventListener('wheel', onWheel, { passive: false });
-    return () => window.removeEventListener('wheel', onWheel);
-  }, [goToPanel, getNavbarHeight]);
-
-  // Touch handlers for mobile / tablet swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartRef.current = {
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
-    };
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (isLockedRef.current) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
-    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
-
-    // Horizontal swipe threshold: 40px
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0 && activePanelRef.current < 2) {
-        goToPanel(activePanelRef.current + 1);
-      } else if (deltaX > 0 && activePanelRef.current > 0) {
-        goToPanel(activePanelRef.current - 1);
-      }
+  // Navigate to a specific panel by scrolling vertically
+  const goToPanel = (index: number) => {
+    if (targetRef.current) {
+      const rect = targetRef.current.getBoundingClientRect();
+      const scrollPos = window.scrollY + rect.top;
+      const panelHeight = window.innerHeight;
+      window.scrollTo({
+        top: scrollPos + (index * panelHeight),
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -163,14 +48,10 @@ const InformationScrollSection = () => {
   return (
     <section 
       id="overview"
-      ref={sectionRef} 
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      style={{
-        height: 'calc(100vh - 65px)',
-      }}
-      className="relative w-full min-h-[600px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30 scroll-mt-[65px]"
+      ref={targetRef} 
+      className="relative w-full h-[300vh] bg-[#07172E]"
     >
+      <div className="sticky top-[65px] h-[calc(100vh-65px)] min-h-[600px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30">
       {/* ========================================================================= */}
       {/* Top Archival Folio Docket Ribbon */}
       {/* ========================================================================= */}
@@ -214,12 +95,9 @@ const InformationScrollSection = () => {
       {/* ========================================================================= */}
       {/* Horizontal Track: 300vw wide, snaps using CSS transform */}
       {/* ========================================================================= */}
-      <div 
+      <motion.div 
         className="flex h-full w-[300vw] will-change-transform"
-        style={{
-          transform: `translateX(-${activePanel * 100}vw)`,
-          transition: 'transform 1200ms cubic-bezier(0.25, 1, 0.5, 1)',
-        }}
+        style={{ x }}
       >
         {/* ========================================================================= */}
         {/* PANEL 0: OUR COLLEGE (Deep Midnight Navy with Gold & Cream) */}
@@ -602,7 +480,7 @@ const InformationScrollSection = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* ========================================================================= */}
       {/* Bottom Archival Status Bar */}
@@ -629,8 +507,9 @@ const InformationScrollSection = () => {
         </div>
 
         <div className="flex items-center space-x-2 text-[0.65rem] sm:text-[0.72rem] font-mono text-amber-200/80">
-          <span>ONE GESTURE SNAPS TO NEXT FOLIO</span>
+          <span>SCROLL TO EXPLORE FOLIOS</span>
         </div>
+      </div>
       </div>
     </section>
   );
