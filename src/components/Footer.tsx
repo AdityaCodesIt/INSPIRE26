@@ -2,11 +2,7 @@ const Footer = () => {
   return (
     <footer 
       id="contact" 
-<<<<<<< HEAD
-      className="w-full text-white relative z-10 font-sans bg-bottom bg-[length:100%_400%] md:bg-[length:100%_300%] lg:bg-cover"
-=======
-      className="w-full text-white relative z-10 font-sans bg-cover bg-center border-t border-blue-950/50 scroll-mt-[65px]"
->>>>>>> 41c81bf0f1c260e4c1e2e453857303841d911b91
+      className="w-full text-white relative z-10 font-sans bg-bottom bg-[length:100%_400%] md:bg-[length:100%_300%] lg:bg-cover border-t border-blue-950/50 scroll-mt-[65px]"
       style={{
         backgroundImage: "url('/footer-bg.png')",
       }}

@@ -1,8 +1,33 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.png';
 
 const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
+
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    // Target date: 3 October 2026, 9:00 AM
+    const targetDate = new Date('2026-10-03T09:00:00').getTime();
+    
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        });
+      }
+    };
+
+    updateTimer();
+    const timer = setInterval(updateTimer, 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="home" className="relative w-full h-auto min-h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] lg:max-h-[calc(100vh-56px)] flex flex-col justify-between bg-[#F9E7B7] overflow-hidden">
@@ -66,20 +91,41 @@ const HeroSection = () => {
               IEEE Colloquium 2026
             </div>
 
-            <h1 className="flex flex-col items-start mb-3 sm:mb-5">
+            <h1 className="flex flex-row items-end gap-3 sm:gap-5 mb-4 sm:mb-6">
               <span className="sr-only">VIKAS</span>
-              <img 
-                src="/vikas-logo-transparent.png" 
-                alt="VIKAS" 
-                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-[8.5rem] 2xl:h-[10rem] object-contain drop-shadow-md mb-2 sm:mb-3" 
+              <img
+                src="/vikas-logo-transparent.png"
+                alt="VIKAS"
+                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-[8.5rem] 2xl:h-[10rem] object-contain drop-shadow-md"
+              />
+              <motion.img 
+                src="/2026-badge.png" 
+                alt="2026" 
+                className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 object-contain drop-shadow-md mb-1 sm:mb-2 md:mb-4"
+                initial={{ rotate: -10, y: -5 }}
+                animate={{ rotate: [-2, 4, -2], y: [-5, 0, -5] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               />
             </h1>
 
-            {/* Tricolor Accent Line */}
-            <div className="flex h-1 sm:h-1.5 w-40 sm:w-56 mb-2.5 sm:mb-3.5 rounded-full overflow-hidden">
-              <div className="bg-tricolor-saffron flex-1"></div>
-              <div className="bg-tricolor-white flex-1"></div>
-              <div className="bg-tricolor-green flex-1"></div>
+            {/* Tricolor Timer Bar */}
+            <div className="flex flex-col w-full max-w-[320px] sm:max-w-md mb-5 sm:mb-6">
+              <div className="flex h-8 sm:h-10 w-full rounded-full overflow-hidden shadow-md">
+                <div className="bg-tricolor-saffron flex-1 flex items-center justify-center text-xs sm:text-sm font-bold text-white tracking-wide">
+                  {timeLeft.days} D
+                </div>
+                <div className="bg-tricolor-white flex-1 flex items-center justify-center text-xs sm:text-sm font-bold text-brand-navy tracking-wide">
+                  {timeLeft.hours} H
+                </div>
+                <div className="bg-tricolor-green flex-1 flex items-center justify-center text-xs sm:text-sm font-bold text-white tracking-wide">
+                  {timeLeft.minutes} M
+                </div>
+              </div>
+              <div className="flex w-full mt-2">
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pr-1">Days</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider px-1">Hours</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pl-1">Mins</div>
+              </div>
             </div>
 
             <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-brand-navy mb-2.5 sm:mb-3.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
@@ -97,17 +143,19 @@ const HeroSection = () => {
 
             <div className="flex flex-col items-start gap-3 sm:gap-4 mb-2 sm:mb-4 w-full sm:w-auto">
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full">
-                <a href="#register" className="btn-primary flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-navy rounded-md shadow-md border border-white/20 hover:shadow-lg transition-all">
-                  <span className="bg-gradient-to-b from-orange-300 via-orange-500 to-orange-700 bg-clip-text text-transparent font-bold text-sm sm:text-base tracking-wide group-hover:brightness-110 transition-all">
+                {/* Registration Button: Light Orange Box, Blue Text */}
+                <a href="#register" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-400 hover:bg-orange-300 rounded-md shadow-md border border-orange-400 transition-all">
+                  <span className="text-brand-navy font-extrabold text-sm sm:text-base tracking-wide transition-all">
                     Register Now
                   </span>
-                  <span className="ml-2 text-brand-orange group-hover:text-orange-400 transition-colors">→</span>
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md"></div>
+                  <span className="ml-2 font-bold text-brand-navy transition-colors">→</span>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-md"></div>
                 </a>
-                
-                <a href="#" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-white/40 backdrop-blur-sm rounded-md shadow-sm border border-brand-navy/20 hover:bg-white/70 transition-all hover:shadow-md">
-                  <span className="text-brand-navy font-bold text-sm sm:text-base tracking-wide flex items-center gap-2">
-                    <svg className="w-4 h-4 text-brand-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+
+                {/* Brochure Button: Blue Box, Light Orange Text */}
+                <a href="#" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-navy hover:bg-blue-900 rounded-md shadow-sm border border-brand-navy transition-all hover:shadow-md">
+                  <span className="text-orange-400 font-bold text-sm sm:text-base tracking-wide flex items-center gap-2 group-hover:text-orange-300 transition-colors">
+                    <svg className="w-4 h-4 text-orange-400 group-hover:text-orange-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="7 10 12 15 17 10" />
                       <line x1="12" y1="15" x2="12" y2="3" />
@@ -124,10 +172,10 @@ const HeroSection = () => {
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📍</span>
-                  <a 
-                    href="https://www.google.com/maps/search/Shree+L.R.+Tiwari+College+of+Engineering" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href="https://www.google.com/maps/search/Shree+L.R.+Tiwari+College+of+Engineering"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:text-brand-orange hover:underline transition-all"
                   >
                     SLR Tiwari, NM

@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 const SCROLL_THRESHOLD = 35; // Small, intentional scroll gesture
-const ANIMATION_DURATION = 850; // Deliberate transition: 850ms
-const COOLDOWN_DURATION = 200; // Cooldown after animation to absorb momentum/inertia
-const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_DURATION; // 1050ms
+const ANIMATION_DURATION = 1200; // Deliberate slow-motion transition: 1200ms
+const COOLDOWN_DURATION = 300; // Cooldown after animation to absorb momentum/inertia
+const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_DURATION; // 1500ms
 
 const InformationScrollSection = () => {
   const [activePanel, setActivePanel] = useState(0);
@@ -154,9 +154,9 @@ const InformationScrollSection = () => {
   };
 
   const folios = [
-    { number: 'I', title: 'OUR COLLEGE', subtitle: 'Shree L. R. Tiwari College of Engineering' },
-    { number: 'II', title: 'OUR BRANCH', subtitle: 'Faculty of Engineering' },
-    { number: 'III', title: 'IEEE STUDENT BRANCH', subtitle: 'IEEE SLRTCE Chapter' },
+    { number: 'I', title: 'ABOUT SLRTCE', subtitle: 'Shree L. R. Tiwari College of Engineering' },
+    { number: 'II', title: 'ABOUT DEPARTMENT', subtitle: 'Faculty of Engineering' },
+    { number: 'III', title: 'ABOUT IEEE CHAPTER', subtitle: 'IEEE SLRTCE Chapter' },
   ];
 
   return (
@@ -217,7 +217,7 @@ const InformationScrollSection = () => {
         className="flex h-full w-[300vw] will-change-transform"
         style={{
           transform: `translateX(-${activePanel * 100}vw)`,
-          transition: 'transform 850ms cubic-bezier(0.25, 1, 0.5, 1)',
+          transition: 'transform 1200ms cubic-bezier(0.25, 1, 0.5, 1)',
         }}
       >
         {/* ========================================================================= */}
