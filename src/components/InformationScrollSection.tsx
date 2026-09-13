@@ -1,154 +1,39 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-
-const SCROLL_THRESHOLD = 35; // Small, intentional scroll gesture
-const ANIMATION_DURATION = 850; // Slower, deliberate transition: 850ms
-const COOLDOWN_DURATION = 200; // Cooldown after animation to absorb momentum/inertia
-const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_DURATION; // 1050ms
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
 const InformationScrollSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activePanel, setActivePanel] = useState(0);
-  const activePanelRef = useRef(0);
-  const isLockedRef = useRef(false);
-  const accumulatedDeltaRef = useRef(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  // Navigate to target panel with lock and cooldown
-  const goToPanel = useCallback((targetIndex: number) => {
-    if (targetIndex < 0 || targetIndex > 2) return;
-    if (isLockedRef.current) return;
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-    isLockedRef.current = true;
-    accumulatedDeltaRef.current = 0;
-    setActivePanel(targetIndex);
-    activePanelRef.current = targetIndex;
+  // Map vertical scroll (0 to 1) to horizontal translation (0% to -66.666%)
+  // Since the track is 300vw wide, -66.666% moves it by exactly 200vw (the width of the last 2 panels)
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.666666%"]);
 
-    // Cooldown timer: 850ms animation + 200ms buffer = 1050ms
-    // This completely swallows momentum scrolling and trackpad inertia
-    setTimeout(() => {
-      isLockedRef.current = false;
-      accumulatedDeltaRef.current = 0;
-    }, TOTAL_LOCK_TIME);
-  }, []);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest < 0.33) setActivePanel(0);
+    else if (latest < 0.66) setActivePanel(1);
+    else setActivePanel(2);
+  });
 
-  // Sync panel index when scrolling past the section from Hero or About
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const navbarHeight = 56;
-
-      // If user has scrolled completely above the section into Hero
-      if (rect.top > window.innerHeight - 80) {
-        if (activePanelRef.current !== 0) {
-          setActivePanel(0);
-          activePanelRef.current = 0;
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-      // If user has scrolled completely below the section into About Colloquium
-      else if (rect.bottom < navbarHeight - 50) {
-        if (activePanelRef.current !== 2) {
-          setActivePanel(2);
-          activePanelRef.current = 2;
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Wheel interception: Strict 1-scroll = 1-panel snap state machine
-  useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      // Filter out micro trackpad noise
-      if (Math.abs(e.deltaY) < 10) return;
-
-      const rect = section.getBoundingClientRect();
-      const navbarHeight = 56;
-
-      // Check if section is currently active and occupying the viewport
-      const isSectionInView = rect.top <= navbarHeight + 30 && rect.bottom >= navbarHeight + 100;
-      if (!isSectionInView) return;
-
-      const targetScrollTop = section.offsetTop - navbarHeight;
-
-      // If currently locked/animating, absorb all wheel events completely
-      if (isLockedRef.current) {
-        e.preventDefault();
-        accumulatedDeltaRef.current = 0;
-        return;
-      }
-
-      if (e.deltaY > 0) {
-        // User scrolling DOWN
-        if (activePanelRef.current < 2) {
-          // In panels 0 or 1: prevent page vertical scroll and accumulate delta
-          e.preventDefault();
-          accumulatedDeltaRef.current += e.deltaY;
-
-          if (accumulatedDeltaRef.current >= SCROLL_THRESHOLD) {
-            // Align section flush to navbar
-            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-            goToPanel(activePanelRef.current + 1);
-          }
-        } else {
-          // At Panel 2 (IEEE SLRTCE Student Branch): user scrolls down to continue to About Colloquium!
-          // Allow normal vertical browser scroll to AboutSection.
-          accumulatedDeltaRef.current = 0;
-        }
-      } else if (e.deltaY < 0) {
-        // User scrolling UP
-        if (activePanelRef.current > 0) {
-          // In panels 1 or 2: prevent page vertical scroll and accumulate delta
-          e.preventDefault();
-          accumulatedDeltaRef.current += e.deltaY;
-
-          if (accumulatedDeltaRef.current <= -SCROLL_THRESHOLD) {
-            // Align section flush to navbar
-            window.scrollTo({ top: targetScrollTop, behavior: 'auto' });
-            goToPanel(activePanelRef.current - 1);
-          }
-        } else {
-          // At Panel 0 (Our College): user scrolls up to return to Hero!
-          // Allow normal vertical browser scroll to HeroSection.
-          accumulatedDeltaRef.current = 0;
-        }
-      }
-    };
-
-    // Non-passive wheel listener on window ensures reliable interception
-    window.addEventListener('wheel', onWheel, { passive: false });
-    return () => window.removeEventListener('wheel', onWheel);
-  }, [goToPanel]);
-
-  // Touch handlers for mobile / tablet swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartRef.current = {
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
-    };
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (isLockedRef.current) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
-    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
-
-    // Horizontal swipe threshold: 40px
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0 && activePanelRef.current < 2) {
-        goToPanel(activePanelRef.current + 1);
-      } else if (deltaX > 0 && activePanelRef.current > 0) {
-        goToPanel(activePanelRef.current - 1);
-      }
-    }
+  const goToPanel = (index: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    // Total scrollable distance is container height - viewport height
+    const scrollableDistance = containerRef.current.offsetHeight - window.innerHeight;
+    
+    // Target position based on index (0, 0.5, 1)
+    const targetProgress = index / 2;
+    const targetScroll = scrollTop + rect.top + (targetProgress * scrollableDistance);
+    
+    // Smooth scroll to the precise vertical position that corresponds to the panel
+    window.scrollTo({ top: targetScroll - 56, behavior: 'smooth' }); // -56 for navbar offset if needed
   };
 
   const topics = [
@@ -158,59 +43,64 @@ const InformationScrollSection = () => {
   ];
 
   return (
-    <section 
-      id="overview"
-      ref={sectionRef} 
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      className="relative w-full h-[calc(100vh-56px)] min-h-[580px] max-h-[1080px] overflow-hidden select-none border-t border-b border-white/10"
-    >
-      {/* Top Floating Editorial Navigation Bar */}
-      <div className="absolute top-0 left-0 w-full z-30 px-6 sm:px-10 lg:px-16 pt-4 pb-3 flex items-center justify-between bg-black/30 backdrop-blur-md border-b border-white/10">
-        {/* Left Perspective Badge */}
-        <div className="flex items-center space-x-2.5">
-          <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-          <span className="text-[0.7rem] sm:text-xs font-mono tracking-widest text-white/80 uppercase">
-            Institutional Perspective
-          </span>
-        </div>
-
-        {/* Center: 3-Panel Clickable Tabs */}
-        <div className="flex items-center space-x-1.5 sm:space-x-3 text-xs font-mono">
-          {topics.map((item, idx) => (
-            <button
-              key={item.number}
-              onClick={() => goToPanel(idx)}
-              className={`flex items-center space-x-1.5 px-3 py-1 rounded-full transition-all duration-300 cursor-pointer ${
-                activePanel === idx 
-                  ? 'bg-white/15 text-white font-bold shadow-sm ring-1 ring-white/30' 
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
-            >
-              <span className={activePanel === idx ? 'text-amber-400' : 'text-white/40'}>
-                {item.number}
-              </span>
-              <span className="tracking-wider hidden sm:inline">{item.title}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Right Scroll Status Cue */}
-        <div className="text-[0.7rem] sm:text-xs font-mono text-white/60 tracking-wider">
-          {activePanel === 0 && 'SCROLL DOWN FOR OUR BRANCH →'}
-          {activePanel === 1 && 'SCROLL DOWN FOR IEEE STUDENT BRANCH →'}
-          {activePanel === 2 && 'SCROLL DOWN FOR ABOUT COLLOQUIUM ↓'}
-        </div>
-      </div>
-
-      {/* Horizontal Track: 300vw wide, snaps using CSS transform */}
-      <div 
-        className="flex h-full w-[300vw] will-change-transform"
-        style={{
-          transform: `translateX(-${activePanel * 100}vw)`,
-          transition: 'transform 850ms cubic-bezier(0.25, 1, 0.5, 1)',
-        }}
+    <>
+      {/* DESKTOP / LAPTOP: Native Scroll-linked Horizontal Slider */}
+      <section 
+        id="overview"
+        ref={containerRef} 
+        className="hidden md:block relative h-[200vh] bg-[#061426] text-white snap-start"
       >
+        {/* Invisible snap anchors spaced along the 200vh container (giving 50vh scroll distance per panel) */}
+        <div className="absolute top-[0] w-full h-[5px] snap-start pointer-events-none" />
+        <div className="absolute top-[50vh] w-full h-[5px] snap-start pointer-events-none" />
+        <div className="absolute top-[100vh] w-full h-[5px] snap-start pointer-events-none" />
+
+        {/* Sticky Viewport pinned under the navbar */}
+        <div className="sticky top-[56px] h-[calc(100vh-56px)] w-full overflow-hidden border-t border-b border-white/10">
+          
+          {/* Top Floating Editorial Navigation Bar */}
+          <div className="absolute top-0 left-0 w-full z-30 px-6 sm:px-10 lg:px-16 pt-4 pb-3 flex items-center justify-between bg-black/30 backdrop-blur-md border-b border-white/10">
+            {/* Left Perspective Badge */}
+            <div className="flex items-center space-x-2.5">
+              <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-[0.7rem] sm:text-xs font-mono tracking-widest text-white/80 uppercase">
+                Institutional Perspective
+              </span>
+            </div>
+
+            {/* Center: 3-Panel Clickable Tabs */}
+            <div className="flex items-center space-x-1.5 sm:space-x-3 text-xs font-mono">
+              {topics.map((item, idx) => (
+                <button
+                  key={item.number}
+                  onClick={() => goToPanel(idx)}
+                  className={`flex items-center space-x-1.5 px-3 py-1 rounded-full transition-all duration-300 cursor-pointer ${
+                    activePanel === idx 
+                      ? 'bg-white/15 text-white font-bold shadow-sm ring-1 ring-white/30' 
+                      : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+                  }`}
+                >
+                  <span className={activePanel === idx ? 'text-amber-400' : 'text-white/40'}>
+                    {item.number}
+                  </span>
+                  <span className="tracking-wider hidden sm:inline">{item.title}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Right Scroll Status Cue */}
+            <div className="text-[0.7rem] sm:text-xs font-mono text-white/60 tracking-wider">
+              {activePanel === 0 && 'SCROLL DOWN FOR OUR BRANCH →'}
+              {activePanel === 1 && 'SCROLL DOWN FOR IEEE STUDENT BRANCH →'}
+              {activePanel === 2 && 'SCROLL DOWN FOR ABOUT COLLOQUIUM ↓'}
+            </div>
+          </div>
+
+          {/* Horizontal Track: 300vw wide, moves via framer-motion scrollYProgress */}
+          <motion.div 
+            style={{ x }}
+            className="flex h-full w-[300vw] will-change-transform"
+          >
         {/* ========================================================================= */}
         {/* PANEL 0: OUR COLLEGE (Color: Deep Midnight Navy #081B38) */}
         {/* ========================================================================= */}
@@ -473,35 +363,10 @@ const InformationScrollSection = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Floating Step Bar */}
-      <div className="absolute bottom-0 left-0 w-full z-30 px-6 sm:px-10 lg:px-16 py-3.5 bg-black/30 backdrop-blur-md border-t border-white/10 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <span className="text-xs font-mono text-white/70">
-            PANEL {activePanel + 1} OF 3
-          </span>
-          <div className="flex space-x-1.5">
-            {[0, 1, 2].map((idx) => (
-              <button
-                key={idx}
-                onClick={() => goToPanel(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  activePanel === idx 
-                    ? 'w-8 bg-amber-400' 
-                    : 'w-2.5 bg-white/20 hover:bg-white/40'
-                }`}
-                aria-label={`Jump to panel ${idx + 1}`}
-              />
-            ))}
-          </div>
+        </motion.div>
         </div>
-
-        <div className="flex items-center space-x-2 text-[0.7rem] sm:text-xs font-mono text-white/50">
-          <span>ONE SMALL SCROLL SNAPS TO NEXT PANEL</span>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

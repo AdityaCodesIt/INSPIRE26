@@ -6,7 +6,7 @@ const CTASection = () => {
       id="register" 
       className="relative py-24 overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(55, 20, 5, 0.86), rgba(35, 12, 2, 0.93)), url('/backgrounds/bg-saffron.jpg')",
+        backgroundImage: "linear-gradient(to bottom, rgba(20, 15, 10, 0.35), rgba(5, 5, 5, 0.65)), url('/cta-college-bg.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >

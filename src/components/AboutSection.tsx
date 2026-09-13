@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   return (
-    <section 
-      id="about" 
+    <section
+      id="about"
       className="py-16 md:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20"
       style={{
         backgroundImage: "linear-gradient(to bottom, rgba(38, 24, 12, 0.78), rgba(26, 16, 8, 0.88)), url('/backgrounds/bg-gold.jpg')",
