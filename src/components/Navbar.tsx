@@ -41,7 +41,6 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
-<<<<<<< HEAD
           {/* Left: Logos */}
           <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group">
             <img
@@ -55,23 +54,6 @@ const Navbar = () => {
               alt="IEEE SLRTCE Student Branch Logo"
               className="h-9 sm:h-11 w-auto object-contain"
             />
-=======
-          {/* Left: Logo */}
-          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group">
-            <img 
-              src="/ieee-logo-new.jpg" 
-              alt="IEEE SLRTCE Logo" 
-              className="h-9 w-9 sm:h-11 sm:w-11 object-contain rounded-md bg-white shadow-sm transition-transform group-hover:scale-105"
-            />
-            <div className="flex flex-col">
-              <span className="font-bold text-[0.9rem] sm:text-[1.1rem] tracking-widest leading-none mb-0.5 group-hover:text-amber-300 transition-colors">
-                 VIKAS 2026
-              </span>
-              <span className="text-[0.50rem] sm:text-[0.55rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">
-                Advancing Technology<br/>for Humanity
-              </span>
-            </div>
->>>>>>> c354c4f22f80e6a5411779ce3ee4f885f9425c44
           </a>
 
           {/* Center: Main Navigation */}
