@@ -129,25 +129,6 @@ const AwardsFAQSection = () => {
                 { q: "Online or offline?", a: "Round 1 (abstract) is online; Rounds 2–3 are on-campus, 3 Oct 2026." },
                 { q: "What is submitted in Round 1?", a: "A structured abstract plus a presentation PDF: problem statement, proposed solution, track, and UNSDG alignment." }
               ].map((faq, i) => (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-8 text-center"
-            >
-              <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-wide mb-1 font-sans uppercase">FREQUENTLY ASKED QUESTIONS</h2>
-              <p className="font-handwriting text-2xl opacity-90 text-amber-300">Your queries, answered</p>
-            </motion.div>
-
-            <div className="flex flex-col gap-4 pb-4">
-              {[
-                { q: "What is VIKAS 2026?", a: "An IEEE SLRTCE research colloquium aligning student innovation with Viksit Bharat @2047 and the UN SDGs." },
-                { q: "Who can participate?", a: "PPG (PhD), PG (ME/M.Tech), and UG & Diploma students, evaluated as separate categories." },
-                { q: "Team size?", a: "PPG & PG: individual only. UG & Diploma: 2–4 members." },
-                { q: "Online or offline?", a: "Round 1 (abstract) is online; Rounds 2–3 are on-campus, 3 Oct 2026." },
-                { q: "What is submitted in Round 1?", a: "A structured abstract plus a presentation PDF: problem statement, proposed solution, track, and UNSDG alignment." }
-              ].map((faq, i) => (
                 <motion.div
                   key={i}
                   className="p-5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 shadow-lg"
