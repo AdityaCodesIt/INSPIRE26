@@ -14,16 +14,12 @@ const AboutSection = () => {
       {/* Subtle Warm Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/30 z-0" />
 
-<<<<<<< HEAD
       <div 
         className="max-w-[1200px] mx-auto rounded-xl ticket-border p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center shadow-2xl border border-white/40 relative z-10 bg-cover bg-center"
         style={{
           backgroundImage: "url('/about-box-bg.jpg')",
         }}
       >
-=======
-      <div className="w-full max-w-[1400px] mx-auto stamp-card p-6 sm:p-10 md:p-14 flex flex-col md:flex-row gap-8 md:gap-14 items-center bg-[#FCF9F2]/95 backdrop-blur-md shadow-2xl border border-white/40 relative z-10">
->>>>>>> 41c81bf0f1c260e4c1e2e453857303841d911b91
 
         {/* Left: Stamp Card Image */}
         <motion.div
