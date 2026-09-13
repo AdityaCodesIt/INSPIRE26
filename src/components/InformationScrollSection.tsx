@@ -78,9 +78,10 @@ const InformationScrollSection = () => {
       const rect = section.getBoundingClientRect();
       const navbarHeight = getNavbarHeight();
 
-      // Check if section is currently active and occupying the viewport
-      const isSectionInView = rect.top <= navbarHeight + 30 && rect.bottom >= navbarHeight + 80;
-      if (!isSectionInView) return;
+      // Only intercept wheel events if the section is perfectly aligned/pinned to the navbar
+      // This prevents the page from violently snapping when halfway scrolled into the next/previous section.
+      const isPinned = Math.abs(rect.top - navbarHeight) <= 10;
+      if (!isPinned) return;
 
       const targetScrollTop = section.offsetTop - navbarHeight;
 

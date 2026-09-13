@@ -146,9 +146,16 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
 
 const ThemesSection = () => {
   return (
+<<<<<<< HEAD
     <section 
       id="themes" 
       className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
+=======
+    <section
+      id="themes"
+      className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white"
+
+>>>>>>> 1a0f7df8923a44a7e192b37a73b31479cd668e7b
       style={{
         backgroundImage: "url('/backgrounds/bg-blue.jpg')",
         backgroundAttachment: 'fixed',
