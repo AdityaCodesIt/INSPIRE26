@@ -42,13 +42,19 @@ const Navbar = () => {
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
           {/* Left: Logo */}
-          <a href="#home" className="flex items-center space-x-2 text-white shrink-0 group">
+          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group">
+            <img 
+              src="/ieee-logo-new.jpg" 
+              alt="IEEE SLRTCE Logo" 
+              className="h-9 w-9 sm:h-11 sm:w-11 object-contain rounded-md bg-white shadow-sm transition-transform group-hover:scale-105"
+            />
             <div className="flex flex-col">
-              <span className="font-bold text-lg sm:text-xl tracking-widest leading-none mb-0.5 flex items-center group-hover:text-amber-300 transition-colors">
-                 <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 mr-1.5 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z"/></svg>
-                 IEEE
+              <span className="font-bold text-[0.9rem] sm:text-[1.1rem] tracking-widest leading-none mb-0.5 group-hover:text-amber-300 transition-colors">
+                 VIKAS 2026
               </span>
-              <span className="text-[0.52rem] sm:text-[0.58rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">Advancing Technology<br/>for Humanity</span>
+              <span className="text-[0.50rem] sm:text-[0.55rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">
+                Advancing Technology<br/>for Humanity
+              </span>
             </div>
           </a>
 
