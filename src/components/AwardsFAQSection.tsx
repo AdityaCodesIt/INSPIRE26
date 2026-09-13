@@ -4,7 +4,7 @@ const AwardsFAQSection = () => {
   return (
     <section 
       id="awards" 
-      className="relative flex flex-col lg:flex-row bg-cover bg-center border-t border-b border-rose-950/40"
+      className="relative flex flex-col lg:flex-row bg-cover bg-center border-t border-b border-rose-950/40 scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)]"
       style={{
         backgroundImage: "url('/backgrounds/bg-maroon.jpg')",
         backgroundAttachment: 'fixed',
