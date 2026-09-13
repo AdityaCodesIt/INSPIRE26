@@ -35,25 +35,10 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 pointer-events-none z-0 bg-[#F9E7B7] bg-no-repeat bg-center bg-cover"
         style={{
-          backgroundImage: "url('/paper-texture-clean.jpg')",
+          backgroundImage: "url('/hero-bg.png')",
         }}
       />
 
-      {/* Layer 1.5: Side Heritage Buildings (Watermark effect) */}
-      <div className="absolute inset-0 pointer-events-none z-[2] overflow-hidden opacity-40 mix-blend-multiply">
-        {/* Left Side Background Buildings */}
-        <img
-          src={heritageCombinedImg}
-          alt=""
-          className="absolute -left-[40%] md:-left-[20%] lg:-left-[10%] top-[15%] h-[60%] lg:h-[80%] w-auto object-cover opacity-60"
-        />
-        {/* Right Side Background Buildings (flipped) */}
-        <img
-          src={heritageCombinedImg}
-          alt=""
-          className="absolute -right-[40%] md:-right-[20%] lg:-right-[10%] top-[25%] h-[50%] lg:h-[70%] w-auto object-cover opacity-60 -scale-x-100"
-        />
-      </div>
 
       {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
       <motion.div
