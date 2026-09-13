@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 
 const PANEL_COUNT = 3;
 const SCROLL_THRESHOLD = 30; // A very small scroll gesture is enough to trigger snap
-const ANIMATION_DURATION = 1400; // Slow, cinematic panel transition (1.4 seconds)
+const ANIMATION_DURATION = 2500; // Slow, cinematic panel transition (1.4 seconds)
 const COOLDOWN_AFTER_ANIMATION = 400; // Extra buffer after animation ends
 const TOTAL_LOCK_TIME = ANIMATION_DURATION + COOLDOWN_AFTER_ANIMATION; // 1800ms total lock
 
