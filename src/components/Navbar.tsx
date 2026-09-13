@@ -41,15 +41,19 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center">
-          {/* Left: Logo */}
-          <a href="#home" className="flex items-center space-x-2 text-white shrink-0 group">
-            <div className="flex flex-col">
-              <span className="font-bold text-lg sm:text-xl tracking-widest leading-none mb-0.5 flex items-center group-hover:text-amber-300 transition-colors">
-                 <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 mr-1.5 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z"/></svg>
-                 IEEE
-              </span>
-              <span className="text-[0.52rem] sm:text-[0.58rem] tracking-[0.02em] text-white/90 italic leading-none font-sans">Advancing Technology<br/>for Humanity</span>
-            </div>
+          {/* Left: Logos */}
+          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group">
+            <img
+              src="/slrtce-logo.png"
+              alt="SLRTCE Logo"
+              className="h-9 sm:h-11 w-auto object-contain"
+            />
+            <div className="h-7 sm:h-9 w-px bg-white/30" />
+            <img
+              src="/ieee-slrtce-logo.png"
+              alt="IEEE SLRTCE Student Branch Logo"
+              className="h-9 sm:h-11 w-auto object-contain"
+            />
           </a>
 
           {/* Center: Main Navigation */}
@@ -71,12 +75,6 @@ const Navbar = () => {
 
           {/* Right: Utility Links & Button */}
           <div className="hidden lg:flex flex-col items-end justify-center space-y-0.5 shrink-0">
-            <div className="flex items-center text-[0.58rem] xl:text-[0.62rem] text-white/90 font-medium tracking-wide">
-              <a href="https://www.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white px-2 border-r border-white/30">IEEE.org</a>
-              <a href="https://ieeexplore.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white px-2 border-r border-white/30">IEEE Xplore</a>
-              <a href="#register" className="hover:text-white px-2 border-r border-white/30">Volunteer</a>
-              <a href="#about" className="hover:text-white pl-2">Student Zone</a>
-            </div>
             <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs xl:text-[0.8rem] px-3.5 xl:px-5 py-1 xl:py-1.5 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95">
               Register Now →
             </a>
@@ -122,11 +120,6 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <div className="flex items-center gap-4 text-xs text-white/70 pt-1.5">
-                <a href="https://www.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white">IEEE.org</a>
-                <span>·</span>
-                <a href="https://ieeexplore.ieee.org" target="_blank" rel="noopener noreferrer" className="hover:text-white">IEEE Xplore</a>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
