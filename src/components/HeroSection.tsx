@@ -102,8 +102,8 @@ const HeroSection = () => {
                 src="/2026-badge.png" 
                 alt="2026" 
                 className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 object-contain drop-shadow-md mb-1 sm:mb-2 md:mb-4"
-                initial={{ rotate: -10, y: -5 }}
-                animate={{ rotate: [-2, 4, -2], y: [-5, 0, -5] }}
+                initial={{ y: -5 }}
+                animate={{ y: [-5, 0, -5] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               />
             </h1>

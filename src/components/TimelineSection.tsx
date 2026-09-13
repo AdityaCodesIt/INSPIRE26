@@ -159,6 +159,20 @@ const TimelineSection = () => {
                 </p>
               </div>
             </motion.div>
+
+            {/* Stylish Text Filler for Empty Gap */}
+            <motion.div 
+              className="mt-12 lg:mt-20 xl:mt-24 pl-4 select-none pointer-events-none"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            >
+              <h1 className="text-5xl lg:text-6xl xl:text-[5.5rem] font-black font-serif text-white/5 uppercase tracking-tighter leading-[0.85]">
+                TIMELINE <br />
+                <span className="text-emerald-500/10 italic font-display">TO VIKAS</span> <br />
+                2026.
+              </h1>
+            </motion.div>
           </div>
 
           {/* Right Side: Staggered Vertical Timeline */}
