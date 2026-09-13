@@ -35,7 +35,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
 
   return (
     <motion.div
-      className="relative group cursor-pointer w-[155px] sm:w-[170px] md:w-[175px] lg:w-[190px] justify-self-center perspective-1000"
+      className="relative group cursor-pointer w-[140px] sm:w-[155px] md:w-[160px] lg:w-[175px] justify-self-center perspective-1000"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -65,7 +65,7 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
     >
       {/* 3D Flippable Box */}
       <div
-        className="w-full h-[170px] sm:h-[185px] md:h-[190px] lg:h-[205px] relative preserve-3d transition-transform duration-600 ease-out motion-reduce:transition-none motion-reduce:duration-0"
+        className="w-full h-[155px] sm:h-[170px] md:h-[175px] lg:h-[190px] relative preserve-3d transition-transform duration-600 ease-out motion-reduce:transition-none motion-reduce:duration-0"
         style={{
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
@@ -146,8 +146,8 @@ const ThemeStamp = ({ theme, index }: { theme: typeof themes[0], index: number }
 
 const ThemesSection = () => {
   return (
-    <section 
-      id="themes" 
+    <section
+      id="themes"
       className="py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white"
       style={{
         backgroundImage: "url('/backgrounds/bg-blue.jpg')",
@@ -155,7 +155,7 @@ const ThemesSection = () => {
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
@@ -196,16 +196,16 @@ const ThemesSection = () => {
         </div>
 
         {/* Stamps Grid - 5 cards top, 4 cards bottom */}
-        <div className="flex flex-col gap-6 lg:gap-8 items-center">
+        <div className="flex flex-col gap-10 lg:gap-14 items-center">
           {/* Row 1 */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 lg:gap-6 w-full place-items-center">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10 w-full place-items-center">
             {themes.slice(0, 5).map((theme, index) => (
               <ThemeStamp key={theme.id} theme={theme} index={index} />
             ))}
           </div>
 
           {/* Row 2 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:gap-6 w-full max-w-[960px] place-items-center relative">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10 w-full max-w-[960px] place-items-center relative">
             {themes.slice(5).map((theme, index) => (
               <ThemeStamp key={theme.id} theme={theme} index={index + 5} />
             ))}

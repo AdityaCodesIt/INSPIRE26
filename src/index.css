@@ -59,6 +59,23 @@
     @apply bg-[#E05500];
   }
 
+  /* Ticket Border Effect */
+  .ticket-border {
+    -webkit-mask-image: 
+      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
+      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+    -webkit-mask-size: 51% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: left top, right top;
+    
+    mask-image: 
+      radial-gradient(circle at 0% 50%, transparent 24px, black 25px),
+      radial-gradient(circle at 100% 50%, transparent 24px, black 25px);
+    mask-size: 51% 100%;
+    mask-repeat: no-repeat;
+    mask-position: left top, right top;
+  }
+
   /* Stat Card */
   .stat-card {
     @apply text-center flex flex-col items-center justify-center;

@@ -117,14 +117,21 @@ const HeroSection = () => {
                 </a>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-xs sm:text-sm font-semibold text-brand-navy mt-0.5">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-xs sm:text-sm font-semibold text-brand-navy mt-1 ml-2 sm:ml-4">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📅</span>
                   <span>16–18 Jan 2026</span>
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📍</span>
-                  <span>SLR Tiwari, NM</span>
+                  <a 
+                    href="https://www.google.com/maps/search/Shree+L.R.+Tiwari+College+of+Engineering" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-brand-orange hover:underline transition-all"
+                  >
+                    SLR Tiwari, NM
+                  </a>
                 </div>
               </div>
             </div>
