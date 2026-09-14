@@ -375,7 +375,7 @@ const TimelineSection = () => {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full">
-        
+
         {/* Top Left Header Section */}
         <div className="max-w-3xl mb-8 lg:mb-10 relative z-20">
           <motion.div
@@ -396,7 +396,16 @@ const TimelineSection = () => {
 
         {/* DESKTOP LENGTHWISE DOTTED CANVAS (>= 1024px) */}
         <div className="hidden lg:block relative w-full max-w-[1300px] xl:max-w-[1360px] mx-auto h-[700px] sm:h-[760px] lg:h-[820px] xl:h-[880px] select-none my-6">
-          
+
+          {/* Archival Typography Watermark: ORGANIZED BY IEEE SLRTCE STUDENT BRANCH */}
+          <div className="absolute -right-2 lg:-right-4 xl:-right-6 -top-2 lg:-top-4 xl:-top-6 select-none pointer-events-none z-0 text-right">
+            <h3 className="text-5xl lg:text-[4.8rem] xl:text-[5.8rem] font-black font-display uppercase tracking-tight leading-[0.88] select-none text-right">
+              <span className="text-[#0A2A5E]/[0.06] block tracking-tighter">ORGANIZED BY</span>
+              <span className="text-[#C26510]/[0.18] italic block font-display my-1 tracking-tight">IEEE SLRTCE</span>
+              <span className="text-[#0A2A5E]/[0.06] block tracking-tight text-2xl sm:text-3xl lg:text-[3rem] xl:text-[3.6rem] mt-2.5 lg:mt-3.5">STUDENT BRANCH</span>
+            </h3>
+          </div>
+
           {/* Exact Dashed SVG Roadmap Path ("line gap line gap") */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
@@ -472,11 +481,10 @@ const TimelineSection = () => {
 
               {/* Coin Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center bg-[#F9E7B7] shadow-xl ${
-                  isStageLighted(stages[0])
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center bg-[#F9E7B7] shadow-xl ${isStageLighted(stages[0])
                     ? 'border-[#FF6B00] shadow-[0_0_28px_rgba(255,107,0,0.5)] scale-105'
                     : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.08, rotate: 3 }}
               >
                 <img
@@ -529,11 +537,10 @@ const TimelineSection = () => {
 
               {/* Coin Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${
-                  isStageLighted(stages[1])
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${isStageLighted(stages[1])
                     ? 'border-[#0A2A5E] shadow-[0_0_28px_rgba(10,42,94,0.4)] scale-105 brightness-100 opacity-100 bg-white'
                     : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
               >
                 {isStageLighted(stages[1]) ? (
@@ -610,11 +617,10 @@ const TimelineSection = () => {
 
               {/* UPI Medallion Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${
-                  isStageLighted(stages[2])
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${isStageLighted(stages[2])
                     ? 'border-emerald-600 bg-white shadow-[0_0_28px_rgba(13,148,136,0.45)] scale-105 brightness-100 opacity-100 p-2.5'
                     : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg p-0'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
               >
                 {isStageLighted(stages[2]) ? (
@@ -696,11 +702,10 @@ const TimelineSection = () => {
                 {/* Coin Node */}
                 <div className="relative shrink-0">
                   <div
-                    className={`w-18 h-18 sm:w-20 sm:h-20 rounded-full border-3.5 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${
-                      lighted
+                    className={`w-18 h-18 sm:w-20 sm:h-20 rounded-full border-3.5 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${lighted
                         ? 'border-[#FF6B00] shadow-[0_0_18px_rgba(255,107,0,0.5)] scale-105 bg-white'
                         : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
-                    }`}
+                      }`}
                   >
                     {lighted ? (
                       <>
