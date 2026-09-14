@@ -1,65 +1,57 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HelpCircle, ChevronDown, MessageSquare, Sparkles } from 'lucide-react';
+import { ChevronDown, MessageSquare, Sparkles } from 'lucide-react';
 
 interface FAQItem {
   question: string;
   answer: string;
-  category: string;
 }
 
 const faqs: FAQItem[] = [
   {
-    category: 'General',
-    question: 'What is VIKAS 2026 – A Research & Idea Colloquium?',
-    answer: 'VIKAS 2026 is an IEEE SLRTCE national research colloquium designed to encourage student researchers and innovators to explore engineering solutions, present prototypes, and align their work with Viksit Bharat @2047 and the United Nations Sustainable Development Goals (UN SDGs).',
+    question: 'What is VIKAS 2026 and what is a Colloquium?',
+    answer:
+      'A colloquium is an academic platform where researchers present technical work to an expert audience. VIKAS 2026 is an IEEE SLRTCE research colloquium aligning student innovations with Viksit Bharat @2047 and the UNSDGs.',
   },
   {
-    category: 'Eligibility',
-    question: 'Who can participate in VIKAS 2026?',
-    answer: 'The colloquium is open to: (1) Undergraduate (UG) and Diploma engineering students, (2) Postgraduate (PG) students (M.E. / M.Tech / M.S. / MCA), and (3) Doctoral (PhD) scholars. Each category is evaluated independently by academic jury panels.',
+    question: 'Who can participate?',
+    answer:
+      'The event is open to students across three distinct categories:\n• Category 1 (PPG): PhD / Pre-PhD / Doctoral-level students\n• Category 2 (PG): ME / M.Tech students\n• Category 3 (UG & Diploma): Undergraduate and Diploma students',
   },
   {
-    category: 'Eligibility',
-    question: 'What are the team size restrictions?',
-    answer: 'For Undergraduate (UG) & Diploma students, teams must consist of 2 to 4 members. For Postgraduate (PG) and Doctoral (PhD) scholars, submissions are individual only.',
+    question: 'What is the allowable team size?',
+    answer:
+      '• PPG & PG Categories: Individual participation only (1 member per entry).\n• UG & Diploma Category: 2 to 4 members per team.',
   },
   {
-    category: 'Eligibility',
-    question: 'Can teams have members from different departments or colleges?',
-    answer: 'Yes! Interdisciplinary teams (combining students from computer science, electrical, mechanical, AI, etc.) as well as cross-institutional teams are strongly encouraged to present comprehensive, multidimensional solutions.',
+    question: 'Is the event held online or offline?',
+    answer:
+      'Round 1 abstract submission is conducted online, while shortlisted presentations for Rounds 2 and 3 take place on-campus on 3 October 2026.',
   },
   {
-    category: 'Submission',
-    question: 'What needs to be submitted for Round 1?',
-    answer: 'For Round 1 (Online Screening), teams must submit a structured abstract along with a concise presentation PDF outlining: (1) Problem Statement, (2) Proposed Solution / Methodology, (3) Relevant Colloquium Track, and (4) Alignment with UN SDGs / Viksit Bharat @2047.',
+    question: 'What should be submitted in Round 1?',
+    answer:
+      'Participants must submit a structured abstract detailing their problem statement, proposed solution, track, and UNSDG alignment for initial screening.',
   },
   {
-    category: 'Submission',
-    question: 'Is the event conducted online or offline on campus?',
-    answer: 'Round 1 (Abstract Screening) is completely online. Shortlisted teams will be invited for Round 2 (Poster / Prototype Presentation) and Round 3 (Grand Final Jury Pitch), which will be held in-person at the SLRTCE campus in Mira-Bhayandar, Mumbai.',
+    question: 'What is the competition format and structure?',
+    answer:
+      'VIKAS 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
   },
   {
-    category: 'Evaluation',
-    question: 'What key aspects are evaluated by the jury?',
-    answer: 'Submissions are assessed on: (1) Technical Rigor & Novelty, (2) Practical Feasibility & Prototype Quality, (3) Societal Impact & Relevance to UN SDGs, (4) Clarity of Presentation & Live Q&A Defense.',
+    question: 'Is there any registration fee?',
+    answer:
+      'Initial abstract submission is free, but shortlisted teams must pay a ₹300 per team registration fee to confirm participation.',
   },
   {
-    category: 'Certification',
     question: 'Will all participants receive certificates?',
-    answer: 'Yes, all registered teams who submit and present their work will receive an authorized IEEE SLRTCE Certificate of Participation / Presentation. Winners receive prestigious Cash Prizes, Trophies, and IEEE Certificates of Merit.',
+    answer:
+      'Yes, all participants who take part in the event will receive an official Online Participation Certificate.',
   },
 ];
 
-const categories = ['All', 'General', 'Eligibility', 'Submission', 'Evaluation', 'Certification'];
-
 const FAQSection = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const filteredFaqs = activeCategory === 'All' 
-    ? faqs 
-    : faqs.filter(f => f.category === activeCategory);
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -95,7 +87,6 @@ const FAQSection = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs sm:text-sm font-bold tracking-widest uppercase mb-3 backdrop-blur-sm">
-            <HelpCircle className="w-4 h-4 text-amber-400" />
             <span>FREQUENTLY ASKED QUESTIONS</span>
           </div>
 
@@ -108,29 +99,9 @@ const FAQSection = () => {
           </p>
         </motion.div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setOpenIndex(0);
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all ${
-                activeCategory === cat
-                  ? 'bg-amber-400 text-[#0A2540] shadow-md scale-105'
-                  : 'bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border border-white/10'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
         {/* Accordion List */}
         <div className="max-w-3xl mx-auto space-y-3.5">
-          {filteredFaqs.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <motion.div
@@ -146,8 +117,10 @@ const FAQSection = () => {
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                  <div className="flex items-center gap-3 sm:gap-3.5">
+                    <span className="font-mono text-xs font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded border border-amber-400/30 shrink-0">
+                      Q{idx + 1}
+                    </span>
                     <span className="font-sans font-bold text-sm sm:text-base md:text-[1.05rem] text-white leading-snug">
                       {faq.question}
                     </span>
@@ -167,7 +140,7 @@ const FAQSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                      <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-white/10 text-xs sm:text-sm text-white/85 leading-relaxed pl-10">
+                      <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-white/10 text-xs sm:text-sm text-white/90 leading-relaxed pl-5 sm:pl-12 whitespace-pre-line">
                         {faq.answer}
                       </div>
                     </motion.div>
