@@ -15,12 +15,12 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage }: { imgSr
   const isRight = info.align === 'right';
   
   const textClass = isLeft 
-    ? "absolute top-4 -left-4 md:-left-12 w-48 md:w-64 z-30 flex flex-col items-start text-left pointer-events-none" 
+    ? "absolute top-4 -left-4 md:-left-20 lg:-left-28 w-56 md:w-72 z-30 flex flex-col items-start text-left pointer-events-none" 
     : isRight 
-    ? "absolute top-4 -right-4 md:-right-12 w-48 md:w-64 z-30 flex flex-col items-start text-left pointer-events-none"
+    ? "absolute top-4 -right-4 md:-right-20 lg:-right-28 w-56 md:w-72 z-30 flex flex-col items-start text-left pointer-events-none"
     : "absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 z-30 flex flex-col items-center text-center pointer-events-none";
 
-  const charShiftX = isLeft ? 30 : isRight ? -30 : 0;
+  const charShiftX = isLeft ? 50 : isRight ? -50 : 0;
 
   return (
     <motion.div 
@@ -76,15 +76,15 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage }: { imgSr
         transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.1 }}
         className={textClass}
       >
-        <div className="bg-[#0A2540]/95 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-2xl w-full">
-          <h3 className="text-sm sm:text-lg font-bold text-white mb-1 drop-shadow-md">{info.title}</h3>
-          <p className="text-[10px] sm:text-xs text-amber-400 font-semibold mb-2 drop-shadow-sm">{info.degree}</p>
+        <div className="p-3 sm:p-5 w-full">
+          <h3 className="text-sm sm:text-xl font-extrabold text-[#F5EDCF] mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">{info.title}</h3>
+          <p className="text-[10px] sm:text-sm text-amber-400 font-bold mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">{info.degree}</p>
           <div className="mb-2">
-            <span className="text-[9px] sm:text-[10px] text-white/90 bg-white/10 px-3 py-1 rounded-full inline-block backdrop-blur-md border border-white/10 shadow-sm">
+            <span className="text-[9px] sm:text-xs text-[#F5EDCF] bg-white/10 px-3 py-1 rounded-full inline-block font-semibold border border-white/10 shadow-sm backdrop-blur-sm">
               Team Size: {info.teamSize}
             </span>
           </div>
-          <p className="text-[9px] sm:text-[10px] text-white/80 leading-relaxed line-clamp-2 sm:line-clamp-4">
+          <p className="text-[9px] sm:text-[11px] text-[#F5EDCF] opacity-90 leading-relaxed line-clamp-2 sm:line-clamp-4 font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
             {info.description}
           </p>
         </div>
