@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 
 const PANEL_COUNT = 3;
 const SCROLL_THRESHOLD = 30; // A very small scroll gesture is enough to trigger snap
@@ -290,21 +291,21 @@ const InformationScrollSection = () => {
         className="w-full min-h-[600px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
       >
         {/* ========================================================================= */}
-        {/* Top Sub-Nav Ribbon: "About slrtce", "About Department", "About IEEE chapter" */}
+        {/* Top Sub-Nav Ribbon: "SLRTCE", "DEPARTMENT", "IEEE CHAPTER" */}
         {/* ========================================================================= */}
         <div className="absolute top-0 left-0 w-full z-30 px-4 sm:px-8 py-3 flex items-center justify-center bg-[#07172E]/95 backdrop-blur-md border-b border-[#C8B89A]/30">
           <div className="flex items-center space-x-6 sm:space-x-12 md:space-x-16 font-sans text-xs sm:text-sm">
             {[
-              { title: 'About slrtce', idx: 0 },
-              { title: 'About Department', idx: 1 },
-              { title: 'About IEEE chapter', idx: 2 },
+              { title: 'SLRTCE', idx: 0 },
+              { title: 'DEPARTMENT', idx: 1 },
+              { title: 'IEEE CHAPTER', idx: 2 },
             ].map((tab) => (
               <button
                 key={tab.idx}
                 onClick={() => goToPanel(tab.idx)}
                 className={`transition-all duration-200 cursor-pointer pb-1 border-b-2 font-medium tracking-wide ${activePanel === tab.idx
-                    ? 'border-[#D4AF37] text-white font-bold'
-                    : 'border-transparent text-white/60 hover:text-white/90 hover:border-white/30'
+                  ? 'border-[#D4AF37] text-white font-bold'
+                  : 'border-transparent text-white/60 hover:text-white/90 hover:border-white/30'
                   }`}
               >
                 {tab.title}
@@ -545,105 +546,34 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1360px] w-full mx-auto grid grid-cols-12 gap-6 lg:gap-12 items-center relative z-10">
-              {/* Left Column: Gazette Information */}
-              <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
-                {/* Postal Tag */}
-                <div className="flex items-center gap-2 mb-2.5">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#062E25] font-mono text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
-                    ✦ COMPUTER DEPARTMENT
-                  </span>
-                  <span className="h-px w-6 bg-[#C8B89A]/40 hidden sm:inline-block" />
-                  <span className="text-emerald-200/80 text-[0.72rem] font-serif uppercase tracking-wider">
-                    Faculty of Engineering
-                  </span>
-                </div>
+            <div className="max-w-[1360px] w-full mx-auto relative z-10 flex flex-col items-center justify-start h-full pt-4 sm:pt-6 lg:pt-8">
+              
+              {/* Upper Half: Stylized Computer Engineering Artwork */}
+              <div className="flex flex-col items-center text-center">
 
-                {/* Editorial Heading */}
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-display font-bold text-white tracking-tight leading-[1.12] mb-3">
-                  Pioneering Engineering & <br />
-                  <span className="text-emerald-300 font-display italic font-semibold">
-                    Future-Ready Research
-                  </span>
-                </h2>
-
-                {/* Narrative Text */}
-                <p className="text-xs sm:text-sm lg:text-[0.95rem] text-[#F4EFE6]/90 leading-relaxed mb-6 font-light max-w-2xl">
-                  Driven by a passion for technical mastery and creative problem-solving, our department equips scholars to explore intelligent systems, embedded architecture, data sciences, and sustainable engineering — bridging deep theoretical foundations with tangible societal impact.
-                </p>
-
-                {/* Archival Register (3 Columns) */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5 pt-3.5 border-t border-[#C8B89A]/30">
-                  <div className="border-l-2 border-emerald-400/60 pl-3">
-                    <div className="text-[0.65rem] sm:text-[0.7rem] font-mono text-emerald-300 uppercase tracking-widest mb-0.5">CORE DOMAINS</div>
-                    <div className="text-xs sm:text-sm font-semibold text-white font-serif">Intelligent Systems</div>
-                    <div className="text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">AI, IoT, Embedded Computing & VLSI Architecture</div>
-                  </div>
-                  <div className="border-l-2 border-emerald-400/60 pl-3">
-                    <div className="text-[0.65rem] sm:text-[0.7rem] font-mono text-emerald-300 uppercase tracking-widest mb-0.5">PEDAGOGY</div>
-                    <div className="text-xs sm:text-sm font-semibold text-white font-serif">Project-Based Rigor</div>
-                    <div className="text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Industry-aligned toolchains & empirical research</div>
-                  </div>
-                  <div className="border-l-2 border-emerald-400/60 pl-3">
-                    <div className="text-[0.65rem] sm:text-[0.7rem] font-mono text-emerald-300 uppercase tracking-widest mb-0.5">VISION</div>
-                    <div className="text-xs sm:text-sm font-semibold text-white font-serif">Viksit Bharat</div>
-                    <div className="text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Empowering India's next generation of pioneers</div>
-                  </div>
-                </div>
+                {/* Main CompEng.png Artwork */}
+                <motion.div
+                  initial={{ opacity: 0, y: -16, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="relative group"
+                >
+                  {/* Subtle Ambient Backlight Glow */}
+                  <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-red-500/20 via-cyan-400/20 to-emerald-400/20 blur-xl opacity-60 pointer-events-none group-hover:opacity-85 transition-opacity duration-500" />
+                  
+                  <img
+                    src="/CompEng.png"
+                    alt="Computer Engineering"
+                    className="relative z-10 w-full max-w-[320px] sm:max-w-[440px] md:max-w-[520px] lg:max-w-[580px] xl:max-w-[640px] h-auto object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)] select-none pointer-events-none"
+                  />
+                </motion.div>
               </div>
 
-              {/* Right Column: Archival Engineering Plate */}
-              <div className="col-span-12 lg:col-span-5 flex justify-center">
-                <div className="relative w-full max-w-[420px]">
-                  {/* Archival Document Card */}
-                  <div className="archival-card !p-4 bg-[#FCF9F2] text-[#062E25] shadow-2xl rotate-[1.5deg] transition-transform duration-500 hover:rotate-0">
-                    {/* Masthead */}
-                    <div className="flex items-center justify-between border-b-2 border-[#C8B89A] pb-2 mb-3">
-                      <div>
-                        <div className="text-[0.65rem] font-mono font-bold tracking-widest text-[#062E25] uppercase">
-                          DEPARTMENT RESEARCH REGISTER
-                        </div>
-                        <div className="text-[0.6rem] font-serif italic text-[#5A5A7A]">
-                          Academic Specifications · Folio ENG/2026
-                        </div>
-                      </div>
-                      <span className="text-[0.62rem] font-mono text-emerald-800 font-bold border border-emerald-700/40 px-1.5 py-0.5 rounded-[2px] bg-emerald-50">
-                        VERIFIED
-                      </span>
-                    </div>
-
-                    {/* 4 Vintage Research Plates */}
-                    <div className="grid grid-cols-2 gap-2.5 my-2">
-                      <div className="p-2.5 bg-white rounded-[2px] border border-[#C8B89A]/60">
-                        <div className="text-[0.62rem] font-mono font-bold text-emerald-800 mb-0.5">I · ARCHITECTURE</div>
-                        <div className="text-xs font-bold text-[#062E25] font-serif">Embedded & VLSI</div>
-                        <div className="text-[0.68rem] text-[#5A5A7A] mt-0.5 leading-snug">Microcontrollers & signal synthesis</div>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-[2px] border border-[#C8B89A]/60">
-                        <div className="text-[0.62rem] font-mono font-bold text-emerald-800 mb-0.5">II · COMPUTING</div>
-                        <div className="text-xs font-bold text-[#062E25] font-serif">Intelligent Data</div>
-                        <div className="text-[0.68rem] text-[#5A5A7A] mt-0.5 leading-snug">Autonomous edge intelligence</div>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-[2px] border border-[#C8B89A]/60">
-                        <div className="text-[0.62rem] font-mono font-bold text-emerald-800 mb-0.5">III · NETWORKS</div>
-                        <div className="text-xs font-bold text-[#062E25] font-serif">IoT Ecosystems</div>
-                        <div className="text-[0.68rem] text-[#5A5A7A] mt-0.5 leading-snug">Industrial communication nodes</div>
-                      </div>
-                      <div className="p-2.5 bg-white rounded-[2px] border border-[#C8B89A]/60">
-                        <div className="text-[0.62rem] font-mono font-bold text-emerald-800 mb-0.5">IV · PROTOTYPING</div>
-                        <div className="text-xs font-bold text-[#062E25] font-serif">Makerspace Labs</div>
-                        <div className="text-[0.68rem] text-[#5A5A7A] mt-0.5 leading-snug">Hands-on student incubators</div>
-                      </div>
-                    </div>
-
-                    {/* Docket Footer */}
-                    <div className="border-t border-[#C8B89A]/50 pt-2 flex items-center justify-between text-[0.68rem] font-mono text-[#5A5A7A]">
-                      <span className="italic font-serif">Theory to Societal Impact</span>
-                      <span className="font-bold text-emerald-800">INDUSTRY READY</span>
-                    </div>
-                  </div>
-                </div>
+              {/* Lower Half: Container ready for next section elements */}
+              <div className="w-full mt-6 flex-grow">
+                {/* Ready for subsequent elements */}
               </div>
+
             </div>
           </div>
 
