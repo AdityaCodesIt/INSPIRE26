@@ -1,86 +1,361 @@
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { motion } from 'framer-motion';
 
-interface Milestone {
+interface Stage {
   id: number;
+  stageNumber: string;
   title: string;
+  coinType: 'old-coin' | 'modern-coin' | 'upi';
   date: string;
-  description: string;
-  isLive: boolean;
-  color: string;
-  icon: React.ReactNode;
+  time?: string;
+  venue: string;
+  isInitiallyLit: boolean;
+  activationDate: string;
+  summary: string;
 }
 
-const milestones: Milestone[] = [
+const stages: Stage[] = [
   {
     id: 1,
-    title: 'Abstract Submission & Screening',
-    date: '26 Sep 2026 (Tentative)',
-    description: 'Teams submit an abstract + PDF in one of 9 tracks; entries are screened.',
-    isLive: true,
-    color: '#10B981', // Live color (Emerald)
-    icon: (
-      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="12" y1="18" x2="12" y2="12" />
-        <line x1="9" y1="15" x2="15" y2="15" />
-      </svg>
-    ),
+    stageNumber: '01',
+    title: 'Abstract Screening',
+    coinType: 'old-coin',
+    date: 'Deadline: 26 Sep 2026',
+    venue: 'Online IEEE Portal',
+    isInitiallyLit: true,
+    activationDate: '2026-09-01T00:00:00+05:30',
+    summary:
+      'Initial online screening where teams submit a structured abstract and methodology PDF aligned with any of the 9 colloquium tracks and UN SDGs.',
   },
   {
     id: 2,
-    title: 'Internal Evaluation Round',
-    date: '3 Oct 2026 (Tentative)',
-    description: 'Shortlisted participants present within a strict 12-minute window.',
-    isLive: false,
-    color: '#6B7280', // Grey
-    icon: (
-      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="18" height="14" x="3" y="3" rx="2" ry="2" />
-        <line x1="8" x2="16" y1="21" y2="21" />
-        <line x1="12" x2="12" y1="17" y2="21" />
-      </svg>
-    ),
+    stageNumber: '02',
+    title: 'Internal Evaluation',
+    coinType: 'modern-coin',
+    date: '3 Oct 2026',
+    time: '10:00 AM – 1:00 PM',
+    venue: 'SLRTCE Campus, Mira-Bhayandar',
+    isInitiallyLit: false,
+    activationDate: '2026-10-03T10:00:00+05:30',
+    summary:
+      'Shortlisted teams deliver a strict 12-minute technical defense on-campus before internal academic panels, evaluated on depth, methodology, and innovation.',
   },
   {
     id: 3,
-    title: 'External Grand Finale & Awards',
-    date: '3 Oct 2026 (Tentative)',
-    description: 'Finalists present and defend their work before an external expert panel.',
-    isLive: false,
-    color: '#6B7280', // Grey
-    icon: (
-      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="7" />
-        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-      </svg>
-    ),
+    stageNumber: '03',
+    title: 'Grand Finale & Awards',
+    coinType: 'upi',
+    date: '3 Oct 2026',
+    time: '2:00 PM – 5:30 PM',
+    venue: 'Main Auditorium, SLRTCE Campus',
+    isInitiallyLit: false,
+    activationDate: '2026-10-03T14:00:00+05:30',
+    summary:
+      'The top finalists pitch before an invited panel of external industry leaders, renowned scientists, and academicians to determine the final award winners.',
   },
 ];
 
-const TimelineSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-80px" });
-  
-  // Default to the first live milestone, or the first milestone overall
-  const defaultNode = milestones.find(m => m.isLive)?.id || milestones[0].id;
-  const [activeNode, setActiveNode] = useState<number>(defaultNode);
+// ── Pixel Dissolve Drawer Card ─────────────────────────────────
+// Materializes directionally from the circle with white and shaded pixels
+// emerging first, while the card background and milestone data appear
+// strictly in lockstep (preventing any premature empty card box appearance).
+const PX_COLS = 12;
+const PX_ROWS = 8;
+const PX_STEPS = 18;
+const PX_STEP_MS = 20;
 
-  const activeMilestone = milestones.find(m => m.id === activeNode) || milestones[0];
+export type CardPosition = 'right' | 'above' | 'left' | 'below';
+
+const WHITE_SHADES = [
+  '#FFFFFF',
+  'rgba(255, 255, 255, 0.96)',
+  'rgba(255, 255, 255, 0.88)',
+  'rgba(240, 248, 255, 0.94)', // Ice/Alice white
+  'rgba(248, 250, 252, 0.90)', // Crisp white
+  'rgba(235, 245, 255, 0.92)', // Luminous cyan-white
+  'rgba(226, 232, 240, 0.86)', // Silver white
+  'rgba(215, 235, 255, 0.82)', // Soft ambient white
+];
+
+interface PixelData {
+  distRatio: number;
+  noise: number;
+  shade: string;
+}
+
+function computePixelGrid(position: CardPosition): PixelData[] {
+  const pixels: PixelData[] = [];
+  for (let r = 0; r < PX_ROWS; r++) {
+    for (let c = 0; c < PX_COLS; c++) {
+      let distRatio = 0;
+      if (position === 'right') {
+        distRatio = c / (PX_COLS - 1);
+      } else if (position === 'left') {
+        distRatio = (PX_COLS - 1 - c) / (PX_COLS - 1);
+      } else if (position === 'above') {
+        distRatio = (PX_ROWS - 1 - r) / (PX_ROWS - 1);
+      } else {
+        distRatio = r / (PX_ROWS - 1);
+      }
+      const pseudo = Math.sin(r * 12.9898 + c * 78.233) * 43758.5453;
+      const noise = (pseudo - Math.floor(pseudo) - 0.5) * 0.26;
+      const shadeIndex = Math.abs(Math.floor(pseudo * 100)) % WHITE_SHADES.length;
+      pixels.push({
+        distRatio,
+        noise,
+        shade: WHITE_SHADES[shadeIndex],
+      });
+    }
+  }
+  return pixels;
+}
+
+function getClipPath(position: CardPosition, progress: number): string {
+  if (progress <= 0) {
+    if (position === 'right') return 'inset(0 100% 0 0 round 12px)';
+    if (position === 'left') return 'inset(0 0 0 100% round 12px)';
+    if (position === 'above') return 'inset(100% 0 0 0 round 12px)';
+    return 'inset(0 0 100% 0 round 12px)';
+  }
+  if (progress >= 1) {
+    return 'none';
+  }
+  const remaining = Math.round((1 - progress) * 1000) / 10;
+  if (position === 'right') {
+    return `inset(0 ${remaining}% 0 0 round 12px)`;
+  } else if (position === 'left') {
+    return `inset(0 0 0 ${remaining}% round 12px)`;
+  } else if (position === 'above') {
+    return `inset(${remaining}% 0 0 0 round 12px)`;
+  } else {
+    return `inset(0 0 ${remaining}% 0 round 12px)`;
+  }
+}
+
+interface PixelRevealCardProps {
+  isVisible: boolean;
+  children: React.ReactNode;
+  position?: CardPosition;
+}
+
+const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
+  isVisible,
+  children,
+  position = 'right',
+}) => {
+  const [mounted, setMounted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const stepRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const pixelGrid = useMemo(() => computePixelGrid(position), [position]);
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    clearTimer();
+
+    if (isVisible) {
+      setMounted(true);
+
+      const tick = () => {
+        stepRef.current = Math.min(stepRef.current + 1, PX_STEPS);
+        const cur = stepRef.current / PX_STEPS;
+        setProgress(cur);
+
+        if (stepRef.current < PX_STEPS) {
+          timerRef.current = setTimeout(tick, PX_STEP_MS);
+        }
+      };
+      timerRef.current = setTimeout(tick, 16);
+    } else if (mounted) {
+      const tick = () => {
+        stepRef.current = Math.max(stepRef.current - 1, 0);
+        const cur = stepRef.current / PX_STEPS;
+        setProgress(cur);
+
+        if (stepRef.current > 0) {
+          timerRef.current = setTimeout(tick, PX_STEP_MS);
+        } else {
+          setMounted(false);
+        }
+      };
+      timerRef.current = setTimeout(tick, 0);
+    }
+
+    return clearTimer;
+  }, [isVisible, mounted]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!mounted) return null;
+
+  let posClass = '';
+  let drawerSlideInitial = { opacity: 0, x: 0, y: 0 };
+  let drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+  let bridgeClass = '';
+  let arrowClass = '';
+
+  if (position === 'right') {
+    posClass = 'left-[calc(100%+16px)] top-1/2 -translate-y-1/2';
+    drawerSlideInitial = { opacity: 0, x: -28, y: 0 };
+    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+    bridgeClass = 'before:content-[""] before:absolute before:-left-5 before:top-0 before:bottom-0 before:w-6';
+    arrowClass = 'absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-[7px] border-y-transparent border-r-[8px] border-r-[#102C82] drop-shadow-sm z-20 pointer-events-none';
+  } else if (position === 'left') {
+    posClass = 'right-[calc(100%+16px)] top-1/2 -translate-y-1/2';
+    drawerSlideInitial = { opacity: 0, x: 28, y: 0 };
+    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+    bridgeClass = 'before:content-[""] before:absolute before:-right-5 before:top-0 before:bottom-0 before:w-6';
+    arrowClass = 'absolute -right-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-[7px] border-y-transparent border-l-[8px] border-l-[#102C82] drop-shadow-sm z-20 pointer-events-none';
+  } else if (position === 'above') {
+    posClass = 'bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2';
+    drawerSlideInitial = { opacity: 0, x: 0, y: 28 };
+    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+    bridgeClass = 'before:content-[""] before:absolute before:-bottom-5 before:left-0 before:right-0 before:h-6';
+    arrowClass = 'absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[7px] border-x-transparent border-t-[8px] border-t-[#102C82] drop-shadow-sm z-20 pointer-events-none';
+  } else {
+    // 'below'
+    posClass = 'top-[calc(100%+16px)] left-1/2 -translate-x-1/2';
+    drawerSlideInitial = { opacity: 0, x: 0, y: -28 };
+    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+    bridgeClass = 'before:content-[""] before:absolute before:-top-5 before:left-0 before:right-0 before:h-6';
+    arrowClass = 'absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[7px] border-x-transparent border-b-[8px] border-b-[#102C82] drop-shadow-sm z-20 pointer-events-none';
+  }
+
+  const currentClip = getClipPath(position, progress);
 
   return (
-    <section 
-      id="schedule" 
-      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-orange-900/10 text-brand-navy scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center bg-[#F9E7B7]" 
-      ref={containerRef}
+    <div className={`absolute ${posClass} z-50 pointer-events-auto select-none`}>
+      <motion.div
+        className={`relative w-72 sm:w-80 ${bridgeClass}`}
+        initial={drawerSlideInitial}
+        animate={drawerSlideAnimate}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Drawer Arrow pointing to circle – appears as drawer emerges */}
+        <div
+          className={arrowClass}
+          style={{
+            opacity: progress > 0.2 ? 1 : 0,
+            transition: 'opacity 150ms ease-out',
+          }}
+        />
+
+        {/* Dark Royal Blue Card container:
+            Deep, regal royal blue gradient with vibrant blue highlight */}
+        <div
+          className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#0B1D51] via-[#102C82] to-[#0A1845] text-white border border-[#4169E1]/35 shadow-[0_16px_36px_rgba(10,25,78,0.5),0_0_20px_rgba(65,105,225,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-xl transition-shadow duration-300"
+          style={{
+            clipPath: currentClip,
+            WebkitClipPath: currentClip,
+          }}
+        >
+          {/* Actual milestone data */}
+          <div className="relative z-0">
+            {children}
+          </div>
+        </div>
+
+        {/* White and Shaded Pixel Frontier:
+            Starts appearing at the circle with bright white and shades of white pixels
+            that lead the reveal and dissolve into the card data */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none rounded-xl overflow-hidden"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${PX_COLS}, 1fr)`,
+            gridTemplateRows: `repeat(${PX_ROWS}, 1fr)`,
+            padding: '2px',
+            gap: '1px',
+          }}
+        >
+          {pixelGrid.map((pixel, i) => {
+            const threshold = pixel.distRatio + pixel.noise;
+            // Active when wave reaches this pixel
+            const isWhiteActive =
+              progress > 0.02 &&
+              progress < 0.98 &&
+              progress >= threshold - 0.12 &&
+              progress < threshold + 0.18;
+
+            return (
+              <div
+                key={i}
+                style={{
+                  backgroundColor: isWhiteActive ? pixel.shade : 'transparent',
+                  opacity: isWhiteActive ? 1 : 0,
+                  transform: isWhiteActive ? 'scale(0.96)' : 'scale(0.7)',
+                  boxShadow: isWhiteActive
+                    ? '0 0 10px rgba(255, 255, 255, 0.95), inset 0 0 4px rgba(255, 255, 255, 0.8)'
+                    : 'none',
+                  borderRadius: '2px',
+                  transition: isWhiteActive
+                    ? 'opacity 50ms ease-out, transform 50ms ease-out'
+                    : 'opacity 140ms ease-out, transform 140ms ease-out',
+                }}
+              />
+            );
+          })}
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+
+// Exact mathematical curve stretched lengthwise and vertically (1000 x 800 coordinate space)
+// Segment 1: Circle 1 (200, 120) -> Loop around Left (40) -> Enter Circle 2 (500, 400)
+const PATH_SEGMENT_1 =
+  "M 145 120 " +
+  "C 65 120, 40 200, 40 300 " +
+  "C 40 400, 120 400, 260 400 " +
+  "L 500 400";
+
+// Segment 2: Circle 2 (500, 400) -> Horizontal Right -> Loop around Right (960) -> Enter Circle 3 (800, 680)
+const PATH_SEGMENT_2 =
+  "M 500 400 " +
+  "L 740 400 " +
+  "C 880 400, 960 430, 960 515 " +
+  "C 960 615, 930 680, 850 680 " +
+  "L 800 680";
+
+const TimelineSection = () => {
+  const [currentTime, setCurrentTime] = useState(() => new Date());
+
+  // Automatically check date every 15 seconds so stages unlock live on the exact date/time
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 15000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Hovered stage for floating tooltip
+  const [hoveredStageId, setHoveredStageId] = useState<number | null>(null);
+
+  // Helper to check if a node is currently illuminated (unlocked only if date passed or initially lit)
+  const isStageLighted = (stage: Stage) => {
+    if (stage.isInitiallyLit) return true;
+    const actDate = new Date(stage.activationDate);
+    if (currentTime >= actDate) return true;
+    return false;
+  };
+
+  return (
+    <section
+      id="schedule"
+      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center bg-[#F9E7B7]"
       style={{
         backgroundImage: "url('/paper-texture-clean.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
@@ -88,226 +363,438 @@ const TimelineSection = () => {
         }}
       />
       {/* Subtle Vignette for Depth */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/20 z-0" />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="mb-12 lg:mb-16 max-w-xl text-center md:text-left mx-auto md:mx-0"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#0A2A5E] mb-2">Key Dates</h2>
-          <div className="w-16 h-[3px] bg-orange-500 rounded-full mb-3 mx-auto md:mx-0"></div>
-          <p className="text-sm text-[#0A2A5E]/80 font-sans font-medium">
-            The journey of VIKAS 2026. Hover over any stage for details.
-          </p>
-        </motion.div>
+      {/* Archival Typography Watermark: TIMELINE TO VIKAS 2026. */}
+      <div className="absolute left-6 sm:left-12 lg:left-20 bottom-2 sm:bottom-4 lg:bottom-5 select-none pointer-events-none z-0">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.8rem] font-black font-serif text-[#0A2A5E]/[0.035] uppercase tracking-tighter leading-[0.88]">
+          TIMELINE <br />
+          <span className="text-[#FF6B00]/[0.10] italic font-serif">TO VIKAS</span> <br />
+          2026.
+        </h1>
+      </div>
 
-        {/* Two Column Layout for Desktop, Single Column for Mobile */}
-        <div className="flex flex-col md:flex-row gap-12 lg:gap-20 items-stretch relative">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full">
+        
+        {/* Top Left Header Section */}
+        <div className="max-w-3xl mb-8 lg:mb-10 relative z-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0A2A5E] tracking-tight font-sans">
+              Key Dates
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full my-3" />
+            <p className="text-sm sm:text-base text-[#0A2A5E]/85 font-sans leading-relaxed font-medium">
+              The colloquium will be conducted through three major stages, providing a progressive selection process from abstract screening to internal evaluation and finally external expert evaluation
+            </p>
+          </motion.div>
+        </div>
+
+        {/* DESKTOP LENGTHWISE DOTTED CANVAS (>= 1024px) */}
+        <div className="hidden lg:block relative w-full max-w-[1300px] xl:max-w-[1360px] mx-auto h-[700px] sm:h-[760px] lg:h-[820px] xl:h-[880px] select-none my-6">
           
-          {/* Left Side: Information Box (Hidden on Mobile) */}
-          <div className="hidden md:flex w-full md:w-[45%] flex-col justify-start sticky top-32 h-fit">
-            <motion.div 
-              key={activeNode}
-              initial={{ opacity: 0, x: -20, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className={`p-8 lg:p-12 rounded-2xl border shadow-xl relative overflow-hidden ${
-                activeMilestone.isLive 
-                  ? 'bg-white/95 border-emerald-500/30 ring-1 ring-emerald-500/20' 
-                  : 'bg-white/70 border-[#0A2A5E]/10'
-              }`}
-            >
-              {/* Large Background Icon */}
-              <div className="absolute -right-12 -bottom-12 opacity-10 w-64 h-64 pointer-events-none" style={{ color: activeMilestone.color }}>
-                {activeMilestone.icon}
-              </div>
+          {/* Exact Dashed SVG Roadmap Path ("line gap line gap") */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
+            viewBox="0 0 1000 800"
+            preserveAspectRatio="none"
+            fill="none"
+          >
+            {/* Glowing underlay for active Stage 1 dashed path */}
+            {isStageLighted(stages[0]) && (
+              <path
+                d={PATH_SEGMENT_1}
+                stroke="#FF6B00"
+                strokeWidth="12"
+                strokeDasharray="16 12"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                opacity="0.30"
+                style={{ filter: 'blur(4px)' }}
+              />
+            )}
 
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg shrink-0"
-                    style={{ backgroundColor: activeMilestone.color }}
-                  >
-                    {activeMilestone.icon}
-                  </div>
-                  <div>
-                    <span className={`inline-block px-3 py-1 rounded-full border text-[0.8rem] font-bold shadow-sm font-sans mb-2 ${
-                      activeMilestone.isLive 
-                        ? 'bg-emerald-50 border-emerald-400/40 text-emerald-700' 
-                        : 'bg-gray-100 border-gray-300 text-gray-700'
-                    }`}>
-                      {activeMilestone.date}
+            {/* Segment 1: Circle 1 (20%, 15%) -> Loop Left (4%) -> Horizontal through Circle 2 (50%, 50%) */}
+            <path
+              d={PATH_SEGMENT_1}
+              stroke={isStageLighted(stages[0]) ? "#FF6B00" : "rgba(10, 42, 94, 0.4)"}
+              strokeWidth="5"
+              strokeDasharray="16 12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+
+            {/* Glowing underlay for active Stage 2 dashed path */}
+            {isStageLighted(stages[1]) && (
+              <path
+                d={PATH_SEGMENT_2}
+                stroke="#0A2A5E"
+                strokeWidth="12"
+                strokeDasharray="16 12"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                opacity="0.30"
+                style={{ filter: 'blur(4px)' }}
+              />
+            )}
+
+            {/* Segment 2: Circle 2 (50%, 50%) -> Horizontal Right -> Loop Right (96%) -> Enter Circle 3 (80%, 85%) */}
+            <path
+              d={PATH_SEGMENT_2}
+              stroke={isStageLighted(stages[1]) ? "#0A2A5E" : "rgba(10, 42, 94, 0.35)"}
+              strokeWidth="5"
+              strokeDasharray="16 12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          {/* POINT 1: Old Coin of India at (20%, 15%) */}
+          <div
+            className="absolute left-[20%] top-[15%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            onMouseEnter={() => setHoveredStageId(1)}
+            onMouseLeave={() => setHoveredStageId(null)}
+          >
+            <div className="relative">
+              {/* Lighting Aura */}
+              {isStageLighted(stages[0]) && (
+                <>
+                  <div className="absolute -inset-3 rounded-full bg-orange-500/25 blur-lg animate-pulse" />
+                  <div className="absolute -inset-1.5 rounded-full border-2 border-orange-500/40 animate-ping opacity-25 pointer-events-none" />
+                </>
+              )}
+
+              {/* Coin Container */}
+              <motion.div
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center bg-[#F9E7B7] shadow-xl ${
+                  isStageLighted(stages[0])
+                    ? 'border-[#FF6B00] shadow-[0_0_28px_rgba(255,107,0,0.5)] scale-105'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
+                whileHover={{ scale: 1.08, rotate: 3 }}
+              >
+                <img
+                  src="/timeline/old-indian-coin.jpg"
+                  alt="Old Coin of India"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </motion.div>
+
+              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Opens Right) */}
+              <PixelRevealCard isVisible={hoveredStageId === 1} position="right">
+                <div className="p-4 text-left">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded-full border border-amber-400/30 uppercase tracking-wider">
+                      Stage 01 • Online
                     </span>
-                    {activeMilestone.isLive && (
-                      <span className="ml-3 bg-emerald-500 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded animate-pulse shadow-sm">
-                        Live Now
-                      </span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">26 Sep 2026</span>
+                  </div>
+                  <h5 className="font-bold text-sm text-white mb-1">
+                    {stages[0].title}
+                  </h5>
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                    {stages[0].summary}
+                  </p>
+                </div>
+              </PixelRevealCard>
+            </div>
+
+            {/* Clean Label: Milestone Title & Date Only */}
+            <div className="mt-3 text-center max-w-[210px]">
+              <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
+                {stages[0].title}
+              </h4>
+              <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
+                {stages[0].date}
+              </p>
+            </div>
+          </div>
+
+          {/* POINT 2: Modern 2010–2020 Coin at (50%, 50%) */}
+          <div
+            className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            onMouseEnter={() => setHoveredStageId(2)}
+            onMouseLeave={() => setHoveredStageId(null)}
+          >
+            <div className="relative">
+              {isStageLighted(stages[1]) && (
+                <div className="absolute -inset-3 rounded-full bg-blue-500/25 blur-lg animate-pulse" />
+              )}
+
+              {/* Coin Container */}
+              <motion.div
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${
+                  isStageLighted(stages[1])
+                    ? 'border-[#0A2A5E] shadow-[0_0_28px_rgba(10,42,94,0.4)] scale-105 brightness-100 opacity-100 bg-white'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
+                whileHover={{ scale: 1.05 }}
+              >
+                {isStageLighted(stages[1]) ? (
+                  <img
+                    src="/timeline/modern-coin-2011.png"
+                    alt="Coin from 2010-2020"
+                    className="w-full h-full object-contain p-1 rounded-full"
+                  />
+                ) : (
+                  <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
+                    <img
+                      src="/timeline/modern-coin-2011.png"
+                      alt="Coin from 2010-2020"
+                      className="w-full h-full object-contain p-1 rounded-full opacity-25"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <svg
+                        className="w-7 h-7 text-white/60"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="5" y="11" width="14" height="10" rx="2" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Hovers Above) */}
+              <PixelRevealCard isVisible={hoveredStageId === 2} position="above">
+                <div className="p-4 text-left">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] font-bold text-cyan-300 bg-cyan-400/15 px-2 py-0.5 rounded-full border border-cyan-400/30 uppercase tracking-wider">
+                      Stage 02 • On-Campus
+                    </span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                  </div>
+                  <h5 className="font-bold text-sm text-white mb-1">
+                    {stages[1].title}
+                  </h5>
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                    {stages[1].summary}
+                  </p>
+                </div>
+              </PixelRevealCard>
+            </div>
+
+            {/* Clean Label: Title and Date Only */}
+            <div className="mt-3 text-center max-w-[210px]">
+              <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
+                {stages[1].title}
+              </h4>
+              <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
+                {stages[1].date}
+              </p>
+            </div>
+          </div>
+
+          {/* POINT 3: UPI Symbol at (80%, 85%) */}
+          <div
+            className="absolute left-[80%] top-[85%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            onMouseEnter={() => setHoveredStageId(3)}
+            onMouseLeave={() => setHoveredStageId(null)}
+          >
+            <div className="relative">
+              {isStageLighted(stages[2]) && (
+                <div className="absolute -inset-3 rounded-full bg-emerald-500/25 blur-lg animate-pulse" />
+              )}
+
+              {/* UPI Medallion Container */}
+              <motion.div
+                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${
+                  isStageLighted(stages[2])
+                    ? 'border-emerald-600 bg-white shadow-[0_0_28px_rgba(13,148,136,0.45)] scale-105 brightness-100 opacity-100 p-2.5'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg p-0'
+                }`}
+                whileHover={{ scale: 1.05 }}
+              >
+                {isStageLighted(stages[2]) ? (
+                  <img
+                    src="/timeline/upi-logo.svg"
+                    alt="UPI Symbol"
+                    className="w-[85%] h-auto object-contain my-auto drop-shadow-sm"
+                  />
+                ) : (
+                  <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
+                    <img
+                      src="/timeline/upi-logo.svg"
+                      alt="UPI Symbol"
+                      className="w-[85%] h-auto object-contain my-auto opacity-25"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <svg
+                        className="w-7 h-7 text-white/60"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="5" y="11" width="14" height="10" rx="2" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Opens Left) */}
+              <PixelRevealCard isVisible={hoveredStageId === 3} position="left">
+                <div className="p-4 text-left">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] font-bold text-emerald-300 bg-emerald-400/15 px-2 py-0.5 rounded-full border border-emerald-400/30 uppercase tracking-wider">
+                      Stage 03 • Grand Finale
+                    </span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                  </div>
+                  <h5 className="font-bold text-sm text-white mb-1">
+                    {stages[2].title}
+                  </h5>
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                    {stages[2].summary}
+                  </p>
+                </div>
+              </PixelRevealCard>
+            </div>
+
+            {/* Clean Label: Title and Date Only */}
+            <div className="mt-3 text-center max-w-[210px]">
+              <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
+                {stages[2].title}
+              </h4>
+              <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
+                {stages[2].date}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* MOBILE & TABLET LAYOUT (< 1024px) */}
+        <div className="lg:hidden flex flex-col gap-10 my-6 relative">
+          {/* Vertical Connecting Dashed Line */}
+          <div className="absolute left-[35px] top-8 bottom-8 w-0.5 border-l-2 border-dashed border-[#0A2A5E]/35 z-0" />
+
+          {stages.map((stage) => {
+            const lighted = isStageLighted(stage);
+            return (
+              <div
+                key={stage.id}
+                className="flex items-start gap-4 sm:gap-6 relative z-10 cursor-pointer"
+                onClick={() => setHoveredStageId(hoveredStageId === stage.id ? null : stage.id)}
+              >
+                {/* Coin Node */}
+                <div className="relative shrink-0">
+                  <div
+                    className={`w-18 h-18 sm:w-20 sm:h-20 rounded-full border-3.5 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${
+                      lighted
+                        ? 'border-[#FF6B00] shadow-[0_0_18px_rgba(255,107,0,0.5)] scale-105 bg-white'
+                        : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
+                    }`}
+                  >
+                    {lighted ? (
+                      <>
+                        {stage.coinType === 'old-coin' && (
+                          <img
+                            src="/timeline/old-indian-coin.jpg"
+                            alt="Old Coin"
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        )}
+                        {stage.coinType === 'modern-coin' && (
+                          <img
+                            src="/timeline/modern-coin-2011.png"
+                            alt="2010-2020 Coin"
+                            className="w-full h-full object-contain p-1 rounded-full"
+                          />
+                        )}
+                        {stage.coinType === 'upi' && (
+                          <div className="w-full h-full bg-white flex items-center justify-center p-2 rounded-full">
+                            <img
+                              src="/timeline/upi-logo.svg"
+                              alt="UPI Logo"
+                              className="w-[85%] h-auto object-contain"
+                            />
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
+                        {stage.coinType === 'old-coin' && (
+                          <img
+                            src="/timeline/old-indian-coin.jpg"
+                            alt="Old Coin"
+                            className="w-full h-full object-cover rounded-full opacity-25"
+                          />
+                        )}
+                        {stage.coinType === 'modern-coin' && (
+                          <img
+                            src="/timeline/modern-coin-2011.png"
+                            alt="2010-2020 Coin"
+                            className="w-full h-full object-contain p-1 rounded-full opacity-25"
+                          />
+                        )}
+                        {stage.coinType === 'upi' && (
+                          <div className="w-full h-full flex items-center justify-center p-1 rounded-full">
+                            <img
+                              src="/timeline/upi-logo.svg"
+                              alt="UPI Logo"
+                              className="w-[85%] h-auto object-contain opacity-25"
+                            />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <svg
+                            className="w-5 h-5 text-white/60"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.75"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect x="5" y="11" width="14" height="10" rx="2" />
+                            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                          </svg>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
 
-                <h3 className={`text-2xl lg:text-3xl font-bold mb-4 font-sans ${activeMilestone.isLive ? 'text-[#0A2A5E]' : 'text-gray-800'}`}>
-                  {activeMilestone.title}
-                </h3>
-                
-                <p className="text-base lg:text-lg text-gray-700 leading-relaxed font-sans">
-                  {activeMilestone.description}
-                </p>
+                {/* Text Header */}
+                <div className="flex-grow pt-1">
+                  <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans">
+                    {stage.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#0A2A5E]/80 mt-0.5 font-medium">
+                    {stage.date}
+                  </p>
+
+                  {/* Expandable summary on mobile tap */}
+                  {hoveredStageId === stage.id && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="mt-2.5 p-3 rounded-xl bg-[#0A2A5E] text-white text-xs leading-relaxed"
+                    >
+                      {stage.summary}
+                    </motion.div>
+                  )}
+                </div>
               </div>
-            </motion.div>
-
-            {/* Stylish Text Filler for Empty Gap */}
-            <motion.div 
-              className="mt-12 lg:mt-20 xl:mt-24 pl-4 select-none pointer-events-none"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
-              <h1 className="text-5xl lg:text-6xl xl:text-[5.5rem] font-black font-serif text-[#0A2A5E]/[0.03] uppercase tracking-tighter leading-[0.85]">
-                TIMELINE <br />
-                <span className="text-[#FF6B00]/10 italic font-display">TO VIKAS</span> <br />
-                2026.
-              </h1>
-            </motion.div>
-          </div>
-
-          {/* Right Side: Staggered Vertical Timeline */}
-          <div className="w-full md:w-[55%] relative mt-8 md:mt-0 px-2 sm:px-4 md:px-0">
-            {/* Mobile Left Line */}
-            <div className="md:hidden absolute left-[31px] sm:left-[39px] top-8 bottom-8 w-0.5 border-l-[3px] border-dotted border-gray-500/50 z-0"></div>
-
-            <div className="flex flex-col gap-10 md:gap-14 relative z-10">
-              {milestones.map((milestone, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div
-                    key={milestone.id}
-                    className={`flex flex-col md:flex-row items-center w-full relative group cursor-pointer ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.15 }}
-                    onMouseEnter={() => setActiveNode(milestone.id)}
-                    onClick={() => setActiveNode(milestone.id)}
-                  >
-                    {/* Box Container (Desktop) - Takes up 45% */}
-                    <div className="hidden md:flex w-[45%] flex-col relative z-20">
-                      
-                      {/* Diagonal Stripe connecting to the next box (Desktop) */}
-                      {index < milestones.length - 1 && (
-                        <svg 
-                          className="absolute top-1/2 pointer-events-none -z-10 overflow-visible" 
-                          style={{ 
-                            width: '22.22%', // Exactly bridges the 10% gap between 45% and 55%
-                            height: 'calc(100% + 3.5rem)', // Box height + gap-14
-                            [isEven ? 'left' : 'right']: '100%' 
-                          }} 
-                          preserveAspectRatio="none"
-                        >
-                          <line 
-                            x1={isEven ? "0" : "100%"} 
-                            y1="0" 
-                            x2={isEven ? "100%" : "0"} 
-                            y2="100%" 
-                            stroke="#10B981" 
-                            strokeWidth="3" 
-                            strokeDasharray="6 6"
-                            className="opacity-50"
-                          />
-                        </svg>
-                      )}
-
-                      <div className={`p-4 lg:p-5 rounded-xl border shadow-md transition-all duration-300 transform ${
-                        activeNode === milestone.id ? 'scale-[1.03] z-20' : 'hover:scale-[1.01] z-10'
-                      } ${
-                        milestone.isLive 
-                          ? (activeNode === milestone.id ? 'bg-white border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-white/80 border-emerald-500/20')
-                          : (activeNode === milestone.id ? 'bg-white border-[#0A2A5E]/20' : 'bg-white/60 border-gray-300/50 hover:bg-white/80')
-                      } backdrop-blur-sm`}>
-                        <div className="flex justify-between items-start w-full mb-2">
-                          <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] lg:text-[0.7rem] font-bold font-sans ${milestone.isLive ? 'bg-emerald-50 border-emerald-400/30 text-emerald-700' : 'bg-gray-100 border-gray-300 text-gray-700'}`}>
-                            {milestone.date}
-                          </span>
-                          {milestone.isLive && (
-                            <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse shadow-sm">
-                              Live
-                            </span>
-                          )}
-                        </div>
-                        <h4 className={`font-bold text-sm lg:text-base leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-[#0A2A5E]' : (milestone.isLive ? 'text-[#0A2A5E]/90' : 'text-gray-600 group-hover:text-gray-800')}`}>
-                          {milestone.title}
-                        </h4>
-                      </div>
-
-                      {/* Desktop Icon - Attached to the inner edge of the box */}
-                      <div
-                        className={`absolute top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 z-30 ${
-                          isEven ? '-right-5 lg:-right-6' : '-left-5 lg:-left-6'
-                        } ${activeNode === milestone.id ? 'scale-110 shadow-lg' : 'opacity-80 group-hover:opacity-100'}`}
-                        style={{
-                          backgroundColor: milestone.color,
-                          boxShadow: activeNode === milestone.id ? `0 0 0 4px #F9E7B7, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #F9E7B7, 0 0 0 2px ${milestone.color}`
-                        }}
-                      >
-                        {milestone.icon}
-                      </div>
-                    </div>
-
-                    {/* Empty Space to push box to alternating side */}
-                    <div className="hidden md:block w-[55%]"></div>
-
-                    {/* Mobile Layout (Original style) */}
-                    <div className="md:hidden flex flex-row items-start w-full pl-[45px] sm:pl-[55px] relative">
-                       {/* Mobile Icon */}
-                       <div
-                          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 absolute left-2 sm:left-4 transition-all duration-300 ${activeNode === milestone.id ? 'scale-110 shadow-lg' : 'opacity-80 group-hover:opacity-100'}`}
-                          style={{
-                            backgroundColor: milestone.color,
-                            boxShadow: activeNode === milestone.id ? `0 0 0 4px #F9E7B7, 0 0 0 5px ${milestone.color}` : `0 0 0 3px #F9E7B7, 0 0 0 2px ${milestone.color}`
-                          }}
-                        >
-                          {milestone.icon}
-                        </div>
-                        
-                        {/* Mobile Box */}
-                        <div className={`flex flex-col gap-2 p-4 w-full rounded-xl border shadow-md transition-all duration-300 ${
-                          milestone.isLive 
-                            ? (activeNode === milestone.id ? 'bg-white border-emerald-400/50 ring-1 ring-emerald-500/30' : 'bg-white/80 border-emerald-500/20')
-                            : (activeNode === milestone.id ? 'bg-white border-[#0A2A5E]/20' : 'bg-white/60 border-gray-300/50')
-                        } backdrop-blur-sm`}>
-                          
-                          <div className="flex justify-between items-start w-full mb-1">
-                            <span className={`inline-block px-2 py-0.5 rounded-md border text-[0.65rem] font-bold font-sans ${milestone.isLive ? 'bg-emerald-50 border-emerald-400/30 text-emerald-700' : 'bg-gray-100 border-gray-300 text-gray-700'}`}>
-                              {milestone.date}
-                            </span>
-                            {milestone.isLive && (
-                              <span className="bg-emerald-500 text-white text-[8px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded animate-pulse shadow-sm">
-                                Live
-                              </span>
-                            )}
-                          </div>
-                          <h4 className={`font-bold text-sm leading-snug font-sans transition-colors ${activeNode === milestone.id ? 'text-[#0A2A5E]' : (milestone.isLive ? 'text-[#0A2A5E]/90' : 'text-gray-600')}`}>
-                            {milestone.title}
-                          </h4>
-
-                          {/* Expandable Info on Mobile Only */}
-                          <div className="overflow-hidden transition-all duration-300" style={{ height: activeNode === milestone.id ? 'auto' : 0, opacity: activeNode === milestone.id ? 1 : 0, marginTop: activeNode === milestone.id ? '8px' : 0 }}>
-                            <p className="text-xs text-gray-700 bg-gray-50 p-2.5 rounded-lg border border-gray-200 leading-relaxed shadow-inner">
-                              {milestone.description}
-                            </p>
-                          </div>
-                        </div>
-                    </div>
-                    
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+            );
+          })}
         </div>
 
       </div>
