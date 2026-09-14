@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Trophy, Award, Sparkles, Star, Globe2, Lightbulb, FileText, CheckCircle } from 'lucide-react';
+import { Trophy, Sparkles, Star, Globe2, Lightbulb, FileText, CheckCircle } from 'lucide-react';
 
 interface AwardItem {
   title: string;
@@ -156,31 +156,19 @@ const PrizePoolSection = () => {
               />
 
               <div>
-                {/* Laurel Icon with Circular Border */}
-                <div className="relative w-16 h-16 mb-5 flex items-center justify-center mx-auto">
-                  {/* Outer Laurel Wreath Ring */}
-                  <svg
-                    viewBox="0 0 100 100"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="absolute inset-0 w-full h-full opacity-90 scale-110"
-                    style={{ color: award.color }}
+                {/* Professional Icon Badge */}
+                <div className="relative w-16 h-16 mb-6 flex items-center justify-center mx-auto">
+                  {/* Outer glowing ring */}
+                  <div 
+                    className="absolute inset-0 rounded-full border border-white/20 shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)]"
+                    style={{ backgroundColor: `${award.color}15` }}
+                  />
+                  {/* Inner ring */}
+                  <div 
+                    className="absolute inset-[3px] rounded-full border border-white/10 flex items-center justify-center backdrop-blur-sm"
                   >
-                    <path d="M25,85 Q10,55 30,15" />
-                    <path d="M75,85 Q90,55 70,15" />
-                    <path d="M25,85 Q35,80 29,70 Q20,75 25,85" fill="currentColor" stroke="none" />
-                    <path d="M22,65 Q32,60 26,50 Q17,55 22,65" fill="currentColor" stroke="none" />
-                    <path d="M21,45 Q31,40 25,30 Q16,35 21,45" fill="currentColor" stroke="none" />
-                    <path d="M25,25 Q35,20 29,10 Q20,15 25,25" fill="currentColor" stroke="none" />
-                    <path d="M75,85 Q65,80 71,70 Q80,75 75,85" fill="currentColor" stroke="none" />
-                    <path d="M78,65 Q68,60 74,50 Q83,55 78,65" fill="currentColor" stroke="none" />
-                    <path d="M79,45 Q69,40 75,30 Q84,35 79,45" fill="currentColor" stroke="none" />
-                    <path d="M75,25 Q65,20 71,10 Q80,15 75,25" fill="currentColor" stroke="none" />
-                  </svg>
-                  <div className="relative z-10">{award.icon}</div>
+                    <div className="relative z-10 scale-[1.1]">{award.icon}</div>
+                  </div>
                 </div>
 
                 {/* Title */}

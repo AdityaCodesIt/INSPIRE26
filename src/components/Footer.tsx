@@ -68,7 +68,7 @@ const Footer = () => {
         </svg>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-6 sm:py-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-3 sm:py-4">
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
           

@@ -112,6 +112,23 @@
     mask-position: left top, right top;
   }
 
+  /* Vertical Ticket Shape */
+  .vertical-ticket {
+    -webkit-mask-image: 
+      radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
+      radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
+    -webkit-mask-size: 100% 51%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: top left, bottom left;
+    
+    mask-image: 
+      radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
+      radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
+    mask-size: 100% 51%;
+    mask-repeat: no-repeat;
+    mask-position: top left, bottom left;
+  }
+
   @media (min-width: 640px) {
     .ticket-border {
       -webkit-mask-image: 

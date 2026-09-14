@@ -68,7 +68,7 @@ const CTASection = () => {
 
           <div className="flex items-center gap-3">
             <span className="text-2xl">📍</span>
-            <p className="font-semibold text-white font-sans text-sm md:text-base">Shree L.R. Tiwari College</p>
+            <p className="font-semibold text-white font-sans text-sm md:text-base">SLRTCE Campus</p>
           </div>
         </motion.div>
 

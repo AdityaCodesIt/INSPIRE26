@@ -99,34 +99,41 @@ const FAQSection = () => {
           </p>
         </motion.div>
 
-        {/* Accordion List */}
-        <div className="max-w-3xl mx-auto space-y-3.5">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <motion.div
-                key={faq.question}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.05 }}
-                className="rounded-xl bg-[#0A2540]/70 border border-white/15 overflow-hidden backdrop-blur-md shadow-lg transition-colors"
-              >
+        {/* Stamp Card FAQ Container (Light Golden) */}
+        <div 
+          className="max-w-3xl mx-auto stamp-card px-6 sm:px-10 py-12 shadow-2xl relative"
+          style={{ background: 'linear-gradient(135deg, #FFF3D4 0%, #E8D08B 100%)' }}
+        >
+          
+          <div className="space-y-2 relative z-10 mt-2 mb-2">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <motion.div
+                  key={faq.question}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: idx * 0.05 }}
+                  className={`overflow-hidden transition-colors border-b border-[#C8B89A]/50 last:border-b-0 ${
+                    isOpen ? 'bg-[#0A2540]/5 rounded-xl border-transparent' : 'hover:bg-[#0A2540]/5 rounded-xl'
+                  }`}
+                >
                 <button
                   onClick={() => toggleAccordion(idx)}
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3 sm:gap-3.5">
-                    <span className="font-mono text-xs font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded border border-amber-400/30 shrink-0">
+                    <span className="font-mono text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
                       Q{idx + 1}
                     </span>
-                    <span className="font-sans font-bold text-sm sm:text-base md:text-[1.05rem] text-white leading-snug">
+                    <span className="font-sans font-bold text-sm sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
                       {faq.question}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-amber-300 shrink-0 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-[#0A2540] shrink-0 transition-transform duration-300 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -140,15 +147,16 @@ const FAQSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                      <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-white/10 text-xs sm:text-sm text-white/90 leading-relaxed pl-5 sm:pl-12 whitespace-pre-line">
+                      <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-5 sm:pl-12 whitespace-pre-line font-medium">
                         {faq.answer}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Still Have Questions Box */}

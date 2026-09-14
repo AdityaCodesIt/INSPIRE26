@@ -262,11 +262,7 @@ const InformationScrollSection = () => {
     }
   };
 
-  const folios = [
-    { number: 'I', title: 'ABOUT SLRTCE', subtitle: 'Shree L. R. Tiwari College of Engineering' },
-    { number: 'II', title: 'ABOUT DEPARTMENT', subtitle: 'Faculty of Engineering' },
-    { number: 'III', title: 'ABOUT IEEE CHAPTER', subtitle: 'IEEE SLRTCE Chapter' },
-  ];
+
 
   return (
     // OUTER WRAPPER: Tall enough so the browser can't skip past it.
