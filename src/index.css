@@ -62,6 +62,39 @@
     mask-composite: add;
   }
 
+  /* Miniature Postage Stamp Card */
+  .stamp-card-mini {
+    position: relative;
+    
+    -webkit-mask-image: 
+      linear-gradient(black, black),
+      radial-gradient(circle, transparent 2.5px, black 3px);
+    -webkit-mask-size: 
+      calc(100% - 8px) calc(100% - 8px),
+      8px 8px;
+    -webkit-mask-position: 
+      center,
+      -4px -4px;
+    -webkit-mask-repeat: 
+      no-repeat,
+      round;
+    -webkit-mask-composite: source-over;
+
+    mask-image: 
+      linear-gradient(black, black),
+      radial-gradient(circle, transparent 2.5px, black 3px);
+    mask-size: 
+      calc(100% - 8px) calc(100% - 8px),
+      8px 8px;
+    mask-position: 
+      center,
+      -4px -4px;
+    mask-repeat: 
+      no-repeat,
+      round;
+    mask-composite: add;
+  }
+
   .stamp-card-wrapper {
     /* Shadow applied to the wrapper to trace the perforated edges */
     filter: drop-shadow(2px 3px 6px rgba(0,0,0,0.15));

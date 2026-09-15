@@ -141,16 +141,8 @@ const Navbar = () => {
               }`}
             >
               <div className="stamp-card-wrapper drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
-                {/* Custom inline mask to scale down the stamp effect for a tiny box */}
-                <div 
-                  className="stamp-card flex flex-col justify-center bg-[#F8E7BE] px-2.5 py-[5px] w-auto border border-black/5"
-                  style={{
-                    maskSize: 'calc(100% - 8px) calc(100% - 8px), 8px 8px',
-                    WebkitMaskSize: 'calc(100% - 8px) calc(100% - 8px), 8px 8px',
-                    maskImage: 'linear-gradient(black, black), radial-gradient(circle, transparent 2.5px, black 3px)',
-                    WebkitMaskImage: 'linear-gradient(black, black), radial-gradient(circle, transparent 2.5px, black 3px)'
-                  }}
-                >
+                {/* Custom stamp effect for a tiny box */}
+                <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-2.5 py-[5px] w-auto border border-black/5">
                   
                   {/* Top Header Row */}
                   <div className="flex justify-between items-center w-full mb-[3px] z-10 gap-2 px-[2px]">
