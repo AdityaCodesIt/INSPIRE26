@@ -22,7 +22,15 @@ const Navbar = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const scrollPosition = window.scrollY + 120;
+          // If scrolled near bottom of page (CTA / Footer area), directly activate 'contact'
+          const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+          if (isAtBottom) {
+            setActiveSection('contact');
+            ticking = false;
+            return;
+          }
+
+          const scrollPosition = window.scrollY + 140;
 
           for (let i = navLinks.length - 1; i >= 0; i--) {
             const section = document.getElementById(navLinks[i].id);

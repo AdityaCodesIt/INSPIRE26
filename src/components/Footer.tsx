@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer 
-      id="contact" 
+      id="footer" 
       className="w-full text-white relative z-10 font-sans bg-[#0A2A5E] scroll-mt-[65px]"
     >
       {/* Torn Paper Deckle Edge — hangs above footer, torn fringe pointing UP */}
@@ -87,9 +87,6 @@ const Footer = () => {
                 className="h-8 sm:h-10 w-auto object-contain"
               />
             </div>
-            <p className="text-[10px] font-semibold tracking-wider text-amber-400 uppercase">
-              Vikas Viksit Bharat 2026
-            </p>
           </div>
 
           {/* Middle: Copyright & Quick Links */}
