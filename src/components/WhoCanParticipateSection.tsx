@@ -120,19 +120,23 @@ const WhoCanParticipateSection = () => {
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10 w-full flex flex-col items-center">
         
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/30 border border-white/20 text-[#0A2540] text-xs sm:text-sm font-bold tracking-widest uppercase mb-4 backdrop-blur-md">
-            <span>Eligibility</span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0A2540] tracking-tight drop-shadow-sm">
-            Who Can Participate?
-          </h2>
-        </motion.div>
+        {/* Top Left Header Section */}
+        <div className="max-w-3xl mb-12 lg:mb-16 relative z-20 self-start">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0A2540] tracking-tight drop-shadow-sm mb-2">
+              Who Can Participate?
+            </h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full mb-4" />
+            <p className="text-sm sm:text-base text-[#0A2540]/80 font-sans leading-relaxed font-medium">
+              Review our eligibility criteria below to find the right category for you and your team.
+            </p>
+          </motion.div>
+        </div>
 
         <div className="w-full max-w-5xl flex flex-col gap-8 md:gap-10 items-center">
           
@@ -141,8 +145,8 @@ const WhoCanParticipateSection = () => {
             {/* Left: Graduate Boy + Robotics BG */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox 
-                imgSrc="/images/participants/pg_character.png" 
-                bgImage="/images/participants/bg_pg.jpg"
+                imgSrc="/images/participants/pg_new_character.png" 
+                bgImage="/images/participants/pg_new_bg.png"
                 className="w-full h-[300px] md:h-[350px]"
                 info={{
                   title: 'Postgraduate (PG) Scholars',
@@ -165,11 +169,11 @@ const WhoCanParticipateSection = () => {
             {/* Right: Experimental Boy + Scientist BG */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox 
-                imgSrc="/images/participants/ppg_character.png" 
-                bgImage="/images/participants/bg_ppg.jpg"
+                imgSrc="/images/participants/ppg_new_character.png" 
+                bgImage="/images/participants/bg_new_scientist.png"
                 className="w-full h-[300px] md:h-[350px]"
-                flipImage={true}
-                imgClassName="absolute bottom-2 right-0 w-[95%] sm:w-[85%] h-auto max-h-[95%] object-contain"
+                flipImage={false}
+                imgClassName="absolute bottom-2 right-0 w-[55%] sm:w-[45%] h-auto max-h-[75%] object-contain"
                 info={{
                   title: 'Doctoral / PhD Researchers',
                   degree: 'Ph.D. & Post-Doctoral Fellows',
@@ -192,8 +196,8 @@ const WhoCanParticipateSection = () => {
           {/* BOTTOM ROW: One Slightly Bigger Box in Middle + Kiddo + College BG */}
           <div className="flex flex-col items-center w-full mt-8 md:mt-12">
             <ParticipantBox 
-              imgSrc="/images/participants/ug_character.png" 
-              bgImage="/images/participants/bg_ug.jpg"
+              imgSrc="/images/participants/ug_new_character.png" 
+              bgImage="/images/participants/ug_new_bg.png"
               className="w-full max-w-3xl h-[400px] md:h-[450px]"
               info={{
                 title: 'UG & Diploma Students',

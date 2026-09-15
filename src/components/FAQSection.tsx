@@ -79,25 +79,36 @@ const FAQSection = () => {
 
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full">
         {/* Section Header */}
-        <motion.div
-          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs sm:text-sm font-bold tracking-widest uppercase mb-3 backdrop-blur-sm">
-            <span>FREQUENTLY ASKED QUESTIONS</span>
-          </div>
+        {/* Top Left Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-10 sm:mb-14 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-xl"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans mb-2">
+              Got Questions?
+            </h2>
+            <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3" />
+            <p className="text-sm sm:text-base text-white/80 font-sans">
+              Find answers to the most commonly asked questions about VIKAS 2026.
+            </p>
+          </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
-            Got Questions? We Have Answers.
-          </h2>
-
-          <p className="font-handwriting text-2xl sm:text-3xl text-amber-300 mt-2">
-            Everything you need to know about VIKAS 2026
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="hidden md:flex flex-col items-end"
+          >
+            <span className="font-handwriting text-2xl sm:text-3xl text-amber-300 transform -rotate-2">
+              Everything you need to know.
+            </span>
+          </motion.div>
+        </div>
 
         {/* Stamp Card FAQ Container (Light Golden) */}
         <div 

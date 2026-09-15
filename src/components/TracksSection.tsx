@@ -323,32 +323,19 @@ const TracksSection = () => {
       <div className="max-w-[1360px] w-full mx-auto px-6 md:px-12 relative z-10">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-4">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-xl"
-          >
-            <h2 className="text-3xl md:text-4xl font-semibold text-white mb-2">Tracks</h2>
-            <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3" />
-            <p className="text-sm sm:text-base text-blue-100/80 font-sans">
-              Explore multidisciplinary domains that drive innovation for a Viksit Bharat. Their are in total 9 Tracks.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="hidden md:flex flex-col items-end"
-          >
-            <span className="font-handwriting text-2xl text-amber-300 transform -rotate-3 mb-0">Explore. Build.</span>
-            <span className="font-handwriting text-3xl text-orange-400 transform -rotate-2">Make an Impact.</span>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-12 md:mb-16 max-w-xl"
+        >
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-2">Tracks</h2>
+          <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3" />
+          <p className="text-sm sm:text-base text-blue-100/80 font-sans">
+            Explore multidisciplinary domains that drive innovation for a Viksit Bharat. Their are in total 9 Tracks.
+          </p>
+        </motion.div>
 
         {/* Rows of Tracks: Balanced gap so only one row of 3 tracks is in view at a time */}
         <div className="flex flex-col gap-14 sm:gap-18 md:gap-22 lg:gap-28 w-full">
@@ -373,7 +360,7 @@ const TracksSection = () => {
                     {row.sublabel}
                   </h3>
                 </div>
-                
+
               </motion.div>
 
               {/* 3 Tracks in this Row */}
