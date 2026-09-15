@@ -8,7 +8,7 @@ interface CategoryInfo {
   align?: 'left' | 'right' | 'center';
 }
 
-const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage }: { imgSrc: string, className?: string, bgImage?: string, info: CategoryInfo, flipImage?: boolean }) => {
+const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage, imgClassName, flipOnHover }: { imgSrc: string, className?: string, bgImage?: string, info: CategoryInfo, flipImage?: boolean, imgClassName?: string, flipOnHover?: boolean }) => {
   
   // Calculate text positioning and character shift
   const isLeft = info.align === 'left';
@@ -21,6 +21,10 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage }: { imgSr
     : "absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 z-30 flex flex-col items-center text-center pointer-events-none";
 
   const charShiftX = isLeft ? 50 : isRight ? -50 : 0;
+  
+  const hoverScaleX = flipImage 
+    ? (flipOnHover ? 1.15 : -1.15) 
+    : (flipOnHover ? -1.15 : 1.15);
 
   return (
     <motion.div 
@@ -59,12 +63,12 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage }: { imgSr
       <motion.img 
         initial={{ scaleX: flipImage ? -1 : 1, scaleY: 1 }}
         variants={{
-          hover: { y: -50, x: charShiftX, scaleX: flipImage ? -1.15 : 1.15, scaleY: 1.15 }
+          hover: { y: -50, x: charShiftX, scaleX: hoverScaleX, scaleY: 1.15 }
         }}
         transition={{ type: 'spring', stiffness: 100, damping: 15 }}
         src={imgSrc} 
         alt="Participant Category" 
-        className="relative z-20 w-full h-full object-contain p-8 sm:p-12 drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)] pointer-events-none" 
+        className={`relative z-20 drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)] pointer-events-none ${imgClassName || 'w-full h-full object-contain p-8 sm:p-12'}`} 
       />
 
       {/* The Info Text */}
@@ -137,8 +141,8 @@ const WhoCanParticipateSection = () => {
             {/* Left: Graduate Boy + Robotics BG */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox 
-                imgSrc="/images/participants/img2.png" 
-                bgImage="/images/participants/bg_robotics.png"
+                imgSrc="/images/participants/pg_character.png" 
+                bgImage="/images/participants/bg_pg.jpg"
                 className="w-full h-[300px] md:h-[350px]"
                 info={{
                   title: 'Postgraduate (PG) Scholars',
@@ -161,10 +165,11 @@ const WhoCanParticipateSection = () => {
             {/* Right: Experimental Boy + Scientist BG */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox 
-                imgSrc="/images/participants/img3.png" 
-                bgImage="/images/participants/bg_scientist.jpg"
+                imgSrc="/images/participants/ppg_character.png" 
+                bgImage="/images/participants/bg_ppg.jpg"
                 className="w-full h-[300px] md:h-[350px]"
                 flipImage={true}
+                imgClassName="absolute bottom-2 right-0 w-[95%] sm:w-[85%] h-auto max-h-[95%] object-contain"
                 info={{
                   title: 'Doctoral / PhD Researchers',
                   degree: 'Ph.D. & Post-Doctoral Fellows',
@@ -187,8 +192,8 @@ const WhoCanParticipateSection = () => {
           {/* BOTTOM ROW: One Slightly Bigger Box in Middle + Kiddo + College BG */}
           <div className="flex flex-col items-center w-full mt-8 md:mt-12">
             <ParticipantBox 
-              imgSrc="/images/participants/img1_new.png" 
-              bgImage="/images/participants/bg_college.jpg"
+              imgSrc="/images/participants/ug_character.png" 
+              bgImage="/images/participants/bg_ug.jpg"
               className="w-full max-w-3xl h-[400px] md:h-[450px]"
               info={{
                 title: 'UG & Diploma Students',

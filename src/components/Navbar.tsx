@@ -49,12 +49,12 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     // Target date: 3 October 2026, 9:00 AM
     const targetDate = new Date('2026-10-03T09:00:00').getTime();
-    
+
     const updateTimer = () => {
       const now = new Date().getTime();
       const difference = targetDate - now;
@@ -63,15 +63,30 @@ const Navbar = () => {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000)
         });
       }
     };
 
     updateTimer();
-    const timer = setInterval(updateTimer, 60000);
+    const timer = setInterval(updateTimer, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const DigitalCard = ({ value, label }: { value: number, label: string }) => {
+    const formattedValue = value.toString().padStart(2, '0');
+    return (
+      <div className="flex flex-col items-center mx-[2px]">
+        <span className="font-mono font-bold text-[10px] xl:text-xs text-black leading-none tracking-widest">
+          {formattedValue}
+        </span>
+        <span className="text-[5px] xl:text-[6px] font-bold tracking-[0.1em] text-black/70 mt-[1px] uppercase leading-none">
+          {label}
+        </span>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -97,7 +112,7 @@ const Navbar = () => {
             />
           </a>
 
-          {/* Center: Main Navigation (Locked to Center so navigating buttons NEVER shift) */}
+          {/* Center: Main Navigation */}
           <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-0.5 xl:space-x-1.5 items-center font-sans font-bold text-[0.66rem] xl:text-[0.74rem] tracking-wide z-10 pointer-events-auto">
             {navLinks.map((link) => (
               <a
@@ -115,8 +130,9 @@ const Navbar = () => {
           </nav>
 
           {/* Right: Counter Beside Register + Register Button */}
-          <div className="hidden lg:flex items-center space-x-2.5 xl:space-x-3 shrink-0 z-10">
-            {/* Persistent GPU-composited counter badge (No layout thrashing / DOM unmounting) */}
+          <div className="hidden lg:flex items-center space-x-3 xl:space-x-4 shrink-0 z-10">
+            
+            {/* Terminal Style Timer Panel (Inline, ultra-compact) */}
             <div 
               className={`transition-all duration-300 ease-out flex items-center ${
                 activeSection !== 'home'
@@ -124,19 +140,42 @@ const Navbar = () => {
                   : 'opacity-0 scale-95 max-w-0 pointer-events-none overflow-hidden'
               }`}
             >
-              <div className="flex items-center bg-[#FF6B00]/10 px-2.5 py-1 rounded-md border border-[#FF6B00]/30 shadow-inner whitespace-nowrap">
-                <div className="flex items-center space-x-1.5 text-xs font-mono font-bold tracking-wider">
-                  <div className="flex items-center gap-0.5">
-                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.days}</span>
-                    <span className="text-[#FF6B00]">d</span>
+              <div className="stamp-card-wrapper drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
+                {/* Custom inline mask to scale down the stamp effect for a tiny box */}
+                <div 
+                  className="stamp-card flex flex-col justify-center bg-[#F8E7BE] px-2.5 py-[5px] w-auto border border-black/5"
+                  style={{
+                    maskSize: 'calc(100% - 8px) calc(100% - 8px), 8px 8px',
+                    WebkitMaskSize: 'calc(100% - 8px) calc(100% - 8px), 8px 8px',
+                    maskImage: 'linear-gradient(black, black), radial-gradient(circle, transparent 2.5px, black 3px)',
+                    WebkitMaskImage: 'linear-gradient(black, black), radial-gradient(circle, transparent 2.5px, black 3px)'
+                  }}
+                >
+                  
+                  {/* Top Header Row */}
+                  <div className="flex justify-between items-center w-full mb-[3px] z-10 gap-2 px-[2px]">
+                    <div className="text-[5px] xl:text-[6px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
+                      [ DEADLINE ]
+                    </div>
+                    <div className="flex items-center gap-0.5">
+                      <motion.div 
+                        animate={{ opacity: [1, 0.2, 1] }} 
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="w-[3px] h-[3px] rounded-full bg-red-600 shadow-sm"
+                      />
+                      <span className="text-[5px] xl:text-[6px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-0.5">
-                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.hours}</span>
-                    <span className="text-[#FF6B00]">h</span>
-                  </div>
-                  <div className="flex items-center gap-0.5">
-                    <span className="text-white/90 bg-[#FF6B00] px-1.5 py-0.5 rounded shadow-sm">{timeLeft.minutes}</span>
-                    <span className="text-[#FF6B00]">m</span>
+
+                  {/* Bottom Countdown Row */}
+                  <div className="flex items-center justify-center z-10">
+                    <DigitalCard value={timeLeft.days} label="DAYS" />
+                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
+                    <DigitalCard value={timeLeft.hours} label="HRS" />
+                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
+                    <DigitalCard value={timeLeft.minutes} label="MIN" />
+                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
+                    <DigitalCard value={timeLeft.seconds} label="SEC" />
                   </div>
                 </div>
               </div>
@@ -155,7 +194,7 @@ const Navbar = () => {
             <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs px-3 py-1 rounded-full transition-colors shadow-sm">
               Register
             </a>
-            <button 
+            <button
               className="p-1.5 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors"
               aria-label="Toggle Navigation Menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -168,7 +207,7 @@ const Navbar = () => {
         {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div 
+            <motion.div
               className="w-full bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-5 space-y-2.5 lg:hidden border-t border-white/15"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -179,9 +218,8 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-semibold transition-colors px-6 py-1.5 rounded-full w-[80%] text-center ${
-                    activeSection === link.id ? 'bg-white text-[#0A2A5E] font-bold shadow-sm' : 'text-white/90 hover:bg-white/10 hover:text-tricolor-saffron'
-                  }`}
+                  className={`text-sm font-semibold transition-colors px-6 py-1.5 rounded-full w-[80%] text-center ${activeSection === link.id ? 'bg-white text-[#0A2A5E] font-bold shadow-sm' : 'text-white/90 hover:bg-white/10 hover:text-tricolor-saffron'
+                    }`}
                   onClick={() => {
                     setMobileMenuOpen(false);
                     setActiveSection(link.id);

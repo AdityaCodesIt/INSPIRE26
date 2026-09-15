@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -15,7 +16,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   }, [onComplete]);
 
   // Letter animation variants
-  const letterVariants = {
+  const letterVariants: Variants = {
     hidden: { opacity: 0, y: 20, scale: 0.9 },
     visible: (i: number) => ({
       opacity: 1,
@@ -23,7 +24,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       scale: 1,
       transition: {
         delay: i * 0.15 + 0.3,
-        type: 'spring',
+        type: "spring",
         stiffness: 200,
         damping: 15,
       },
