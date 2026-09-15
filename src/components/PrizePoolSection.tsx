@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useSpring, useMotionValue, useInView, useTransform } from 'framer-motion';
-import { Star, Trophy, FileText } from 'lucide-react';
+import { Star, Trophy, FileText, Award } from 'lucide-react';
 
 interface AwardItem {
   title: string;
@@ -44,11 +44,11 @@ const awardsList: AwardItem[] = [
 
 const FrameCard = ({
   award,
-  className,
+  className = '',
   rotation = 0,
 }: {
   award: AwardItem,
-  className: string,
+  className?: string,
   rotation?: number,
 }) => {
   return (
@@ -57,23 +57,20 @@ const FrameCard = ({
       initial={{ rotate: rotation }}
       animate={{ rotate: rotation }}
       whileHover={{
-        scale: 1.07,
-        rotate: 0,
         zIndex: 50,
-        transition: { type: 'spring', stiffness: 350, damping: 20 }
       }}
-      transition={{ type: 'spring', stiffness: 280, damping: 22 }}
     >
-      <div className="stamp-card p-3 sm:p-4 bg-[#F5F0E6] shadow-[0_16px_36px_rgba(0,0,0,0.55)] transition-all duration-300 group-hover:bg-[#E8D08B] group-hover:shadow-[0_24px_50px_rgba(0,0,0,0.8)] w-full h-full border border-[#D4C5A9]/50">
+      {/* Stamp Frame - Stays static in position, rotation, and color */}
+      <div className="stamp-card p-3 sm:p-4 bg-[#F5F0E6] shadow-[0_16px_36px_rgba(0,0,0,0.55)] w-full h-full border border-[#D4C5A9]/50">
+
+        {/* Inner Content Container */}
         <div className="relative w-full h-full bg-white overflow-hidden rounded-sm border border-black/10">
 
-          <div className="absolute inset-0 bg-[#F5F0E6] mix-blend-color z-20 transition-opacity duration-500 group-hover:opacity-0" />
-          <div className="absolute inset-0 bg-[#F5F0E6]/80 backdrop-blur-[1px] z-20 transition-opacity duration-500 flex items-center justify-center group-hover:opacity-0">
-            <span className="text-[#0b4553]/70 font-bold tracking-widest uppercase text-xs sm:text-sm drop-shadow-sm text-center px-4">
-              Hover to Reveal
-            </span>
-          </div>
+          {/* Hover Reveal Veil on Inner Content Only (Text removed) */}
+          <div className="absolute inset-0 bg-[#F5F0E6] mix-blend-color z-20 transition-opacity duration-500 group-hover:opacity-0 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#F5F0E6]/85 backdrop-blur-[2px] z-20 transition-opacity duration-500 group-hover:opacity-0 pointer-events-none" />
 
+          {/* Revealed Content */}
           <div className="relative z-10 p-4 sm:p-6 flex flex-col h-full bg-[#FCF9F2]">
             <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 shrink-0 bg-white shadow-sm" style={{ borderColor: award.color }}>
@@ -103,6 +100,13 @@ const PrizePoolSection = () => {
   const targetAngle = useMotionValue(70);
   const [isDragging, setIsDragging] = useState(false);
   const hasSwung = useRef(false);
+
+  // Clean up any temporary customization data
+  useEffect(() => {
+    try {
+      localStorage.removeItem('prize_pool_cards_config');
+    } catch { }
+  }, []);
 
   // Pendulum spring physics — tuned damping and mass for rich, sustained multi-cycle oscillation
   const springConfig = { damping: 2, stiffness: 35, mass: 2.5 };
@@ -173,7 +177,7 @@ const PrizePoolSection = () => {
     <section
       ref={sectionRef}
       id="awards"
-      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-rose-950/40 text-white scroll-mt-[65px] w-full max-w-full min-h-[90vh] flex flex-col justify-center"
+      className="pt-16 md:pt-24 pb-2 md:pb-4 relative overflow-hidden bg-cover bg-center border-t border-b border-rose-950/40 text-white scroll-mt-[65px] w-full max-w-full flex flex-col"
       style={{
         backgroundImage: "url('/backgrounds/bg-maroon.jpg')",
         backgroundAttachment: 'fixed',
@@ -190,17 +194,17 @@ const PrizePoolSection = () => {
           <div ref={pivotRef} className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 pointer-events-none" />
 
           {/* Static Loose Wire (Does NOT participate in lamp oscillation) */}
-          <svg 
-            className="absolute top-0 right-1/2 w-36 sm:w-44 md:w-52 lg:w-56 h-18 sm:h-22 md:h-25 lg:h-26 pointer-events-none z-20 overflow-visible" 
-            viewBox="0 0 240 100" 
+          <svg
+            className="absolute top-0 right-1/2 w-36 sm:w-44 md:w-52 lg:w-56 h-18 sm:h-22 md:h-25 lg:h-26 pointer-events-none z-20 overflow-visible"
+            viewBox="0 0 240 100"
             fill="none"
           >
-            <path 
-              d="M 0 0 C 65 110, 175 110, 240 0" 
-              stroke="#1A2530" 
-              strokeWidth="3.5" 
-              strokeLinecap="round" 
-              fill="none" 
+            <path
+              d="M 0 0 C 65 110, 175 110, 240 0"
+              stroke="#1A2530"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
             />
           </svg>
 
@@ -239,7 +243,7 @@ const PrizePoolSection = () => {
               <div className="w-8 h-4 md:w-12 md:h-6 bg-[#FFEB3B] rounded-b-full shadow-[0_6px_25px_rgba(255,235,59,0.7),0_0_50px_rgba(255,235,59,0.4)] relative z-20 -mt-1" />
 
               {/* Single Clean Light Beam - exactly 13° angle from the lamp edge as per reference */}
-              <svg 
+              <svg
                 className="absolute top-14 md:top-16 left-1/2 -translate-x-1/2 w-[760px] sm:w-[860px] md:w-[980px] h-[750px] md:h-[800px] pointer-events-none mix-blend-screen origin-top z-0 overflow-visible"
                 viewBox="0 0 980 800"
                 preserveAspectRatio="none"
@@ -262,14 +266,14 @@ const PrizePoolSection = () => {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-12 md:gap-0 min-h-[820px] md:h-[720px]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-12 md:gap-0 min-h-[820px] md:h-[720px] md:-mb-20">
 
         {/* LEFT HALF - Prize Pool Typography */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative h-full">
 
           {/* Prize Pool Title Typography - Dynamic Spotlight Reveal */}
           <div className="relative z-10 max-w-[340px] md:max-w-[420px] text-center flex flex-col items-center mt-[240px] md:mt-0 md:translate-y-8 md:translate-x-2 select-none">
-            
+
             {/* Layer 1: Ambient Base Text - Dim subtle silhouette on dark wall when in shadow */}
             <div className="text-center flex flex-col items-center w-full opacity-10 pointer-events-none">
               <h2 className="text-[4rem] sm:text-[5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] tracking-tighter leading-none mb-2 flex items-center justify-center">
@@ -305,29 +309,40 @@ const PrizePoolSection = () => {
           </div>
         </div>
 
-        {/* RIGHT HALF - Thrown Stamp Cards Shifted to Extreme Right */}
-        <div className="w-full md:w-1/2 relative h-[520px] md:h-full flex items-center justify-end overflow-visible">
-          <div className="relative w-full h-full max-w-[480px] sm:max-w-[520px] md:max-w-[560px] mr-0 md:-mr-4 lg:-mr-8">
-            {/* Stamp 1: Winner / 1st Position - Top Extreme Right, thrown with tilt */}
-            <FrameCard
-              award={awardsList[0]}
-              rotation={-7}
-              className="top-[4%] right-[3%] sm:right-[5%] md:right-[2%] w-[88%] sm:w-[320px] md:w-[340px] h-[210px] sm:h-[220px] z-20"
-            />
+        {/* RIGHT HALF - Stamp Cards Fixed at Exact User Coordinates */}
+        <div className="w-full md:w-1/2 md:static relative min-h-[660px] md:min-h-0 flex flex-col items-center gap-6 mt-12 md:mt-0 overflow-visible pointer-events-none">
+          {/* Stamp 1: Winner / 1st Position */}
+          <FrameCard
+            award={awardsList[0]}
+            rotation={-1.5}
+            className="relative md:absolute md:top-[7.9%] md:left-[57%] w-[88%] sm:w-[340px] md:w-[380px] h-[240px] sm:h-[260px] md:h-[280px] z-10 pointer-events-auto"
+          />
 
-            {/* Stamp 2: Runner Up / 2nd Position - Middle Extreme Right, thrown with opposite tilt & overlapping */}
-            <FrameCard
-              award={awardsList[1]}
-              rotation={9}
-              className="top-[34%] sm:top-[33%] right-[1%] sm:right-[2%] md:right-[-2%] w-[90%] sm:w-[335px] md:w-[355px] h-[230px] sm:h-[240px] z-30"
-            />
+          {/* Stamp 2: Runner Up / 2nd Position */}
+          <FrameCard
+            award={awardsList[1]}
+            rotation={-3.5}
+            className="relative md:absolute md:top-[40%] md:left-[43.8%] w-[86%] sm:w-[320px] md:w-[350px] h-[220px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
+          />
 
-            {/* Stamp 3: Consolation Award - Bottom Extreme Right, thrown with tilt */}
-            <FrameCard
-              award={awardsList[2]}
-              rotation={-12}
-              className="bottom-[4%] right-[5%] sm:right-[8%] md:right-[4%] w-[84%] sm:w-[295px] md:w-[315px] h-[195px] sm:h-[205px] z-10"
-            />
+          {/* Stamp 3: Consolation Award */}
+          <FrameCard
+            award={awardsList[2]}
+            rotation={1.5}
+            className="relative md:absolute md:top-[40.9%] md:left-[79.2%] w-[86%] sm:w-[320px] md:w-[350px] h-[220px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
+          />
+
+          {/* Category Awards Notice - Positioned directly below Card 2 & Card 3 */}
+          <div className="relative md:absolute md:top-[77.5%] md:left-[72%] md:-translate-x-1/2 w-full max-w-[92%] sm:max-w-[480px] md:max-w-[540px] pointer-events-auto z-20 mt-4 md:mt-0">
+            <div className="flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-full bg-[#200007]/80 border border-[#F9E7B7]/30 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_15px_rgba(249,231,183,0.1)] text-center">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] shrink-0" />
+              <p className="text-xs sm:text-sm text-[#F9E7B7] font-medium tracking-wide">
+                Awards in each of the three categories:{' '}
+                <span className="text-white font-bold">UG &amp; Diploma</span>,{' '}
+                <span className="text-white font-bold">PG</span>, and{' '}
+                <span className="text-white font-bold">PPG or PhD</span>
+              </p>
+            </div>
           </div>
         </div>
 
