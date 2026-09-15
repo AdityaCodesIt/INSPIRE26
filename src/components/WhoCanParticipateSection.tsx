@@ -133,50 +133,80 @@ const WhoCanParticipateSection = () => {
         <div className="w-full max-w-5xl flex flex-col gap-8 md:gap-10 items-center">
           
           {/* TOP ROW: Two Small Boxes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 w-full max-w-5xl">
             {/* Left: Graduate Boy + Robotics BG */}
-            <ParticipantBox 
-              imgSrc="/images/participants/img2.png" 
-              bgImage="/images/participants/bg_robotics.png"
-              className="h-[300px] md:h-[350px]"
-              info={{
-                title: 'Postgraduate (PG) Scholars',
-                degree: 'M.E. / M.Tech / M.S. / MCA',
-                teamSize: 'Individual Submission',
-                description: 'A platform for master’s students presenting advanced research papers, rigorous experimental studies, and algorithm implementations.',
-                align: 'left'
-              }}
-            />
+            <div className="flex flex-col items-center w-full">
+              <ParticipantBox 
+                imgSrc="/images/participants/img2.png" 
+                bgImage="/images/participants/bg_robotics.png"
+                className="w-full h-[300px] md:h-[350px]"
+                info={{
+                  title: 'Postgraduate (PG) Scholars',
+                  degree: 'M.E. / M.Tech / M.S. / MCA',
+                  teamSize: 'Individual Submission',
+                  description: 'A platform for master’s students presenting advanced research papers, rigorous experimental studies, and algorithm implementations.',
+                  align: 'left'
+                }}
+              />
+              <motion.h3 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-6 text-2xl sm:text-3xl font-black text-[#0A2540] drop-shadow-md tracking-wider uppercase bg-white/40 px-6 py-2 rounded-xl border border-white/50 backdrop-blur-sm"
+              >
+                PG
+              </motion.h3>
+            </div>
             
             {/* Right: Experimental Boy + Scientist BG */}
-            <ParticipantBox 
-              imgSrc="/images/participants/img3.png" 
-              bgImage="/images/participants/bg_scientist.jpg"
-              className="h-[300px] md:h-[350px]"
-              flipImage={true}
-              info={{
-                title: 'Doctoral / PhD Researchers',
-                degree: 'Ph.D. & Post-Doctoral Fellows',
-                teamSize: 'Individual Submission',
-                description: 'Academic stage for doctoral scholars presenting pioneering deep-tech models, novel frameworks, and patented ideas.',
-                align: 'right'
-              }}
-            />
+            <div className="flex flex-col items-center w-full">
+              <ParticipantBox 
+                imgSrc="/images/participants/img3.png" 
+                bgImage="/images/participants/bg_scientist.jpg"
+                className="w-full h-[300px] md:h-[350px]"
+                flipImage={true}
+                info={{
+                  title: 'Doctoral / PhD Researchers',
+                  degree: 'Ph.D. & Post-Doctoral Fellows',
+                  teamSize: 'Individual Submission',
+                  description: 'Academic stage for doctoral scholars presenting pioneering deep-tech models, novel frameworks, and patented ideas.',
+                  align: 'right'
+                }}
+              />
+              <motion.h3 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-6 text-2xl sm:text-3xl font-black text-[#0A2540] drop-shadow-md tracking-wider uppercase bg-white/40 px-6 py-2 rounded-xl border border-white/50 backdrop-blur-sm"
+              >
+                PPG
+              </motion.h3>
+            </div>
           </div>
 
           {/* BOTTOM ROW: One Slightly Bigger Box in Middle + Kiddo + College BG */}
-          <ParticipantBox 
-            imgSrc="/images/participants/img1_new.png" 
-            bgImage="/images/participants/bg_college.jpg"
-            className="w-full max-w-3xl h-[400px] md:h-[450px]"
-            info={{
-              title: 'UG & Diploma Students',
-              degree: 'B.E. / B.Tech / Diploma (All Years)',
-              teamSize: '2 to 4 Members',
-              description: 'Designed for enthusiastic undergraduate and diploma students working on innovative concepts, working prototypes, and technical solutions to real-world challenges.',
-              align: 'left'
-            }}
-          />
+          <div className="flex flex-col items-center w-full mt-8 md:mt-12">
+            <ParticipantBox 
+              imgSrc="/images/participants/img1_new.png" 
+              bgImage="/images/participants/bg_college.jpg"
+              className="w-full max-w-3xl h-[400px] md:h-[450px]"
+              info={{
+                title: 'UG & Diploma Students',
+                degree: 'B.E. / B.Tech / Diploma (All Years)',
+                teamSize: '2 to 4 Members',
+                description: 'Designed for enthusiastic undergraduate and diploma students working on innovative concepts, working prototypes, and technical solutions to real-world challenges.',
+                align: 'left'
+              }}
+            />
+            <motion.h3 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-6 text-3xl sm:text-4xl font-black text-[#0A2540] drop-shadow-md tracking-wider uppercase bg-white/40 px-8 py-2 rounded-xl border border-white/50 backdrop-blur-sm"
+            >
+              UG / Diploma
+            </motion.h3>
+          </div>
           
         </div>
 
