@@ -33,10 +33,10 @@ function App() {
           <TimelineSection />
           <PrizePoolSection />
           <FAQSection />
-          <CTASection />
+          <Footer>
+            <CTASection />
+          </Footer>
         </main>
-
-        <Footer />
       </div>
     </>
   );

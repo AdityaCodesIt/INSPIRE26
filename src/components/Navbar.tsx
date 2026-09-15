@@ -76,7 +76,7 @@ const Navbar = () => {
   return (
     <>
       <motion.header
-        className="w-full max-w-full sticky top-0 z-50 bg-[#0A2A5E] text-white py-1.5 sm:py-2 transition-all duration-300"
+        className="w-full max-w-full sticky top-0 z-[70] bg-[#0A2A5E] text-white py-1.5 sm:py-2 transition-all duration-300"
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
