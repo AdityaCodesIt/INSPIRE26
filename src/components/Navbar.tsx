@@ -125,10 +125,16 @@ const Navbar = () => {
     e.preventDefault();
     setMobileMenuOpen(false);
     setActiveSection(id);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+
+    // Wait slightly for the mobile menu to unmount before scrolling, 
+    // to prevent the browser from interrupting the scroll event.
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        const y = target.getBoundingClientRect().top + window.scrollY - 55;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 150);
   };
 
   return (

@@ -266,7 +266,7 @@ const PrizePoolSection = () => {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-8 md:gap-0 min-h-0 md:h-[720px] md:-mb-20">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-8 md:gap-0 min-h-0 md:h-[600px] lg:h-[720px] md:-mb-16 lg:-mb-20">
 
         {/* LEFT HALF - Prize Pool Typography */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative h-full">

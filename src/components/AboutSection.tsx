@@ -94,7 +94,7 @@ const AboutSection = () => {
               {/* ------------------------------------------------------------------- */}
               {/* COLUMN 1: Colloquium Intro & VIKAS Acronym Breakdown (~41% width)    */}
               {/* ------------------------------------------------------------------- */}
-              <div className="w-full lg:w-[41%] p-6 sm:p-8 md:p-10 xl:p-12 flex flex-col justify-start">
+              <div className="w-full lg:w-[41%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-start">
                 <div>
                   {/* Title - Enlarged & Top-Aligned */}
                   <h3 className="font-sans font-extrabold text-[#0A2540] text-xl sm:text-2xl md:text-[1.65rem] lg:text-[1.82rem] leading-tight tracking-tight">
@@ -121,50 +121,50 @@ const AboutSection = () => {
                   <div className="grid grid-cols-5 divide-x divide-[#0A2540]/20 text-center items-start">
                     {/* V */}
                     <div className="px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-3xl sm:text-4xl md:text-[2.6rem] lg:text-[3rem] text-[#0A2540] leading-none mb-3 sm:mb-3.5 md:mb-4 select-none">
+                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         V
                       </span>
-                      <span className="font-sans text-[0.62rem] sm:text-[0.7rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
                         Viksit Bharat<br />@2047
                       </span>
                     </div>
 
                     {/* I */}
                     <div className="px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-3xl sm:text-4xl md:text-[2.6rem] lg:text-[3rem] text-[#0A2540] leading-none mb-3 sm:mb-3.5 md:mb-4 select-none">
+                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         I
                       </span>
-                      <span className="font-sans text-[0.62rem] sm:text-[0.7rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
                         Innovation
                       </span>
                     </div>
 
                     {/* K */}
                     <div className="px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-3xl sm:text-4xl md:text-[2.6rem] lg:text-[3rem] text-[#0A2540] leading-none mb-3 sm:mb-3.5 md:mb-4 select-none">
+                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         K
                       </span>
-                      <span className="font-sans text-[0.62rem] sm:text-[0.7rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
                         Knowledge
                       </span>
                     </div>
 
                     {/* A */}
                     <div className="px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-3xl sm:text-4xl md:text-[2.6rem] lg:text-[3rem] text-[#0A2540] leading-none mb-3 sm:mb-3.5 md:mb-4 select-none">
+                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         A
                       </span>
-                      <span className="font-sans text-[0.62rem] sm:text-[0.7rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
                         Advancement
                       </span>
                     </div>
 
                     {/* S */}
                     <div className="px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-3xl sm:text-4xl md:text-[2.6rem] lg:text-[3rem] text-[#0A2540] leading-none mb-3 sm:mb-3.5 md:mb-4 select-none">
+                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         S
                       </span>
-                      <span className="font-sans text-[0.62rem] sm:text-[0.7rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
                         Sustainability
                       </span>
                     </div>
@@ -179,7 +179,7 @@ const AboutSection = () => {
               {/* ------------------------------------------------------------------- */}
               {/* COLUMN 2: 4 Pillars (What to Present, Focus, Aspects, Vision) (~37%) */}
               {/* ------------------------------------------------------------------- */}
-              <div className="w-full lg:w-[37%] p-6 sm:p-8 md:p-10 xl:p-12 flex flex-col justify-between space-y-4.5 sm:space-y-5.5">
+              <div className="w-full lg:w-[37%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-between space-y-4.5 sm:space-y-5.5">
 
                 {/* 1. What to Present */}
                 <div className="flex items-start gap-3.5 sm:gap-4">
@@ -264,7 +264,7 @@ const AboutSection = () => {
               {/* ------------------------------------------------------------------- */}
               {/* COLUMN 3: Ticket Stub Details & QR Code (~22% width)                 */}
               {/* ------------------------------------------------------------------- */}
-              <div className="w-full lg:w-[22%] p-6 sm:p-8 md:p-10 xl:p-12 flex flex-col justify-between space-y-4">
+              <div className="w-full lg:w-[22%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-between space-y-4 relative overflow-hidden">
 
                 {/* Meta Information Fields */}
                 <div className="space-y-4">

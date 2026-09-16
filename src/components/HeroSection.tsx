@@ -62,7 +62,7 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Layer 3: Foreground Hero Content */}
-      <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6 pb-20 sm:pb-24 md:pb-28 lg:pb-32 flex-1 flex items-center justify-center">
+      <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6 pb-16 sm:pb-20 md:pb-24 lg:pb-16 xl:pb-20 2xl:pb-28 flex-1 flex items-center justify-center">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-14 w-full">
 
           {/* Left Content */}
@@ -81,12 +81,12 @@ const HeroSection = () => {
               <img
                 src="/vikas-logo-transparent.png"
                 alt="VIKAS"
-                className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-[8.5rem] 2xl:h-[10rem] object-contain drop-shadow-md"
+                className="h-16 sm:h-20 md:h-24 lg:h-24 xl:h-[7.5rem] 2xl:h-[9rem] object-contain drop-shadow-md"
               />
               <motion.img 
                 src="/2026-badge.png" 
                 alt="2026" 
-                className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 object-contain drop-shadow-md mb-1 sm:mb-2 md:mb-4"
+                className="h-10 sm:h-12 md:h-14 lg:h-14 xl:h-[4.5rem] 2xl:h-[5.5rem] object-contain drop-shadow-md mb-1 sm:mb-2 md:mb-4"
                 initial={{ y: -5 }}
                 animate={{ y: [-5, 0, -5] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
