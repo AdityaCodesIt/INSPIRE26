@@ -120,51 +120,51 @@ const AboutSection = () => {
                   {/* 5-Column Acronym Row with prominent letters */}
                   <div className="grid grid-cols-5 divide-x divide-[#0A2540]/20 text-center items-start">
                     {/* V */}
-                    <div className="px-1 flex flex-col items-center">
+                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
                       <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         V
                       </span>
-                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight">
+                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal">
                         Viksit Bharat<br />@2047
                       </span>
                     </div>
 
                     {/* I */}
-                    <div className="px-1 flex flex-col items-center">
+                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
                       <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         I
                       </span>
-                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
+                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
                         Innovation
                       </span>
                     </div>
 
                     {/* K */}
-                    <div className="px-1 flex flex-col items-center">
+                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
                       <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         K
                       </span>
-                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
+                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
                         Knowledge
                       </span>
                     </div>
 
                     {/* A */}
-                    <div className="px-1 flex flex-col items-center">
+                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
                       <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         A
                       </span>
-                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
+                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
                         Advancement
                       </span>
                     </div>
 
                     {/* S */}
-                    <div className="px-1 flex flex-col items-center">
+                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
                       <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
                         S
                       </span>
-                      <span className="font-sans text-[0.55rem] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight break-words text-center w-full">
+                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
                         Sustainability
                       </span>
                     </div>
