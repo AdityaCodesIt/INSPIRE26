@@ -147,6 +147,15 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
   const [progress, setProgress] = useState(0);
   const stepRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number>(145);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const h = contentRef.current.scrollHeight;
+      if (h > 0) setContentHeight(h);
+    }
+  }, [children, mounted]);
 
   const pixelGrid = useMemo(() => computePixelGrid(position), [position]);
 
@@ -182,7 +191,10 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
         if (stepRef.current > 0) {
           timerRef.current = setTimeout(tick, PX_STEP_MS);
         } else {
-          setMounted(false);
+          // Allow full 140ms for the final white trails at the coin to finish fading out
+          timerRef.current = setTimeout(() => {
+            setMounted(false);
+          }, 140);
         }
       };
       timerRef.current = setTimeout(tick, 0);
@@ -193,19 +205,102 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
 
   if (!mounted) return null;
 
+  // Mobile / inline accordion drawer mode:
+  // Height is perfectly synchronized with progress and contentHeight, so white trails wave in full view
+  // When fully open, overflow is visible to allow the full 36px blue drop shadow and arrow to render cleanly
+  if (position === 'inline') {
+    const inlineClip = getClipPath('inline', progress);
+    const isFullyOpen = progress >= 1 && isVisible;
+    const computedHeight = isFullyOpen ? 'auto' : `${Math.round(progress * contentHeight)}px`;
+    const computedMargin = `${Math.round(progress * 10)}px`;
+
+    return (
+      <div
+        className={`relative w-full z-30 pointer-events-auto select-none px-3 -mx-3 pb-3 -mb-3 ${
+          isFullyOpen ? 'overflow-visible' : 'overflow-hidden'
+        }`}
+        style={{
+          height: computedHeight,
+          marginTop: computedMargin,
+        }}
+      >
+        <div ref={contentRef} className="relative w-full pt-2">
+          {/* Drawer Arrow pointing to circle – unclipped, with drop shadow pointing to coin */}
+          <div
+            className="absolute -top-1.5 left-6 w-0 h-0 border-x-[7px] border-x-transparent border-b-[8px] border-b-[#102C82] drop-shadow-sm z-20 pointer-events-none"
+            style={{
+              opacity: progress > 0.2 ? 1 : 0,
+              transition: 'opacity 150ms ease-out',
+            }}
+          />
+
+          {/* Dark Royal Blue Card container:
+              Deep, regal royal blue gradient with vibrant blue highlight */}
+          <div
+            className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#0B1D51] via-[#102C82] to-[#0A1845] text-white border border-[#4169E1]/35 shadow-[0_16px_36px_rgba(10,25,78,0.5),0_0_20px_rgba(65,105,225,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] backdrop-blur-xl transition-shadow duration-300"
+            style={{
+              clipPath: inlineClip,
+              WebkitClipPath: inlineClip,
+            }}
+          >
+            {/* Actual milestone data */}
+            <div className="relative z-0">
+              {children}
+            </div>
+          </div>
+
+          {/* White and Shaded Pixel Frontier:
+              Starts appearing at the circle with bright white and shades of white pixels
+              that lead the reveal and dissolve into the card data */}
+          <div
+            className="absolute inset-0 z-20 pointer-events-none rounded-xl overflow-hidden"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${PX_COLS}, 1fr)`,
+              gridTemplateRows: `repeat(${PX_ROWS}, 1fr)`,
+              padding: '2px',
+              gap: '1px',
+            }}
+          >
+            {pixelGrid.map((pixel, i) => {
+              const threshold = pixel.distRatio + pixel.noise;
+              const isWhiteActive =
+                progress > 0.02 &&
+                progress < 0.98 &&
+                progress >= threshold - 0.12 &&
+                progress < threshold + 0.18;
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    backgroundColor: isWhiteActive ? pixel.shade : 'transparent',
+                    opacity: isWhiteActive ? 1 : 0,
+                    transform: isWhiteActive ? 'scale(0.96)' : 'scale(0.7)',
+                    boxShadow: isWhiteActive
+                      ? '0 0 10px rgba(255, 255, 255, 0.95), inset 0 0 4px rgba(255, 255, 255, 0.8)'
+                      : 'none',
+                    borderRadius: '2px',
+                    transition: isWhiteActive
+                      ? 'opacity 50ms ease-out, transform 50ms ease-out'
+                      : 'opacity 140ms ease-out, transform 140ms ease-out',
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   let posClass = '';
   let drawerSlideInitial = { opacity: 0, x: 0, y: 0 };
   let drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
   let bridgeClass = '';
   let arrowClass = '';
 
-  if (position === 'inline') {
-    posClass = 'relative w-full';
-    drawerSlideInitial = { opacity: 0, x: 0, y: -12 };
-    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
-    bridgeClass = '';
-    arrowClass = 'absolute -top-2 left-6 w-0 h-0 border-x-[7px] border-x-transparent border-b-[8px] border-b-[#102C82] drop-shadow-sm z-20 pointer-events-none';
-  } else if (position === 'right') {
+  if (position === 'right') {
     posClass = 'left-[calc(100%+16px)] top-1/2 -translate-y-1/2';
     drawerSlideInitial = { opacity: 0, x: -28, y: 0 };
     drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
@@ -235,19 +330,9 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
   const currentClip = getClipPath(position, progress);
 
   return (
-    <div
-      className={
-        position === 'inline'
-          ? 'relative w-full z-30 pointer-events-auto select-none mt-2.5'
-          : `absolute ${posClass} z-50 pointer-events-auto select-none`
-      }
-    >
+    <div className={`absolute ${posClass} z-50 pointer-events-auto select-none`}>
       <motion.div
-        className={
-          position === 'inline'
-            ? 'relative w-full'
-            : `relative w-72 sm:w-80 ${bridgeClass}`
-        }
+        className={`relative w-72 sm:w-80 ${bridgeClass}`}
         initial={drawerSlideInitial}
         animate={drawerSlideAnimate}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -751,7 +836,7 @@ const TimelineSection = () => {
         </div>
 
         {/* MOBILE & TABLET LAYOUT (< 1024px) */}
-        <div className="lg:hidden flex flex-col gap-8 sm:gap-10 my-6 relative">
+        <div className="lg:hidden flex flex-col gap-7 sm:gap-9 my-6 relative">
           {/* Vertical Connecting Dashed Line - Perfectly centered through nodes */}
           <div className="absolute left-[27px] sm:left-[31px] top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#0A2A5E]/35 z-0" />
 
@@ -762,16 +847,13 @@ const TimelineSection = () => {
             return (
               <div
                 key={stage.id}
-                className="flex items-start gap-3.5 sm:gap-6 relative z-10 cursor-pointer group"
+                className="flex items-start gap-3.5 sm:gap-6 relative z-10 cursor-pointer group select-none py-1"
                 onClick={() => setHoveredStageId(hoveredStageId === stage.id ? null : stage.id)}
-                onMouseEnter={() => {
-                  if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-                    setHoveredStageId(stage.id);
-                  }
-                }}
               >
-                {/* Coin Node */}
+                {/* Coin Node with generous touch target padding */}
                 <div className="relative shrink-0">
+                  {/* Invisible Tap target padding for mobile - allows clicking circle or surrounding padding */}
+                  <div className="absolute -inset-3 sm:-inset-4 z-20 cursor-pointer" />
                   {/* Stage 1 Lighting Aura (matches desktop) */}
                   {lighted && stage.id === 1 && (
                     <>
@@ -868,7 +950,7 @@ const TimelineSection = () => {
 
                   {/* Pixel Reveal Drawer Card (Exact same pixel dissolve as desktop!) */}
                   <PixelRevealCard isVisible={hoveredStageId === stage.id} position="inline">
-                    <div className="p-4 text-left">
+                    <div className="p-4 text-left" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center justify-between mb-1.5">
                         <span
                           className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${
