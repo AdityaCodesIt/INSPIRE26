@@ -141,8 +141,8 @@ const WhoCanParticipateSection = () => {
             <div className="w-16 sm:w-20 h-1 sm:h-1.5 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full mb-3" />
             <p className="text-xs sm:text-base text-[#0A2540]/80 font-sans leading-relaxed font-medium">
               Review our eligibility criteria below to find the right category for you and your team.{' '}
-              <span className="md:hidden">Tap on any card to view details.</span>
-              <span className="hidden md:inline">Hover on card to see more detail.</span>
+              <span className="md:hidden font-bold text-[#0A2540]">Tap on any card to view details.</span>
+              <span className="hidden md:inline font-bold text-[#0A2540]">Hover on card to see more detail.</span>
             </p>
           </motion.div>
         </div>
