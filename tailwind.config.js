@@ -20,12 +20,14 @@ export default {
         'stamp-border': '#C8B89A',
       },
       fontFamily: {
-        sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Playfair Display"', 'serif'],
+        sans: ['"Poppins"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
         handwriting: ['"Dancing Script"', 'cursive'],
         cinzel: ['"Cinzel"', 'serif'],
         outfit: ['"Outfit"', 'sans-serif'],
         syne: ['"Syne"', 'sans-serif'],
+        montserrat: ['"Montserrat"', 'sans-serif'],
       },
       boxShadow: {
         'stamp': '2px 2px 6px rgba(0,0,0,0.15)',

@@ -173,7 +173,7 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Center Timer */}
-          <div className="absolute left-[52%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-none">
+          <div className="absolute left-[49%] sm:left-[50%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-none">
             <div 
               className={`transition-all duration-300 ease-out flex items-center pointer-events-auto ${
                 activeSection !== 'home'

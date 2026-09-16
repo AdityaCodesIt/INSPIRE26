@@ -67,7 +67,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="relative z-10 mt-6 md:mt-10 text-teal-800 tracking-[0.3em] md:tracking-[0.5em] text-xs md:text-lg uppercase font-bold drop-shadow-sm"
+            className="relative z-10 mt-6 md:mt-10 text-teal-800 tracking-[0.3em] md:tracking-[0.5em] text-xs md:text-lg uppercase font-bold drop-shadow-sm font-sans"
           >
             A Research & Idea Colloquium
           </motion.div>
