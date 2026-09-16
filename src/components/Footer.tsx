@@ -226,8 +226,8 @@ const Footer = ({ children }: FooterProps) => {
                     instagram: '#',
                   };
                   return (
-                    <div className="flex justify-center mb-4 sm:mb-0">
-                      <div className="w-full max-w-[210px] sm:max-w-none flex flex-col items-center">
+                    <div className="flex justify-center mb-4 sm:hidden">
+                      <div className="w-full max-w-[280px] flex flex-col items-center">
                         <img
                           src={member.src}
                           alt={member.name}
