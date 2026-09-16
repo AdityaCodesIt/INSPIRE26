@@ -88,6 +88,39 @@ const Navbar = () => {
     );
   };
 
+  const TimerPanel = () => (
+    <div className="stamp-card-wrapper drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
+      <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-1.5 sm:px-2.5 py-[3px] sm:py-[5px] w-auto border border-black/5 transform scale-90 sm:scale-100 origin-right">
+        
+        {/* Top Header Row */}
+        <div className="flex justify-between items-center w-full mb-[2px] sm:mb-[3px] z-10 gap-1 sm:gap-2 px-[1px] sm:px-[2px]">
+          <div className="text-[4px] sm:text-[5px] xl:text-[6px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px hidden sm:block">
+            [ DEADLINE ]
+          </div>
+          <div className="flex items-center gap-0.5 ml-auto">
+            <motion.div 
+              animate={{ opacity: [1, 0.2, 1] }} 
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-[3px] h-[3px] rounded-full bg-red-600 shadow-sm"
+            />
+            <span className="text-[4px] sm:text-[5px] xl:text-[6px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
+          </div>
+        </div>
+
+        {/* Bottom Countdown Row */}
+        <div className="flex items-center justify-center z-10">
+          <DigitalCard value={timeLeft.days} label="DAYS" />
+          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
+          <DigitalCard value={timeLeft.hours} label="HRS" />
+          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
+          <DigitalCard value={timeLeft.minutes} label="MIN" />
+          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
+          <DigitalCard value={timeLeft.seconds} label="SEC" />
+        </div>
+      </div>
+    </div>
+  );
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
@@ -139,6 +172,19 @@ const Navbar = () => {
             ))}
           </nav>
 
+          {/* Mobile Center Timer */}
+          <div className="absolute left-[52%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-none">
+            <div 
+              className={`transition-all duration-300 ease-out flex items-center pointer-events-auto ${
+                activeSection !== 'home'
+                  ? 'opacity-100 scale-100'
+                  : 'opacity-0 scale-95'
+              }`}
+            >
+              <TimerPanel />
+            </div>
+          </div>
+
           {/* Right: Counter Beside Register + Register Button */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4 shrink-0 z-10">
             
@@ -150,53 +196,23 @@ const Navbar = () => {
                   : 'opacity-0 scale-95 max-w-0 pointer-events-none overflow-hidden'
               }`}
             >
-              <div className="stamp-card-wrapper drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
-                {/* Custom stamp effect for a tiny box */}
-                <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-2.5 py-[5px] w-auto border border-black/5">
-                  
-                  {/* Top Header Row */}
-                  <div className="flex justify-between items-center w-full mb-[3px] z-10 gap-2 px-[2px]">
-                    <div className="text-[5px] xl:text-[6px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
-                      [ DEADLINE ]
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                      <motion.div 
-                        animate={{ opacity: [1, 0.2, 1] }} 
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-[3px] h-[3px] rounded-full bg-red-600 shadow-sm"
-                      />
-                      <span className="text-[5px] xl:text-[6px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
-                    </div>
-                  </div>
-
-                  {/* Bottom Countdown Row */}
-                  <div className="flex items-center justify-center z-10">
-                    <DigitalCard value={timeLeft.days} label="DAYS" />
-                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
-                    <DigitalCard value={timeLeft.hours} label="HRS" />
-                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
-                    <DigitalCard value={timeLeft.minutes} label="MIN" />
-                    <span className="text-black/40 font-mono font-bold text-[10px] xl:text-xs mb-[4px] animate-pulse leading-none">:</span>
-                    <DigitalCard value={timeLeft.seconds} label="SEC" />
-                  </div>
-                </div>
-              </div>
+              <TimerPanel />
             </div>
 
             <a 
               href="#register" 
-              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs xl:text-[0.8rem] px-3.5 xl:px-5 py-1 xl:py-1.5 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
+              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[11px] xl:text-xs px-3 xl:px-4 py-1 xl:py-1 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
             >
               Register Now →
             </a>
           </div>
 
           {/* Mobile Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden z-10">
             <a 
               href="#register" 
               onClick={(e) => handleNavClick(e, '#register', 'contact')}
-              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 rounded-full transition-colors shadow-sm whitespace-nowrap cursor-pointer"
+              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-colors shadow-sm whitespace-nowrap cursor-pointer"
             >
               Register
             </a>
@@ -214,7 +230,7 @@ const Navbar = () => {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              className="w-full max-h-[calc(100dvh-55px)] overflow-y-auto bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-4 space-y-1.5 lg:hidden border-t border-white/15"
+              className="absolute top-full left-0 z-50 w-full max-h-[calc(100dvh-55px)] overflow-y-auto bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-4 space-y-1.5 lg:hidden border-t border-white/15"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
