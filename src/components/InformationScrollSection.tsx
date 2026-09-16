@@ -256,7 +256,7 @@ const InformationScrollSection = () => {
           top: '56px',
           height: 'calc(100vh - 56px)',
         }}
-        className="w-full min-h-0 lg:min-h-[580px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
+        className="w-full min-h-0 lg:min-h-[500px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
       >
         {/* ========================================================================= */}
         {/* Top Sub-Nav Ribbon: "SLRTCE", "DEPARTMENT", "IEEE CHAPTER" */}
@@ -324,7 +324,7 @@ const InformationScrollSection = () => {
               <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative">
 
                 {/* Photo Container - Smaller Square */}
-                <div className="relative w-56 sm:w-64 md:w-72 lg:w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[490px] aspect-square shrink-0">
+                <div className="relative w-56 sm:w-64 md:w-72 lg:w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[400px] xl:max-w-[460px] aspect-square shrink-0">
                   {/* Subtle drop shadow for depth */}
                   <div className="absolute inset-2 bg-black/30 blur-2xl z-0 rounded-sm"></div>
 
@@ -370,7 +370,7 @@ const InformationScrollSection = () => {
 
               {/* Right Column: Wide Landscape Postal Ticket with Top-Right ESTB 2010 Stamp */}
               <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-16 xl:translate-y-20">
-                <div className="relative w-full max-w-[800px] lg:max-w-[880px] xl:max-w-[940px] rotate-[1.5deg] lg:rotate-[2deg] transition-transform duration-500">
+                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-[1.5deg] lg:rotate-[2deg] transition-transform duration-500">
 
                   {/* Concentric Perforated Stamp Borders */}
                   <PerforatedGhostOutline

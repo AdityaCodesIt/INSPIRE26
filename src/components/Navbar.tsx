@@ -122,13 +122,8 @@ const Navbar = () => {
   );
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
-    e.preventDefault();
     setMobileMenuOpen(false);
     setActiveSection(id);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
