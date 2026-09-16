@@ -79,6 +79,8 @@ const Footer = ({ children }: FooterProps) => {
       className="w-full h-6 sm:h-7 md:h-8 block"
       style={{
         filter: 'drop-shadow(0 -3px 3px rgba(10, 42, 94, 0.16)) drop-shadow(0 -1px 1px rgba(0, 0, 0, 0.08))',
+        willChange: 'transform',
+        transform: 'translateZ(0)'
       }}
     >
       <defs>
@@ -231,6 +233,7 @@ const Footer = ({ children }: FooterProps) => {
                         <img
                           src={member.src}
                           alt={member.name}
+                          loading="lazy"
                           className="w-full h-auto block select-none pointer-events-none"
                         />
                         <div className="flex items-center justify-center gap-2 mt-1.5 sm:mt-2">

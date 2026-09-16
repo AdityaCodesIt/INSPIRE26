@@ -268,7 +268,9 @@ const Navbar = () => {
             className="w-full h-6 sm:h-7 md:h-8 block"
             style={{
               clipPath: 'polygon(0 4px, 100% 4px, 100% 120px, 0 120px)',
-              filter: 'drop-shadow(0 3px 3px rgba(10, 42, 94, 0.16)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))'
+              filter: 'drop-shadow(0 3px 3px rgba(10, 42, 94, 0.16)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))',
+              willChange: 'transform',
+              transform: 'translateZ(0)'
             }}
           >
             <defs>

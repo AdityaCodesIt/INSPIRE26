@@ -25,9 +25,6 @@ export default {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         handwriting: ['"Dancing Script"', 'cursive'],
         cinzel: ['"Cinzel"', 'serif'],
-        outfit: ['"Outfit"', 'sans-serif'],
-        syne: ['"Syne"', 'sans-serif'],
-        montserrat: ['"Montserrat"', 'sans-serif'],
       },
       boxShadow: {
         'stamp': '2px 2px 6px rgba(0,0,0,0.15)',
