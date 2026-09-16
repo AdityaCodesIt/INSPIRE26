@@ -23,6 +23,9 @@ export default {
         sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Playfair Display"', 'serif'],
         handwriting: ['"Dancing Script"', 'cursive'],
+        cinzel: ['"Cinzel"', 'serif'],
+        outfit: ['"Outfit"', 'sans-serif'],
+        syne: ['"Syne"', 'sans-serif'],
       },
       boxShadow: {
         'stamp': '2px 2px 6px rgba(0,0,0,0.15)',

@@ -172,7 +172,7 @@ const HeroSection = () => {
 
           {/* Right Content - Map Illustration & Stamps */}
           <motion.div
-            className="lg:w-[55%] relative h-[500px] md:h-[600px] w-full flex justify-center items-center z-10"
+            className="lg:w-[55%] relative h-[290px] sm:h-[380px] md:h-[500px] lg:h-[600px] w-full flex justify-center items-center z-10 overflow-visible"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
@@ -184,7 +184,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 z-20 pointer-events-none">
               {/* Image 1 - Space */}
               <motion.div
-                className="absolute top-[5%] left-[5%] w-24 md:w-36 rotate-[-6deg]"
+                className="absolute top-[5%] left-[3%] sm:left-[5%] w-20 sm:w-24 md:w-36 rotate-[-6deg]"
                 animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
               >
                 <img src="/hero-badge-1.png" alt="Viksit Bharat Space" className="w-full h-auto drop-shadow-lg" />
@@ -192,7 +192,7 @@ const HeroSection = () => {
 
               {/* Dr APJ Abdul Kalam Portrait */}
               <motion.div
-                className="absolute top-[2%] right-[-35%] sm:right-[-30%] md:right-[-20%] lg:right-[-15%] w-24 md:w-28 lg:w-36 rotate-[2deg] z-30"
+                className="absolute top-[2%] right-[-2%] sm:right-[-10%] md:right-[-20%] lg:right-[-15%] w-20 sm:w-26 md:w-28 lg:w-36 rotate-[2deg] z-30"
                 animate={{ y: [4, -4, 4] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img src="/apj-abdul-kalam-transparent.png" alt="Dr APJ Abdul Kalam" className="w-full h-auto drop-shadow-2xl" />
@@ -200,7 +200,7 @@ const HeroSection = () => {
 
               {/* Image 2 - 5G/6G */}
               <motion.div
-                className="absolute top-[10%] right-[25%] w-24 md:w-32 rotate-[4deg]"
+                className="absolute top-[10%] right-[22%] sm:right-[25%] w-20 sm:w-24 md:w-32 rotate-[4deg]"
                 animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
               >
                 <img src="/hero-badge-2.png" alt="Digital Communications" className="w-full h-auto drop-shadow-lg" />
@@ -208,7 +208,7 @@ const HeroSection = () => {
 
               {/* Image 3 - Semiconductors (Middle Left) */}
               <motion.div
-                className="absolute top-[42%] left-[-2%] w-28 md:w-36 lg:w-40 rotate-[-2deg]"
+                className="absolute top-[42%] left-[-2%] w-22 sm:w-28 md:w-36 lg:w-40 rotate-[-2deg]"
                 animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
               >
                 <img src="/hero-badge-3.png" alt="Semiconductors" className="w-full h-auto drop-shadow-lg" />
@@ -216,7 +216,7 @@ const HeroSection = () => {
 
               {/* Image 4 - UPI (Middle Right) */}
               <motion.div
-                className="absolute top-[35%] right-[-8%] sm:right-[-5%] w-28 md:w-36 lg:w-40 rotate-[8deg]"
+                className="absolute top-[35%] right-[-2%] sm:right-[-5%] w-22 sm:w-28 md:w-36 lg:w-40 rotate-[8deg]"
                 animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
               >
                 <img src="/hero-badge-4.png" alt="UPI Payments" className="w-full h-auto drop-shadow-lg" />
@@ -224,7 +224,7 @@ const HeroSection = () => {
 
               {/* Image 5 - Biotechnology */}
               <motion.div
-                className="absolute bottom-[10%] left-[10%] w-20 md:w-32 rotate-[-8deg]"
+                className="absolute bottom-[10%] left-[8%] sm:left-[10%] w-18 sm:w-20 md:w-32 rotate-[-8deg]"
                 animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
               >
                 <img src="/hero-badge-5.png" alt="Biotechnology" className="w-full h-auto drop-shadow-lg" />
@@ -232,7 +232,7 @@ const HeroSection = () => {
 
               {/* Image 6 - Logistics & Transport */}
               <motion.div
-                className="absolute bottom-[5%] right-[15%] w-28 md:w-40 rotate-[5deg]"
+                className="absolute bottom-[5%] right-[10%] sm:right-[15%] w-22 sm:w-28 md:w-40 rotate-[5deg]"
                 animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
               >
                 <img src="/hero-badge-6.png" alt="Logistics & Transport" className="w-full h-auto drop-shadow-lg" />

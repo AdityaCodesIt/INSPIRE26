@@ -112,11 +112,11 @@ const FAQSection = () => {
 
         {/* Stamp Card FAQ Container (Light Golden) */}
         <div 
-          className="max-w-3xl mx-auto stamp-card px-6 sm:px-10 py-12 shadow-2xl relative"
+          className="max-w-3xl mx-auto stamp-card px-3 sm:px-8 md:px-10 py-7 sm:py-10 md:py-12 shadow-2xl relative"
           style={{ background: 'linear-gradient(135deg, #FFF3D4 0%, #E8D08B 100%)' }}
         >
           
-          <div className="space-y-2 relative z-10 mt-2 mb-2">
+          <div className="space-y-1.5 sm:space-y-2 relative z-10 my-1">
             {faqs.map((faq, idx) => {
               const isOpen = openIndex === idx;
               return (
@@ -132,19 +132,19 @@ const FAQSection = () => {
                 >
                 <button
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  className="w-full p-3.5 sm:p-5 sm:p-6 text-left flex items-center justify-between gap-2.5 sm:gap-4 focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <div className="flex items-center gap-3 sm:gap-3.5">
-                    <span className="font-mono text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
+                  <div className="flex items-center gap-2.5 sm:gap-3.5">
+                    <span className="font-mono text-[11px] sm:text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-1.5 sm:px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
                       Q{idx + 1}
                     </span>
-                    <span className="font-sans font-bold text-sm sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
+                    <span className="font-sans font-bold text-xs sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
                       {faq.question}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#0A2540] shrink-0 transition-transform duration-300 ${
+                    className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0A2540] shrink-0 transition-transform duration-300 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -158,7 +158,7 @@ const FAQSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                      <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-5 sm:pl-12 whitespace-pre-line font-medium">
+                      <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
                         {faq.answer}
                       </div>
                     </motion.div>

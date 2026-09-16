@@ -687,23 +687,23 @@ const TimelineSection = () => {
         </div>
 
         {/* MOBILE & TABLET LAYOUT (< 1024px) */}
-        <div className="lg:hidden flex flex-col gap-10 my-6 relative">
-          {/* Vertical Connecting Dashed Line */}
-          <div className="absolute left-[35px] top-8 bottom-8 w-0.5 border-l-2 border-dashed border-[#0A2A5E]/35 z-0" />
+        <div className="lg:hidden flex flex-col gap-8 sm:gap-10 my-6 relative">
+          {/* Vertical Connecting Dashed Line - Perfectly centered through nodes */}
+          <div className="absolute left-[27px] sm:left-[31px] top-6 bottom-6 w-0.5 border-l-2 border-dashed border-[#0A2A5E]/35 z-0" />
 
           {stages.map((stage) => {
             const lighted = isStageLighted(stage);
             return (
               <div
                 key={stage.id}
-                className="flex items-start gap-4 sm:gap-6 relative z-10 cursor-pointer"
+                className="flex items-start gap-3.5 sm:gap-6 relative z-10 cursor-pointer"
                 onClick={() => setHoveredStageId(hoveredStageId === stage.id ? null : stage.id)}
               >
                 {/* Coin Node */}
                 <div className="relative shrink-0">
                   <div
-                    className={`w-18 h-18 sm:w-20 sm:h-20 rounded-full border-3.5 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${lighted
-                      ? 'border-[#FF6B00] shadow-[0_0_18px_rgba(255,107,0,0.5)] scale-105 bg-white'
+                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2.5 sm:border-3 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${lighted
+                      ? 'border-[#FF6B00] shadow-[0_0_16px_rgba(255,107,0,0.45)] scale-105 bg-white'
                       : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
                       }`}
                   >

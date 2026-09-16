@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 const CTASection = () => {
   return (
     <section 
-      className="relative overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white w-full max-w-full h-full min-h-screen flex flex-col justify-between pt-16 pb-20"
+      className="relative overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white w-full max-w-full min-h-0 py-10 sm:py-16 md:min-h-screen flex flex-col justify-between"
       style={{
         backgroundImage: "linear-gradient(to bottom, rgba(20, 15, 10, 0.35), rgba(5, 5, 5, 0.65)), url('/cta-college-bg.jpg')",
         backgroundAttachment: 'fixed',

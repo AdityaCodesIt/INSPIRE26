@@ -88,6 +88,16 @@ const Navbar = () => {
     );
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    setActiveSection(id);
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <motion.header
@@ -96,19 +106,19 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center relative">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center relative">
           {/* Left: Logos */}
-          <a href="#home" className="flex items-center space-x-2.5 text-white shrink-0 group z-10">
+          <a href="#home" onClick={(e) => handleNavClick(e, '#home', 'home')} className="flex items-center space-x-2 sm:space-x-2.5 text-white shrink-0 group z-10">
             <img
               src="/slrtce-logo.png"
               alt="SLRTCE Logo"
-              className="h-9 sm:h-11 w-auto object-contain"
+              className="h-8 sm:h-11 w-auto object-contain"
             />
-            <div className="h-7 sm:h-9 w-px bg-white/30" />
+            <div className="h-6 sm:h-9 w-px bg-white/30" />
             <img
               src="/ieee-slrtce-logo.png"
               alt="IEEE SLRTCE Student Branch Logo"
-              className="h-9 sm:h-11 w-auto object-contain"
+              className="h-8 sm:h-11 w-auto object-contain"
             />
           </a>
 
@@ -182,12 +192,16 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Actions */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <a href="#register" className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-xs px-3 py-1 rounded-full transition-colors shadow-sm">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+            <a 
+              href="#register" 
+              onClick={(e) => handleNavClick(e, '#register', 'contact')}
+              className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 rounded-full transition-colors shadow-sm whitespace-nowrap cursor-pointer"
+            >
               Register
             </a>
             <button
-              className="p-1.5 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors"
+              className="p-1 sm:p-1.5 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors"
               aria-label="Toggle Navigation Menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -200,22 +214,22 @@ const Navbar = () => {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              className="w-full bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-5 space-y-2.5 lg:hidden border-t border-white/15"
+              className="w-full max-h-[calc(100dvh-55px)] overflow-y-auto bg-[#0A2A5E] text-white shadow-2xl flex flex-col items-center py-4 space-y-1.5 lg:hidden border-t border-white/15"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
             >
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-semibold transition-colors px-6 py-1.5 rounded-full w-[80%] text-center ${activeSection === link.id ? 'bg-white text-[#0A2A5E] font-bold shadow-sm' : 'text-white/90 hover:bg-white/10 hover:text-tricolor-saffron'
-                    }`}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setActiveSection(link.id);
-                  }}
+                  className={`text-sm font-semibold transition-colors px-6 py-2 rounded-full w-[85%] text-center cursor-pointer ${
+                    activeSection === link.id 
+                      ? 'bg-white text-[#0A2A5E] font-bold shadow-sm' 
+                      : 'text-white/90 hover:bg-white/10 hover:text-tricolor-saffron'
+                  }`}
+                  onClick={(e) => handleNavClick(e, link.href, link.id)}
                 >
                   {link.name}
                 </a>

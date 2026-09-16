@@ -4,7 +4,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative z-10 w-full max-w-full min-h-[calc(100vh-65px)] flex items-center justify-center py-20 sm:py-28 md:py-36 lg:py-44 px-3 sm:px-6 md:px-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[65px]"
+      className="relative z-10 w-full max-w-full min-h-[calc(100vh-65px)] flex items-center justify-center py-10 sm:py-18 md:py-28 lg:py-36 px-2.5 sm:px-6 md:px-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[65px]"
       style={{
         backgroundImage: "url('/backgrounds/bg-gold.jpg')",
         backgroundAttachment: 'fixed',
@@ -30,12 +30,12 @@ const AboutSection = () => {
           {/* ========================================================================= */}
           {/* 1. TOP HEADER BAR: Solid Crisp Matte Navy (No Glow / Glare)                 */}
           {/* ========================================================================= */}
-          <div className="bg-[#0A233F] text-white px-6 sm:px-10 md:px-12 py-4 sm:py-5 flex flex-wrap items-center justify-between gap-4 border-b border-[#0A233F] z-20">
+          <div className="bg-[#0A233F] text-white px-4 sm:px-10 md:px-12 py-3.5 sm:py-5 flex flex-wrap items-center justify-between gap-3 sm:gap-4 border-b border-[#0A233F] z-20">
 
             {/* Left: VIKAS Brand & Year */}
             <div className="flex items-center">
               {/* Bold Futuristic Rounded VIKAS Logo */}
-              <span className="font-black text-3xl sm:text-4xl md:text-[2.85rem] tracking-[0.08em] text-white uppercase font-sans select-none leading-none">
+              <span className="font-black text-2xl sm:text-4xl md:text-[2.85rem] tracking-[0.08em] text-white uppercase font-sans select-none leading-none">
                 VIKAS
               </span>
 

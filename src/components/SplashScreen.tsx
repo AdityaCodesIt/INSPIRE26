@@ -47,7 +47,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           <div className="absolute inset-0 bg-white/30" />
 
           {/* Text Animation */}
-          <div className="relative z-10 flex space-x-2 md:space-x-6">
+          <div className="relative z-10 flex space-x-1 sm:space-x-2 md:space-x-6 px-4">
             {text.map((char, i) => (
               <motion.span
                 key={i}
@@ -55,7 +55,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
                 variants={letterVariants}
                 initial="hidden"
                 animate="visible"
-                className="text-7xl md:text-9xl lg:text-[10rem] font-black text-[#0A2540] tracking-widest drop-shadow-sm"
+                className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] font-black text-[#0A2540] tracking-wider sm:tracking-widest drop-shadow-sm"
                 style={{ fontFamily: "'Montserrat', sans-serif" }}
               >
                 {char}

@@ -66,25 +66,25 @@ const FrameCard = ({
         {/* Inner Content Container */}
         <div className="relative w-full h-full bg-white overflow-hidden rounded-sm border border-black/10">
 
-          {/* Hover Reveal Veil on Inner Content Only (Text removed) */}
-          <div className="absolute inset-0 bg-[#F5F0E6] mix-blend-color z-20 transition-opacity duration-500 group-hover:opacity-0 pointer-events-none" />
-          <div className="absolute inset-0 bg-[#F5F0E6]/85 backdrop-blur-[2px] z-20 transition-opacity duration-500 group-hover:opacity-0 pointer-events-none" />
+          {/* Hover Reveal Veil on Inner Content Only (Hidden on mobile touch devices) */}
+          <div className="absolute inset-0 bg-[#F5F0E6] mix-blend-color z-20 transition-opacity duration-500 opacity-0 md:opacity-100 md:group-hover:opacity-0 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#F5F0E6]/85 backdrop-blur-[2px] z-20 transition-opacity duration-500 opacity-0 md:opacity-100 md:group-hover:opacity-0 pointer-events-none" />
 
           {/* Revealed Content */}
-          <div className="relative z-10 p-4 sm:p-6 flex flex-col h-full bg-[#FCF9F2]">
-            <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 shrink-0 bg-white shadow-sm" style={{ borderColor: award.color }}>
-                <div className="scale-75 sm:scale-100">{award.icon}</div>
+          <div className="relative z-10 p-3 sm:p-5 md:p-6 flex flex-col h-full bg-[#FCF9F2]">
+            <div className="flex items-center gap-2.5 sm:gap-4 mb-2 sm:mb-3">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 shrink-0 bg-white shadow-sm" style={{ borderColor: award.color }}>
+                <div className="scale-75 sm:scale-90 md:scale-100">{award.icon}</div>
               </div>
               <div>
-                <h3 className="text-base sm:text-xl font-bold text-[#0b4553] leading-tight">{award.title}</h3>
-                <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mt-0.5" style={{ color: award.color }}>{award.category}</p>
+                <h3 className="text-sm sm:text-lg md:text-xl font-bold text-[#0b4553] leading-tight">{award.title}</h3>
+                <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider mt-0.5" style={{ color: award.color }}>{award.category}</p>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#0b4553]/80 leading-relaxed font-medium line-clamp-3 mb-3">{award.description}</p>
+            <p className="text-xs sm:text-sm text-[#0b4553]/80 leading-relaxed font-medium line-clamp-3 mb-2 sm:mb-3">{award.description}</p>
 
-            <div className="mt-auto bg-[#0b4553] text-[#F9E7B7] text-[10px] sm:text-xs font-bold px-3 py-2 rounded text-center shadow-inner tracking-wide">
+            <div className="mt-auto bg-[#0b4553] text-[#F9E7B7] text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded text-center shadow-inner tracking-wide">
               {award.reward}
             </div>
           </div>
@@ -195,7 +195,7 @@ const PrizePoolSection = () => {
 
           {/* Static Loose Wire (Does NOT participate in lamp oscillation) */}
           <svg
-            className="absolute top-0 right-1/2 w-36 sm:w-44 md:w-52 lg:w-56 h-18 sm:h-22 md:h-25 lg:h-26 pointer-events-none z-20 overflow-visible"
+            className="absolute top-0 right-1/2 w-36 sm:w-44 md:w-52 lg:w-56 h-[72px] sm:h-[88px] md:h-[100px] lg:h-[104px] pointer-events-none z-20 overflow-visible"
             viewBox="0 0 240 100"
             fill="none"
           >
@@ -233,18 +233,18 @@ const PrizePoolSection = () => {
 
               {/* Lamp Shade Body */}
               <div
-                className="w-32 h-14 md:w-44 md:h-16 bg-[#E8D08B] relative flex justify-center z-20 shadow-2xl"
+                className="w-44 h-16 bg-[#E8D08B] relative flex justify-center z-20 shadow-2xl"
                 style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%)' }}
               >
-                <div className="absolute -top-1.5 w-12 h-3 md:w-14 md:h-3.5 bg-[#2C3E50] rounded-sm" />
+                <div className="absolute -top-1.5 w-14 h-3.5 bg-[#2C3E50] rounded-sm" />
               </div>
 
               {/* Glowing Bulb - enlarged with rich ambient glow */}
-              <div className="w-8 h-4 md:w-12 md:h-6 bg-[#FFEB3B] rounded-b-full shadow-[0_6px_25px_rgba(255,235,59,0.7),0_0_50px_rgba(255,235,59,0.4)] relative z-20 -mt-1" />
+              <div className="w-12 h-6 bg-[#FFEB3B] rounded-b-full shadow-[0_6px_25px_rgba(255,235,59,0.7),0_0_50px_rgba(255,235,59,0.4)] relative z-20 -mt-1" />
 
               {/* Single Clean Light Beam - exactly 13° angle from the lamp edge as per reference */}
               <svg
-                className="absolute top-14 md:top-16 left-1/2 -translate-x-1/2 w-[760px] sm:w-[860px] md:w-[980px] h-[750px] md:h-[800px] pointer-events-none mix-blend-screen origin-top z-0 overflow-visible"
+                className="absolute top-16 left-1/2 -translate-x-1/2 w-[760px] sm:w-[860px] md:w-[980px] h-[750px] md:h-[800px] pointer-events-none mix-blend-screen origin-top z-0 overflow-visible"
                 viewBox="0 0 980 800"
                 preserveAspectRatio="none"
                 fill="none"
@@ -266,7 +266,7 @@ const PrizePoolSection = () => {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-12 md:gap-0 min-h-[820px] md:h-[720px] md:-mb-20">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10 w-full h-full flex flex-col md:flex-row items-center gap-8 md:gap-0 min-h-0 md:h-[720px] md:-mb-20">
 
         {/* LEFT HALF - Prize Pool Typography */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative h-full">
@@ -276,13 +276,13 @@ const PrizePoolSection = () => {
 
             {/* Layer 1: Ambient Base Text - Dim subtle silhouette on dark wall when in shadow */}
             <div className="text-center flex flex-col items-center w-full opacity-10 pointer-events-none">
-              <h2 className="text-[4rem] sm:text-[5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] tracking-tighter leading-none mb-2 flex items-center justify-center">
+              <h2 className="text-[3.2rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] tracking-tighter leading-none mb-2 flex items-center justify-center">
                 <span>15000</span>
                 <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none">
                   +
                 </span>
               </h2>
-              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 uppercase tracking-widest text-center w-full">
+              <p className="text-lg sm:text-2xl md:text-3xl font-bold text-white/40 uppercase tracking-widest text-center w-full">
                 Prize Pool
               </p>
             </div>
@@ -296,13 +296,13 @@ const PrizePoolSection = () => {
                 opacity: lightIntensity,
               }}
             >
-              <h2 className="text-[4rem] sm:text-[5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
+              <h2 className="text-[3.2rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
                 <span>15000</span>
                 <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none drop-shadow-[0_0_20px_rgba(249,231,183,0.85)]">
                   +
                 </span>
               </h2>
-              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white uppercase tracking-widest text-center w-full drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
+              <p className="text-lg sm:text-2xl md:text-3xl font-bold text-white uppercase tracking-widest text-center w-full drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
                 Prize Pool
               </p>
             </motion.div>
@@ -310,33 +310,33 @@ const PrizePoolSection = () => {
         </div>
 
         {/* RIGHT HALF - Stamp Cards Fixed at Exact User Coordinates */}
-        <div className="w-full md:w-1/2 md:static relative min-h-[660px] md:min-h-0 flex flex-col items-center gap-6 mt-12 md:mt-0 overflow-visible pointer-events-none">
+        <div className="w-full md:w-1/2 md:static relative min-h-0 md:min-h-0 flex flex-col items-center gap-5 sm:gap-6 mt-8 md:mt-0 pb-8 md:pb-0 overflow-visible pointer-events-none">
           {/* Stamp 1: Winner / 1st Position */}
           <FrameCard
             award={awardsList[0]}
             rotation={-1.5}
-            className="relative md:absolute md:top-[7.9%] md:left-[57%] w-[88%] sm:w-[340px] md:w-[380px] h-[240px] sm:h-[260px] md:h-[280px] z-10 pointer-events-auto"
+            className="relative md:absolute md:top-[7.9%] md:left-[57%] w-[92%] sm:w-[340px] md:w-[380px] h-[230px] sm:h-[260px] md:h-[280px] z-10 pointer-events-auto"
           />
 
           {/* Stamp 2: Runner Up / 2nd Position */}
           <FrameCard
             award={awardsList[1]}
             rotation={-3.5}
-            className="relative md:absolute md:top-[40%] md:left-[43.8%] w-[86%] sm:w-[320px] md:w-[350px] h-[220px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
+            className="relative md:absolute md:top-[40%] md:left-[43.8%] w-[90%] sm:w-[320px] md:w-[350px] h-[215px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
           />
 
           {/* Stamp 3: Consolation Award */}
           <FrameCard
             award={awardsList[2]}
             rotation={1.5}
-            className="relative md:absolute md:top-[40.9%] md:left-[79.2%] w-[86%] sm:w-[320px] md:w-[350px] h-[220px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
+            className="relative md:absolute md:top-[40.9%] md:left-[79.2%] w-[90%] sm:w-[320px] md:w-[350px] h-[215px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
           />
 
           {/* Category Awards Notice - Positioned directly below Card 2 & Card 3 */}
-          <div className="relative md:absolute md:top-[77.5%] md:left-[72%] md:-translate-x-1/2 w-full max-w-[92%] sm:max-w-[480px] md:max-w-[540px] pointer-events-auto z-20 mt-4 md:mt-0">
-            <div className="flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-full bg-[#200007]/80 border border-[#F9E7B7]/30 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_15px_rgba(249,231,183,0.1)] text-center">
+          <div className="relative md:absolute md:top-[77.5%] md:left-[72%] md:-translate-x-1/2 w-full max-w-[94%] sm:max-w-[480px] md:max-w-[540px] pointer-events-auto z-20 mt-4 md:mt-0">
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[#200007]/80 border border-[#F9E7B7]/30 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_15px_rgba(249,231,183,0.1)] text-center">
               <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] shrink-0" />
-              <p className="text-xs sm:text-sm text-[#F9E7B7] font-medium tracking-wide">
+              <p className="text-[11px] sm:text-sm text-[#F9E7B7] font-medium tracking-wide">
                 Awards in each of the three categories:{' '}
                 <span className="text-white font-bold">UG &amp; Diploma</span>,{' '}
                 <span className="text-white font-bold">PG</span>, and{' '}
