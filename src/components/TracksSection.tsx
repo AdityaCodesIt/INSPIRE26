@@ -465,12 +465,7 @@ const Mobile3DTracksCarousel = () => {
       </motion.div>
 
       {/* Information Area Below Active Card */}
-      <div className="flex flex-col items-center mt-6 px-4 text-center max-w-sm">
-        {/* Track Badge */}
-        <span className="font-mono text-xs font-bold text-amber-300 uppercase tracking-widest bg-black/45 px-3 py-1 rounded-full border border-amber-300/35 mb-2.5">
-          Track 0{activeIndex + 1} of 0{count}
-        </span>
-
+      <div className="flex flex-col items-center mt-5 px-4 text-center max-w-sm">
         {/* Active Title */}
         <AnimatePresence mode="wait">
           <motion.h3
@@ -498,15 +493,6 @@ const Mobile3DTracksCarousel = () => {
             {activeTheme.description}
           </motion.p>
         </AnimatePresence>
-
-        {/* Flip Card Action Button */}
-        <button
-          onClick={() => setIsFlipped(!isFlipped)}
-          className="mt-3 px-4 py-1.5 rounded-full bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm active:scale-95"
-        >
-          <span>{isFlipped ? 'View Front Artwork' : 'View UN SDGs'}</span>
-          <span className="text-sm">↻</span>
-        </button>
 
         {/* Carousel Pagination Dots */}
         <div className="flex items-center justify-center gap-1.5 mt-4">

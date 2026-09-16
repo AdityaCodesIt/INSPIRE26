@@ -64,7 +64,7 @@ const PX_ROWS = 8;
 const PX_STEPS = 18;
 const PX_STEP_MS = 20;
 
-export type CardPosition = 'right' | 'above' | 'left' | 'below';
+export type CardPosition = 'right' | 'above' | 'left' | 'below' | 'inline';
 
 const WHITE_SHADES = [
   '#FFFFFF',
@@ -199,7 +199,13 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
   let bridgeClass = '';
   let arrowClass = '';
 
-  if (position === 'right') {
+  if (position === 'inline') {
+    posClass = 'relative w-full';
+    drawerSlideInitial = { opacity: 0, x: 0, y: -12 };
+    drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
+    bridgeClass = '';
+    arrowClass = 'absolute -top-2 left-6 w-0 h-0 border-x-[7px] border-x-transparent border-b-[8px] border-b-[#102C82] drop-shadow-sm z-20 pointer-events-none';
+  } else if (position === 'right') {
     posClass = 'left-[calc(100%+16px)] top-1/2 -translate-y-1/2';
     drawerSlideInitial = { opacity: 0, x: -28, y: 0 };
     drawerSlideAnimate = { opacity: 1, x: 0, y: 0 };
@@ -229,9 +235,19 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
   const currentClip = getClipPath(position, progress);
 
   return (
-    <div className={`absolute ${posClass} z-50 pointer-events-auto select-none`}>
+    <div
+      className={
+        position === 'inline'
+          ? 'relative w-full z-30 pointer-events-auto select-none mt-2.5'
+          : `absolute ${posClass} z-50 pointer-events-auto select-none`
+      }
+    >
       <motion.div
-        className={`relative w-72 sm:w-80 ${bridgeClass}`}
+        className={
+          position === 'inline'
+            ? 'relative w-full'
+            : `relative w-72 sm:w-80 ${bridgeClass}`
+        }
         initial={drawerSlideInitial}
         animate={drawerSlideAnimate}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -325,6 +341,7 @@ const PATH_SEGMENT_2 =
 
 const TimelineSection = () => {
   const [currentTime, setCurrentTime] = useState(() => new Date());
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Automatically check date every 15 seconds so stages unlock live on the exact date/time
   useEffect(() => {
@@ -334,8 +351,54 @@ const TimelineSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Hovered stage for floating tooltip
+  // Hovered stage for floating tooltip / mobile active stage
   const [hoveredStageId, setHoveredStageId] = useState<number | null>(null);
+
+  // Auto-hover Stage 1 on phone/mobile when navigating towards the timeline section
+  useEffect(() => {
+    const checkIsMobile = () => typeof window !== 'undefined' && window.innerWidth < 1024;
+
+    const el = sectionRef.current || document.getElementById('schedule');
+    if (!el) return;
+
+    // IntersectionObserver to detect when user navigates/scrolls towards the timeline section
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && checkIsMobile()) {
+            setHoveredStageId(1);
+          }
+        });
+      },
+      {
+        rootMargin: '80px 0px -40px 0px',
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(el);
+
+    // Also trigger if navigating via hash link (#schedule)
+    const handleHash = () => {
+      if (window.location.hash === '#schedule' && checkIsMobile()) {
+        setHoveredStageId(1);
+      }
+    };
+    window.addEventListener('hashchange', handleHash);
+
+    // Initial check on mount if section is already in view on mobile
+    if (checkIsMobile()) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        setHoveredStageId(1);
+      }
+    }
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, []);
 
   // Helper to check if a node is currently illuminated (unlocked only if date passed or initially lit)
   const isStageLighted = (stage: Stage) => {
@@ -347,6 +410,7 @@ const TimelineSection = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="schedule"
       className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center bg-[#F9E7B7]"
       style={{
@@ -693,19 +757,35 @@ const TimelineSection = () => {
 
           {stages.map((stage) => {
             const lighted = isStageLighted(stage);
+            const isHovered = hoveredStageId === stage.id;
+
             return (
               <div
                 key={stage.id}
-                className="flex items-start gap-3.5 sm:gap-6 relative z-10 cursor-pointer"
+                className="flex items-start gap-3.5 sm:gap-6 relative z-10 cursor-pointer group"
                 onClick={() => setHoveredStageId(hoveredStageId === stage.id ? null : stage.id)}
+                onMouseEnter={() => {
+                  if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+                    setHoveredStageId(stage.id);
+                  }
+                }}
               >
                 {/* Coin Node */}
                 <div className="relative shrink-0">
+                  {/* Stage 1 Lighting Aura (matches desktop) */}
+                  {lighted && stage.id === 1 && (
+                    <>
+                      <div className="absolute -inset-2 rounded-full bg-orange-500/25 blur-md animate-pulse pointer-events-none" />
+                      <div className="absolute -inset-1 rounded-full border-2 border-orange-500/40 animate-ping opacity-25 pointer-events-none" />
+                    </>
+                  )}
+
                   <div
-                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2.5 sm:border-3 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${lighted
-                      ? 'border-[#FF6B00] shadow-[0_0_16px_rgba(255,107,0,0.45)] scale-105 bg-white'
-                      : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
-                      }`}
+                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2.5 sm:border-3 transition-all duration-300 relative overflow-hidden flex items-center justify-center ${
+                      lighted
+                        ? 'border-[#FF6B00] shadow-[0_0_16px_rgba(255,107,0,0.45)] bg-white'
+                        : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
+                    } ${isHovered ? 'scale-105' : 'scale-100'}`}
                   >
                     {lighted ? (
                       <>
@@ -744,7 +824,7 @@ const TimelineSection = () => {
                         )}
                         {stage.coinType === 'modern-coin' && (
                           <img
-                            src="/timeline/modern-coin-2011.png"
+                            src="/timeline/Indian_20_Rupee_coin_Reverse.png"
                             alt="2010-2020 Coin"
                             className="w-full h-full object-contain p-1 rounded-full opacity-25"
                           />
@@ -777,8 +857,8 @@ const TimelineSection = () => {
                   </div>
                 </div>
 
-                {/* Text Header */}
-                <div className="flex-grow pt-1">
+                {/* Text Header & Pixel Reveal Card */}
+                <div className="flex-grow pt-1 min-w-0">
                   <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans">
                     {stage.title}
                   </h4>
@@ -786,16 +866,37 @@ const TimelineSection = () => {
                     {stage.date}
                   </p>
 
-                  {/* Expandable summary on mobile tap */}
-                  {hoveredStageId === stage.id && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="mt-2.5 p-3 rounded-xl bg-[#0A2A5E] text-white text-xs leading-relaxed"
-                    >
-                      {stage.summary}
-                    </motion.div>
-                  )}
+                  {/* Pixel Reveal Drawer Card (Exact same pixel dissolve as desktop!) */}
+                  <PixelRevealCard isVisible={hoveredStageId === stage.id} position="inline">
+                    <div className="p-4 text-left">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span
+                          className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${
+                            stage.id === 1
+                              ? 'text-amber-300 bg-amber-400/15 border-amber-400/30'
+                              : stage.id === 2
+                              ? 'text-cyan-300 bg-cyan-400/15 border-cyan-400/30'
+                              : 'text-emerald-300 bg-emerald-400/15 border-emerald-400/30'
+                          }`}
+                        >
+                          {stage.id === 1
+                            ? 'Stage 01 • Online'
+                            : stage.id === 2
+                            ? 'Stage 02 • On-Campus'
+                            : 'Stage 03 • Grand Finale'}
+                        </span>
+                        <span className="text-[10px] text-blue-200/80 font-semibold font-mono">
+                          {stage.id === 1 ? '26 Sep 2026' : '3 Oct 2026'}
+                        </span>
+                      </div>
+                      <h5 className="font-bold text-sm text-white mb-1 font-sans">
+                        {stage.title}
+                      </h5>
+                      <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                        {stage.summary}
+                      </p>
+                    </div>
+                  </PixelRevealCard>
                 </div>
               </div>
             );
