@@ -243,9 +243,9 @@ const InformationScrollSection = () => {
       id="overview"
       ref={outerRef}
       style={{
-        height: `calc((100vh - 65px) * ${PANEL_COUNT + 1})`,
+        height: `calc((100vh - 56px) * ${PANEL_COUNT + 1})`,
       }}
-      className="relative scroll-mt-[65px]"
+      className="relative scroll-mt-[56px] bg-[#07172E]"
     >
       {/* STICKY INNER: Pins below navbar while the outer wrapper scrolls */}
       <div
@@ -253,8 +253,8 @@ const InformationScrollSection = () => {
         onTouchEnd={handleTouchEnd}
         style={{
           position: 'sticky',
-          top: '65px',
-          height: 'calc(100vh - 65px)',
+          top: '56px',
+          height: 'calc(100vh - 56px)',
         }}
         className="w-full min-h-0 lg:min-h-[580px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
       >
@@ -318,13 +318,13 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-100px)] overflow-y-auto lg:overflow-visible py-1">
+            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-100px)] overflow-visible py-1">
 
               {/* Left Column: Actual College Photo with Vintage Archival Treatment (Shifted further right) */}
               <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative">
 
                 {/* Photo Container - Smaller Square */}
-                <div className="relative w-28 sm:w-36 md:w-56 lg:w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[490px] aspect-square shrink-0">
+                <div className="relative w-56 sm:w-64 md:w-72 lg:w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[490px] aspect-square shrink-0">
                   {/* Subtle drop shadow for depth */}
                   <div className="absolute inset-2 bg-black/30 blur-2xl z-0 rounded-sm"></div>
 
@@ -385,7 +385,7 @@ const InformationScrollSection = () => {
                   />
 
                   {/* Floating Circular ESTB 2010 Stamp at Top Right Corner */}
-                  <div className="absolute -top-5 -right-2 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
+                  <div className="absolute top-4 right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
                     <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-5deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
                       <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1">
                         <span className="text-[0.45rem] sm:text-[0.65rem] font-serif tracking-widest uppercase font-bold text-white/90 leading-tight">
