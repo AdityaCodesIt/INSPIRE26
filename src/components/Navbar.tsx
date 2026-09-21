@@ -123,18 +123,25 @@ const Navbar = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
     setActiveSection(id);
 
-    // Wait slightly for the mobile menu to unmount before scrolling, 
-    // to prevent the browser from interrupting the scroll event.
-    setTimeout(() => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+      // Wait slightly for the mobile menu to unmount before scrolling
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          const y = target.getBoundingClientRect().top + window.scrollY - 55;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
       const target = document.querySelector(href);
       if (target) {
         const y = target.getBoundingClientRect().top + window.scrollY - 55;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
-    }, 150);
+    }
   };
 
   return (
@@ -167,6 +174,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href, link.id)}
                 className={`transition-all px-2 xl:px-2.5 py-1 rounded-full whitespace-nowrap ${
                   activeSection === link.id 
                     ? 'bg-white text-[#0A2A5E] shadow-sm scale-105' 
@@ -268,7 +276,7 @@ const Navbar = () => {
             className="w-full h-6 sm:h-7 md:h-8 block"
             style={{
               clipPath: 'polygon(0 4px, 100% 4px, 100% 120px, 0 120px)',
-              filter: 'drop-shadow(0 3px 3px rgba(10, 42, 94, 0.16)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))',
+              filter: 'drop-shadow(0 3px 3px rgba(0, 0, 0, 0.12)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
@@ -296,32 +304,6 @@ const Navbar = () => {
               filter="url(#torn-paper-roughness)"
             />
 
-            {/* Layer 3: Paper Edge Bevel - OPEN path tracing only the bottom torn fracture, never the top */}
-            <path
-              d="M 1440,16 L 1422,18.5 L 1410,16.5 L 1395,20 L 1386,17 L 1370,19.5 L 1358,23.5 L 1345,22 L 1334,17 L 1320,16 L 1308,19.5 L 1295,25 L 1282,28.5 L 1275,26 L 1264,29.5 L 1252,24 L 1240,18 L 1228,16.5 L 1215,19 L 1202,15 L 1190,17 L 1178,22 L 1165,26 L 1152,23 L 1140,26.5 L 1132,24 L 1120,19 L 1108,17 L 1095,15.5 L 1082,18 L 1070,16 L 1058,20 L 1045,23 L 1032,18 L 1020,16 L 1008,15 L 995,17.5 L 982,20.5 L 970,25 L 958,30 L 950,27 L 938,32 L 928,28 L 916,23 L 904,19 L 892,16 L 880,15 L 868,17.5 L 856,16 L 844,18 L 832,14.5 L 820,13 L 808,15 L 796,17.5 L 784,16 L 772,20 L 760,24.5 L 748,27.5 L 740,25 L 728,29 L 716,23 L 704,19 L 692,16 L 680,15 L 668,17 L 656,14.5 L 644,16 L 632,19 L 620,22 L 608,20 L 596,23.5 L 584,21 L 572,17 L 560,16 L 548,18.5 L 536,22 L 524,27 L 512,30.5 L 504,27.5 L 492,32.5 L 480,28 L 468,23 L 456,19 L 444,16 L 432,15.5 L 420,17 L 408,20.5 L 396,24.5 L 384,22 L 372,18 L 360,16.5 L 348,15 L 336,17 L 324,19.5 L 312,24.5 L 300,27.5 L 292,24.5 L 280,28.5 L 268,22 L 256,18 L 244,15 L 232,14 L 220,16 L 208,19 L 196,22.5 L 184,26.5 L 176,23 L 164,27.5 L 152,23 L 140,18 L 128,16 L 116,17.5 L 104,15 L 92,17 L 80,19.5 L 68,16 L 56,18 L 44,15.5 L 32,17 L 20,19 L 0,16.5"
-              stroke="#061B3B"
-              strokeWidth="0.65"
-              fill="none"
-              filter="url(#torn-paper-roughness)"
-            />
-
-            {/* Layer 4: Exposed Pure White Cotton Cellulose Fibers */}
-            <path
-              d="M 1358,23.5 L 1345,25 M 1295,25 L 1282,30 M 1264,29.5 L 1252,25 M 1178,22 L 1165,27 M 970,25 L 958,31.5 M 938,32 L 928,29 M 760,24.5 L 748,28.5 M 728,29 L 716,24 M 536,22 L 524,28.5 M 512,30.5 L 492,33.5 M 396,24.5 L 384,23 M 312,24.5 L 300,29 M 196,22.5 L 184,28 M 164,27.5 L 152,24"
-              stroke="rgba(255, 255, 255, 0.75)"
-              strokeWidth="0.8"
-              fill="none"
-              filter="url(#torn-paper-roughness)"
-            />
-
-            {/* Layer 5: Paper Surface Light Highlights along Fractured Ridges */}
-            <path
-              d="M 1440,16 L 1410,16.5 M 1370,19.5 L 1358,23.5 M 1240,18 L 1202,15 M 1120,19 L 1070,16 M 904,19 L 880,15 M 844,18 L 820,13 M 704,19 L 656,14.5 M 584,21 L 560,16 M 444,16 L 420,17 M 256,18 L 232,14 M 128,16 L 92,17"
-              stroke="rgba(255, 255, 255, 0.2)"
-              strokeWidth="0.75"
-              fill="none"
-              filter="url(#torn-paper-roughness)"
-            />
           </svg>
         </div>
       </motion.header>

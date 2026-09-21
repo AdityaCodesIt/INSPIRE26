@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "host": "vite --host"
+    "host": "vite"
   },
   "dependencies": {
     "framer-motion": "^13.2.0",

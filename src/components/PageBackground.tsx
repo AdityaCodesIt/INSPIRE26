@@ -9,14 +9,6 @@ const PageBackground: React.FC = () => {
 
       {/* Subtle Watercolor Edges - Placeholders */}
       <motion.div
-        className="absolute top-0 left-0 w-full h-32 opacity-20"
-        style={{
-          background: 'linear-gradient(to bottom, #87CEEB, transparent)',
-          filter: 'blur(20px)'
-        }}
-      />
-
-      <motion.div
         className="absolute bottom-0 left-0 w-full h-64 opacity-15"
         style={{
           background: 'linear-gradient(to top, #1F4287, transparent)',
