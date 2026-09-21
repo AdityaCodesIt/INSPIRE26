@@ -261,7 +261,7 @@ const InformationScrollSection = () => {
         {/* ========================================================================= */}
         {/* Top Sub-Nav Ribbon: "SLRTCE", "DEPARTMENT", "IEEE CHAPTER" */}
         {/* ========================================================================= */}
-        <div className="absolute top-0 left-0 w-full z-30 px-3 sm:px-8 py-2 sm:py-3 flex items-center justify-center bg-[#07172E]/95 backdrop-blur-md border-b border-[#C8B89A]/30">
+        <div className="absolute top-0 left-0 w-full z-30 px-3 sm:px-8 pt-8 sm:pt-9 md:pt-10 pb-2.5 sm:pb-3 flex items-center justify-center bg-[#07172E]/95 backdrop-blur-md border-b border-[#C8B89A]/30 shadow-md">
           <div className="flex items-center space-x-4 sm:space-x-12 md:space-x-16 font-sans text-[11px] sm:text-sm">
             {[
               { title: 'SLRTCE', idx: 0 },
@@ -296,7 +296,7 @@ const InformationScrollSection = () => {
           {/* PANEL 0: OUR COLLEGE (Deep Midnight Navy with Gold & Cream) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-10 sm:pt-14 pb-8 sm:pb-12 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-blue.jpg')",
             }}
@@ -490,7 +490,7 @@ const InformationScrollSection = () => {
           {/* PANEL 1: OUR BRANCH (Deep Forest Teal/Emerald with Archival Monograph) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-10 sm:pt-14 pb-8 sm:pb-12 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-teal.jpg')",
             }}
@@ -511,31 +511,28 @@ const InformationScrollSection = () => {
               ENGINEER
             </div>
 
-            {/* Content Layout */}
-            <div className="max-w-[1360px] w-full mx-auto relative z-10 flex flex-col items-center justify-center h-full py-2">
+            {/* Content Layout - True Vertical & Horizontal Centering */}
+            <div className="max-w-[1360px] w-full mx-auto relative z-10 flex flex-col items-center justify-center h-full my-auto">
               
-              {/* Upper Half: Stylized Computer Engineering Artwork */}
-              <div className="flex flex-col items-center text-center">
+              {/* Centered Stylized Computer Engineering Artwork */}
+              <div className="flex flex-col items-center justify-center text-center my-auto">
 
                 {/* Main CompEng.png Artwork */}
                 <motion.div
                   initial={{ opacity: 0, y: -16, scale: 0.96 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="relative group"
+                  className="relative group flex items-center justify-center"
                 >
                   {/* Subtle Ambient Backlight Glow */}
                   <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-red-500/20 via-cyan-400/20 to-emerald-400/20 blur-xl opacity-60 pointer-events-none group-hover:opacity-85 transition-opacity duration-500" />
                   
                   <img
                     src="/CompEng.png"
-                    alt="Computer Engineering"
-                    className="relative z-10 w-full max-w-[200px] sm:max-w-[320px] md:max-w-[440px] lg:max-w-[580px] xl:max-w-[640px] h-auto object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)] select-none pointer-events-none"
+                    alt="Department of Computer Engineering"
+                    className="relative z-10 w-[84vw] max-w-[320px] xs:max-w-[340px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[560px] xl:max-w-[620px] max-h-[54vh] sm:max-h-[62vh] h-auto object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.5)] select-none pointer-events-none"
                   />
                 </motion.div>
-              </div>
-
-              <div className="w-full mt-4 sm:mt-6 flex-grow">
               </div>
 
             </div>
@@ -545,7 +542,7 @@ const InformationScrollSection = () => {
           {/* PANEL 2: IEEE SLRTCE STUDENT BRANCH (Deep Indigo/Violet with Philatelic Seal) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-10 sm:pt-14 pb-8 sm:pb-12 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-purple.jpg')",
             }}

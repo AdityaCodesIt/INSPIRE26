@@ -164,12 +164,12 @@ const Footer = ({ children }: FooterProps) => {
           <div
             className="flex-1 relative z-10 flex flex-col justify-between bg-[#0A2A5E] -mt-2"
           >
-            {/* Content inside the expanded sheet (Our Technical Team) */}
+            {/* Content inside the expanded sheet (Contributors) */}
             <div className="flex-1 w-full flex flex-col items-center justify-start pt-3 sm:pt-5 pb-6 relative z-10 px-4 max-w-[1440px] mx-auto overflow-y-auto">
               {/* Heading & Fold Down control */}
               <div className="order-0 flex items-center justify-center gap-3 mb-3 sm:mb-6 md:mb-8 relative w-full max-w-[1100px]">
                 <h2 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-wide text-center">
-                  Our Technical Team
+                  Contributors
                 </h2>
               </div>
 
