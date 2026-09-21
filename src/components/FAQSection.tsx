@@ -1,61 +1,79 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, MessageSquare, Sparkles } from 'lucide-react';
 
 interface FAQItem {
   question: string;
   answer: string;
+  category: string;
 }
 
 const faqs: FAQItem[] = [
   {
-    question: 'What is VIKAS 2026 and what is a Colloquium?',
+    question: 'What is INSPIRE 2026 and what is a Colloquium?',
     answer:
       'A colloquium is an academic platform where researchers present technical work to an expert audience. VIKAS 2026 is an IEEE SLRTCE research colloquium aligning student innovations with Viksit Bharat @2047 and the UNSDGs.',
+    category: 'General',
   },
   {
     question: 'Who can participate?',
     answer:
       'The event is open to students across three distinct categories:\n• Category 1 (PPG): PhD / Pre-PhD / Doctoral-level students\n• Category 2 (PG): ME / M.Tech students\n• Category 3 (UG & Diploma): Undergraduate and Diploma students',
+    category: 'Participation',
   },
   {
     question: 'What is the allowable team size?',
     answer:
       '• PPG & PG Categories: Individual participation only (1 member per entry).\n• UG & Diploma Category: 2 to 4 members per team.',
+    category: 'Participation',
   },
   {
     question: 'Is the event held online or offline?',
     answer:
       'Round 1 abstract submission is conducted online, while shortlisted presentations for Rounds 2 and 3 take place on-campus on 3 October 2026.',
+    category: 'Participation',
   },
   {
     question: 'What should be submitted in Round 1?',
     answer:
       'Participants must submit a structured abstract detailing their problem statement, proposed solution, track, and UNSDG alignment for initial screening.',
+    category: 'Registration & Competition',
   },
   {
     question: 'What is the competition format and structure?',
     answer:
       'VIKAS 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
+    category: 'Registration & Competition',
   },
   {
     question: 'Is there any registration fee?',
     answer:
       'Initial abstract submission is free, but shortlisted teams must pay a ₹300 per team registration fee to confirm participation.',
+    category: 'Registration & Competition',
   },
   {
     question: 'Will all participants receive certificates?',
     answer:
       'Yes, all participants who take part in the event will receive an official Online Participation Certificate.',
+    category: 'Registration & Competition',
   },
 ];
 
+const filterOptions = ['All', 'General', 'Participation', 'Registration & Competition'] as const;
+type FilterOption = (typeof filterOptions)[number];
+
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [activeFilter, setActiveFilter] = useState<FilterOption>('All');
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  const filteredFaqs = useMemo(() => {
+    if (activeFilter === 'All') return faqs;
+    return faqs.filter((faq) => faq.category === activeFilter);
+  }, [activeFilter]);
 
   return (
     <section
@@ -93,7 +111,7 @@ const FAQSection = () => {
             </h2>
             <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3" />
             <p className="text-sm sm:text-base text-white/80 font-sans">
-              Find answers to the most commonly asked questions about VIKAS 2026.
+              Find answers to the most commonly asked questions about INSPIRE 2026.
             </p>
           </motion.div>
 
@@ -115,58 +133,94 @@ const FAQSection = () => {
           className="max-w-3xl mx-auto stamp-card px-3 sm:px-8 md:px-10 py-7 sm:py-10 md:py-12 shadow-2xl relative"
           style={{ background: 'linear-gradient(135deg, #FFF3D4 0%, #E8D08B 100%)' }}
         >
-          
-          <div className="space-y-1.5 sm:space-y-2 relative z-10 my-1">
-            {faqs.map((faq, idx) => {
-              const isOpen = openIndex === idx;
-              return (
-                <motion.div
-                  key={faq.question}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: idx * 0.05 }}
-                  className={`overflow-hidden transition-colors border-b border-[#C8B89A]/50 last:border-b-0 ${
-                    isOpen ? 'bg-[#0A2540]/5 rounded-xl border-transparent' : 'hover:bg-[#0A2540]/5 rounded-xl'
-                  }`}
-                >
-                <button
-                  onClick={() => toggleAccordion(idx)}
-                  className="w-full p-3.5 sm:p-5 sm:p-6 text-left flex items-center justify-between gap-2.5 sm:gap-4 focus:outline-none"
-                  aria-expanded={isOpen}
-                >
-                  <div className="flex items-center gap-2.5 sm:gap-3.5">
-                    <span className="font-mono text-[11px] sm:text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-1.5 sm:px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
-                      Q{idx + 1}
-                    </span>
-                    <span className="font-sans font-bold text-xs sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <ChevronDown
-                    className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0A2540] shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180' : ''
+          {/* Category Filter Pills */}
+          <div className="relative z-10 mb-4 sm:mb-5">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
+              {filterOptions.map((option) => {
+                const isActive = activeFilter === option;
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => setActiveFilter(option)}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-sans font-semibold border transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[#0A2540] text-white border-[#0A2540] shadow-sm'
+                        : 'bg-transparent text-[#0A2540]/80 border-[#C8B89A]/70 hover:bg-[#0A2540]/8 hover:border-[#0A2540]/30'
                     }`}
-                  />
-                </button>
+                    aria-pressed={isActive}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+          <div className="space-y-1.5 sm:space-y-2 relative z-10 my-1">
+            {filteredFaqs.length > 0 ? (
+              filteredFaqs.map((faq) => {
+                const originalIdx = faqs.findIndex((item) => item.question === faq.question);
+                const isOpen = openIndex === originalIdx;
+                return (
+                  <motion.div
+                    key={faq.question}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: 0.03 }}
+                    className={`overflow-hidden transition-colors border-b border-[#C8B89A]/50 last:border-b-0 ${
+                      isOpen ? 'bg-[#0A2540]/5 rounded-xl border-transparent' : 'hover:bg-[#0A2540]/5 rounded-xl'
+                    }`}
+                  >
+                    <button
+                      onClick={() => toggleAccordion(originalIdx)}
+                      className="w-full p-3.5 sm:p-5 sm:p-6 text-left flex items-center justify-between gap-2.5 sm:gap-4 focus:outline-none cursor-pointer"
+                      aria-expanded={isOpen}
                     >
-                      <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
-                        {faq.answer}
+                      <div className="flex items-center gap-2.5 sm:gap-3.5">
+                        <span className="font-mono text-[11px] sm:text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-1.5 sm:px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
+                          Q{originalIdx + 1}
+                        </span>
+                        <span className="font-sans font-bold text-xs sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
+                          {faq.question}
+                        </span>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                </motion.div>
-              );
-            })}
+                      <ChevronDown
+                        className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0A2540] shrink-0 transition-transform duration-300 ${
+                          isOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        >
+                          <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <div className="py-8 sm:py-10 text-center flex flex-col items-center justify-center">
+                <p className="text-sm sm:text-base font-semibold text-[#0A2540]/80 mb-1 font-sans">
+                  No questions found.
+                </p>
+                <p className="text-xs text-[#0A2540]/60 mb-3.5 font-sans">
+                  Try adjusting your search keywords or category filter.
+                </p>
+
+              </div>
+            )}
           </div>
         </div>
 

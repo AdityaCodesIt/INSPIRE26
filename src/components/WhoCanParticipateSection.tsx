@@ -136,7 +136,7 @@ const WhoCanParticipateSection = () => {
       id="eligibility"
       className="py-12 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/20 w-full min-h-[90vh] flex flex-col justify-center"
       style={{
-        backgroundImage: "url('/backgrounds/bg-sage.jpg')",
+        backgroundImage: "url('/backgrounds/bg-saffron.jpg')",
         backgroundAttachment: 'fixed',
       }}
     >
@@ -229,7 +229,7 @@ const WhoCanParticipateSection = () => {
               </motion.h3>
             </div>
 
-            {/* Right: Doctoral / PhD Researchers (PPG) */}
+            {/* Right: PhD Scholars (PPG) */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox
                 imgSrc="/images/participants/ppg_new_character.png"
@@ -240,8 +240,8 @@ const WhoCanParticipateSection = () => {
                 isOpen={activeCard === 'ppg'}
                 onToggle={() => handleToggle('ppg')}
                 info={{
-                  title: 'Doctoral / PhD Researchers',
-                  degree: 'Ph.D. & Post-Doctoral Fellows',
+                  title: 'PhD Scholars',
+                  degree: 'Ph.D. & Post-Doctoral',
                   teamSize: 'Individual Submission',
                   description: 'Academic stage for doctoral scholars presenting pioneering deep-tech models, novel frameworks, and patented ideas.',
                   align: 'right'

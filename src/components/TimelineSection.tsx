@@ -169,6 +169,7 @@ const TimelineSection = () => {
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/5 via-transparent to-black/10 z-0" />
 
 
+
       {/* Archival Typography Watermark: ORGANIZED BY IEEE SLRTCE STUDENT BRANCH */}
       <div className="absolute right-4 sm:right-8 lg:right-12 xl:right-16 top-6 sm:top-10 lg:top-12 select-none pointer-events-none z-0 text-right">
         <h3 className="text-4xl sm:text-5xl lg:text-[4.5rem] xl:text-[5.5rem] font-black font-serif uppercase tracking-tight leading-[0.88] select-none text-right">

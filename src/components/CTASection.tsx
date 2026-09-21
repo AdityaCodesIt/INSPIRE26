@@ -36,7 +36,7 @@ const CTASection = () => {
         >
           <span className="font-sans text-lg md:text-xl font-medium text-amber-200/95 mb-2">Be a Part of</span>
           <h2 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
-            Vikas 2026
+            Inspire 2026
           </h2>
         </motion.div>
 
@@ -75,9 +75,9 @@ const CTASection = () => {
               IEEE SLRTCE Student Branch
             </p>
             <div className="flex flex-col gap-1 text-xs text-amber-100/80 mt-1">
-              <a href="mailto:contact@vikas2026.org" className="hover:text-amber-300 transition-colors flex items-center gap-2">
+              <a href="mailto:contact@inspire2026.org" className="hover:text-amber-300 transition-colors flex items-center gap-2">
                 <Mail className="w-3 h-3 text-amber-400 shrink-0" />
-                <span>contact@vikas2026.org</span>
+                <span>contact@inspire2026.org</span>
               </a>
               <a href="tel:+919876543210" className="hover:text-amber-300 transition-colors flex items-center gap-2">
                 <Phone className="w-3 h-3 text-amber-400 shrink-0" />

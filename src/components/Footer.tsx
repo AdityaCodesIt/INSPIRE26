@@ -357,7 +357,7 @@ const Footer = ({ children }: FooterProps) => {
 
                   {/* Middle: Copyright */}
                   <div className="flex flex-col items-center text-center gap-2 text-[10px] sm:text-xs text-white/70">
-                    <p>&copy; VIKAS 2026 — IEEE SLRTCE STUDENT BRANCH.</p>
+                    <p>&copy; INSPIRE 2026 — IEEE SLRTCE STUDENT BRANCH.</p>
                   </div>
 
                   {/* Right: Social & Actions */}
