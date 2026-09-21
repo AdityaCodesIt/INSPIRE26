@@ -174,12 +174,11 @@ const AboutSection = () => {
 
               {/* Vertical Dashed Perforation Line 1 */}
               <div className="hidden lg:block w-0 border-r-2 border-dashed border-[#0A2540]/30 self-stretch my-0" />
-              <div className="block lg:hidden border-b-2 border-dashed border-[#0A2540]/30 w-full mx-0" />
 
               {/* ------------------------------------------------------------------- */}
               {/* COLUMN 2: 4 Pillars (What to Present, Focus, Aspects, Vision) (~37%) */}
               {/* ------------------------------------------------------------------- */}
-              <div className="w-full lg:w-[37%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-between space-y-4.5 sm:space-y-5.5">
+              <div className="hidden lg:flex w-full lg:w-[37%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex-col justify-between space-y-4.5 sm:space-y-5.5">
 
                 {/* 1. What to Present */}
                 <div className="flex items-start gap-3.5 sm:gap-4">
