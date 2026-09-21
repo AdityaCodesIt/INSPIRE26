@@ -85,7 +85,7 @@ const HeroSection = () => {
                   className="h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64 w-auto object-contain drop-shadow-lg select-none"
                 />
                 <motion.div 
-                  className="absolute top-[76%] sm:top-[78%] md:top-[80%] right-[-2%] sm:right-[-1%] md:right-[0%] z-20 pointer-events-none"
+                  className="absolute top-[68%] sm:top-[70%] md:top-[72%] right-[-6%] sm:right-[-4%] md:right-[-2%] z-20 pointer-events-none"
                   initial={{ rotate: -3, y: 0 }}
                   animate={{ 
                     rotate: [-3, 2, -4, -3],
