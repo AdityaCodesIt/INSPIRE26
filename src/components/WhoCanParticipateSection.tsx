@@ -9,9 +9,29 @@ interface CategoryInfo {
   align?: 'left' | 'right' | 'center';
 }
 
-const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage, imgClassName, flipOnHover }: { imgSrc: string, className?: string, bgImage?: string, info: CategoryInfo, flipImage?: boolean, imgClassName?: string, flipOnHover?: boolean }) => {
-  const [isToggled, setIsToggled] = useState(false);
+interface ParticipantBoxProps {
+  imgSrc: string;
+  className?: string;
+  bgImage?: string;
+  info: CategoryInfo;
+  flipImage?: boolean;
+  imgClassName?: string;
+  flipOnHover?: boolean;
+  isOpen?: boolean;
+  onToggle?: () => void;
+}
 
+const ParticipantBox = ({
+  imgSrc,
+  className,
+  bgImage,
+  info,
+  flipImage,
+  imgClassName,
+  flipOnHover,
+  isOpen = false,
+  onToggle,
+}: ParticipantBoxProps) => {
   // Calculate text positioning and character shift
   const isLeft = info.align === 'left';
   const isRight = info.align === 'right';
@@ -32,13 +52,13 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage, imgClassN
     <div className="w-full flex flex-col items-center">
       <motion.div
         initial="initial"
-        animate={isToggled ? "hover" : "initial"}
+        animate={isOpen ? "hover" : "initial"}
         whileHover="hover"
         variants={{
           initial: { zIndex: 10 },
           hover: { zIndex: 50 }
         }}
-        onClick={() => setIsToggled((prev) => !prev)}
+        onClick={onToggle}
         className={`group relative flex items-center justify-center cursor-pointer select-none ${className}`}
         style={{ perspective: 1200, transformStyle: 'preserve-3d' }}
       >
@@ -105,6 +125,12 @@ const ParticipantBox = ({ imgSrc, className, bgImage, info, flipImage, imgClassN
 };
 
 const WhoCanParticipateSection = () => {
+  const [activeCard, setActiveCard] = useState<string | null>(null);
+
+  const handleToggle = (cardId: string) => {
+    setActiveCard((prev) => (prev === cardId ? null : cardId));
+  };
+
   return (
     <section
       id="eligibility"
@@ -155,6 +181,8 @@ const WhoCanParticipateSection = () => {
               imgSrc="/images/participants/ug_new_character.png"
               bgImage="/images/participants/ug_new_bg.png"
               className="w-full max-w-3xl h-[280px] sm:h-[350px] md:h-[420px]"
+              isOpen={activeCard === 'ug'}
+              onToggle={() => handleToggle('ug')}
               info={{
                 title: 'UG & Diploma Students',
                 degree: 'B.E. / B.Tech / Diploma (All Years)',
@@ -167,20 +195,22 @@ const WhoCanParticipateSection = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.14em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+              className="mt-12 sm:mt-16 md:mt-20 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.14em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
             >
               UG / Diploma
             </motion.h3>
           </div>
 
           {/* ROW 2: Two Boxes (PG & PPG) (Moved to Row 2 as requested) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 w-full max-w-5xl mt-2 sm:mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-14 md:gap-20 w-full max-w-5xl mt-8 sm:mt-12 md:mt-16">
             {/* Left: Postgraduate (PG) */}
             <div className="flex flex-col items-center w-full">
               <ParticipantBox
                 imgSrc="/images/participants/pg_new_character.png"
                 bgImage="/images/participants/pg_new_bg.png"
                 className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
+                isOpen={activeCard === 'pg'}
+                onToggle={() => handleToggle('pg')}
                 info={{
                   title: 'Postgraduate (PG) Scholars',
                   degree: 'M.E. / M.Tech / M.S. / MCA',
@@ -193,7 +223,7 @@ const WhoCanParticipateSection = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
               >
                 PG
               </motion.h3>
@@ -207,6 +237,8 @@ const WhoCanParticipateSection = () => {
                 className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
                 flipImage={false}
                 imgClassName="absolute bottom-2 right-0 w-[55%] sm:w-[45%] h-auto max-h-[75%] object-contain"
+                isOpen={activeCard === 'ppg'}
+                onToggle={() => handleToggle('ppg')}
                 info={{
                   title: 'Doctoral / PhD Researchers',
                   degree: 'Ph.D. & Post-Doctoral Fellows',
@@ -219,7 +251,7 @@ const WhoCanParticipateSection = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
               >
                 PPG
               </motion.h3>

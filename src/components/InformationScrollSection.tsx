@@ -259,12 +259,12 @@ const InformationScrollSection = () => {
         className="w-full min-h-0 lg:min-h-[500px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
       >
         {/* ========================================================================= */}
-        {/* Top Sub-Nav Ribbon: "SLRTCE", "DEPARTMENT", "IEEE CHAPTER" */}
+        {/* Top Sub-Nav Ribbon: "COLLEGE", "DEPARTMENT", "IEEE CHAPTER" */}
         {/* ========================================================================= */}
         <div className="absolute top-0 left-0 w-full z-30 px-3 sm:px-8 pt-8 sm:pt-9 md:pt-10 pb-2.5 sm:pb-3 flex items-center justify-center bg-[#07172E]/95 backdrop-blur-md border-b border-[#C8B89A]/30 shadow-md">
           <div className="flex items-center space-x-4 sm:space-x-12 md:space-x-16 font-sans text-[11px] sm:text-sm">
             {[
-              { title: 'SLRTCE', idx: 0 },
+              { title: 'COLLEGE', idx: 0 },
               { title: 'DEPARTMENT', idx: 1 },
               { title: 'IEEE CHAPTER', idx: 2 },
             ].map((tab) => (
