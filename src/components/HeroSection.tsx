@@ -31,18 +31,30 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative w-full h-auto min-h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] lg:max-h-[calc(100vh-56px)] flex flex-col justify-between bg-[#F9E7B7] overflow-hidden">
-      {/* Layer 1: Looping Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-      >
-        <source src="/hero-background.mp4" type="video/mp4" />
-      </video>
+      {/* Layer 1: Clean Paper Texture Background */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0 bg-[#F9E7B7] bg-no-repeat bg-center bg-cover"
+        style={{
+          backgroundImage: "url('/hero-bg.png')",
+        }}
+      />
 
-      {/* Layer 2 Removed */}
+      {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none overflow-hidden select-none"
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 35 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+      >
+        <img
+          src={heritageCombinedImg}
+          alt=""
+          role="presentation"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-auto max-h-[160px] sm:max-h-[200px] md:max-h-[250px] lg:max-h-[280px] object-cover object-bottom translate-y-1 sm:translate-y-2 opacity-85"
+        />
+      </motion.div>
 
       {/* Layer 3: Foreground Hero Content */}
       <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 md:pt-10 pb-20 sm:pb-24 md:pb-28 lg:pb-24 flex-1 flex items-center justify-center">
@@ -103,15 +115,15 @@ const HeroSection = () => {
                   {timeLeft.minutes} M
                 </div>
               </div>
-              <div className="flex w-full mt-2 drop-shadow-md">
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider pr-1">Days</div>
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider px-1">Hours</div>
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider pl-1">Mins</div>
+              <div className="flex w-full mt-2">
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pr-1">Days</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider px-1">Hours</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pl-1">Mins</div>
               </div>
             </div>
 
             <motion.h2 
-              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-md mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-brand-navy mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
@@ -130,7 +142,7 @@ const HeroSection = () => {
                 <span key="4" className="text-brand-orange text-lg">·</span>,
                 <span key="5">Inclusion</span>, 
                 <span key="6" className="text-brand-orange text-lg">·</span>,
-                <span key="7" className="text-white font-bold">A Stronger Tomorrow</span>
+                <span key="7" className="text-brand-navy font-bold">A Stronger Tomorrow</span>
               ].map((child) => (
                 <motion.span 
                   key={child.key} 
@@ -145,7 +157,7 @@ const HeroSection = () => {
             </motion.h2>
 
             <motion.p 
-              className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-white/95 drop-shadow-md max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal"
+              className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-text-dark max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.8 }}
@@ -180,7 +192,7 @@ const HeroSection = () => {
                 </a>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-white drop-shadow-md mt-1">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-brand-navy mt-1">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📅</span>
                   <span>16–18 Jan 2026</span>
