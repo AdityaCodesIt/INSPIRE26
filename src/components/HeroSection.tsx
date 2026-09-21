@@ -110,18 +110,51 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-md mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-              <span>Ideas</span> <span className="text-brand-orange text-lg">·</span>
-              <span>Innovation</span> <span className="text-brand-orange text-lg">·</span>
-              <span>Inclusion</span> <span className="text-brand-orange text-lg">·</span>
-              <span className="text-white font-bold">A Stronger Tomorrow</span>
-            </h2>
+            <motion.h2 
+              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-md mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.2, delayChildren: 0.3 }
+                }
+              }}
+            >
+              {[
+                <span key="1">Ideas</span>, 
+                <span key="2" className="text-brand-orange text-lg">·</span>,
+                <span key="3">Innovation</span>, 
+                <span key="4" className="text-brand-orange text-lg">·</span>,
+                <span key="5">Inclusion</span>, 
+                <span key="6" className="text-brand-orange text-lg">·</span>,
+                <span key="7" className="text-white font-bold">A Stronger Tomorrow</span>
+              ].map((child) => (
+                <motion.span 
+                  key={child.key} 
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                  }}
+                >
+                  {child}
+                </motion.span>
+              ))}
+            </motion.h2>
 
-            <p className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-white/95 drop-shadow-md max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal">
+            <motion.p 
+              className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-white/95 drop-shadow-md max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.8 }}
+              transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
+            >
               A national platform for young minds and researchers to ideate,
               innovate and contribute towards a resilient, inclusive and
               technologically advanced Viksit Bharat.
-            </p>
+            </motion.p>
 
             <div className="flex flex-col items-center gap-4 mb-3 w-full">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">

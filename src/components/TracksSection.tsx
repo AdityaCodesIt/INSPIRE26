@@ -168,7 +168,7 @@ const StampCardContent = ({
                         src={`/sdg/sdg-${sdg}.svg`}
                         alt={`UN SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
                         title={`SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
-                        className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-lg shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
+                        className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-lg shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
                         loading="lazy"
                       />
                     </div>
@@ -178,31 +178,44 @@ const StampCardContent = ({
 
               {/* 3 SDGs */}
               {theme.sdgs.length === 3 && (
-                <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5 w-full max-w-[270px] place-items-center">
-                  {theme.sdgs.map((sdg) => (
-                    <div key={sdg} className="group/sdg flex flex-col items-center">
+                <div className="flex flex-col items-center gap-2 sm:gap-3 w-full max-w-[220px] sm:max-w-[260px]">
+                  <div className="flex justify-center gap-2 sm:gap-3 w-full">
+                    {theme.sdgs.slice(0, 2).map((sdg) => (
+                      <div key={sdg} className="group/sdg flex flex-col items-center">
+                        <img
+                          src={`/sdg/sdg-${sdg}.svg`}
+                          alt={`UN SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
+                          title={`SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
+                          className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex justify-center w-full">
+                    <div className="group/sdg flex flex-col items-center">
                       <img
-                        src={`/sdg/sdg-${sdg}.svg`}
-                        alt={`UN SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
-                        title={`SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
-                        className="w-15 h-15 sm:w-20 sm:h-20 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
+                        src={`/sdg/sdg-${theme.sdgs[2]}.svg`}
+                        alt={`UN SDG ${theme.sdgs[2]}: ${sdgDetails[theme.sdgs[2]]?.title}`}
+                        title={`SDG ${theme.sdgs[2]}: ${sdgDetails[theme.sdgs[2]]?.title}`}
+                        className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
                         loading="lazy"
                       />
                     </div>
-                  ))}
+                  </div>
                 </div>
               )}
 
               {/* 4 SDGs */}
               {theme.sdgs.length === 4 && (
-                <div className="grid grid-cols-2 gap-2 sm:gap-2.5 w-full max-w-[190px] sm:max-w-[210px] place-items-center">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-[220px] sm:max-w-[260px] place-items-center">
                   {theme.sdgs.map((sdg) => (
                     <div key={sdg} className="group/sdg flex flex-col items-center">
                       <img
                         src={`/sdg/sdg-${sdg}.svg`}
                         alt={`UN SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
                         title={`SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
-                        className="w-15 h-15 sm:w-20 sm:h-20 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
+                        className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
                         loading="lazy"
                       />
                     </div>
@@ -212,14 +225,14 @@ const StampCardContent = ({
 
               {/* 5 SDGs */}
               {theme.sdgs.length >= 5 && (
-                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 max-w-[240px] sm:max-w-[280px]">
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-[280px] sm:max-w-[320px]">
                   {theme.sdgs.map((sdg) => (
                     <div key={sdg} className="group/sdg flex flex-col items-center">
                       <img
                         src={`/sdg/sdg-${sdg}.svg`}
                         alt={`UN SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
                         title={`SDG ${sdg}: ${sdgDetails[sdg]?.title}`}
-                        className="w-14 h-14 sm:w-18 sm:h-18 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
+                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-md shadow-md hover:scale-105 transition-transform duration-200 border border-black/10 bg-white"
                         loading="lazy"
                       />
                     </div>
