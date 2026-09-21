@@ -148,14 +148,13 @@
       radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
     -webkit-mask-size: 51% 100%;
     -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: left top, right top;
-    
+    -webkit-mask-position: left, right;
     mask-image: 
       radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
       radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
     mask-size: 51% 100%;
     mask-repeat: no-repeat;
-    mask-position: left top, right top;
+    mask-position: left, right;
   }
 
   /* Vertical Ticket Shape */

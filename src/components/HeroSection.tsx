@@ -10,7 +10,7 @@ const HeroSection = () => {
   useEffect(() => {
     // Target date: 3 October 2026, 9:00 AM
     const targetDate = new Date('2026-10-03T09:00:00').getTime();
-    
+
     const updateTimer = () => {
       const now = new Date().getTime();
       const difference = targetDate - now;
@@ -31,35 +31,18 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative w-full h-auto min-h-[calc(100vh-56px)] lg:h-[calc(100vh-56px)] lg:max-h-[calc(100vh-56px)] flex flex-col justify-between bg-[#F9E7B7] overflow-hidden">
-      {/* Layer 1: Clean Cream Paper Texture Background */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 bg-[#F9E7B7] bg-no-repeat bg-center bg-cover"
-        style={{
-          backgroundImage: "url('/hero-bg.png')",
-        }}
-      />
-
-
-      {/* Layer 2: Indian Heritage Skyline Layer — Continuous bottom decorative layer with entrance animation */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-full pointer-events-none z-[5] leading-none select-none flex items-end"
-        initial={shouldReduceMotion ? false : { y: '34%' }}
-        animate={{ y: '0%' }}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : {
-              duration: 1.9,
-              ease: [0.16, 1, 0.3, 1], // Smooth, premium ease-out curve
-            }
-        }
+      {/* Layer 1: Looping Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
       >
-        <img
-          src={heritageCombinedImg}
-          alt="Indian Heritage Skyline"
-          className="w-full h-auto block select-none"
-        />
-      </motion.div>
+        <source src="/hero-background.mp4" type="video/mp4" />
+      </video>
+
+      {/* Layer 2 Removed */}
 
       {/* Layer 3: Foreground Hero Content */}
       <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 md:pt-10 pb-20 sm:pb-24 md:pb-28 lg:pb-24 flex-1 flex items-center justify-center">
@@ -84,23 +67,23 @@ const HeroSection = () => {
                   alt="VIKAS"
                   className="h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64 w-auto object-contain drop-shadow-lg select-none"
                 />
-                <motion.div 
+                <motion.div
                   className="absolute top-[68%] sm:top-[70%] md:top-[72%] right-[-6%] sm:right-[-4%] md:right-[-2%] z-20 pointer-events-none"
                   initial={{ rotate: -3, y: 0 }}
-                  animate={{ 
+                  animate={{
                     rotate: [-3, 2, -4, -3],
                     y: [0, 2, -1, 0]
                   }}
-                  transition={{ 
-                    duration: 4.5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }}
                   style={{ transformOrigin: "42% 15%" }}
                 >
-                  <img 
-                    src="/2026-badge.png" 
-                    alt="2026" 
+                  <img
+                    src="/2026-badge.png"
+                    alt="2026"
                     className="h-10 sm:h-13 md:h-16 lg:h-20 xl:h-24 2xl:h-26 w-auto object-contain drop-shadow-xl"
                   />
                 </motion.div>
@@ -120,21 +103,21 @@ const HeroSection = () => {
                   {timeLeft.minutes} M
                 </div>
               </div>
-              <div className="flex w-full mt-2">
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pr-1">Days</div>
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider px-1">Hours</div>
-                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-brand-navy/90 uppercase tracking-wider pl-1">Mins</div>
+              <div className="flex w-full mt-2 drop-shadow-md">
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider pr-1">Days</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider px-1">Hours</div>
+                <div className="flex-1 text-center text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider pl-1">Mins</div>
               </div>
             </div>
 
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-brand-navy mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-md mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
               <span>Ideas</span> <span className="text-brand-orange text-lg">·</span>
               <span>Innovation</span> <span className="text-brand-orange text-lg">·</span>
               <span>Inclusion</span> <span className="text-brand-orange text-lg">·</span>
-              <span className="text-brand-navy font-bold">A Stronger Tomorrow</span>
+              <span className="text-white font-bold">A Stronger Tomorrow</span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-text-dark max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-white/95 drop-shadow-md max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal">
               A national platform for young minds and researchers to ideate,
               innovate and contribute towards a resilient, inclusive and
               technologically advanced Viksit Bharat.
@@ -164,7 +147,7 @@ const HeroSection = () => {
                 </a>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-brand-navy mt-1">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-white drop-shadow-md mt-1">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📅</span>
                   <span>16–18 Jan 2026</span>
