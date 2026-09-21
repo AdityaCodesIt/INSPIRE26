@@ -9,9 +9,9 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'What is VIKAS 2026 and what is a Colloquium?',
+    question: 'What is INSPIRE 2026 and what is a Colloquium?',
     answer:
-      'A colloquium is an academic platform where researchers present technical work to an expert audience. VIKAS 2026 is an IEEE SLRTCE research colloquium aligning student innovations with Viksit Bharat @2047 and the UNSDGs.',
+      'A colloquium is an academic platform where researchers present technical work to an expert audience. INSPIRE 2026 is an IEEE SLRTCE research colloquium aligning student innovations with Viksit Bharat @2047 and the UNSDGs.',
   },
   {
     question: 'Who can participate?',
@@ -36,7 +36,7 @@ const faqs: FAQItem[] = [
   {
     question: 'What is the competition format and structure?',
     answer:
-      'VIKAS 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
+      'INSPIRE 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
   },
   {
     question: 'Is there any registration fee?',
@@ -93,7 +93,7 @@ const FAQSection = () => {
             </h2>
             <div className="w-16 h-[3px] bg-amber-400 rounded-full mb-3" />
             <p className="text-sm sm:text-base text-white/80 font-sans">
-              Find answers to the most commonly asked questions about VIKAS 2026.
+              Find answers to the most commonly asked questions about INSPIRE 2026.
             </p>
           </motion.div>
 

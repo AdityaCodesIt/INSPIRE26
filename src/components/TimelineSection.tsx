@@ -668,11 +668,11 @@ const TimelineSection = () => {
       {/* Subtle Vignette for Depth */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/20 z-0" />
 
-      {/* Archival Typography Watermark: TIMELINE TO VIKAS 2026. */}
+      {/* Archival Typography Watermark: TIMELINE TO INSPIRE 2026. */}
       <div className="absolute left-6 sm:left-12 lg:left-20 bottom-2 sm:bottom-4 lg:bottom-5 select-none pointer-events-none z-0">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.8rem] font-black font-serif text-[#0A2A5E]/[0.035] uppercase tracking-tighter leading-[0.88]">
           TIMELINE <br />
-          <span className="text-[#FF6B00]/[0.10] italic font-serif">TO VIKAS</span> <br />
+          <span className="text-[#FF6B00]/[0.10] italic font-serif">TO INSPIRE</span> <br />
           2026.
         </h1>
       </div>

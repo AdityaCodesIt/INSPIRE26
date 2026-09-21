@@ -66,9 +66,7 @@ const FrameCard = ({
         {/* Inner Content Container */}
         <div className="relative w-full h-full bg-white overflow-hidden rounded-sm border border-black/10">
 
-          {/* Hover Reveal Veil on Inner Content Only (Hidden on mobile touch devices) */}
-          <div className="absolute inset-0 bg-[#F5F0E6] mix-blend-color z-20 transition-opacity duration-500 opacity-0 md:opacity-100 md:group-hover:opacity-0 pointer-events-none" />
-          <div className="absolute inset-0 bg-[#F5F0E6]/85 backdrop-blur-[2px] z-20 transition-opacity duration-500 opacity-0 md:opacity-100 md:group-hover:opacity-0 pointer-events-none" />
+          {/* Hover Reveal Veil Removed - Stamps are now always fully visible */}
 
           {/* Revealed Content */}
           <div className="relative z-10 p-3 sm:p-5 md:p-6 flex flex-col h-full bg-[#FCF9F2]">
@@ -316,7 +314,7 @@ const PrizePoolSection = () => {
           <FrameCard
             award={awardsList[0]}
             rotation={-1.5}
-            className="relative md:absolute md:top-[7.9%] md:left-[57%] w-[92%] sm:w-[340px] md:w-[380px] h-[230px] sm:h-[260px] md:h-[280px] z-10 pointer-events-auto"
+            className="relative md:absolute md:-top-[3%] md:left-[57%] w-[92%] sm:w-[340px] md:w-[380px] h-[230px] sm:h-[260px] md:h-[280px] z-30 pointer-events-auto"
           />
 
           {/* Stamp 2: Runner Up / 2nd Position */}
@@ -330,7 +328,7 @@ const PrizePoolSection = () => {
           <FrameCard
             award={awardsList[2]}
             rotation={1.5}
-            className="relative md:absolute md:top-[40.9%] md:left-[79.2%] w-[90%] sm:w-[320px] md:w-[350px] h-[215px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
+            className="relative md:absolute md:top-[40.9%] md:left-[72%] w-[90%] sm:w-[320px] md:w-[350px] h-[215px] sm:h-[240px] md:h-[255px] z-20 pointer-events-auto"
           />
 
           {/* Category Awards Notice - Positioned directly below Card 2 & Card 3 */}

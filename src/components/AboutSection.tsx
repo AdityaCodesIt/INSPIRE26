@@ -24,7 +24,7 @@ const AboutSection = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        {/* The Authentic VIKAS 2026 Colloquium Landscape Ticket with True Transparent Edge Cutouts */}
+        {/* The Authentic INSPIRE 2026 Colloquium Landscape Ticket with True Transparent Edge Cutouts */}
         <div className="ticket-border w-full rounded-[24px] sm:rounded-[36px] overflow-hidden bg-[#F2F6FA] relative">
 
           {/* ========================================================================= */}
@@ -32,11 +32,11 @@ const AboutSection = () => {
           {/* ========================================================================= */}
           <div className="bg-[#0A233F] text-white px-4 sm:px-10 md:px-12 py-3.5 sm:py-5 flex flex-wrap items-center justify-between gap-3 sm:gap-4 border-b border-[#0A233F] z-20">
 
-            {/* Left: VIKAS Brand & Year */}
+            {/* Left: INSPIRE Brand & Year */}
             <div className="flex items-center">
-              {/* Bold Futuristic Rounded VIKAS Logo */}
+              {/* Bold Futuristic Rounded INSPIRE Logo */}
               <span className="font-black text-2xl sm:text-4xl md:text-[2.85rem] tracking-[0.08em] text-white uppercase font-sans select-none leading-none">
-                VIKAS
+                INSPIRE
               </span>
 
               {/* Year */}
@@ -92,13 +92,13 @@ const AboutSection = () => {
             <div className="relative z-10 flex flex-col lg:flex-row items-stretch">
 
               {/* ------------------------------------------------------------------- */}
-              {/* COLUMN 1: Colloquium Intro & VIKAS Acronym Breakdown (~41% width)    */}
+              {/* COLUMN 1: Colloquium Intro & INSPIRE Acronym Breakdown (~41% width)    */}
               {/* ------------------------------------------------------------------- */}
               <div className="w-full lg:w-[41%] p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-start">
                 <div>
                   {/* Title - Enlarged & Top-Aligned */}
                   <h3 className="font-sans font-extrabold text-[#0A2540] text-xl sm:text-2xl md:text-[1.65rem] lg:text-[1.82rem] leading-tight tracking-tight">
-                    VIKAS 2026 – A Research &amp; Idea Colloquium
+                    INSPIRE 2026 – A Research &amp; Idea Colloquium
                   </h3>
 
                   {/* Description Paragraph */}
@@ -114,7 +114,7 @@ const AboutSection = () => {
 
                   {/* Subtitle */}
                   <p className="font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.98rem] text-[#0A2540] tracking-[0.16em] uppercase mb-3 sm:mb-4">
-                    VIKAS2026 REPRESENTS
+                    INSPIRE2026 REPRESENTS
                   </p>
 
                   {/* 5-Column Acronym Row with prominent letters */}
@@ -293,7 +293,7 @@ const AboutSection = () => {
                       EVENT
                     </span>
                     <span className="block font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.94rem] text-[#0A2540] tracking-wide mt-0.5 uppercase">
-                      VIKAS – VIKSIT BHARAT
+                      INSPIRE – VIKSIT BHARAT
                     </span>
                   </div>
 
