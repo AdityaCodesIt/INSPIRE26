@@ -22,6 +22,13 @@ const Navbar = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
+          // If scrolled near top of page (Hero section), directly activate 'home'
+          if (window.scrollY < 80) {
+            setActiveSection('home');
+            ticking = false;
+            return;
+          }
+
           // If scrolled near bottom of page (CTA / Footer area), directly activate 'contact'
           const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
           if (isAtBottom) {
@@ -49,7 +56,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
   useEffect(() => {
     // Target date: 3 October 2026, 9:00 AM
@@ -63,8 +70,7 @@ const Navbar = () => {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
         });
       }
     };
@@ -77,11 +83,11 @@ const Navbar = () => {
   const DigitalCard = ({ value, label }: { value: number, label: string }) => {
     const formattedValue = value.toString().padStart(2, '0');
     return (
-      <div className="flex flex-col items-center mx-[2px]">
-        <span className="font-mono font-bold text-[10px] xl:text-xs text-black leading-none tracking-widest">
+      <div className="flex flex-col items-center mx-[3px] sm:mx-1">
+        <span className="font-mono font-bold text-xs sm:text-[13px] xl:text-[14px] text-black leading-none tracking-widest">
           {formattedValue}
         </span>
-        <span className="text-[5px] xl:text-[6px] font-bold tracking-[0.1em] text-black/70 mt-[1px] uppercase leading-none">
+        <span className="text-[6px] sm:text-[7px] xl:text-[7.5px] font-bold tracking-[0.1em] text-black/70 mt-[1.5px] uppercase leading-none">
           {label}
         </span>
       </div>
@@ -89,33 +95,31 @@ const Navbar = () => {
   };
 
   const TimerPanel = () => (
-    <div className="stamp-card-wrapper drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">
-      <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-1.5 sm:px-2.5 py-[3px] sm:py-[5px] w-auto border border-black/5 transform scale-90 sm:scale-100 origin-right">
+    <div className="stamp-card-wrapper drop-shadow-[0_2px_5px_rgba(0,0,0,0.18)] shrink-0 whitespace-nowrap select-none px-1 py-0.5">
+      <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-2.5 sm:px-3 py-1 sm:py-1.5 w-auto border border-black/5 shrink-0 whitespace-nowrap select-none">
         
         {/* Top Header Row */}
-        <div className="flex justify-between items-center w-full mb-[2px] sm:mb-[3px] z-10 gap-1 sm:gap-2 px-[1px] sm:px-[2px]">
-          <div className="text-[4px] sm:text-[5px] xl:text-[6px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px hidden sm:block">
+        <div className="flex justify-between items-center w-full mb-[2px] sm:mb-[3px] z-10 gap-1.5 sm:gap-2.5 px-[1px]">
+          <div className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
             [ DEADLINE ]
           </div>
-          <div className="flex items-center gap-0.5 ml-auto">
+          <div className="flex items-center gap-1 ml-auto">
             <motion.div 
               animate={{ opacity: [1, 0.2, 1] }} 
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-[3px] h-[3px] rounded-full bg-red-600 shadow-sm"
+              className="w-1 h-1 rounded-full bg-red-600 shadow-xs"
             />
-            <span className="text-[4px] sm:text-[5px] xl:text-[6px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
+            <span className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
           </div>
         </div>
 
-        {/* Bottom Countdown Row */}
+        {/* Bottom Countdown Row (Days, Hours, Minutes) */}
         <div className="flex items-center justify-center z-10">
           <DigitalCard value={timeLeft.days} label="DAYS" />
-          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
+          <span className="text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] animate-pulse leading-none mx-[1px]">:</span>
           <DigitalCard value={timeLeft.hours} label="HRS" />
-          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
+          <span className="text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] animate-pulse leading-none mx-[1px]">:</span>
           <DigitalCard value={timeLeft.minutes} label="MIN" />
-          <span className="text-black/40 font-mono font-bold text-[8px] sm:text-[10px] xl:text-xs mb-[2px] sm:mb-[4px] animate-pulse leading-none">:</span>
-          <DigitalCard value={timeLeft.seconds} label="SEC" />
         </div>
       </div>
     </div>
@@ -140,24 +144,24 @@ const Navbar = () => {
   return (
     <>
       <motion.header
-        className="w-full max-w-full sticky top-0 z-[70] bg-[#0A2A5E] text-white py-1.5 sm:py-2 transition-all duration-300"
+        className="w-full max-w-full sticky top-0 z-[70] bg-[#0A2A5E] text-white h-[56px] min-h-[56px] max-h-[56px] flex flex-col justify-center transition-all duration-300"
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center relative">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center relative w-full h-full">
           {/* Left: Logos */}
           <a href="#home" onClick={(e) => handleNavClick(e, '#home', 'home')} className="flex items-center space-x-2 sm:space-x-2.5 text-white shrink-0 group z-10">
             <img
               src="/slrtce-logo.png"
               alt="SLRTCE Logo"
-              className="h-8 sm:h-11 w-auto object-contain"
+              className="h-8 sm:h-9 w-auto object-contain"
             />
-            <div className="h-6 sm:h-9 w-px bg-white/30" />
+            <div className="h-6 sm:h-7 w-px bg-white/30" />
             <img
               src="/ieee-slrtce-logo.png"
               alt="IEEE SLRTCE Student Branch Logo"
-              className="h-8 sm:h-11 w-auto object-contain"
+              className="h-8 sm:h-9 w-auto object-contain"
             />
           </a>
 
@@ -181,10 +185,10 @@ const Navbar = () => {
           {/* Mobile Center Timer */}
           <div className="absolute left-[49%] sm:left-[50%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-none">
             <div 
-              className={`transition-all duration-300 ease-out flex items-center pointer-events-auto ${
+              className={`transition-all duration-300 ease-out flex items-center shrink-0 ${
                 activeSection !== 'home'
-                  ? 'opacity-100 scale-100'
-                  : 'opacity-0 scale-95'
+                  ? 'opacity-100 scale-100 pointer-events-auto overflow-visible px-1'
+                  : 'opacity-0 scale-95 pointer-events-none overflow-hidden'
               }`}
             >
               <TimerPanel />
@@ -196,10 +200,10 @@ const Navbar = () => {
             
             {/* Terminal Style Timer Panel (Inline, ultra-compact) */}
             <div 
-              className={`transition-all duration-300 ease-out flex items-center ${
+              className={`transition-all duration-300 ease-out flex items-center shrink-0 ${
                 activeSection !== 'home'
-                  ? 'opacity-100 scale-100 max-w-[200px] pointer-events-auto'
-                  : 'opacity-0 scale-95 max-w-0 pointer-events-none overflow-hidden'
+                  ? 'opacity-100 scale-100 max-w-[240px] max-h-12 pointer-events-auto overflow-visible px-1'
+                  : 'opacity-0 scale-95 max-w-0 max-h-0 pointer-events-none overflow-hidden'
               }`}
             >
               <TimerPanel />

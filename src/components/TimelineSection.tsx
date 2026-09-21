@@ -5,46 +5,73 @@ interface Stage {
   id: number;
   stageNumber: string;
   title: string;
-  coinType: 'old-coin' | 'modern-coin' | 'upi';
+  coinType: 'old-coin' | 'ppt' | 'upi' | 'modern-coin' | 'trophy';
   date: string;
   time?: string;
   venue: string;
   isInitiallyLit: boolean;
   activationDate: string;
   summary: string;
+  note?: string;
 }
 
 const stages: Stage[] = [
   {
     id: 1,
     stageNumber: '01',
-    title: 'Abstract Screening',
+    title: 'Registration & Idea Submission',
     coinType: 'old-coin',
     date: 'Deadline: 26 Sep 2026',
     venue: 'Online IEEE Portal',
     isInitiallyLit: true,
     activationDate: '2026-09-01T00:00:00+05:30',
     summary:
-      'Initial online screening where teams submit a structured abstract and methodology PDF aligned with any of the 9 colloquium tracks and UN SDGs.',
+      'Initial registration where teams submit their project idea, structured abstract, and methodology PDF aligned with any of the 9 colloquium tracks and UN SDGs.',
   },
   {
     id: 2,
     stageNumber: '02',
-    title: 'Internal Evaluation',
-    coinType: 'modern-coin',
-    date: '3 Oct 2026',
-    time: '10:00 AM – 1:00 PM',
-    venue: 'SLRTCE Campus, Mira-Bhayandar',
+    title: 'PPT Evaluation Result',
+    coinType: 'ppt',
+    date: 'Deadline: 28 Sep 2026',
+    venue: 'Online Review Portal',
     isInitiallyLit: false,
-    activationDate: '2026-10-03T10:00:00+05:30',
+    activationDate: '2026-09-27T00:00:00+05:30',
     summary:
-      'Shortlisted teams deliver a strict 12-minute technical defense on-campus before internal academic panels, evaluated on depth, methodology, and innovation.',
+      'Official declaration of PPT evaluation results and technical review scores for shortlisted teams qualified for the next round.',
   },
   {
     id: 3,
     stageNumber: '03',
-    title: 'Grand Finale & Awards',
+    title: 'Payment',
     coinType: 'upi',
+    date: 'Deadline: 30 Sep 2026',
+    note: 'Payment only for selected teams',
+    time: '(Payment only for selected teams)',
+    venue: 'Online Payment Gateway',
+    isInitiallyLit: false,
+    activationDate: '2026-09-29T00:00:00+05:30',
+    summary:
+      'Final participation fee submission and slot confirmation exclusively for shortlisted finalist teams qualified for the on-campus colloquium rounds.',
+  },
+  {
+    id: 4,
+    stageNumber: '04',
+    title: 'Internal Evaluation',
+    coinType: 'modern-coin',
+    date: '3 Oct 2026',
+    time: 'Tentative Event Timing: 9:00 AM – 5:00 PM',
+    venue: 'SLRTCE Campus, Mira-Bhayandar',
+    isInitiallyLit: false,
+    activationDate: '2026-10-03T09:00:00+05:30',
+    summary:
+      'Shortlisted teams deliver a strict 12-minute technical defense on-campus before internal academic panels, evaluated on depth, methodology, and innovation.',
+  },
+  {
+    id: 5,
+    stageNumber: '05',
+    title: 'Grand Finale & Awards',
+    coinType: 'trophy',
     date: '3 Oct 2026',
     time: '2:00 PM – 5:30 PM',
     venue: 'Main Auditorium, SLRTCE Campus',
@@ -409,20 +436,147 @@ const PixelRevealCard: React.FC<PixelRevealCardProps> = ({
 
 
 // Exact mathematical curve stretched lengthwise and vertically (1000 x 800 coordinate space)
-// Segment 1: Circle 1 (200, 120) -> Loop around Left (40) -> Enter Circle 2 (500, 400)
-const PATH_SEGMENT_1 =
-  "M 145 120 " +
-  "C 65 120, 40 200, 40 300 " +
-  "C 40 400, 120 400, 260 400 " +
-  "L 500 400";
+// Node Centers:
+// Node 1: (110, 170)  -> left-[11%] top-[21.25%]
+// Node 2: (295, 400)  -> left-[29.5%] top-[50%]
+// Node 3: (485, 185)  -> left-[48.5%] top-[23.125%]
+// Node 4: (680, 415)  -> left-[68%] top-[51.875%]
+// Node 5: (875, 625)  -> left-[87.5%] top-[78.125%]
 
-// Segment 2: Circle 2 (500, 400) -> Horizontal Right -> Loop around Right (960) -> Enter Circle 3 (800, 680)
-const PATH_SEGMENT_2 =
-  "M 500 400 " +
-  "L 740 400 " +
-  "C 880 400, 960 430, 960 515 " +
-  "C 960 615, 930 680, 850 680 " +
-  "L 800 680";
+const ENTRY_PATH = "M 40 170 L 110 170";
+const PATH_SEGMENT_1 = "M 110 170 C 205 170, 200 400, 295 400";
+const PATH_SEGMENT_2 = "M 295 400 C 390 400, 390 185, 485 185";
+const PATH_SEGMENT_3 = "M 485 185 C 585 185, 580 415, 680 415";
+const PATH_SEGMENT_4 = "M 680 415 C 780 415, 775 625, 875 625";
+const EXIT_PATH = "M 875 625 L 960 625";
+
+const FULL_ROADMAP_PATH =
+  "M 40 170 L 110 170 " +
+  "C 205 170, 200 400, 295 400 " +
+  "C 390 400, 390 185, 485 185 " +
+  "C 585 185, 580 415, 680 415 " +
+  "C 780 415, 775 625, 875 625 " +
+  "L 960 625";
+
+const renderCoinVisual = (stage: Stage, isLit: boolean) => {
+  if (isLit) {
+    if (stage.coinType === 'old-coin') {
+      return (
+        <img
+          src="/timeline/old-indian-coin.jpg"
+          alt="Old Coin of India"
+          className="w-full h-full object-cover rounded-full"
+        />
+      );
+    }
+    if (stage.coinType === 'ppt') {
+      return (
+        <div className="w-full h-full bg-gradient-to-br from-[#FFF8E7] to-[#FFE8B2] flex flex-col items-center justify-center p-2 rounded-full shadow-inner">
+          <svg className="w-8 h-8 sm:w-10 sm:h-10 text-amber-600 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+            <path d="M7 8h4" />
+            <path d="M7 12h8" />
+            <polyline points="15 7 17 9 15 11" />
+          </svg>
+          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-wider text-amber-900/90 mt-0.5 font-mono">PPT DECK</span>
+        </div>
+      );
+    }
+    if (stage.coinType === 'upi') {
+      return (
+        <div className="w-full h-full bg-white flex flex-col items-center justify-center p-2.5 rounded-full">
+          <img
+            src="/timeline/upi-logo.svg"
+            alt="UPI Payment Logo"
+            className="w-[85%] h-auto object-contain my-auto drop-shadow-sm"
+          />
+        </div>
+      );
+    }
+    if (stage.coinType === 'modern-coin') {
+      return (
+        <div className="w-full h-full bg-white flex items-center justify-center p-1 rounded-full">
+          <img
+            src="/timeline/Indian_20_Rupee_coin_Reverse.png"
+            alt="Modern Coin of India"
+            className="w-full h-full object-contain p-0.5 rounded-full"
+          />
+        </div>
+      );
+    }
+    if (stage.coinType === 'trophy') {
+      return (
+        <div className="w-full h-full bg-gradient-to-br from-amber-100 via-amber-200 to-amber-400 flex flex-col items-center justify-center p-2 rounded-full shadow-inner border border-amber-300">
+          <svg className="w-8 h-8 sm:w-10 sm:h-10 text-amber-800 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.78 2.72 3.23 3.32V19H8v2h8v-2h-2.62v-2.74c1.45-.6 2.6-1.82 3.23-3.32C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
+          </svg>
+          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-wider text-amber-950 mt-0.5 font-mono">AWARDS</span>
+        </div>
+      );
+    }
+  }
+
+  // Locked stage: Metallic background with faint silhouette and lock icon
+  return (
+    <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center rounded-full overflow-hidden">
+      {stage.coinType === 'old-coin' && (
+        <img
+          src="/timeline/old-indian-coin.jpg"
+          alt="Old Coin"
+          className="w-full h-full object-cover rounded-full opacity-25"
+        />
+      )}
+      {stage.coinType === 'ppt' && (
+        <div className="w-full h-full flex flex-col items-center justify-center opacity-25 p-2">
+          <svg className="w-8 h-8 sm:w-9 sm:h-9 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+        </div>
+      )}
+      {stage.coinType === 'upi' && (
+        <img
+          src="/timeline/upi-logo.svg"
+          alt="UPI Logo"
+          className="w-[85%] h-auto object-contain opacity-25"
+        />
+      )}
+      {stage.coinType === 'modern-coin' && (
+        <img
+          src="/timeline/Indian_20_Rupee_coin_Reverse.png"
+          alt="Modern Coin"
+          className="w-full h-full object-contain p-1 rounded-full opacity-25"
+        />
+      )}
+      {stage.coinType === 'trophy' && (
+        <div className="w-full h-full flex flex-col items-center justify-center opacity-25 p-2">
+          <svg className="w-8 h-8 sm:w-9 sm:h-9 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.78 2.72 3.23 3.32V19H8v2h8v-2h-2.62v-2.74c1.45-.6 2.6-1.82 3.23-3.32C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
+          </svg>
+        </div>
+      )}
+
+      {/* Centered Lock Icon */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <svg
+          className="w-6 h-6 sm:w-7 sm:h-7 text-white/60 drop-shadow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="5" y="11" width="14" height="10" rx="2" />
+          <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+        </svg>
+      </div>
+    </div>
+  );
+};
 
 const TimelineSection = () => {
   const [currentTime, setCurrentTime] = useState(() => new Date());
@@ -538,13 +692,13 @@ const TimelineSection = () => {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full my-3" />
             <p className="text-sm sm:text-base text-[#0A2A5E]/85 font-sans leading-relaxed font-medium">
-              The colloquium will be conducted through three major stages, providing a progressive selection process from abstract screening to internal evaluation and finally external expert evaluation
+              The colloquium will be conducted through progressive stages, providing a seamless selection process from registration & idea submission to PPT evaluation results, payment confirmation, internal evaluation, and external expert evaluation.
             </p>
           </motion.div>
         </div>
 
         {/* DESKTOP LENGTHWISE DOTTED CANVAS (>= 1024px) */}
-        <div className="hidden lg:block relative w-full max-w-[1300px] xl:max-w-[1360px] mx-auto h-[700px] sm:h-[760px] lg:h-[820px] xl:h-[880px] select-none my-6">
+        <div className="hidden lg:block relative w-full max-w-[1300px] xl:max-w-[1360px] mx-auto h-[740px] sm:h-[800px] lg:h-[860px] xl:h-[900px] select-none my-6">
 
           {/* Archival Typography Watermark: ORGANIZED BY IEEE SLRTCE STUDENT BRANCH */}
           <div className="absolute -right-2 lg:-right-4 xl:-right-6 -top-2 lg:-top-4 xl:-top-6 select-none pointer-events-none z-0 text-right">
@@ -562,65 +716,150 @@ const TimelineSection = () => {
             preserveAspectRatio="none"
             fill="none"
           >
-            {/* Glowing underlay for active Stage 1 dashed path */}
+            {/* Base Full Dashed Path connecting all 5 milestones */}
+            <path
+              d={FULL_ROADMAP_PATH}
+              stroke="rgba(10, 42, 94, 0.35)"
+              strokeWidth="5"
+              strokeDasharray="16 12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+
+            {/* Glowing underlay & active stroke for Stage 1 */}
             {isStageLighted(stages[0]) && (
-              <path
-                d={PATH_SEGMENT_1}
-                stroke="#FF6B00"
-                strokeWidth="12"
-                strokeDasharray="16 12"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-                opacity="0.30"
-                style={{ filter: 'blur(4px)' }}
-              />
+              <>
+                <path
+                  d={`${ENTRY_PATH} ${PATH_SEGMENT_1}`}
+                  stroke="#FF6B00"
+                  strokeWidth="12"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  opacity="0.30"
+                  style={{ filter: 'blur(4px)' }}
+                />
+                <path
+                  d={`${ENTRY_PATH} ${PATH_SEGMENT_1}`}
+                  stroke="#FF6B00"
+                  strokeWidth="5"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </>
             )}
 
-            {/* Segment 1: Circle 1 (20%, 15%) -> Loop Left (4%) -> Horizontal through Circle 2 (50%, 50%) */}
-            <path
-              d={PATH_SEGMENT_1}
-              stroke={isStageLighted(stages[0]) ? "#FF6B00" : "rgba(10, 42, 94, 0.4)"}
-              strokeWidth="5"
-              strokeDasharray="16 12"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-            />
-
-            {/* Glowing underlay for active Stage 2 dashed path */}
+            {/* Glowing underlay & active stroke for Stage 2 */}
             {isStageLighted(stages[1]) && (
-              <path
-                d={PATH_SEGMENT_2}
-                stroke="#0A2A5E"
-                strokeWidth="12"
-                strokeDasharray="16 12"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-                opacity="0.30"
-                style={{ filter: 'blur(4px)' }}
-              />
+              <>
+                <path
+                  d={PATH_SEGMENT_2}
+                  stroke="#F59E0B"
+                  strokeWidth="12"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  opacity="0.30"
+                  style={{ filter: 'blur(4px)' }}
+                />
+                <path
+                  d={PATH_SEGMENT_2}
+                  stroke="#F59E0B"
+                  strokeWidth="5"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </>
             )}
 
-            {/* Segment 2: Circle 2 (50%, 50%) -> Horizontal Right -> Loop Right (96%) -> Enter Circle 3 (80%, 85%) */}
-            <path
-              d={PATH_SEGMENT_2}
-              stroke={isStageLighted(stages[1]) ? "#0A2A5E" : "rgba(10, 42, 94, 0.35)"}
-              strokeWidth="5"
-              strokeDasharray="16 12"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-            />
+            {/* Glowing underlay & active stroke for Stage 3 */}
+            {isStageLighted(stages[2]) && (
+              <>
+                <path
+                  d={PATH_SEGMENT_3}
+                  stroke="#10B981"
+                  strokeWidth="12"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  opacity="0.30"
+                  style={{ filter: 'blur(4px)' }}
+                />
+                <path
+                  d={PATH_SEGMENT_3}
+                  stroke="#10B981"
+                  strokeWidth="5"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </>
+            )}
+
+            {/* Glowing underlay & active stroke for Stage 4 */}
+            {isStageLighted(stages[3]) && (
+              <>
+                <path
+                  d={PATH_SEGMENT_4}
+                  stroke="#0284C7"
+                  strokeWidth="12"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  opacity="0.30"
+                  style={{ filter: 'blur(4px)' }}
+                />
+                <path
+                  d={PATH_SEGMENT_4}
+                  stroke="#0284C7"
+                  strokeWidth="5"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </>
+            )}
+
+            {/* Glowing underlay & active stroke for Stage 5 */}
+            {isStageLighted(stages[4]) && (
+              <>
+                <path
+                  d={EXIT_PATH}
+                  stroke="#F59E0B"
+                  strokeWidth="12"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  opacity="0.30"
+                  style={{ filter: 'blur(4px)' }}
+                />
+                <path
+                  d={EXIT_PATH}
+                  stroke="#F59E0B"
+                  strokeWidth="5"
+                  strokeDasharray="16 12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </>
+            )}
           </svg>
 
-          {/* POINT 1: Old Coin of India at (20%, 15%) */}
+          {/* POINT 1: Stage 01 - Registration & Idea Submission at (11%, 21.25%) */}
           <div
-            className="absolute left-[20%] top-[15%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute left-[11%] top-[21.25%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
             onMouseEnter={() => setHoveredStageId(1)}
             onMouseLeave={() => setHoveredStageId(null)}
           >
             <div className="relative">
-              {/* Lighting Aura */}
               {isStageLighted(stages[0]) && (
                 <>
                   <div className="absolute -inset-3 rounded-full bg-orange-500/25 blur-lg animate-pulse" />
@@ -628,27 +867,22 @@ const TimelineSection = () => {
                 </>
               )}
 
-              {/* Coin Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center bg-[#F9E7B7] shadow-xl ${isStageLighted(stages[0])
-                  ? 'border-[#FF6B00] shadow-[0_0_28px_rgba(255,107,0,0.5)] scale-105'
-                  : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
-                  }`}
+                className={`w-24 h-24 sm:w-26 sm:h-26 xl:w-28 xl:h-28 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center bg-[#F9E7B7] shadow-xl ${
+                  isStageLighted(stages[0])
+                    ? 'border-[#FF6B00] shadow-[0_0_28px_rgba(255,107,0,0.5)] scale-105'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
                 whileHover={{ scale: 1.08, rotate: 3 }}
               >
-                <img
-                  src="/timeline/old-indian-coin.jpg"
-                  alt="Old Coin of India"
-                  className="w-full h-full object-cover rounded-full"
-                />
+                {renderCoinVisual(stages[0], isStageLighted(stages[0]))}
               </motion.div>
 
-              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Opens Right) */}
               <PixelRevealCard isVisible={hoveredStageId === 1} position="right">
                 <div className="p-4 text-left">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="font-mono text-[10px] font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded-full border border-amber-400/30 uppercase tracking-wider">
-                      Stage 01 • Online
+                      Stage 01 • Registration
                     </span>
                     <span className="text-[10px] text-blue-200/80 font-semibold font-mono">26 Sep 2026</span>
                   </div>
@@ -662,8 +896,7 @@ const TimelineSection = () => {
               </PixelRevealCard>
             </div>
 
-            {/* Clean Label: Milestone Title & Date Only */}
-            <div className="mt-3 text-center max-w-[210px]">
+            <div className="mt-3 text-center max-w-[200px]">
               <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
                 {stages[0].title}
               </h4>
@@ -673,77 +906,55 @@ const TimelineSection = () => {
             </div>
           </div>
 
-          {/* POINT 2: Modern 2010–2020 Coin at (50%, 50%) */}
+          {/* POINT 2: Stage 02 - PPT Evaluation Result at (29.5%, 50%) */}
           <div
-            className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute left-[29.5%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
             onMouseEnter={() => setHoveredStageId(2)}
             onMouseLeave={() => setHoveredStageId(null)}
           >
             <div className="relative">
               {isStageLighted(stages[1]) && (
-                <div className="absolute -inset-3 rounded-full bg-blue-500/25 blur-lg animate-pulse" />
+                <div className="absolute -inset-3 rounded-full bg-amber-500/25 blur-lg animate-pulse" />
               )}
 
-              {/* Coin Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${isStageLighted(stages[1])
-                  ? 'border-[#0A2A5E] shadow-[0_0_28px_rgba(10,42,94,0.4)] scale-105 brightness-100 opacity-100 bg-white'
-                  : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
-                  }`}
+                className={`w-24 h-24 sm:w-26 sm:h-26 xl:w-28 xl:h-28 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${
+                  isStageLighted(stages[1])
+                    ? 'border-amber-500 shadow-[0_0_28px_rgba(245,158,11,0.5)] scale-105 bg-white'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
                 whileHover={{ scale: 1.05 }}
               >
-                {isStageLighted(stages[1]) ? (
-                  <img
-                    src="/timeline/modern-coin-2011.png"
-                    alt="Coin from 2010-2020"
-                    className="w-full h-full object-contain p-1 rounded-full"
-                  />
-                ) : (
-                  <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
-                    <img
-                      src="/timeline/Indian_20_Rupee_coin_Reverse.png"
-                      alt="Coin from 2010-2020"
-                      className="w-full h-full object-contain p-1 rounded-full opacity-25"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <svg
-                        className="w-7 h-7 text-white/60"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="5" y="11" width="14" height="10" rx="2" />
-                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-                      </svg>
-                    </div>
-                  </div>
-                )}
+                {renderCoinVisual(stages[1], isStageLighted(stages[1]))}
               </motion.div>
 
-              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Hovers Above) */}
               <PixelRevealCard isVisible={hoveredStageId === 2} position="above">
                 <div className="p-4 text-left">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-mono text-[10px] font-bold text-cyan-300 bg-cyan-400/15 px-2 py-0.5 rounded-full border border-cyan-400/30 uppercase tracking-wider">
-                      Stage 02 • On-Campus
+                    <span className="font-mono text-[10px] font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded-full border border-amber-400/30 uppercase tracking-wider">
+                      Stage 02 • Result
                     </span>
-                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">28 Sep 2026</span>
                   </div>
                   <h5 className="font-bold text-sm text-white mb-1">
                     {stages[1].title}
                   </h5>
-                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans mb-2">
                     {stages[1].summary}
                   </p>
+                  <div className="pt-2 border-t border-amber-400/20 flex items-center gap-1.5 text-[11px] font-medium text-amber-200">
+                    <svg className="w-3.5 h-3.5 text-amber-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <span>Results announced: <strong>28 Sep 2026</strong></span>
+                  </div>
                 </div>
               </PixelRevealCard>
             </div>
 
-            {/* Clean Label: Title and Date Only */}
-            <div className="mt-3 text-center max-w-[210px]">
+            <div className="mt-3 text-center max-w-[200px]">
               <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
                 {stages[1].title}
               </h4>
@@ -753,9 +964,9 @@ const TimelineSection = () => {
             </div>
           </div>
 
-          {/* POINT 3: UPI Symbol at (80%, 85%) */}
+          {/* POINT 3: Stage 03 - Payment at (48.5%, 23.125%) */}
           <div
-            className="absolute left-[80%] top-[85%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            className="absolute left-[48.5%] top-[23.125%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
             onMouseEnter={() => setHoveredStageId(3)}
             onMouseLeave={() => setHoveredStageId(null)}
           >
@@ -764,71 +975,168 @@ const TimelineSection = () => {
                 <div className="absolute -inset-3 rounded-full bg-emerald-500/25 blur-lg animate-pulse" />
               )}
 
-              {/* UPI Medallion Container */}
               <motion.div
-                className={`w-26 h-26 sm:w-28 sm:h-28 xl:w-30 xl:h-30 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${isStageLighted(stages[2])
-                  ? 'border-emerald-600 bg-white shadow-[0_0_28px_rgba(13,148,136,0.45)] scale-105 brightness-100 opacity-100 p-2.5'
-                  : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg p-0'
-                  }`}
+                className={`w-24 h-24 sm:w-26 sm:h-26 xl:w-28 xl:h-28 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${
+                  isStageLighted(stages[2])
+                    ? 'border-emerald-600 bg-white shadow-[0_0_28px_rgba(16,185,129,0.45)] scale-105'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
                 whileHover={{ scale: 1.05 }}
               >
-                {isStageLighted(stages[2]) ? (
-                  <img
-                    src="/timeline/upi-logo.svg"
-                    alt="UPI Symbol"
-                    className="w-[85%] h-auto object-contain my-auto drop-shadow-sm"
-                  />
-                ) : (
-                  <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
-                    <img
-                      src="/timeline/upi-logo.svg"
-                      alt="UPI Symbol"
-                      className="w-[85%] h-auto object-contain my-auto opacity-25"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <svg
-                        className="w-7 h-7 text-white/60"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="5" y="11" width="14" height="10" rx="2" />
-                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-                      </svg>
-                    </div>
-                  </div>
-                )}
+                {renderCoinVisual(stages[2], isStageLighted(stages[2]))}
               </motion.div>
 
-              {/* Floating Hover Info Card – Pixel Dissolve Drawer (Opens Left) */}
-              <PixelRevealCard isVisible={hoveredStageId === 3} position="left">
+              <PixelRevealCard isVisible={hoveredStageId === 3} position="right">
                 <div className="p-4 text-left">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="font-mono text-[10px] font-bold text-emerald-300 bg-emerald-400/15 px-2 py-0.5 rounded-full border border-emerald-400/30 uppercase tracking-wider">
-                      Stage 03 • Grand Finale
+                      Stage 03 • Payment
                     </span>
-                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">30 Sep 2026</span>
                   </div>
                   <h5 className="font-bold text-sm text-white mb-1">
                     {stages[2].title}
                   </h5>
-                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans mb-2.5">
                     {stages[2].summary}
                   </p>
+                  <div className="pt-2 border-t border-emerald-400/25 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-200">
+                    <svg className="w-3.5 h-3.5 text-emerald-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <span>Payment only for selected teams</span>
+                  </div>
                 </div>
               </PixelRevealCard>
             </div>
 
-            {/* Clean Label: Title and Date Only */}
             <div className="mt-3 text-center max-w-[210px]">
               <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
                 {stages[2].title}
               </h4>
               <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
                 {stages[2].date}
+              </p>
+              <div className="mt-1.5">
+                <span className="inline-block text-[11px] font-semibold text-emerald-800 bg-emerald-500/20 border border-emerald-600/35 px-2.5 py-0.5 rounded-full shadow-xs">
+                  Only for Selected Teams
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* POINT 4: Stage 04 - Internal Evaluation at (68%, 51.875%) */}
+          <div
+            className="absolute left-[68%] top-[51.875%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            onMouseEnter={() => setHoveredStageId(4)}
+            onMouseLeave={() => setHoveredStageId(null)}
+          >
+            <div className="relative">
+              {isStageLighted(stages[3]) && (
+                <div className="absolute -inset-3 rounded-full bg-blue-500/25 blur-lg animate-pulse" />
+              )}
+
+              <motion.div
+                className={`w-24 h-24 sm:w-26 sm:h-26 xl:w-28 xl:h-28 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex items-center justify-center shadow-xl ${
+                  isStageLighted(stages[3])
+                    ? 'border-[#0A2A5E] shadow-[0_0_28px_rgba(10,42,94,0.4)] scale-105 bg-white'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
+                whileHover={{ scale: 1.05 }}
+              >
+                {renderCoinVisual(stages[3], isStageLighted(stages[3]))}
+              </motion.div>
+
+              <PixelRevealCard isVisible={hoveredStageId === 4} position="above">
+                <div className="p-4 text-left">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] font-bold text-cyan-300 bg-cyan-400/15 px-2 py-0.5 rounded-full border border-cyan-400/30 uppercase tracking-wider">
+                      Stage 04 • On-Campus
+                    </span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                  </div>
+                  <h5 className="font-bold text-sm text-white mb-1">
+                    {stages[3].title}
+                  </h5>
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans mb-2.5">
+                    {stages[3].summary}
+                  </p>
+                  <div className="pt-2 border-t border-cyan-400/20 flex items-center gap-1.5 text-[11px] font-medium text-cyan-200">
+                    <svg className="w-3.5 h-3.5 text-cyan-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>Tentative Event Timing: <strong className="text-white font-semibold">9:00 AM – 5:00 PM</strong></span>
+                  </div>
+                </div>
+              </PixelRevealCard>
+            </div>
+
+            <div className="mt-3 text-center max-w-[200px]">
+              <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
+                {stages[3].title}
+              </h4>
+              <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
+                {stages[3].date}
+              </p>
+            </div>
+          </div>
+
+          {/* POINT 5: Stage 05 - Grand Finale & Awards at (87.5%, 78.125%) */}
+          <div
+            className="absolute left-[87.5%] top-[78.125%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center cursor-pointer group"
+            onMouseEnter={() => setHoveredStageId(5)}
+            onMouseLeave={() => setHoveredStageId(null)}
+          >
+            <div className="relative">
+              {isStageLighted(stages[4]) && (
+                <div className="absolute -inset-3 rounded-full bg-amber-500/25 blur-lg animate-pulse" />
+              )}
+
+              <motion.div
+                className={`w-24 h-24 sm:w-26 sm:h-26 xl:w-28 xl:h-28 rounded-full border-4 transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-center shadow-xl ${
+                  isStageLighted(stages[4])
+                    ? 'border-amber-500 shadow-[0_0_28px_rgba(245,158,11,0.5)] scale-105 bg-white'
+                    : 'border-[#4A4740] bg-[#2E2D2A] shadow-lg'
+                }`}
+                whileHover={{ scale: 1.05 }}
+              >
+                {renderCoinVisual(stages[4], isStageLighted(stages[4]))}
+              </motion.div>
+
+              <PixelRevealCard isVisible={hoveredStageId === 5} position="left">
+                <div className="p-4 text-left">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-[10px] font-bold text-amber-300 bg-amber-400/15 px-2 py-0.5 rounded-full border border-amber-400/30 uppercase tracking-wider">
+                      Stage 05 • Grand Finale
+                    </span>
+                    <span className="text-[10px] text-blue-200/80 font-semibold font-mono">3 Oct 2026</span>
+                  </div>
+                  <h5 className="font-bold text-sm text-white mb-1">
+                    {stages[4].title}
+                  </h5>
+                  <p className="text-xs text-blue-100/90 leading-relaxed font-sans mb-2.5">
+                    {stages[4].summary}
+                  </p>
+                  <div className="pt-2 border-t border-amber-400/20 flex items-center gap-1.5 text-[11px] font-medium text-amber-200">
+                    <svg className="w-3.5 h-3.5 text-amber-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>Event Timing: <strong className="text-white font-semibold">2:00 PM – 5:30 PM</strong> • Auditorium</span>
+                  </div>
+                </div>
+              </PixelRevealCard>
+            </div>
+
+            <div className="mt-3 text-center max-w-[200px]">
+              <h4 className="font-bold text-[#0A2A5E] text-base sm:text-lg font-sans leading-tight">
+                {stages[4].title}
+              </h4>
+              <p className="text-xs sm:text-sm text-[#0A2A5E]/75 font-sans mt-1 font-medium">
+                {stages[4].date}
               </p>
             </div>
           </div>
@@ -852,10 +1160,8 @@ const TimelineSection = () => {
               >
                 {/* Coin Node with generous touch target padding */}
                 <div className="relative shrink-0">
-                  {/* Invisible Tap target padding for mobile - allows clicking circle or surrounding padding */}
                   <div className="absolute -inset-3 sm:-inset-4 z-20 cursor-pointer" />
-                  {/* Stage 1 Lighting Aura (matches desktop) */}
-                  {lighted && stage.id === 1 && (
+                  {lighted && (
                     <>
                       <div className="absolute -inset-2 rounded-full bg-orange-500/25 blur-md animate-pulse pointer-events-none" />
                       <div className="absolute -inset-1 rounded-full border-2 border-orange-500/40 animate-ping opacity-25 pointer-events-none" />
@@ -869,73 +1175,7 @@ const TimelineSection = () => {
                         : 'border-[#4A4740] bg-[#2E2D2A] shadow-md'
                     } ${isHovered ? 'scale-105' : 'scale-100'}`}
                   >
-                    {lighted ? (
-                      <>
-                        {stage.coinType === 'old-coin' && (
-                          <img
-                            src="/timeline/old-indian-coin.jpg"
-                            alt="Old Coin"
-                            className="w-full h-full object-cover rounded-full"
-                          />
-                        )}
-                        {stage.coinType === 'modern-coin' && (
-                          <img
-                            src="/timeline/modern-coin-2011.png"
-                            alt="2010-2020 Coin"
-                            className="w-full h-full object-contain p-1 rounded-full"
-                          />
-                        )}
-                        {stage.coinType === 'upi' && (
-                          <div className="w-full h-full bg-white flex items-center justify-center p-2 rounded-full">
-                            <img
-                              src="/timeline/upi-logo.svg"
-                              alt="UPI Logo"
-                              className="w-[85%] h-auto object-contain"
-                            />
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="relative w-full h-full bg-[#2E2D2A] flex items-center justify-center">
-                        {stage.coinType === 'old-coin' && (
-                          <img
-                            src="/timeline/old-indian-coin.jpg"
-                            alt="Old Coin"
-                            className="w-full h-full object-cover rounded-full opacity-25"
-                          />
-                        )}
-                        {stage.coinType === 'modern-coin' && (
-                          <img
-                            src="/timeline/Indian_20_Rupee_coin_Reverse.png"
-                            alt="2010-2020 Coin"
-                            className="w-full h-full object-contain p-1 rounded-full opacity-25"
-                          />
-                        )}
-                        {stage.coinType === 'upi' && (
-                          <div className="w-full h-full flex items-center justify-center p-1 rounded-full">
-                            <img
-                              src="/timeline/upi-logo.svg"
-                              alt="UPI Logo"
-                              className="w-[85%] h-auto object-contain opacity-25"
-                            />
-                          </div>
-                        )}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <svg
-                            className="w-5 h-5 text-white/60"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.75"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <rect x="5" y="11" width="14" height="10" rx="2" />
-                            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
+                    {renderCoinVisual(stage, lighted)}
                   </div>
                 </div>
 
@@ -947,6 +1187,13 @@ const TimelineSection = () => {
                   <p className="text-xs sm:text-sm text-[#0A2A5E]/80 mt-0.5 font-medium">
                     {stage.date}
                   </p>
+                  {stage.note && (
+                    <div className="mt-1">
+                      <span className="inline-block text-[10px] font-semibold text-emerald-800 bg-emerald-500/20 border border-emerald-600/35 px-2 py-0.5 rounded-full">
+                        {stage.note}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Pixel Reveal Drawer Card (Exact same pixel dissolve as desktop!) */}
                   <PixelRevealCard isVisible={hoveredStageId === stage.id} position="inline">
@@ -957,26 +1204,68 @@ const TimelineSection = () => {
                             stage.id === 1
                               ? 'text-amber-300 bg-amber-400/15 border-amber-400/30'
                               : stage.id === 2
+                              ? 'text-amber-300 bg-amber-400/15 border-amber-400/30'
+                              : stage.id === 3
+                              ? 'text-emerald-300 bg-emerald-400/15 border-emerald-400/30'
+                              : stage.id === 4
                               ? 'text-cyan-300 bg-cyan-400/15 border-cyan-400/30'
-                              : 'text-emerald-300 bg-emerald-400/15 border-emerald-400/30'
+                              : 'text-amber-300 bg-amber-400/15 border-amber-400/30'
                           }`}
                         >
                           {stage.id === 1
-                            ? 'Stage 01 • Online'
+                            ? 'Stage 01 • Registration'
                             : stage.id === 2
-                            ? 'Stage 02 • On-Campus'
-                            : 'Stage 03 • Grand Finale'}
+                            ? 'Stage 02 • Result'
+                            : stage.id === 3
+                            ? 'Stage 03 • Payment'
+                            : stage.id === 4
+                            ? 'Stage 04 • On-Campus'
+                            : 'Stage 05 • Grand Finale'}
                         </span>
                         <span className="text-[10px] text-blue-200/80 font-semibold font-mono">
-                          {stage.id === 1 ? '26 Sep 2026' : '3 Oct 2026'}
+                          {stage.id === 1
+                            ? '26 Sep 2026'
+                            : stage.id === 2
+                            ? '28 Sep 2026'
+                            : stage.id === 3
+                            ? '30 Sep 2026'
+                            : '3 Oct 2026'}
                         </span>
                       </div>
                       <h5 className="font-bold text-sm text-white mb-1 font-sans">
                         {stage.title}
                       </h5>
-                      <p className="text-xs text-blue-100/90 leading-relaxed font-sans">
+                      <p className="text-xs text-blue-100/90 leading-relaxed font-sans mb-2">
                         {stage.summary}
                       </p>
+                      {stage.id === 3 && (
+                        <div className="pt-2 border-t border-emerald-400/25 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-200">
+                          <svg className="w-3.5 h-3.5 text-emerald-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                          </svg>
+                          <span>Payment only for selected teams</span>
+                        </div>
+                      )}
+                      {stage.id === 4 && (
+                        <div className="pt-2 border-t border-cyan-400/20 flex items-center gap-1.5 text-[11px] font-medium text-cyan-200">
+                          <svg className="w-3.5 h-3.5 text-cyan-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
+                          <span>Tentative Event Timing: <strong className="text-white font-semibold">9:00 AM – 5:00 PM</strong></span>
+                        </div>
+                      )}
+                      {stage.id === 5 && (
+                        <div className="pt-2 border-t border-amber-400/20 flex items-center gap-1.5 text-[11px] font-medium text-amber-200">
+                          <svg className="w-3.5 h-3.5 text-amber-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
+                          <span>Event Timing: <strong className="text-white font-semibold">2:00 PM – 5:30 PM</strong> • Auditorium</span>
+                        </div>
+                      )}
                     </div>
                   </PixelRevealCard>
                 </div>

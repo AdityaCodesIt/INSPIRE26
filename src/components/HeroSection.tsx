@@ -62,39 +62,53 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Layer 3: Foreground Hero Content */}
-      <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6 pb-16 sm:pb-20 md:pb-24 lg:pb-16 xl:pb-20 2xl:pb-28 flex-1 flex items-center justify-center">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-14 w-full">
+      <div className="relative z-10 w-[min(92%,1440px)] 2xl:w-[min(90%,1600px)] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 md:pt-10 pb-20 sm:pb-24 md:pb-28 lg:pb-24 flex-1 flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center text-center max-w-4xl lg:max-w-5xl w-full mx-auto">
 
-          {/* Left Content */}
+          {/* Centered Hero Content */}
           <motion.div
-            className="w-full lg:w-[48%] xl:w-[48%] flex flex-col items-start z-10"
+            className="w-full flex flex-col items-center text-center z-10"
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold uppercase tracking-widest mb-1.5 sm:mb-2 md:mb-3 bg-gradient-to-b from-blue-400 via-blue-600 to-blue-900 bg-clip-text text-transparent drop-shadow-sm">
+            <div className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold uppercase tracking-widest mb-2 sm:mb-3 bg-gradient-to-b from-blue-400 via-blue-600 to-blue-900 bg-clip-text text-transparent drop-shadow-sm">
               IEEE Colloquium 2026
             </div>
 
-            <h1 className="flex flex-row items-end gap-3 sm:gap-5 mb-4 sm:mb-6">
-              <span className="sr-only">VIKAS</span>
-              <img
-                src="/vikas-logo-transparent.png"
-                alt="VIKAS"
-                className="h-16 sm:h-20 md:h-24 lg:h-24 xl:h-[7.5rem] 2xl:h-[9rem] object-contain drop-shadow-md"
-              />
-              <motion.img 
-                src="/2026-badge.png" 
-                alt="2026" 
-                className="h-10 sm:h-12 md:h-14 lg:h-14 xl:h-[4.5rem] 2xl:h-[5.5rem] object-contain drop-shadow-md mb-1 sm:mb-2 md:mb-4"
-                initial={{ y: -5 }}
-                animate={{ y: [-5, 0, -5] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </h1>
+            <div className="relative inline-block mb-7 sm:mb-9 md:mb-11">
+              <h1 className="relative m-0 p-0 flex items-center justify-center">
+                <span className="sr-only">VIKAS 2026</span>
+                <img
+                  src="/vikas-logo-transparent.png"
+                  alt="VIKAS"
+                  className="h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64 w-auto object-contain drop-shadow-lg select-none"
+                />
+                <motion.div 
+                  className="absolute top-[76%] sm:top-[78%] md:top-[80%] right-[-2%] sm:right-[-1%] md:right-[0%] z-20 pointer-events-none"
+                  initial={{ rotate: -3, y: 0 }}
+                  animate={{ 
+                    rotate: [-3, 2, -4, -3],
+                    y: [0, 2, -1, 0]
+                  }}
+                  transition={{ 
+                    duration: 4.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  style={{ transformOrigin: "42% 15%" }}
+                >
+                  <img 
+                    src="/2026-badge.png" 
+                    alt="2026" 
+                    className="h-10 sm:h-13 md:h-16 lg:h-20 xl:h-24 2xl:h-26 w-auto object-contain drop-shadow-xl"
+                  />
+                </motion.div>
+              </h1>
+            </div>
 
             {/* Tricolor Timer Bar */}
-            <div className="flex flex-col w-full max-w-[320px] sm:max-w-md mb-5 sm:mb-6">
+            <div className="flex flex-col w-full max-w-[320px] sm:max-w-md mb-5 sm:mb-6 items-center">
               <div className="flex h-8 sm:h-10 w-full rounded-full overflow-hidden shadow-md">
                 <div className="bg-tricolor-saffron flex-1 flex items-center justify-center text-xs sm:text-sm font-bold text-white tracking-wide">
                   {timeLeft.days} D
@@ -113,23 +127,23 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-brand-navy mb-2.5 sm:mb-3.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-brand-navy mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
               <span>Ideas</span> <span className="text-brand-orange text-lg">·</span>
               <span>Innovation</span> <span className="text-brand-orange text-lg">·</span>
               <span>Inclusion</span> <span className="text-brand-orange text-lg">·</span>
               <span className="text-brand-navy font-bold">A Stronger Tomorrow</span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-base lg:text-[0.95rem] xl:text-[1.05rem] text-text-dark max-w-lg xl:max-w-xl mb-3.5 sm:mb-4 lg:mb-5 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm md:text-base lg:text-[1.05rem] text-text-dark max-w-2xl mb-5 sm:mb-6 leading-relaxed font-normal">
               A national platform for young minds and researchers to ideate,
               innovate and contribute towards a resilient, inclusive and
               technologically advanced Viksit Bharat.
             </p>
 
-            <div className="flex flex-col items-start gap-3 sm:gap-4 mb-2 sm:mb-4 w-full sm:w-auto">
-              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full">
+            <div className="flex flex-col items-center gap-4 mb-3 w-full">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
                 {/* Registration Button: Light Orange Box, Blue Text */}
-                <a href="#register" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-400 hover:bg-orange-300 rounded-md shadow-md border border-orange-400 transition-all">
+                <a href="#register" className="flex items-center justify-center w-full sm:w-auto relative group px-7 sm:px-9 py-2.5 sm:py-3.5 bg-orange-400 hover:bg-orange-300 rounded-md shadow-md border border-orange-400 transition-all">
                   <span className="text-brand-navy font-extrabold text-sm sm:text-base tracking-wide transition-all">
                     Register Now
                   </span>
@@ -138,7 +152,7 @@ const HeroSection = () => {
                 </a>
 
                 {/* Brochure Button: Blue Box, Light Orange Text */}
-                <a href="#" className="flex items-center justify-center w-full sm:w-auto relative group px-6 sm:px-8 py-2.5 sm:py-3 bg-brand-navy hover:bg-blue-900 rounded-md shadow-sm border border-brand-navy transition-all hover:shadow-md">
+                <a href="#" className="flex items-center justify-center w-full sm:w-auto relative group px-7 sm:px-9 py-2.5 sm:py-3.5 bg-brand-navy hover:bg-blue-900 rounded-md shadow-sm border border-brand-navy transition-all hover:shadow-md">
                   <span className="text-orange-400 font-bold text-sm sm:text-base tracking-wide flex items-center gap-2 group-hover:text-orange-300 transition-colors">
                     <svg className="w-4 h-4 text-orange-400 group-hover:text-orange-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -150,7 +164,7 @@ const HeroSection = () => {
                 </a>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-xs sm:text-sm font-semibold text-brand-navy mt-1 ml-2 sm:ml-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-brand-navy mt-1">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <span className="text-base sm:text-lg">📅</span>
                   <span>16–18 Jan 2026</span>
@@ -167,76 +181,6 @@ const HeroSection = () => {
                   </a>
                 </div>
               </div>
-            </div>
-          </motion.div>
-
-          {/* Right Content - Map Illustration & Stamps */}
-          <motion.div
-            className="lg:w-[55%] relative h-[290px] sm:h-[380px] md:h-[500px] lg:h-[600px] w-full flex justify-center items-center z-10 overflow-visible"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          >
-            {/* Central India Map Illustration */}
-            <div className="w-[95%] h-[95%] bg-[url('/hero-map.png')] bg-contain bg-center bg-no-repeat mix-blend-multiply z-10"></div>
-
-            {/* Floating Images */}
-            <div className="absolute inset-0 z-20 pointer-events-none">
-              {/* Image 1 - Space */}
-              <motion.div
-                className="absolute top-[5%] left-[3%] sm:left-[5%] w-20 sm:w-24 md:w-36 rotate-[-6deg]"
-                animate={{ y: [-5, 5, -5] }} transition={{ duration: 4, repeat: Infinity }}
-              >
-                <img src="/hero-badge-1.png" alt="Viksit Bharat Space" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
-
-              {/* Dr APJ Abdul Kalam Portrait */}
-              <motion.div
-                className="absolute top-[2%] right-[-2%] sm:right-[-10%] md:right-[-20%] lg:right-[-15%] w-20 sm:w-26 md:w-28 lg:w-36 rotate-[2deg] z-30"
-                animate={{ y: [4, -4, 4] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <img src="/apj-abdul-kalam-transparent.png" alt="Dr APJ Abdul Kalam" className="w-full h-auto drop-shadow-2xl" />
-              </motion.div>
-
-              {/* Image 2 - 5G/6G */}
-              <motion.div
-                className="absolute top-[10%] right-[22%] sm:right-[25%] w-20 sm:w-24 md:w-32 rotate-[4deg]"
-                animate={{ y: [5, -5, 5] }} transition={{ duration: 5, repeat: Infinity }}
-              >
-                <img src="/hero-badge-2.png" alt="Digital Communications" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
-
-              {/* Image 3 - Semiconductors (Middle Left) */}
-              <motion.div
-                className="absolute top-[42%] left-[-2%] w-22 sm:w-28 md:w-36 lg:w-40 rotate-[-2deg]"
-                animate={{ y: [-4, 6, -4] }} transition={{ duration: 4.5, repeat: Infinity }}
-              >
-                <img src="/hero-badge-3.png" alt="Semiconductors" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
-
-              {/* Image 4 - UPI (Middle Right) */}
-              <motion.div
-                className="absolute top-[35%] right-[-2%] sm:right-[-5%] w-22 sm:w-28 md:w-36 lg:w-40 rotate-[8deg]"
-                animate={{ y: [6, -4, 6] }} transition={{ duration: 5.5, repeat: Infinity }}
-              >
-                <img src="/hero-badge-4.png" alt="UPI Payments" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
-
-              {/* Image 5 - Biotechnology */}
-              <motion.div
-                className="absolute bottom-[10%] left-[8%] sm:left-[10%] w-18 sm:w-20 md:w-32 rotate-[-8deg]"
-                animate={{ y: [-6, 4, -6] }} transition={{ duration: 5, repeat: Infinity }}
-              >
-                <img src="/hero-badge-5.png" alt="Biotechnology" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
-
-              {/* Image 6 - Logistics & Transport */}
-              <motion.div
-                className="absolute bottom-[5%] right-[10%] sm:right-[15%] w-22 sm:w-28 md:w-40 rotate-[5deg]"
-                animate={{ y: [4, -6, 4] }} transition={{ duration: 4.8, repeat: Infinity }}
-              >
-                <img src="/hero-badge-6.png" alt="Logistics & Transport" className="w-full h-auto drop-shadow-lg" />
-              </motion.div>
             </div>
           </motion.div>
 

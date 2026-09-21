@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -318,6 +318,17 @@ const Mobile3DTracksCarousel = () => {
 
   const handleNext = () => handleSelect(activeIndex + 1);
   const handlePrev = () => handleSelect(activeIndex - 1);
+
+  // Auto-advance card every 5 seconds, but pause completely when flipped to view UN SDGs
+  useEffect(() => {
+    if (isFlipped) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % count);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isFlipped, activeIndex, count]);
 
   const handleDragEnd = (_: any, info: { offset: { x: number }; velocity: { x: number } }) => {
     const swipeThreshold = 40;

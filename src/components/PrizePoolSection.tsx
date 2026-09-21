@@ -115,16 +115,17 @@ const PrizePoolSection = () => {
   // Dynamic spotlight mask tracking the lamp's angular sweep over the prize pool typography
   const dynamicMask = useTransform(lampRotation, (angle: number) => {
     const rad = (angle * Math.PI) / 180;
-    // When lamp rotates clockwise (angle > 0), the beam swings to the left (-X)
-    const offsetPercent = -100 * Math.tan(rad);
+    // When lamp swings towards right (angle < 0), the beam focuses on the right (+X)
+    // When lamp swings towards left (angle > 0), the beam focuses on the left (-X)
+    const offsetPercent = -130 * Math.sin(rad);
     const spotlightX = Math.round((50 + offsetPercent) * 10) / 10;
-    return `radial-gradient(ellipse 350px 220px at ${spotlightX}% 50%, black 40%, transparent 85%)`;
+    return `radial-gradient(ellipse 260px 220px at ${spotlightX}% 50%, black 30%, rgba(0,0,0,0.6) 65%, transparent 90%)`;
   });
 
-  // Overall light intensity fades when the lamp swings extreme angles away from the wall
+  // Overall light intensity fades to 0 when the lamp swings away from the prize pool
   const lightIntensity = useTransform(
     lampRotation,
-    [-65, -35, 0, 35, 65],
+    [-45, -25, 0, 25, 45],
     [0, 0.85, 1, 0.85, 0]
   );
 
@@ -272,17 +273,17 @@ const PrizePoolSection = () => {
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative h-full">
 
           {/* Prize Pool Title Typography - Dynamic Spotlight Reveal */}
-          <div className="relative z-10 max-w-[340px] md:max-w-[420px] text-center flex flex-col items-center mt-[240px] md:mt-0 md:translate-y-8 md:translate-x-2 select-none">
+          <div className="relative z-10 max-w-[380px] sm:max-w-[440px] md:max-w-[460px] text-center flex flex-col items-center mt-[310px] sm:mt-[330px] md:mt-0 md:translate-y-8 md:translate-x-2 select-none">
 
-            {/* Layer 1: Ambient Base Text - Dim subtle silhouette on dark wall when in shadow */}
-            <div className="text-center flex flex-col items-center w-full opacity-10 pointer-events-none">
-              <h2 className="text-[3.2rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] tracking-tighter leading-none mb-2 flex items-center justify-center">
+            {/* Layer 1: Layout Placeholder (Invisible in shadow, preserves dimensional flow) */}
+            <div className="text-center flex flex-col items-center w-full opacity-0 pointer-events-none select-none" aria-hidden="true">
+              <h2 className="text-[4.2rem] xs:text-[4.8rem] sm:text-[5.2rem] md:text-[5.5rem] lg:text-[6.5rem] font-black tracking-tighter leading-none mb-2 flex items-center justify-center">
                 <span>15000</span>
-                <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none">
+                <span className="text-[0.6em] font-black ml-1.5 md:ml-2.5 self-center tracking-normal leading-none">
                   +
                 </span>
               </h2>
-              <p className="text-lg sm:text-2xl md:text-3xl font-bold text-white/40 uppercase tracking-widest text-center w-full">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-[0.2em] sm:tracking-widest text-center w-full">
                 Prize Pool
               </p>
             </div>
@@ -296,13 +297,13 @@ const PrizePoolSection = () => {
                 opacity: lightIntensity,
               }}
             >
-              <h2 className="text-[3.2rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
+              <h2 className="text-[4.2rem] xs:text-[4.8rem] sm:text-[5.2rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
                 <span>15000</span>
                 <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none drop-shadow-[0_0_20px_rgba(249,231,183,0.85)]">
                   +
                 </span>
               </h2>
-              <p className="text-lg sm:text-2xl md:text-3xl font-bold text-white uppercase tracking-widest text-center w-full drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-[0.2em] sm:tracking-widest text-center w-full drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
                 Prize Pool
               </p>
             </motion.div>
@@ -310,7 +311,7 @@ const PrizePoolSection = () => {
         </div>
 
         {/* RIGHT HALF - Stamp Cards Fixed at Exact User Coordinates */}
-        <div className="w-full md:w-1/2 md:static relative min-h-0 md:min-h-0 flex flex-col items-center gap-5 sm:gap-6 mt-8 md:mt-0 pb-8 md:pb-0 overflow-visible pointer-events-none">
+        <div className="w-full md:w-1/2 md:static relative min-h-0 md:min-h-0 flex flex-col items-center gap-5 sm:gap-6 mt-16 sm:mt-20 md:mt-0 pb-8 md:pb-0 overflow-visible pointer-events-none">
           {/* Stamp 1: Winner / 1st Position */}
           <FrameCard
             award={awardsList[0]}
