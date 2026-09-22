@@ -525,11 +525,10 @@ const Mobile3DTracksCarousel = () => {
               key={i}
               onClick={() => handleSelect(i)}
               aria-label={`Go to Track ${i + 1}`}
-              className={`transition-all duration-300 rounded-full ${
-                i === activeIndex
+              className={`transition-all duration-300 rounded-full ${i === activeIndex
                   ? 'w-6 h-1.5 bg-amber-400'
                   : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -542,10 +541,13 @@ const TracksSection = () => {
   return (
     <section
       id="tracks"
-      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-blue-950/40 text-white scroll-mt-[65px] w-full max-w-full"
+      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-black/10 text-white scroll-mt-[65px] w-full max-w-full"
       style={{
         backgroundImage: "url('/backgrounds/bg-cyan.jpg')",
         backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}

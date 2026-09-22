@@ -50,11 +50,11 @@ const AboutSection = () => {
 
             {/* Right: Subtitle Pillars */}
             <div className="flex items-center text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] font-sans font-semibold tracking-[0.24em] text-white/90 uppercase select-none">
+              <span>IDEAS</span>
+              <span className="mx-2.5 sm:mx-3.5 text-white/50">/</span>
               <span>RESEARCH</span>
               <span className="mx-2.5 sm:mx-3.5 text-white/50">/</span>
-              <span>INNOVATION</span>
-              <span className="mx-2.5 sm:mx-3.5 text-white/50">/</span>
-              <span>SUSTAINABILITY</span>
+              <span>EXPLORATION</span>
             </div>
           </div>
 
@@ -80,13 +80,6 @@ const AboutSection = () => {
               }}
             />
 
-            {/* India Map Watermark in Black (Subtle, barely visible watermark) */}
-            <div 
-              className="absolute inset-0 m-auto w-full h-full max-w-[650px] max-h-[92%] bg-contain bg-center bg-no-repeat opacity-[0.045] mix-blend-multiply pointer-events-none z-0 select-none" 
-              style={{
-                backgroundImage: "url('/india-map-black.png')",
-              }}
-            />
 
             {/* Content Flex / Grid Container with generous ticket padding */}
             <div className="relative z-10 flex flex-col lg:flex-row items-stretch">
@@ -107,7 +100,7 @@ const AboutSection = () => {
                   </p>
                 </div>
 
-                {/* Acronym Section */}
+                {/* Full Form Section */}
                 <div className="mt-4 sm:mt-5 md:mt-6">
                   {/* Thin Hairline Divider */}
                   <div className="w-full h-[1px] bg-[#0A2540]/20 my-3.5 sm:my-4 md:my-5" />
@@ -117,58 +110,10 @@ const AboutSection = () => {
                     INSPIRE2026 REPRESENTS
                   </p>
 
-                  {/* 5-Column Acronym Row with prominent letters */}
-                  <div className="grid grid-cols-5 divide-x divide-[#0A2540]/20 text-center items-start">
-                    {/* V */}
-                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
-                        V
-                      </span>
-                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal">
-                        Viksit Bharat<br />@2047
-                      </span>
-                    </div>
-
-                    {/* I */}
-                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
-                        I
-                      </span>
-                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
-                        Innovation
-                      </span>
-                    </div>
-
-                    {/* K */}
-                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
-                        K
-                      </span>
-                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
-                        Knowledge
-                      </span>
-                    </div>
-
-                    {/* A */}
-                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
-                        A
-                      </span>
-                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
-                        Advancement
-                      </span>
-                    </div>
-
-                    {/* S */}
-                    <div className="px-0.5 sm:px-1 flex flex-col items-center">
-                      <span className="font-sans font-black text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] text-[#0A2540] leading-none mb-2 sm:mb-3 md:mb-4 select-none">
-                        S
-                      </span>
-                      <span className="font-sans text-[7.5px] min-[360px]:text-[8.5px] min-[390px]:text-[9.5px] sm:text-[0.65rem] md:text-[0.76rem] font-medium text-[#334E68] leading-tight tracking-tight sm:tracking-normal whitespace-nowrap sm:whitespace-normal break-normal text-center w-full">
-                        Sustainability
-                      </span>
-                    </div>
-                  </div>
+                  {/* Full Form Text */}
+                  <p className="font-sans font-bold text-[#0A2540] text-xs sm:text-[0.92rem] md:text-[1.02rem] leading-snug">
+                    Interdisciplinary Next-Generation Scientific Ideas, Research &amp; Exploration
+                  </p>
                 </div>
               </div>
 
@@ -249,7 +194,7 @@ const AboutSection = () => {
                       VISION
                     </h4>
                     <p className="font-sans text-[#334E68] text-[0.76rem] sm:text-[0.82rem] md:text-[0.86rem] leading-snug mt-0.5">
-                      Empowering innovators to transform knowledge into impactful solutions, driving sustainable progress and an inclusive Viksit Bharat @2047.
+                      Empowering innovators to transform knowledge into impactful solutions, driving sustainable progress.
                     </p>
                   </div>
                 </div>
@@ -273,7 +218,7 @@ const AboutSection = () => {
                       TICKET NO.
                     </span>
                     <span className="block font-sans font-black text-sm sm:text-base md:text-[1.05rem] text-[#0A2540] tracking-wider mt-0.5">
-                      #VKS2026
+                      #INSPIRE2026
                     </span>
                   </div>
 
@@ -293,7 +238,7 @@ const AboutSection = () => {
                       EVENT
                     </span>
                     <span className="block font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.94rem] text-[#0A2540] tracking-wide mt-0.5 uppercase">
-                      INSPIRE – VIKSIT BHARAT
+                      INSPIRE - COLLOQUIUM
                     </span>
                   </div>
 
@@ -303,7 +248,7 @@ const AboutSection = () => {
                       DATE
                     </span>
                     <span className="block font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.94rem] text-[#0A2540] tracking-wide mt-0.5 uppercase">
-                      25 – 26 JAN 2026
+                      3 OCT 2026
                     </span>
                   </div>
                 </div>

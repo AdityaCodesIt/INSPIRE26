@@ -129,22 +129,24 @@ const Navbar = () => {
     e.preventDefault();
     setActiveSection(id);
 
-    if (mobileMenuOpen) {
-      setMobileMenuOpen(false);
-      // Wait slightly for the mobile menu to unmount before scrolling
-      setTimeout(() => {
-        const target = document.querySelector(href);
-        if (target) {
-          const y = target.getBoundingClientRect().top + window.scrollY - 55;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }, 150);
-    } else {
+    const scrollToDestination = () => {
+      if (id === 'contact') {
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+        return;
+      }
       const target = document.querySelector(href);
       if (target) {
         const y = target.getBoundingClientRect().top + window.scrollY - 55;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
+    };
+
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+      // Wait slightly for the mobile menu to unmount before scrolling
+      setTimeout(scrollToDestination, 150);
+    } else {
+      scrollToDestination();
     }
   };
 
