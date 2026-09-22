@@ -17,20 +17,20 @@ const stages: Stage[] = [
   {
     id: 1,
     numeral: '1',
-    title: 'Registration & Idea Submission',
-    date: 'Deadline: 26 Sep 2026',
-    venue: 'Online IEEE Portal',
+    title: 'Registration & Submission',
+    date: 'Deadline: 26th Sep 2026',
+    venue: 'Official Colloquium Portal',
     summary:
-      'Initial submission of structured project idea, abstract, and methodology PDF aligned with any of the 9 tracks and UN SDGs.',
+      'Initial submission of a structured research or innovative idea, including its abstract, concept, and proposed methodology, aligned with any of the 9 tracks and relevant UN Sustainable Development Goals (SDGs).',
     positionClasses:
       'lg:top-[6.4vw] lg:left-[8%] xl:left-[11%] 2xl:left-[10%]',
   },
   {
     id: 2,
     numeral: '2',
-    title: 'PPT Evaluation Result',
-    date: 'Deadline: 28 Sep 2026',
-    venue: 'Online Review Portal',
+    title: 'Submission Evaluation and Result',
+    date: 'Deadline: 28th Sep 2026',
+    venue: 'Official Colloquium Portal',
     summary:
       'Official declaration of PPT evaluation results and technical review scores for shortlisted teams advancing to on-campus defense.',
     positionClasses:
@@ -40,11 +40,11 @@ const stages: Stage[] = [
     id: 3,
     numeral: '3',
     title: 'Payment Confirmation',
-    date: 'Deadline: 30 Sep 2026',
-    note: 'Payment only for selected teams',
-    venue: 'Online Payment Gateway',
+    date: 'Deadline: 30th Sep 2026',
+    note: 'Payment Only for Selected Teams Only selected teams are required to pay the participation fee of ₹300.',
+    venue: 'Online Payment via Our Official Payment Portal',
     summary:
-      'Final registration fee submission and slot confirmation exclusively for qualified teams for on-campus presentation.',
+      'Final registration fee submission and slot confirmation exclusively for shortlisted teams selected to participate in the on-campus competition.',
     positionClasses:
       'lg:top-[57.6vw] lg:left-[2%] xl:left-[5%] 2xl:left-[4%]',
   },
@@ -52,11 +52,11 @@ const stages: Stage[] = [
     id: 4,
     numeral: '4',
     title: 'Internal Evaluation',
-    date: '03 October 2026',
+    date: '03rd October 2026',
     time: '9:00 AM – 5:00 PM',
     venue: 'SLRTCE Campus, Mira-Bhayandar',
     summary:
-      'Shortlisted teams deliver a strict 12-minute technical defense on-campus before expert academic review panels.',
+      'Shortlisted teams will present a focused 12-minute technical presentation before an expert academic review panel on campus.',
     positionClasses:
       'lg:top-[72vw] lg:left-[64%] xl:left-[66%] 2xl:left-[68%]',
   },
@@ -64,11 +64,11 @@ const stages: Stage[] = [
     id: 5,
     numeral: '5',
     title: 'Grand Finale & Awards',
-    date: '03 October 2026',
+    date: '03rd October 2026',
     time: '2:00 PM – 5:30 PM',
     venue: 'Main Auditorium, SLRTCE Campus',
     summary:
-      'Top finalist teams pitch live before an invited panel of external industry leaders, scientists, and academicians.',
+      'Top finalist teams will deliver their final presentations before an invited panel of industry leaders, researchers, and academicians, followed by the valedictory ceremony and awards presentation.',
     positionClasses:
       'lg:top-[92.8vw] lg:left-[12%] xl:left-[16%] 2xl:left-[14%]',
   },
@@ -151,7 +151,7 @@ const TimelineSection = () => {
     <section
       ref={sectionRef}
       id="schedule"
-      className="relative z-10 flex w-full flex-col items-center overflow-x-clip bg-cover bg-center bg-no-repeat border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] px-5 pt-[10vh] pb-16 sm:px-[6vw] sm:pt-[14vh] sm:pb-24 bg-[#FAF6EE]"
+      className="relative z-10 flex w-full flex-col items-center overflow-x-clip bg-cover bg-center bg-no-repeat border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] px-5 pt-[10vh] pb-16 sm:px-[6vw] sm:pt-[14vh] sm:pb-24 lg:pb-36 xl:pb-40 bg-[#FAF6EE]"
       style={{
         backgroundImage: "url('/backgrounds/bg-lemon-yellow.jpg')",
         backgroundAttachment: 'fixed',
@@ -195,15 +195,15 @@ const TimelineSection = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#123B6D] tracking-tight font-sans">
             Key Dates
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full my-3" />
-          <p className="text-sm sm:text-base text-black/85 font-sans leading-relaxed font-medium">
-            The colloquium will be conducted through progressive stages, providing a seamless selection process from registration & idea submission to PPT evaluation results, payment confirmation, internal evaluation, and external expert evaluation.
+          <div className="w-20 h-1 bg-[#123B6D] rounded-full my-3" />
+          <p className="text-sm sm:text-base text-black/85 font-sans leading-relaxed font-medium ">
+            The colloquium will be conducted through progressive stages, providing a seamless selection process from registration & submission to evaluation results, payment confirmation, internal evaluation, external expert evaluation and Valedictory Ceremony.
           </p>
         </motion.div>
       </div>
 
-      {/* Main Roadmap Container - Sized to end cleanly right after Stage 5, eliminating dead space */}
-      <div className="relative mt-[4vh] w-full max-w-[82rem] lg:mt-0 lg:h-[105vw] xl:h-[101vw] 2xl:h-[97vw]">
+      {/* Main Roadmap Container - Sized with ample bottom clearance so Stage 5 stays cleanly inside */}
+      <div className="relative mt-[4vh] w-full max-w-[82rem] lg:mt-0 lg:h-[114vw] xl:h-[112vw] 2xl:h-[110vw]">
 
         {/* ========================================================================= */}
         {/* DESKTOP SVG SERPENTINE PATH                                               */}

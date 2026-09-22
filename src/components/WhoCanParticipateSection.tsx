@@ -5,7 +5,6 @@ interface CategoryInfo {
   title: string;
   degree: string;
   teamSize: string;
-  description: string;
   align?: 'left' | 'right' | 'center';
 }
 
@@ -37,9 +36,9 @@ const ParticipantBox = ({
   const isRight = info.align === 'right';
 
   const textClass = isLeft
-    ? "absolute top-2 sm:top-4 left-2 sm:-left-8 md:-left-16 lg:-left-24 xl:-left-28 w-52 sm:w-60 md:w-68 lg:w-[18.5rem] xl:w-[19.5rem] z-30 flex flex-col items-start text-left pointer-events-none"
+    ? "absolute top-2 sm:top-4 left-2 sm:-left-6 md:-left-12 lg:-left-20 xl:-left-24 w-56 sm:w-68 md:w-80 lg:w-[22rem] xl:w-[25rem] z-30 flex flex-col items-start text-left pointer-events-none"
     : isRight
-      ? "absolute top-2 sm:top-4 -right-4 sm:-right-10 md:-right-16 lg:-right-24 xl:-right-28 w-52 sm:w-60 md:w-68 lg:w-[18.5rem] xl:w-[19.5rem] z-30 flex flex-col items-start text-left pointer-events-none"
+      ? "absolute top-2 sm:top-4 -right-2 sm:-right-6 md:-right-12 lg:-right-20 xl:-right-24 w-56 sm:w-68 md:w-80 lg:w-[22rem] xl:w-[25rem] z-30 flex flex-col items-start text-left pointer-events-none"
       : "absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 z-30 flex flex-col items-center text-center pointer-events-none";
 
   const charShiftX = isLeft ? 85 : isRight ? -85 : 0;
@@ -106,21 +105,18 @@ const ParticipantBox = ({
           transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.1 }}
           className={textClass}
         >
-          <div className="p-2 sm:p-3 md:p-3.5 w-full">
-            <h3 className="text-sm sm:text-lg md:text-xl lg:text-[1.45rem] font-extrabold text-white mb-1 md:mb-1.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-tight">
+          <div className="p-2 sm:p-3 md:p-4 w-full">
+            <h3 className="text-base sm:text-xl md:text-2xl lg:text-[1.85rem] xl:text-[2.1rem] font-black text-white mb-1.5 md:mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] leading-tight tracking-tight">
               {info.title}
             </h3>
-            <p className="text-[10px] sm:text-xs md:text-sm lg:text-[15px] text-amber-300 font-bold mb-2 md:mb-2.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            <p className="text-xs sm:text-sm md:text-base lg:text-[1.1rem] xl:text-[1.2rem] text-amber-300 font-extrabold mb-2.5 md:mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
               {info.degree}
             </p>
-            <div className="mb-2 md:mb-2.5">
-              <span className="text-[9px] sm:text-xs md:text-xs lg:text-[13px] text-white bg-black/55 px-2.5 md:px-3 py-0.5 md:py-1 rounded-full inline-block font-semibold border border-white/20 shadow-sm backdrop-blur-xs">
+            <div>
+              <span className="text-[9.5px] sm:text-[11px] md:text-xs lg:text-[13px] xl:text-[13.5px] text-white bg-black/65 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full inline-block font-bold border border-white/30 shadow-md backdrop-blur-sm whitespace-nowrap">
                 Team Size: {info.teamSize}
               </span>
             </div>
-            <p className="text-[9px] sm:text-xs md:text-xs lg:text-[13.5px] xl:text-[14px] text-white/95 leading-relaxed font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-              {info.description}
-            </p>
           </div>
         </motion.div>
       </motion.div>
@@ -191,7 +187,6 @@ const WhoCanParticipateSection = () => {
                 title: 'UG & Diploma Students',
                 degree: 'B.E. / B.Tech / Diploma (All Years)',
                 teamSize: '2 to 4 Members',
-                description: 'Designed for enthusiastic undergraduate and diploma students working on innovative concepts, working prototypes, and technical solutions to real-world challenges.',
                 align: 'left'
               }}
             />
@@ -219,7 +214,6 @@ const WhoCanParticipateSection = () => {
                   title: 'Postgraduate (PG) Scholars',
                   degree: 'M.E. / M.Tech / M.S. / MCA',
                   teamSize: 'Individual Submission',
-                  description: 'A platform for master’s students presenting advanced research papers, rigorous experimental studies, and algorithm implementations.',
                   align: 'left'
                 }}
               />
@@ -247,7 +241,6 @@ const WhoCanParticipateSection = () => {
                   title: 'PhD Scholars',
                   degree: 'Ph.D. & Post-Doctoral',
                   teamSize: 'Individual Submission',
-                  description: 'Academic stage for doctoral scholars presenting pioneering deep-tech models, novel frameworks, and patented ideas.',
                   align: 'right'
                 }}
               />

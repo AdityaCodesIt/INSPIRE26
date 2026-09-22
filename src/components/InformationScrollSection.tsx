@@ -318,18 +318,18 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-100px)] overflow-visible py-1">
+            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
               {/* Left Column: Actual College Photo with Vintage Archival Treatment (Shifted further right) */}
-              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative">
+              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative shrink-0">
 
-                {/* Photo Container - Smaller Square */}
-                <div className="relative w-56 sm:w-64 md:w-72 lg:w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[400px] xl:max-w-[460px] aspect-square shrink-0">
+                {/* Photo Container - Well-balanced Square on mobile */}
+                <div className="relative w-56 xs:w-64 sm:w-68 md:w-76 lg:w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[420px] lg:max-w-[400px] xl:max-w-[460px] aspect-square shrink-0">
                   {/* Subtle drop shadow for depth */}
                   <div className="absolute inset-2 bg-black/30 blur-2xl z-0 rounded-sm"></div>
 
                   {/* Archival Torn Paper Background Frame - Square */}
-                  <div className="relative z-10 w-full h-full aspect-square bg-[#E8DCC8] p-2 sm:p-4 lg:p-5 shadow-2xl rotate-[2.5deg] transition-transform duration-700 hover:rotate-[1deg] flex flex-col"
+                  <div className="relative z-10 w-full h-full aspect-square bg-[#E8DCC8] p-2 sm:p-4 lg:p-5 shadow-2xl rotate-[2deg] transition-transform duration-700 hover:rotate-[1deg] flex flex-col"
                     style={{
                       clipPath: 'polygon(1% 2%, 10% 0%, 20% 2%, 30% 0%, 40% 1%, 50% 0%, 60% 2%, 70% 0%, 80% 1%, 90% 0%, 98% 1%, 100% 10%, 99% 20%, 100% 30%, 98% 40%, 100% 50%, 99% 60%, 100% 70%, 98% 80%, 100% 90%, 99% 98%, 90% 100%, 80% 98%, 70% 100%, 60% 99%, 50% 100%, 40% 98%, 30% 100%, 20% 99%, 10% 100%, 1% 98%, 0% 90%, 1% 80%, 0% 70%, 2% 60%, 0% 50%, 1% 40%, 0% 30%, 2% 20%, 0% 10%)'
                     }}>
@@ -346,14 +346,14 @@ const InformationScrollSection = () => {
                     </div>
 
                     {/* Tape 1 - Top Center */}
-                    <div className="absolute -top-2 sm:-top-3.5 left-1/2 -translate-x-1/2 w-16 sm:w-28 h-5 sm:h-8 bg-[#D4C9A8]/85 shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(2% 0, 98% 0, 100% 100%, 0 100%)' }}></div>
+                    <div className="absolute -top-2 sm:-top-3.5 left-1/2 -translate-x-1/2 w-20 sm:w-28 h-4 sm:h-8 bg-[#D4C9A8]/85 shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(2% 0, 98% 0, 100% 100%, 0 100%)' }}></div>
 
                     {/* Tape 2 - Bottom Left */}
-                    <div className="absolute -bottom-2 sm:-bottom-4 -left-1 sm:-left-2 w-12 sm:w-20 h-4 sm:h-7 bg-[#D4C9A8]/85 rotate-[25deg] shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(0 0, 100% 5%, 95% 100%, 5% 95%)' }}></div>
+                    <div className="absolute -bottom-2 sm:-bottom-4 -left-1 sm:-left-2 w-14 sm:w-20 h-3.5 sm:h-7 bg-[#D4C9A8]/85 rotate-[25deg] shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(0 0, 100% 5%, 95% 100%, 5% 95%)' }}></div>
                   </div>
 
                   {/* Torn-Paper Label: SLRTCE */}
-                  <div className="absolute -bottom-3 sm:-bottom-5 right-2 sm:right-4 z-30 bg-[#F4EFE6] text-[#0A2A5E] px-2.5 sm:px-4 py-0.5 sm:py-1.5 shadow-lg border border-[#C8B89A]/60 rotate-[-4deg]"
+                  <div className="absolute -bottom-2.5 sm:-bottom-5 right-2 sm:right-4 z-30 bg-[#F4EFE6] text-[#0A2A5E] px-2.5 sm:px-4 py-0.5 sm:py-1.5 shadow-lg border border-[#C8B89A]/60 rotate-[-4deg]"
                     style={{ clipPath: 'polygon(0% 5%, 95% 0%, 100% 95%, 5% 100%)' }}>
                     <span className="font-display font-extrabold text-xs sm:text-lg tracking-widest uppercase">
                       SLRTCE
@@ -369,78 +369,83 @@ const InformationScrollSection = () => {
               </div>
 
               {/* Right Column: Wide Landscape Postal Ticket with Top-Right ESTB 2010 Stamp */}
-              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-16 xl:translate-y-20">
-                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-[1.5deg] lg:rotate-[2deg] transition-transform duration-500">
+              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-0 xl:translate-y-2 px-2 sm:px-0">
+                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-0 sm:rotate-[1.5deg] lg:rotate-[2deg] transition-transform duration-500">
 
-                  {/* Concentric Perforated Stamp Borders */}
-                  <PerforatedGhostOutline
-                    insetClass="-inset-3 sm:-inset-5"
-                    opacityClass="opacity-40"
-                    idPrefix="ghost-inner"
-                  />
-                  <PerforatedGhostOutline
-                    insetClass="-inset-6 sm:-inset-10"
-                    opacityClass="opacity-20"
-                    idPrefix="ghost-outer"
-                  />
+                  {/* Concentric Perforated Stamp Borders - Visible on all devices */}
+                  <div>
+                    <PerforatedGhostOutline
+                      insetClass="-inset-2 sm:-inset-5"
+                      opacityClass="opacity-40"
+                      idPrefix="ghost-inner"
+                    />
+                    <PerforatedGhostOutline
+                      insetClass="-inset-3.5 sm:-inset-10"
+                      opacityClass="opacity-20"
+                      idPrefix="ghost-outer"
+                    />
+                  </div>
 
                   {/* Floating Circular ESTB 2010 Stamp at Top Right Corner */}
-                  <div className="absolute -top-1 -right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
-                    <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-5deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
-                      <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1">
-                        <span className="text-[0.45rem] sm:text-[0.65rem] font-serif tracking-widest uppercase font-bold text-white/90 leading-tight">
+                  <div className="absolute top-1 sm:-top-5 lg:-top-7 right-1 sm:-right-4 lg:-right-5 z-30 flex items-center justify-center pointer-events-none">
+                    <div className="w-12 h-12 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-5deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
+                      <div className="w-[calc(100%-4px)] h-[calc(100%-4px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1">
+                        <span className="text-[0.4rem] sm:text-[0.65rem] font-serif tracking-widest uppercase font-bold text-white/90 leading-tight">
                           ESTB.
                         </span>
-                        <span className="text-sm sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
+                        <span className="text-xs sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
                           2010
                         </span>
-                        <span className="text-[0.5rem] sm:text-[0.65rem] text-amber-200 leading-none">★</span>
+                        <span className="text-[0.45rem] sm:text-[0.65rem] text-amber-200 leading-none">★</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Rectangle Postal Ticket Container (Stamp Card) */}
-                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-4 sm:px-7 lg:px-9 py-3 sm:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
+                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-3 sm:px-7 lg:px-9 py-2.5 sm:py-5 lg:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
 
                     {/* Ticket Texture Overlay */}
                     <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.jpg')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
 
                     {/* Main Content Layout (Vertical Stack of Horizontal Rows) */}
-                    <div className="relative z-10 flex flex-col justify-between pl-1 sm:pl-4 pr-5 sm:pr-8">
+                    <div className="relative z-10 flex flex-col justify-between pl-0 sm:pl-4 pr-3 sm:pr-8">
 
                       {/* Far-left dashed stub perforation line */}
                       <div className="hidden sm:block absolute -left-1.5 top-0 bottom-0 border-l border-dashed border-[#C8B89A]/80 pointer-events-none"></div>
 
                       {/* 1. Title */}
-                      <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
-                        <h2 className="font-serif font-black text-sm sm:text-[1.3rem] lg:text-[1.65rem] text-[#1A4338] leading-tight tracking-tight">
+                      <div className="flex flex-wrap items-baseline gap-1 sm:gap-2.5 pr-10 sm:pr-0">
+                        <h2 className="font-serif font-black text-xs min-[380px]:text-sm sm:text-[1.3rem] lg:text-[1.65rem] text-[#1A4338] leading-tight tracking-tight">
                           Shree L. R. Tiwari College of Engineering
                         </h2>
-                        <span className="font-serif font-bold text-xs sm:text-lg text-[#1A4338]/85">
+                        <span className="font-serif font-bold text-[11px] sm:text-lg text-[#1A4338]/85">
                           (SLRTCE)
                         </span>
                       </div>
 
                       {/* 2. College Info Paragraph */}
-                      <p className="font-sans text-[#3D4D44] text-[0.72rem] sm:text-[0.86rem] leading-relaxed text-justify mt-1.5 sm:mt-3">
-                        Shree L. R. Tiwari College of Engineering (SLRTCE) is one of the leading engineering colleges in Mumbai, Maharashtra, offering a wide range of undergraduate and postgraduate programs at an affordable fee structure with excellent placement opportunities.
+                      <p className="font-sans text-[#3D4D44] text-[0.66rem] min-[380px]:text-[0.72rem] sm:text-[0.86rem] leading-snug sm:leading-relaxed text-justify mt-1 sm:mt-2.5">
+                        Shree L. R. Tiwari College of Engineering (SLRTCE), established in 2010, is an autonomous engineering institute affiliated with the University of Mumbai and the first engineering college in the Mira-Bhayandar region. The institute is committed to providing quality technical education while fostering research, innovation, entrepreneurship, industry interaction, and holistic student development.
+                      </p>
+                      <p className="font-sans text-[#3D4D44] text-[0.66rem] min-[380px]:text-[0.72rem] sm:text-[0.86rem] leading-snug sm:leading-relaxed text-justify mt-1 sm:mt-2.5">
+                        With a strong focus on emerging technologies, experiential learning, research and interdisciplinary collaboration, SLRTCE provides students with opportunities to transform academic knowledge into practical solutions. The institute encourages participation in research projects, hackathons, technical competitions, industry internships, conferences and innovation initiatives.
                       </p>
 
                       {/* Horizontal Separator Line */}
-                      <div className="w-full border-b border-[#C8B89A]/80 my-2 sm:my-3.5"></div>
+                      <div className="w-full border-b border-[#C8B89A]/80 my-1.5 sm:my-3"></div>
 
                       {/* 3. The Three Points in a HORIZONTAL Row Below Paragraph */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
+                      <div className="grid grid-cols-3 gap-1 sm:gap-4 w-full">
 
                         {/* Point 1: Autonomous */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 14v6" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               AUTONOMOUS <br />
                               COLLEGE
                             </span>
@@ -448,13 +453,13 @@ const InformationScrollSection = () => {
                         </div>
 
                         {/* Point 2: Affiliated */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               AFFILIATED WITH <br />
                               MUMBAI UNIV.
                             </span>
@@ -462,14 +467,14 @@ const InformationScrollSection = () => {
                         </div>
 
                         {/* Point 3: Accredited */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="9" r="6" />
                             <path d="M9 14.5L7 21l5-2.5L17 21l-2-6.5" />
                             <path d="M12 7l.8 1.6 1.8.3-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.3z" fill="currentColor" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               AICTE &amp; NAAC <br />
                               ACCREDITED
                             </span>
@@ -512,10 +517,10 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-100px)] overflow-visible py-1">
+            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
               {/* Left Column: Stylized Computer Engineering Artwork Sticker */}
-              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative">
+              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative shrink-0">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -528,36 +533,38 @@ const InformationScrollSection = () => {
                   <img
                     src="/CompEng-sticker.png"
                     alt="Department of Computer Engineering"
-                    className="relative z-10 w-48 xs:w-52 sm:w-64 md:w-72 lg:w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[500px] xl:max-w-[560px] h-auto max-h-[22vh] sm:max-h-[35vh] lg:max-h-[58vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
+                    className="relative z-10 w-56 xs:w-64 sm:w-72 md:w-80 lg:w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[440px] lg:max-w-[500px] xl:max-w-[560px] h-auto max-h-[26vh] sm:max-h-[36vh] lg:max-h-[58vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
                   />
                 </motion.div>
               </div>
 
               {/* Right Column: Wide Landscape Postal Ticket for Computer Engineering Department */}
-              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-16 xl:translate-y-20">
-                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-[1.5deg] lg:rotate-[1.5deg] transition-transform duration-500">
+              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-0 xl:translate-y-2 px-2 sm:px-0">
+                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-0 sm:rotate-[1.5deg] lg:rotate-[1.5deg] transition-transform duration-500">
 
-                  {/* Concentric Perforated Stamp Borders */}
-                  <PerforatedGhostOutline
-                    insetClass="-inset-3 sm:-inset-5"
-                    opacityClass="opacity-40"
-                    idPrefix="dept-ghost-inner"
-                  />
-                  <PerforatedGhostOutline
-                    insetClass="-inset-6 sm:-inset-10"
-                    opacityClass="opacity-20"
-                    idPrefix="dept-ghost-outer"
-                  />
+                  {/* Concentric Perforated Stamp Borders - Visible on all devices */}
+                  <div>
+                    <PerforatedGhostOutline
+                      insetClass="-inset-2 sm:-inset-5"
+                      opacityClass="opacity-40"
+                      idPrefix="dept-ghost-inner"
+                    />
+                    <PerforatedGhostOutline
+                      insetClass="-inset-3.5 sm:-inset-10"
+                      opacityClass="opacity-20"
+                      idPrefix="dept-ghost-outer"
+                    />
+                  </div>
 
                   {/* Floating Circular NBA ACCREDITED Stamp at Top Right Corner (Matching College ESTB Stamp) */}
-                  <div className="absolute top-4 right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
-                    <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-8deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
-                      <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1 text-center">
+                  <div className="absolute top-1 sm:-top-5 lg:-top-7 right-1 sm:-right-4 lg:-right-5 z-30 flex items-center justify-center pointer-events-none">
+                    <div className="w-12 h-12 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-8deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
+                      <div className="w-[calc(100%-4px)] h-[calc(100%-4px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1 text-center">
           
-                        <span className="text-sm sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
+                        <span className="text-xs sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
                           NBA
                         </span>
-                        <span className="text-[0.38rem] sm:text-[0.54rem] font-serif font-bold tracking-tight text-white/90 leading-tight">
+                        <span className="text-[0.32rem] sm:text-[0.54rem] font-serif font-bold tracking-tight text-white/90 leading-tight">
                           ACCREDITED
                         </span>
                       </div>
@@ -565,57 +572,58 @@ const InformationScrollSection = () => {
                   </div>
 
                   {/* Box-Shaped Rectangle Postal Ticket Container (Stamp Card) */}
-                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-4 sm:px-7 lg:px-9 py-3 sm:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
+                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-3 sm:px-7 lg:px-9 py-2.5 sm:py-5 lg:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
 
                     {/* Ticket Texture Overlay */}
                     <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.jpg')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
 
                     {/* Main Content Layout */}
-                    <div className="relative z-10 flex flex-col justify-between pl-1 sm:pl-4 pr-5 sm:pr-8">
+                    <div className="relative z-10 flex flex-col justify-between pl-0 sm:pl-4 pr-3 sm:pr-8">
 
                       {/* Far-left dashed stub perforation line */}
                       <div className="hidden sm:block absolute -left-1.5 top-0 bottom-0 border-l border-dashed border-[#C8B89A]/80 pointer-events-none"></div>
 
                       {/* Top Header Ribbon */}
                       <div className="flex items-center justify-between border-b border-[#C8B89A]/50 pb-1 sm:pb-2">
-                        <span className="font-mono text-[0.52rem] sm:text-[0.7rem] uppercase tracking-wider sm:tracking-widest text-[#1A4338]/80 font-bold truncate pr-1">
+                        <span className="font-mono text-[0.5rem] sm:text-[0.7rem] uppercase tracking-wider sm:tracking-widest text-[#1A4338]/80 font-bold truncate pr-1">
                           ✦ DEPARTMENT OF COMPUTER ENGINEERING · SLRTCE
                         </span>
-                        <span className="font-mono text-[0.48rem] sm:text-[0.66rem] font-bold px-1.5 sm:px-2 py-0.5 rounded-[2px] bg-[#1A4338]/10 text-[#1A4338] border border-[#C8B89A]/60 shrink-0 whitespace-nowrap">
+                        <span className="font-mono text-[0.44rem] sm:text-[0.66rem] font-bold px-1.5 sm:px-2 py-0.5 rounded-[2px] bg-[#1A4338]/10 text-[#1A4338] border border-[#C8B89A]/60 shrink-0 whitespace-nowrap">
                           ACADEMIC DISCIPLINE
                         </span>
                       </div>
 
                       {/* 1. Title & Tagline */}
                       <div className="mt-1 sm:mt-2">
-                        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
-                          <h2 className="font-serif font-black text-sm sm:text-[1.3rem] lg:text-[1.65rem] text-[#1A4338] leading-tight tracking-tight">
+                        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5 pr-10 sm:pr-0">
+                          <h2 className="font-serif font-black text-xs min-[380px]:text-sm sm:text-[1.3rem] lg:text-[1.65rem] text-[#1A4338] leading-tight tracking-tight">
                             Department of Computer Engineering
                           </h2>
                         </div>
-                        <p className="font-serif italic text-[10px] sm:text-xs lg:text-sm text-[#8C6D23] mt-0.5">
-                          Engineering Intelligent Solutions · Advancing Global Computing
-                        </p>
+                      
                       </div>
 
                       {/* 2. Department Info Paragraph */}
-                      <p className="font-sans text-[#3D4D44] text-[0.72rem] sm:text-[0.86rem] leading-relaxed text-justify mt-1.5 sm:mt-2.5">
-                        The Department of Computer Engineering at Shree L. R. Tiwari College of Engineering provides comprehensive technical education grounded in foundational computing and cutting-edge innovations. Offering specialized research environments in Artificial Intelligence, Cloud Computing, Cyber Security, and Big Data Analytics, the department empowers students to excel in high-tier hackathons, patent development, and leadership careers at leading global tech organizations.
+                      <p className="font-sans text-[#3D4D44] text-[0.66rem] min-[380px]:text-[0.72rem] sm:text-[0.86rem] leading-snug sm:leading-relaxed text-justify mt-1 sm:mt-2">
+                        The Department of Computer Engineering at Shree L. R. Tiwari College of Engineering was established in 2010 with a vision of developing skilled professionals equipped to meet the evolving demands of the software and hardware industry. The department offers undergraduate and postgraduate programmes that build strong foundations in computing, engineering principles, technology and problem-solving.
+                      </p>
+                      <p className="font-sans text-[#3D4D44] text-[0.66rem] min-[380px]:text-[0.72rem] sm:text-[0.86rem] leading-snug sm:leading-relaxed text-justify mt-1 sm:mt-2">
+                        The department places emphasis on quality education, practical learning, research and skill development. Students are encouraged to explore emerging technologies, participate in technical activities, develop innovative solutions and bridge the gap between academic knowledge and real-world applications. The department also promotes research culture and provides opportunities for students to pursue higher studies and professional careers.
                       </p>
 
                       {/* Horizontal Separator Line */}
-                      <div className="w-full border-b border-[#C8B89A]/80 my-2 sm:my-3"></div>
+                      <div className="w-full border-b border-[#C8B89A]/80 my-1.5 sm:my-3"></div>
 
                       {/* 3. The Three Points in a Row Below Paragraph */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
+                      <div className="grid grid-cols-3 gap-1 sm:gap-4 w-full">
 
                         {/* Point 1: Advanced Labs & AI */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               AI &amp; ADVANCED <br />
                               RESEARCH LABS
                             </span>
@@ -623,12 +631,12 @@ const InformationScrollSection = () => {
                         </div>
 
                         {/* Point 2: Industry Tie-ups & Certifications */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-3.5 h-3.5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               INDUSTRY TIE-UPS <br />
                               &amp; PLACEMENTS
                             </span>
@@ -636,14 +644,14 @@ const InformationScrollSection = () => {
                         </div>
 
                         {/* Point 3: Hackathons & Research */}
-                        <div className="flex items-center gap-2 sm:gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <div className="flex items-center gap-1 sm:gap-2.5">
+                          <svg className="w-4 h-4 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="9" r="6" />
                             <path d="M9 14.5L7 21l5-2.5L17 21l-2-6.5" />
                             <path d="M12 7l.8 1.6 1.8.3-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.3z" fill="currentColor" />
                           </svg>
-                          <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                          <div className="border-l border-[#C8B89A]/80 pl-1 sm:pl-2.5">
+                            <span className="font-sans font-bold text-[0.5rem] min-[380px]:text-[0.58rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               HACKATHONS &amp; <br />
                               INNOVATION
                             </span>
@@ -687,22 +695,22 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1360px] w-full mx-auto grid grid-cols-12 gap-3 sm:gap-6 lg:gap-12 items-center relative z-10 max-h-[calc(100vh-100px)] overflow-y-auto lg:overflow-visible py-1">
+            <div className="max-w-[1360px] w-full mx-auto grid grid-cols-12 gap-2 sm:gap-6 lg:gap-12 items-center relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {/* Left Column: Gazette Information */}
               <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
                 {/* Postal Tag */}
-                <div className="flex items-center gap-2 mb-1.5 sm:mb-2.5">
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#0A2A5E] font-mono text-[0.62rem] sm:text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
+                <div className="flex items-center gap-2 mb-1 sm:mb-2.5">
+                  <span className="inline-flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-[2px] bg-[#FCF9F2] text-[#0A2A5E] font-mono text-[0.55rem] sm:text-[0.68rem] tracking-wider uppercase font-bold border border-[#C8B89A] shadow-xs">
                     ✦ IEEE SLRTCE
                   </span>
                   <span className="h-px w-6 bg-[#C8B89A]/40 hidden sm:inline-block" />
-                  <span className="text-amber-200/80 text-[0.65rem] sm:text-[0.72rem] font-serif uppercase tracking-wider">
+                  <span className="text-amber-200/80 text-[0.58rem] sm:text-[0.72rem] font-serif uppercase tracking-wider">
                     Global Technical Consortium
                   </span>
                 </div>
 
                 {/* Editorial Heading */}
-                <h2 className="text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-display font-bold text-white tracking-tight leading-[1.12] mb-1.5 sm:mb-3">
+                <h2 className="text-lg min-[380px]:text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-display font-bold text-white tracking-tight leading-tight mb-1 sm:mb-2.5">
                   IEEE SLRTCE <br />
                   <span className="text-amber-300 font-display italic font-semibold">
                     Student Branch
@@ -710,77 +718,70 @@ const InformationScrollSection = () => {
                 </h2>
 
                 {/* Narrative Text */}
-                <p className="text-[11px] sm:text-sm lg:text-[0.95rem] text-[#F4EFE6]/90 leading-relaxed mb-3 sm:mb-6 font-light max-w-2xl">
-                  As part of the world's largest technical professional organization, the IEEE SLRTCE Student Branch serves as the catalyst for technical colloquiums, IEEE Xplore research access, professional networking, and student leadership development.
+                <p className="text-[0.66rem] min-[380px]:text-[0.72rem] sm:text-sm lg:text-[0.95rem] text-[#F4EFE6]/90 leading-snug sm:leading-relaxed mb-2 sm:mb-5 font-light max-w-2xl text-justify sm:text-left">
+                  IEEE SLRTCE is the official IEEE Student Branch of Shree L. R. Tiwari College of Engineering (SLRTCE), established in 2026 with a vision to foster technical excellence, innovation, leadership, and professional growth among engineering students. As a part of the global IEEE community, the branch provides students with opportunities to learn, collaborate, innovate, and engage with emerging technologies while connecting academic learning with real-world applications.
                 </p>
 
                 {/* Archival Register (3 Columns) */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-5 pt-2 sm:pt-3.5 border-t border-[#C8B89A]/30">
-                  <div className="border-l-2 border-amber-400/60 pl-2.5 sm:pl-3">
-                    <div className="text-[0.6rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">GLOBAL FELLOWSHIP</div>
-                    <div className="text-[11px] sm:text-sm font-semibold text-white font-serif">400,000+ Members</div>
-                    <div className="text-[0.65rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Uniting engineers & researchers across 160+ nations</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-5 pt-1.5 sm:pt-3.5 border-t border-[#C8B89A]/30">
+                  <div className="border-l-2 border-amber-400/60 pl-2 sm:pl-3">
+                    <div className="text-[0.55rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">STUDENT COMMUNITY</div>
+                    <div className="text-[10px] sm:text-sm font-semibold text-white font-serif">IEEE SLRTCE Community</div>
+                    <div className="text-[0.6rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Bringing together passionate students to learn, innovate &amp; collaborate</div>
                   </div>
-                  <div className="border-l-2 border-amber-400/60 pl-2.5 sm:pl-3">
-                    <div className="text-[0.6rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">AUTHORITY</div>
-                    <div className="text-[11px] sm:text-sm font-semibold text-white font-serif">Global Standards</div>
-                    <div className="text-[0.65rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Wireless, Power, AI Ethics & autonomous systems</div>
+                  <div className="border-l-2 border-amber-400/60 pl-2 sm:pl-3">
+                    <div className="text-[0.55rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">TECHNICAL EXCELLENCE</div>
+                    <div className="text-[10px] sm:text-sm font-semibold text-white font-serif">Innovation &amp; Knowledge</div>
+                    <div className="text-[0.6rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Workshops, hackathons, research &amp; expert sessions building skills</div>
                   </div>
-                  <div className="border-l-2 border-amber-400/60 pl-2.5 sm:pl-3">
-                    <div className="text-[0.6rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">SLRTCE CHAPTER</div>
-                    <div className="text-[11px] sm:text-sm font-semibold text-white font-serif">Colloquium Host</div>
-                    <div className="text-[0.65rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Conferences, paper colloquiums & tech symposia</div>
+                  <div className="border-l-2 border-amber-400/60 pl-2 sm:pl-3">
+                    <div className="text-[0.55rem] sm:text-[0.7rem] font-mono text-amber-300 uppercase tracking-widest mb-0.5">SLRTCE STUDENT BRANCH</div>
+                    <div className="text-[10px] sm:text-sm font-semibold text-white font-serif">Campus Innovation Hub</div>
+                    <div className="text-[0.6rem] sm:text-[0.7rem] text-[#DDD5C7] mt-0.5 leading-snug">Technical events, conferences, paper presentations &amp; professional activities</div>
                   </div>
                 </div>
               </div>
 
               {/* Right Column: Commemorative Philatelic Stamp Card */}
-              <div className="col-span-12 lg:col-span-5 flex justify-center mt-2 lg:mt-0">
-                <div className="relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[420px]">
+              <div className="col-span-12 lg:col-span-5 flex justify-center mt-1 sm:mt-2 lg:mt-0 shrink-0">
+                <div className="relative w-full max-w-[190px] xs:max-w-[220px] sm:max-w-[360px] lg:max-w-[420px]">
                   {/* Stamp Card */}
-                  <div className="stamp-card !p-2.5 sm:!p-3.5 bg-[#FCF9F2] text-[#0A2A5E] shadow-2xl rotate-[-1.5deg] transition-transform duration-500 hover:rotate-0">
+                  <div className="stamp-card !p-2 sm:!p-3.5 bg-[#FCF9F2] text-[#0A2A5E] shadow-2xl rotate-[-1.5deg] transition-transform duration-500 hover:rotate-0">
                     {/* Top Perforation Header */}
-                    <div className="flex items-center justify-between border-b border-[#C8B89A]/40 pb-1 mb-1.5 px-1 text-[0.6rem] sm:text-[0.65rem] font-mono font-bold tracking-widest text-[#0A2A5E]/80">
+                    <div className="flex items-center justify-between border-b border-[#C8B89A]/40 pb-0.5 sm:pb-1 mb-1 px-1 text-[0.52rem] sm:text-[0.65rem] font-mono font-bold tracking-widest text-[#0A2A5E]/80">
                       <span>COMMEMORATIVE ISSUE</span>
                       <span className="text-[#D4AF37]">IEEE EST. 1884</span>
                       <span>MUMBAI</span>
                     </div>
 
                     {/* Stamp Center Medallion: Filled completely with IEEE Logo */}
-                    <div className="relative bg-[#0A2A5E] text-white p-4 sm:p-6 rounded-xs border border-[#C8B89A] flex items-center justify-center overflow-hidden w-full h-[220px] sm:h-[270px] lg:h-[290px] group">
+                    <div className="relative bg-[#0A2A5E] text-white p-2.5 sm:p-6 rounded-xs border border-[#C8B89A] flex items-center justify-center overflow-hidden w-full h-[120px] xs:h-[140px] sm:h-[270px] lg:h-[290px] group">
                       {/* Radiant rays background */}
                       <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-300 via-transparent to-transparent pointer-events-none" />
 
                       {/* Archival dashed inner border */}
-                      <div className="absolute inset-1.5 border border-dashed border-[#C8B89A]/50 rounded-xs pointer-events-none z-10" />
+                      <div className="absolute inset-1 border border-dashed border-[#C8B89A]/50 rounded-xs pointer-events-none z-10" />
 
                       {/* IEEE Logo filling the whole part */}
                       <div className="relative w-full h-full flex items-center justify-center z-10">
                         {/* Soft ambient white backing for crystal clear contrast and legibility */}
-                        <div className="absolute w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-white/90 blur-xl opacity-65 pointer-events-none" />
+                        <div className="absolute w-24 h-24 sm:w-48 sm:h-48 rounded-full bg-white/90 blur-xl opacity-65 pointer-events-none" />
 
                         <img
                           src="/LOGO-IEEE.png"
                           alt="IEEE SLRTCE Student Branch Logo"
-                          className="relative z-10 w-full h-full max-h-[190px] sm:max-h-[235px] lg:max-h-[250px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] select-none transition-transform duration-300 group-hover:scale-105"
+                          className="relative z-10 w-full h-full max-h-[105px] xs:max-h-[125px] sm:max-h-[235px] lg:max-h-[250px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] select-none transition-transform duration-300 group-hover:scale-105"
                         />
-                      </div>
-
-                      {/* Vintage Corner Cancellation Postmark */}
-                      <div className="absolute -bottom-3 -right-3 w-16 h-16 sm:w-22 sm:h-22 rounded-full border-2 border-dashed border-[#D4AF37]/60 flex flex-col items-center justify-center rotate-[-15deg] bg-[#0A2A5E]/95 p-1 pointer-events-none shadow-sm text-center z-20">
-                        <span className="text-[0.4rem] sm:text-[0.48rem] font-mono font-bold text-amber-300 tracking-tighter">BOMBAY SEC.</span>
-                        <span className="text-[0.35rem] sm:text-[0.4rem] font-mono text-white/80">OFFICIAL</span>
-                        <span className="text-[0.35rem] sm:text-[0.4rem] font-mono text-amber-300">2026</span>
                       </div>
                     </div>
 
                     {/* Stamp Footer Label */}
-                    <div className="pt-1.5 sm:pt-2 px-1 flex items-center justify-between text-[#0A2A5E]">
+                    <div className="pt-1 sm:pt-2 px-1 flex items-center justify-between text-[#0A2A5E]">
                       <div className="flex flex-col">
-                        <span className="font-serif font-bold text-[11px] sm:text-xs tracking-wide">STUDENT BRANCH CHARTER</span>
-                        <span className="text-[0.55rem] sm:text-[0.65rem] text-[#5A5A7A] font-sans">Bombay Section</span>
+                        <span className="font-serif font-bold text-[10px] sm:text-xs tracking-wide">STUDENT BRANCH CHARTER</span>
+                        <span className="text-[0.5rem] sm:text-[0.65rem] text-[#5A5A7A] font-sans">Maharashtra Section</span>
                       </div>
-                      <span className="text-[0.55rem] sm:text-[0.62rem] font-mono text-[#D4AF37] font-bold border border-[#D4AF37]/50 px-1 py-0.5 rounded-[2px] bg-amber-50">
+                      <span className="text-[0.5rem] sm:text-[0.62rem] font-mono text-[#D4AF37] font-bold border border-[#D4AF37]/50 px-1 py-0.5 rounded-[2px] bg-amber-50">
                         ACTIVE
                       </span>
                     </div>
