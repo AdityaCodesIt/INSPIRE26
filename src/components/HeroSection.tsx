@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.png';
 
@@ -6,8 +6,9 @@ const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
-  const lineX2 = useTransform(dragX, (x) => `calc(50% + ${x}px)`);
-  const lineY2 = useTransform(dragY, (y) => `calc(30px + ${y}px)`);
+  const badgeXOffset = useTransform(dragX, (x) => x + 1000);
+  const badgeYOffset = useTransform(dragY, (y) => y + 30);
+  const lanyardPath = useMotionTemplate`M 1000 -500 L ${badgeXOffset} ${badgeYOffset}`;
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
@@ -209,16 +210,20 @@ const HeroSection = () => {
             transition={{ duration: 1.5, type: "spring", bounce: 0.35, delay: 3.5 }}
           >
             {/* Fixed Anchor Lanyard String */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-              <motion.line
-                x1="50%"
-                y1="-500"
-                x2={lineX2}
-                y2={lineY2}
+            <svg className="absolute top-0 left-1/2 w-[2000px] h-full -translate-x-1/2 pointer-events-none z-0 overflow-visible">
+              <motion.path
+                id="lanyard-path"
+                d={lanyardPath}
                 stroke="#0A2A5E"
-                strokeWidth="14"
+                strokeWidth="16"
                 strokeLinecap="round"
+                fill="none"
               />
+              <text fontSize="11" fill="rgba(255,255,255,0.7)" fontWeight="900" letterSpacing="6">
+                <textPath href="#lanyard-path" startOffset="50%" textAnchor="middle">
+                  SLRTCE • SLRTCE • SLRTCE
+                </textPath>
+              </text>
             </svg>
 
             {/* The Badge Itself */}
@@ -226,13 +231,21 @@ const HeroSection = () => {
               className="relative w-[240px] sm:w-[280px] md:w-[320px] h-auto min-h-[360px] sm:min-h-[420px] md:min-h-[480px] bg-brand-navy rounded-2xl border-4 border-black shadow-2xl mt-[20px] md:mt-[30px] z-10 flex flex-col items-center p-3 sm:p-5 cursor-grab active:cursor-grabbing"
               drag
               dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-              dragElastic={0.6}
-              dragTransition={{ bounceStiffness: 150, bounceDamping: 10 }}
+              dragElastic={1}
+              dragTransition={{ bounceStiffness: 80, bounceDamping: 6 }}
               whileHover={{ scale: 1.02 }}
               whileDrag={{ scale: 1.05, rotate: 2 }}
               transition={{ type: "spring", stiffness: 150, damping: 12, mass: 1.5 }}
               style={{ x: dragX, y: dragY, transformStyle: "preserve-3d", perspective: "1000px" }}
             >
+
+              {/* SLRTCE Border Text */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden m-1 rounded-xl">
+                <div className="absolute top-0.5 w-full text-center text-[7px] sm:text-[9px] text-white/25 tracking-[0.5em] font-black uppercase">SLRTCE • SLRTCE • SLRTCE</div>
+                <div className="absolute bottom-0.5 w-full text-center text-[7px] sm:text-[9px] text-white/25 tracking-[0.5em] font-black uppercase">SLRTCE • SLRTCE • SLRTCE</div>
+                <div className="absolute left-1 top-1/2 -translate-y-1/2 -rotate-90 text-[7px] sm:text-[9px] text-white/25 tracking-[0.5em] font-black uppercase origin-center whitespace-nowrap">SLRTCE • SLRTCE • SLRTCE</div>
+                <div className="absolute right-1 top-1/2 -translate-y-1/2 rotate-90 text-[7px] sm:text-[9px] text-white/25 tracking-[0.5em] font-black uppercase origin-center whitespace-nowrap">SLRTCE • SLRTCE • SLRTCE</div>
+              </div>
 
               {/* Lanyard Clip Hole / Attachment Point */}
               <div className="absolute top-[-10px] left-1/2 -translate-x-1/2 w-12 sm:w-16 h-4 sm:h-5 bg-black rounded-full z-20 border-2 border-gray-700 shadow-md flex items-center justify-center">
@@ -243,7 +256,7 @@ const HeroSection = () => {
               <div className="w-16 sm:w-20 h-2 sm:h-3 bg-[#F9E7B7] rounded-full border-2 border-black absolute top-2 sm:top-3 left-1/2 -translate-x-1/2 opacity-0" />
 
               {/* Badge Content */}
-              <div className="w-full h-full bg-white rounded-xl mt-6 flex flex-col items-center p-4 sm:p-5 relative border-2 border-gray-200">
+              <div className="w-full h-full bg-white rounded-xl mt-6 flex flex-col items-center p-4 sm:p-5 relative border-2 border-gray-200 z-10">
 
                 {/* Header inside badge */}
                 <div className="w-full text-center pb-3 mb-3 sm:mb-4 border-b-2 border-brand-orange/30">

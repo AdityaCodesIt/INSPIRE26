@@ -158,19 +158,32 @@ const Navbar = () => {
       >
         <div className="max-w-[1440px] mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center relative w-full h-full">
           {/* Left: Logos */}
-          <a href="#home" onClick={(e) => handleNavClick(e, '#home', 'home')} className="flex items-center space-x-2 sm:space-x-2.5 text-white shrink-0 group z-10">
-            <img
-              src="/slrtce-logo.png"
-              alt="SLRTCE Logo"
-              className="h-8 sm:h-9 w-auto object-contain"
-            />
+          <div className="flex items-center space-x-2 sm:space-x-2.5 shrink-0 z-10">
+            <a 
+              href="https://slrtce.in" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="group hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/slrtce-logo.png"
+                alt="SLRTCE Logo"
+                className="h-8 sm:h-9 w-auto object-contain"
+              />
+            </a>
             <div className="h-6 sm:h-7 w-px bg-white/30" />
-            <img
-              src="/ieee-slrtce-logo.png"
-              alt="IEEE SLRTCE Student Branch Logo"
-              className="h-8 sm:h-9 w-auto object-contain"
-            />
-          </a>
+            <a 
+              href="#home" 
+              onClick={(e) => handleNavClick(e, '#home', 'home')} 
+              className="group hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/ieee-custom-logo-white.png"
+                alt="IEEE SLRTCE Custom Logo"
+                className="h-9 sm:h-10 w-auto object-contain mix-blend-screen opacity-90"
+              />
+            </a>
+          </div>
 
           {/* Center: Main Navigation */}
           <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-0.5 xl:space-x-1.5 items-center font-sans font-bold text-[0.66rem] xl:text-[0.74rem] tracking-wide z-10 pointer-events-auto">
