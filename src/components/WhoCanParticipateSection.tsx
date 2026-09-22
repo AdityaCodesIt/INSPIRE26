@@ -239,7 +239,7 @@ const WhoCanParticipateSection = () => {
                 onToggle={() => handleToggle('ppg')}
                 info={{
                   title: 'PhD Scholars',
-                  degree: 'Ph.D. & Post-Doctoral',
+                  degree: 'Ph.D. / Researchers / Fellows',
                   teamSize: 'Individual Submission',
                   align: 'right'
                 }}

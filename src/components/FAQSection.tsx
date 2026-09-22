@@ -18,13 +18,19 @@ const faqs: FAQItem[] = [
   {
     question: 'Who can participate?',
     answer:
-      'The event is open to students across three distinct categories:\n• Category 1 (PPG): PhD / Pre-PhD / Doctoral-level students\n• Category 2 (PG): ME / M.Tech students\n• Category 3 (UG & Diploma): Undergraduate and Diploma students',
+      'The event is open to students across three distinct categories:\n• Category 1 (PPG): PhD Scholars / Researchers / Fellows\n• Category 2 (PG): ME / M.Tech students\n• Category 3 (UG & Diploma): Undergraduate and Diploma students',
     category: 'Participation',
   },
   {
     question: 'What is the allowable team size?',
     answer:
       '• PPG & PG Categories: Individual participation only (1 member per entry).\n• UG & Diploma Category: 2 to 4 members per team.',
+    category: 'Participation',
+  },
+  {
+    question: 'Is INSPIRE Colloquium open to inter-college and inter-department teams?',
+    answer:
+      'Yes. INSPIRE 2026 welcomes participation from students across different colleges and departments, encouraging interdisciplinary collaboration and the exchange of ideas.',
     category: 'Participation',
   },
   {
@@ -40,15 +46,15 @@ const faqs: FAQItem[] = [
     category: 'Registration & Competition',
   },
   {
-    question: 'What is the competition format and structure?',
-    answer:
-      'INSPIRE 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
-    category: 'Registration & Competition',
-  },
-  {
     question: 'Is there any registration fee?',
     answer:
       'Initial abstract submission is free, but shortlisted teams must pay a ₹300 per team registration fee to confirm participation.',
+    category: 'Registration & Competition',
+  },
+  {
+    question: 'What is the competition format and structure?',
+    answer:
+      'INSPIRE 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
     category: 'Registration & Competition',
   },
   {
@@ -56,6 +62,12 @@ const faqs: FAQItem[] = [
     answer:
       'Yes, all participants who take part in the event will receive an official Online Participation Certificate.',
     category: 'Registration & Competition',
+  },
+  {
+    question: 'What is the dress code for INSPIRE 2026?',
+    answer:
+      'Participants are expected to follow a formal dress code throughout the event to maintain a professional and academic environment.',
+    category: 'General',
   },
 ];
 
@@ -180,7 +192,7 @@ const FAQSection = () => {
                     >
                       <div className="flex items-center gap-2.5 sm:gap-3.5">
                         <span className="font-mono text-[11px] sm:text-xs font-bold text-[#0A2540] bg-[#0A2540]/10 px-1.5 sm:px-2 py-0.5 rounded border border-[#0A2540]/20 shrink-0">
-                          Q{originalIdx + 1}
+                          Q
                         </span>
                         <span className="font-sans font-bold text-xs sm:text-base md:text-[1.05rem] text-[#0A2540] leading-snug">
                           {faq.question}
