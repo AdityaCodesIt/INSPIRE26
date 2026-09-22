@@ -112,7 +112,7 @@ const TimelineSection = () => {
           const pt = desktopPathRef.current.getPointAtLength(clamped * total);
           setDesktopMarker({ x: pt.x, y: pt.y });
         }
-      } catch {}
+      } catch { }
     }
 
     // Mobile vertical marker
@@ -126,7 +126,7 @@ const TimelineSection = () => {
         try {
           const pt = desktopPathRef.current.getPointAtLength(0);
           setDesktopMarker({ x: pt.x, y: pt.y });
-        } catch {}
+        } catch { }
       }
     }, 100);
     return () => clearTimeout(timer);
@@ -151,10 +151,13 @@ const TimelineSection = () => {
     <section
       ref={sectionRef}
       id="schedule"
-      className="relative z-10 flex w-full flex-col items-center overflow-x-clip border-t border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] px-5 pt-[10vh] pb-16 sm:px-[6vw] sm:pt-[14vh] sm:pb-24 bg-[#FAF6EE]"
+      className="relative z-10 flex w-full flex-col items-center overflow-x-clip bg-cover bg-center bg-no-repeat border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] px-5 pt-[10vh] pb-16 sm:px-[6vw] sm:pt-[14vh] sm:pb-24 bg-[#FAF6EE]"
       style={{
-        backgroundImage: "url('/paper-texture-clean.jpg')",
+        backgroundImage: "url('/backgrounds/bg-lemon-yellow.jpg')",
         backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
@@ -165,8 +168,9 @@ const TimelineSection = () => {
           backgroundRepeat: 'repeat',
         }}
       />
-      {/* Subtle Vignette for Depth */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/5 via-transparent to-black/10 z-0" />
+      {/* Subtle Vignette and Smooth Top Seam Blend for Depth */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/10 z-0" />
+      <div className="absolute top-0 left-0 right-0 h-20 pointer-events-none bg-gradient-to-b from-black/25 via-black/10 to-transparent z-0" />
 
 
 
@@ -188,11 +192,11 @@ const TimelineSection = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0A2A5E] tracking-tight font-sans">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#123B6D] tracking-tight font-sans">
             Key Dates
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full my-3" />
-          <p className="text-sm sm:text-base text-[#0A2A5E]/85 font-sans leading-relaxed font-medium">
+          <p className="text-sm sm:text-base text-black/85 font-sans leading-relaxed font-medium">
             The colloquium will be conducted through progressive stages, providing a seamless selection process from registration & idea submission to PPT evaluation results, payment confirmation, internal evaluation, and external expert evaluation.
           </p>
         </motion.div>
@@ -200,7 +204,7 @@ const TimelineSection = () => {
 
       {/* Main Roadmap Container - Sized to end cleanly right after Stage 5, eliminating dead space */}
       <div className="relative mt-[4vh] w-full max-w-[82rem] lg:mt-0 lg:h-[105vw] xl:h-[101vw] 2xl:h-[97vw]">
-        
+
         {/* ========================================================================= */}
         {/* DESKTOP SVG SERPENTINE PATH                                               */}
         {/* ========================================================================= */}
@@ -214,62 +218,48 @@ const TimelineSection = () => {
             className="h-full w-full overflow-visible"
             fill="none"
           >
-            <defs>
-              <linearGradient
-                id="timeline-gradient-active"
-                x1="200"
-                y1="0"
-                x2="1000"
-                y2="1400"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#CDB3FC" />
-                <stop offset="0.45" stopColor="#7B35F8" />
-                <stop offset="1" stopColor="#CDB3FC" />
-              </linearGradient>
-            </defs>
-
-            {/* Inactive Dashed Base Path: bold dash - space - dash */}
+            {/* Inactive Dashed Base Path with increased thickness */}
             <path
               d={HACKSPIRE_DESKTOP_PATH}
-              stroke="#A8A8A8"
-              strokeWidth="5.5"
+              stroke="#264A9B"
+              strokeOpacity="0.25"
+              strokeWidth="7"
               strokeLinecap="round"
-              strokeDasharray="16 18"
+              strokeDasharray="16 20"
               fill="none"
             />
 
-            {/* Active Solid Gradient Path Driven by Scroll */}
+            {/* Active Solid Deep Royal/Navy Blue Path with increased thickness */}
             <motion.path
               ref={desktopPathRef}
               d={HACKSPIRE_DESKTOP_PATH}
-              stroke="url(#timeline-gradient-active)"
-              strokeWidth="5.5"
+              stroke="#264A9B"
+              strokeWidth="7"
               strokeLinecap="round"
               fill="none"
               style={{ pathLength: smoothProgress }}
             />
 
-            {/* Initial Start Point Anchor Node */}
+            {/* Initial Start Point Anchor Node: White inside with blue border */}
             <circle
               cx="38"
               cy="-145"
-              r="6"
+              r="8"
               fill="white"
-              stroke="#7B35F8"
-              strokeWidth="2.5"
-              style={{ filter: 'drop-shadow(0 0 6px #CDB3FC)' }}
+              stroke="#264A9B"
+              strokeWidth="4"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
             />
 
-            {/* Final Destination Terminal Node at Stage 5 */}
+            {/* Final Destination Terminal Node at Stage 5: White inside with blue border */}
             <circle
               cx="1255"
               cy="1395"
-              r="6"
+              r="8"
               fill="white"
-              stroke="#7B35F8"
-              strokeWidth="2.5"
-              style={{ filter: 'drop-shadow(0 0 6px #CDB3FC)' }}
+              stroke="#264A9B"
+              strokeWidth="4"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
             />
 
             {/* Leading Bullseye Waypoint Marker */}
@@ -279,13 +269,13 @@ const TimelineSection = () => {
                 transform={`translate(${desktopMarker.x}, ${desktopMarker.y})`}
               >
                 <circle
-                  r="10"
+                  r="12"
                   fill="white"
-                  stroke="#7B35F8"
-                  strokeWidth="3"
-                  style={{ filter: 'drop-shadow(0 0 12px #CDB3FC)' }}
+                  stroke="#264A9B"
+                  strokeWidth="4"
+                  style={{ filter: 'drop-shadow(0 0 12px rgba(38, 74, 155, 0.45))' }}
                 />
-                <circle r="3.5" fill="#7B35F8" />
+                <circle r="4" fill="#264A9B" />
               </g>
             )}
           </svg>
@@ -306,16 +296,17 @@ const TimelineSection = () => {
           >
             <path
               d="M12 0 L12 940"
-              stroke="#A8A8A8"
-              strokeWidth="3"
+              stroke="#264A9B"
+              strokeOpacity="0.25"
+              strokeWidth="4.5"
               strokeLinecap="round"
               strokeDasharray="8 10"
               fill="none"
             />
             <motion.path
               d="M12 0 L12 940"
-              stroke="#7B35F8"
-              strokeWidth="3"
+              stroke="#264A9B"
+              strokeWidth="5"
               strokeLinecap="round"
               fill="none"
               style={{ pathLength: smoothProgress }}
@@ -325,11 +316,11 @@ const TimelineSection = () => {
               transform={`translate(12, ${mobileMarkerY})`}
             >
               <circle
-                r="6"
+                r="7"
                 fill="white"
-                stroke="#7B35F8"
-                strokeWidth="2.5"
-                style={{ filter: 'drop-shadow(0 0 8px #CDB3FC)' }}
+                stroke="#264A9B"
+                strokeWidth="3.5"
+                style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
               />
             </g>
           </svg>
@@ -345,33 +336,32 @@ const TimelineSection = () => {
             return (
               <div
                 key={stage.id}
-                className={`relative z-20 flex w-full max-w-[24rem] items-start pl-10 sm:max-w-[28rem] lg:absolute lg:max-w-[26rem] lg:pl-0 xl:max-w-[29rem] 2xl:max-w-[32rem] transition-all duration-700 ease-out ${
-                  stage.positionClasses
-                }`}
+                className={`relative z-20 flex w-full max-w-[28rem] items-start pl-10 sm:max-w-[32rem] lg:absolute lg:max-w-[32rem] lg:pl-0 xl:max-w-[36rem] 2xl:max-w-[40rem] transition-all duration-700 ease-out ${stage.positionClasses
+                  }`}
                 style={{
                   opacity: active ? 1 : 0.35,
                   transform: active ? 'translate(0px, 0px)' : 'translate(0px, 24px)',
                 }}
               >
-                {/* Mobile Waypoint Dot Node */}
+                {/* Mobile Waypoint Dot Node: White inside with blue border */}
                 <span
                   className="absolute top-5 left-0 z-10 flex h-6 w-6 -translate-x-0.5 items-center justify-center lg:hidden"
                   aria-hidden="true"
                 >
                   <span
-                    className="h-3 w-3 rounded-full border-2 bg-white transition-all duration-300"
+                    className="h-3.5 w-3.5 rounded-full border-[3px] bg-white transition-all duration-300"
                     style={{
-                      borderColor: active ? '#7B35F8' : '#D4D4D4',
-                      boxShadow: active ? '0 0 10px #CDB3FC' : 'none',
+                      borderColor: active ? '#264A9B' : '#D4D4D4',
+                      boxShadow: active ? '0 0 10px rgba(38, 74, 155, 0.45)' : 'none',
                     }}
                   />
                 </span>
 
-                {/* Numeral */}
-                <div className="shrink-0 self-start">
+                {/* Numeral: Increased font size + expanded length-wise horizontally */}
+                <div className="shrink-0 self-start pr-2.5 sm:pr-4">
                   <h3
-                    className="font-sans text-[3.8rem] leading-[1.05] tracking-[0.02em] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7rem] xl:text-[8.5rem] 2xl:text-[10rem] transition-colors duration-500 select-none"
-                    style={{ color: active ? 'rgb(17, 17, 17)' : '#ADADAD' }}
+                    className="font-sans text-[4.8rem] leading-[0.88] font-black sm:text-[6.2rem] md:text-[7.2rem] lg:text-[8rem] xl:text-[9.4rem] 2xl:text-[10.6rem] transition-colors duration-500 select-none inline-block origin-left transform scale-x-135 sm:scale-x-140"
+                    style={{ color: active ? 'rgb(17, 17, 17)' : '#9E9E9E' }}
                   >
                     {stage.numeral}
                   </h3>
@@ -379,44 +369,43 @@ const TimelineSection = () => {
 
                 {/* Milestone Text Box */}
                 <div className="flex flex-col px-2 pt-1.5 sm:px-4 lg:py-2 flex-1 min-w-0">
-                  {/* Stage Title */}
+                  {/* Stage Title: Increased font size & navy color #123B6D */}
                   <h4
-                    className={`pt-1 font-sans text-base font-medium leading-snug sm:text-xl sm:leading-8 lg:pt-0 lg:text-2xl xl:text-3xl 2xl:text-4xl transition-colors duration-500 ${
-                      active ? 'text-[#7B35F8]' : 'text-[#7B35F8]/45'
-                    }`}
+                    className={`pt-1 font-sans text-lg font-bold leading-tight sm:text-2xl sm:leading-tight lg:pt-0 lg:text-2xl xl:text-3xl 2xl:text-4xl transition-colors duration-500 ${active ? 'text-[#123B6D]' : 'text-[#123B6D]/45'
+                      }`}
                   >
                     {stage.title}
                   </h4>
 
-                  {/* Gradient Underline matching HackSpire */}
+                  {/* Gradient Underline: Expanded length-wise */}
                   <div
-                    className="mt-1.5 h-0.5 w-[min(65vw,16rem)] bg-gradient-to-r from-[#7B35F8] via-[#CDB3FC] to-transparent sm:w-[min(50vw,18rem)] lg:w-[17rem] xl:w-[19rem]"
+                    className="mt-2 h-0.5 w-[min(75vw,20rem)] bg-gradient-to-r from-[#123B6D] via-[#264A9B] to-transparent sm:w-[min(60vw,24rem)] lg:w-[22rem] xl:w-[26rem] 2xl:w-[30rem]"
                     aria-hidden="true"
                   />
 
-                  {/* Date, Timing & Badges */}
-                  <div className="mt-1.5 flex flex-col gap-1 sm:gap-1.5">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-secondary text-sm font-bold tracking-wide text-black/85 sm:text-base xl:text-lg">
+                  {/* Date, Timing & Badges: Increased font sizes */}
+                  <div className="mt-2 flex flex-col gap-1.5 sm:gap-2">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <p className="font-secondary text-base font-bold tracking-wide text-black/85 sm:text-lg xl:text-xl">
                         {stage.date}
                       </p>
 
                       {stage.note && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                        <span className="text-xs sm:text-sm font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
                           {stage.note}
                         </span>
                       )}
 
                       {stage.time && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-purple-50 text-[#7B35F8] border border-[#CDB3FC]">
+                        <span className="text-xs sm:text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-50 text-[#123B6D] border border-[#264A9B]/30">
                           {stage.time}
                         </span>
                       )}
                     </div>
 
                     {stage.venue && (
-                      <div className="text-[11px] sm:text-xs font-medium text-[#0A2A5E]/80 flex items-center gap-1">
-                        <svg className="w-3 h-3 shrink-0 opacity-75" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <div className="text-xs sm:text-sm font-medium text-[#0A2A5E]/80 flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 shrink-0 opacity-75" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                           <circle cx="12" cy="10" r="3" />
                         </svg>
@@ -424,8 +413,8 @@ const TimelineSection = () => {
                       </div>
                     )}
 
-                    {/* Description Paragraph (Safely contained without right edge overflow) */}
-                    <p className="font-sans text-xs sm:text-sm text-black/70 font-normal leading-relaxed max-w-[280px] sm:max-w-[320px] lg:max-w-[310px] xl:max-w-[340px] 2xl:max-w-[370px]">
+                    {/* Description Paragraph: Increased font size and expanded length-wise */}
+                    <p className="font-sans text-sm sm:text-base lg:text-base xl:text-[1.05rem] text-black/75 font-normal leading-relaxed max-w-[340px] sm:max-w-[420px] lg:max-w-[380px] xl:max-w-[450px] 2xl:max-w-[500px]">
                       {stage.summary}
                     </p>
                   </div>

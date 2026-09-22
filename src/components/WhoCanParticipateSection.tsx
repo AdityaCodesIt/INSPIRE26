@@ -37,12 +37,12 @@ const ParticipantBox = ({
   const isRight = info.align === 'right';
 
   const textClass = isLeft
-    ? "absolute top-2 sm:top-4 left-2 sm:-left-12 lg:-left-28 w-52 sm:w-64 lg:w-72 z-30 flex flex-col items-start text-left pointer-events-none"
+    ? "absolute top-2 sm:top-4 left-2 sm:-left-8 md:-left-16 lg:-left-24 xl:-left-28 w-52 sm:w-60 md:w-68 lg:w-[18.5rem] xl:w-[19.5rem] z-30 flex flex-col items-start text-left pointer-events-none"
     : isRight
-      ? "absolute top-2 sm:top-4 right-2 sm:-right-12 lg:-right-28 w-52 sm:w-64 lg:w-72 z-30 flex flex-col items-start text-left pointer-events-none"
+      ? "absolute top-2 sm:top-4 -right-4 sm:-right-10 md:-right-16 lg:-right-24 xl:-right-28 w-52 sm:w-60 md:w-68 lg:w-[18.5rem] xl:w-[19.5rem] z-30 flex flex-col items-start text-left pointer-events-none"
       : "absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 z-30 flex flex-col items-center text-center pointer-events-none";
 
-  const charShiftX = isLeft ? 50 : isRight ? -50 : 0;
+  const charShiftX = isLeft ? 85 : isRight ? -85 : 0;
 
   const hoverScaleX = flipImage
     ? (flipOnHover ? 1.15 : -1.15)
@@ -106,15 +106,19 @@ const ParticipantBox = ({
           transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.1 }}
           className={textClass}
         >
-          <div className="p-2 sm:p-4 w-full">
-            <h3 className="text-sm sm:text-xl font-extrabold text-white mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">{info.title}</h3>
-            <p className="text-[10px] sm:text-sm text-amber-300 font-bold mb-2.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">{info.degree}</p>
-            <div className="mb-2">
-              <span className="text-[9px] sm:text-xs text-white bg-black/40 px-2.5 py-0.5 rounded-full inline-block font-semibold border border-white/20 shadow-sm backdrop-blur-xs">
+          <div className="p-2 sm:p-3 md:p-3.5 w-full">
+            <h3 className="text-sm sm:text-lg md:text-xl lg:text-[1.45rem] font-extrabold text-white mb-1 md:mb-1.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-tight">
+              {info.title}
+            </h3>
+            <p className="text-[10px] sm:text-xs md:text-sm lg:text-[15px] text-amber-300 font-bold mb-2 md:mb-2.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              {info.degree}
+            </p>
+            <div className="mb-2 md:mb-2.5">
+              <span className="text-[9px] sm:text-xs md:text-xs lg:text-[13px] text-white bg-black/55 px-2.5 md:px-3 py-0.5 md:py-1 rounded-full inline-block font-semibold border border-white/20 shadow-sm backdrop-blur-xs">
                 Team Size: {info.teamSize}
               </span>
             </div>
-            <p className="text-[9px] sm:text-[11px] text-white/95 leading-relaxed font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
+            <p className="text-[9px] sm:text-xs md:text-xs lg:text-[13.5px] xl:text-[14px] text-white/95 leading-relaxed font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
               {info.description}
             </p>
           </div>
@@ -236,7 +240,7 @@ const WhoCanParticipateSection = () => {
                 bgImage="/images/participants/bg_new_scientist.png"
                 className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
                 flipImage={false}
-                imgClassName="absolute bottom-2 right-0 w-[55%] sm:w-[45%] h-auto max-h-[75%] object-contain"
+                imgClassName="absolute bottom-2 -left-2 sm:-left-4 md:-left-8 w-[48%] sm:w-[42%] md:w-[38%] h-auto max-h-[78%] object-contain"
                 isOpen={activeCard === 'ppg'}
                 onToggle={() => handleToggle('ppg')}
                 info={{
@@ -253,7 +257,7 @@ const WhoCanParticipateSection = () => {
                 viewport={{ once: true }}
                 className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
               >
-                PPG
+                PhD
               </motion.h3>
             </div>
           </div>

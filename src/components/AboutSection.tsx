@@ -249,7 +249,7 @@ const AboutSection = () => {
                       VISION
                     </h4>
                     <p className="font-sans text-[#334E68] text-[0.76rem] sm:text-[0.82rem] md:text-[0.86rem] leading-snug mt-0.5">
-                      Empowering innovators to transform knowledge into impactful solutions, driving sustainable progress and an inclusive Viksit Bharat @2047.
+                      Empowering innovators to transform knowledge into impactful solutions, driving sustainable progress.
                     </p>
                   </div>
                 </div>
@@ -273,7 +273,7 @@ const AboutSection = () => {
                       TICKET NO.
                     </span>
                     <span className="block font-sans font-black text-sm sm:text-base md:text-[1.05rem] text-[#0A2540] tracking-wider mt-0.5">
-                      #VKS2026
+                      #IPE2026
                     </span>
                   </div>
 
@@ -293,7 +293,7 @@ const AboutSection = () => {
                       EVENT
                     </span>
                     <span className="block font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.94rem] text-[#0A2540] tracking-wide mt-0.5 uppercase">
-                      INSPIRE – VIKSIT BHARAT
+                      INSPIRE - COLLOQUIUM 
                     </span>
                   </div>
 

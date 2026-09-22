@@ -385,7 +385,7 @@ const InformationScrollSection = () => {
                   />
 
                   {/* Floating Circular ESTB 2010 Stamp at Top Right Corner */}
-                  <div className="absolute top-4 right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
+                  <div className="absolute -top-1 -right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
                     <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-5deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
                       <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1">
                         <span className="text-[0.45rem] sm:text-[0.65rem] font-serif tracking-widest uppercase font-bold text-white/90 leading-tight">
@@ -520,22 +520,22 @@ const InformationScrollSection = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="relative flex items-center justify-center select-none rotate-[-6deg]"
+                  className="relative flex items-center justify-center select-none rotate-[-4deg] lg:rotate-[-6deg]"
                 >
                   {/* Subtle Ambient Backlight Glow */}
-                  <div className="absolute -inset-6 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-red-500/20 to-cyan-400/20 blur-2xl opacity-70 pointer-events-none" />
+                  <div className="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-red-500/20 to-cyan-400/20 blur-xl sm:blur-2xl opacity-70 pointer-events-none" />
                   
                   <img
                     src="/CompEng-sticker.png"
                     alt="Department of Computer Engineering"
-                    className="relative z-10 w-[85vw] max-w-[300px] xs:max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[500px] xl:max-w-[560px] max-h-[50vh] sm:max-h-[58vh] h-auto object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.65)] pointer-events-none"
+                    className="relative z-10 w-48 xs:w-52 sm:w-64 md:w-72 lg:w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[500px] xl:max-w-[560px] h-auto max-h-[22vh] sm:max-h-[35vh] lg:max-h-[58vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
                   />
                 </motion.div>
               </div>
 
-              {/* Right Column: Prominent Box-Shaped Postal Ticket for Computer Engineering Department */}
-              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-4 xl:translate-y-6">
-                <div className="relative w-full max-w-[800px] lg:max-w-[840px] xl:max-w-[920px] rotate-[1deg] lg:rotate-[1.5deg]">
+              {/* Right Column: Wide Landscape Postal Ticket for Computer Engineering Department */}
+              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-16 xl:translate-y-20">
+                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-[1.5deg] lg:rotate-[1.5deg] transition-transform duration-500">
 
                   {/* Concentric Perforated Stamp Borders */}
                   <PerforatedGhostOutline
@@ -549,97 +549,103 @@ const InformationScrollSection = () => {
                     idPrefix="dept-ghost-outer"
                   />
 
+                  {/* Floating Circular NBA ACCREDITED Stamp at Top Right Corner (Matching College ESTB Stamp) */}
+                  <div className="absolute top-4 right-1 sm:-top-8 sm:-right-6 z-30 flex items-center justify-center pointer-events-none">
+                    <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-8deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
+                      <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1 text-center">
+          
+                        <span className="text-sm sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
+                          NBA
+                        </span>
+                        <span className="text-[0.38rem] sm:text-[0.54rem] font-serif font-bold tracking-tight text-white/90 leading-tight">
+                          ACCREDITED
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Box-Shaped Rectangle Postal Ticket Container (Stamp Card) */}
-                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-5 sm:px-8 lg:px-10 py-5 sm:py-7 lg:py-8 shadow-2xl rounded-xl sm:rounded-2xl">
+                  <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-4 sm:px-7 lg:px-9 py-3 sm:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
 
                     {/* Ticket Texture Overlay */}
                     <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.jpg')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
 
                     {/* Main Content Layout */}
-                    <div className="relative z-10 flex flex-col justify-between pl-1 sm:pl-3 pr-2 sm:pr-4 space-y-3 sm:space-y-4">
+                    <div className="relative z-10 flex flex-col justify-between pl-1 sm:pl-4 pr-5 sm:pr-8">
 
                       {/* Far-left dashed stub perforation line */}
                       <div className="hidden sm:block absolute -left-1.5 top-0 bottom-0 border-l border-dashed border-[#C8B89A]/80 pointer-events-none"></div>
 
                       {/* Top Header Ribbon */}
-                      <div className="flex items-center justify-between border-b border-[#C8B89A]/50 pb-2">
-                        <span className="font-mono text-[0.6rem] sm:text-[0.7rem] uppercase tracking-widest text-[#1A4338]/80 font-bold">
+                      <div className="flex items-center justify-between border-b border-[#C8B89A]/50 pb-1 sm:pb-2">
+                        <span className="font-mono text-[0.52rem] sm:text-[0.7rem] uppercase tracking-wider sm:tracking-widest text-[#1A4338]/80 font-bold truncate pr-1">
                           ✦ DEPARTMENT OF COMPUTER ENGINEERING · SLRTCE
                         </span>
-                        <span className="font-mono text-[0.58rem] sm:text-[0.66rem] font-bold px-2 py-0.5 rounded-[2px] bg-[#1A4338]/10 text-[#1A4338] border border-[#C8B89A]/60">
+                        <span className="font-mono text-[0.48rem] sm:text-[0.66rem] font-bold px-1.5 sm:px-2 py-0.5 rounded-[2px] bg-[#1A4338]/10 text-[#1A4338] border border-[#C8B89A]/60 shrink-0 whitespace-nowrap">
                           ACADEMIC DISCIPLINE
                         </span>
                       </div>
 
                       {/* 1. Title & Tagline */}
-                      <div>
-                        <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
-                          <h2 className="font-serif font-black text-lg sm:text-[1.5rem] lg:text-[1.85rem] text-[#1A4338] leading-tight tracking-tight">
+                      <div className="mt-1 sm:mt-2">
+                        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
+                          <h2 className="font-serif font-black text-sm sm:text-[1.3rem] lg:text-[1.65rem] text-[#1A4338] leading-tight tracking-tight">
                             Department of Computer Engineering
                           </h2>
                         </div>
-                        <p className="font-serif italic text-xs sm:text-sm text-[#8C6D23] mt-0.5">
+                        <p className="font-serif italic text-[10px] sm:text-xs lg:text-sm text-[#8C6D23] mt-0.5">
                           Engineering Intelligent Solutions · Advancing Global Computing
                         </p>
                       </div>
 
                       {/* 2. Department Info Paragraph */}
-                      <p className="font-sans text-[#3D4D44] text-[0.76rem] sm:text-[0.88rem] leading-relaxed text-justify">
+                      <p className="font-sans text-[#3D4D44] text-[0.72rem] sm:text-[0.86rem] leading-relaxed text-justify mt-1.5 sm:mt-2.5">
                         The Department of Computer Engineering at Shree L. R. Tiwari College of Engineering provides comprehensive technical education grounded in foundational computing and cutting-edge innovations. Offering specialized research environments in Artificial Intelligence, Cloud Computing, Cyber Security, and Big Data Analytics, the department empowers students to excel in high-tier hackathons, patent development, and leadership careers at leading global tech organizations.
                       </p>
 
                       {/* Horizontal Separator Line */}
-                      <div className="w-full border-b border-[#C8B89A]/80 my-1"></div>
+                      <div className="w-full border-b border-[#C8B89A]/80 my-2 sm:my-3"></div>
 
-                      {/* 3. The Three Points in a HORIZONTAL Row Below Paragraph */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full pt-1">
+                      {/* 3. The Three Points in a Row Below Paragraph */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
 
                         {/* Point 1: Advanced Labs & AI */}
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex items-center gap-2 sm:gap-2.5">
                           <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
                           <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.64rem] sm:text-[0.74rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               AI &amp; ADVANCED <br />
                               RESEARCH LABS
-                            </span>
-                            <span className="text-[0.58rem] sm:text-[0.62rem] text-[#6A7B72] block mt-0.5 leading-tight">
-                              Cloud, ML &amp; Cyber Sec
                             </span>
                           </div>
                         </div>
 
                         {/* Point 2: Industry Tie-ups & Certifications */}
-                        <div className="flex items-center gap-2.5">
-                          <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                        <div className="flex items-center gap-2 sm:gap-2.5">
+                          <svg className="w-3.5 h-3.5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
                           <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.64rem] sm:text-[0.74rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               INDUSTRY TIE-UPS <br />
                               &amp; PLACEMENTS
-                            </span>
-                            <span className="text-[0.58rem] sm:text-[0.62rem] text-[#6A7B72] block mt-0.5 leading-tight">
-                              AWS, Oracle &amp; Tech MoUs
                             </span>
                           </div>
                         </div>
 
                         {/* Point 3: Hackathons & Research */}
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex items-center gap-2 sm:gap-2.5">
                           <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1A4338] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="9" r="6" />
                             <path d="M9 14.5L7 21l5-2.5L17 21l-2-6.5" />
                             <path d="M12 7l.8 1.6 1.8.3-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.3z" fill="currentColor" />
                           </svg>
                           <div className="border-l border-[#C8B89A]/80 pl-2 sm:pl-2.5">
-                            <span className="font-sans font-bold text-[0.64rem] sm:text-[0.74rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
+                            <span className="font-sans font-bold text-[0.62rem] sm:text-[0.72rem] text-[#1A4338] uppercase tracking-wider leading-tight block">
                               HACKATHONS &amp; <br />
                               INNOVATION
-                            </span>
-                            <span className="text-[0.58rem] sm:text-[0.62rem] text-[#6A7B72] block mt-0.5 leading-tight">
-                              SIH Winners &amp; Patents
                             </span>
                           </div>
                         </div>
@@ -649,25 +655,6 @@ const InformationScrollSection = () => {
                     </div>
                   </div>
 
-                  {/* Floating Circular NBA ACCREDITED Stamp at Bottom Right Corner */}
-                  <div className="absolute -bottom-4 -right-3 sm:-bottom-6 sm:-right-5 md:-bottom-7 md:-right-6 z-30 flex items-center justify-center pointer-events-none">
-                    <div className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-8deg] select-none">
-                      <div className="w-[calc(100%-6px)] h-[calc(100%-6px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/75 flex flex-col items-center justify-center p-1 text-center">
-                        <span className="text-[0.46rem] sm:text-[0.58rem] md:text-[0.64rem] font-mono tracking-widest uppercase font-bold text-amber-200 leading-tight">
-                          ★ OFFICIAL ★
-                        </span>
-                        <span className="text-base sm:text-xl md:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
-                          NBA
-                        </span>
-                        <span className="text-[0.5rem] sm:text-[0.64rem] md:text-[0.72rem] font-serif font-extrabold tracking-wider text-white uppercase leading-tight">
-                          ACCREDITED
-                        </span>
-                        <span className="text-[0.42rem] sm:text-[0.5rem] md:text-[0.56rem] font-mono text-white/80 tracking-wider uppercase leading-none mt-0.5">
-                          TIER-1
-                        </span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -759,35 +746,28 @@ const InformationScrollSection = () => {
                       <span>MUMBAI</span>
                     </div>
 
-                    {/* Stamp Center Medallion */}
-                    <div className="relative bg-[#0A2A5E] text-white p-3.5 sm:p-6 rounded-xs border border-[#C8B89A] flex flex-col items-center justify-center text-center overflow-hidden">
+                    {/* Stamp Center Medallion: Filled completely with IEEE Logo */}
+                    <div className="relative bg-[#0A2A5E] text-white p-4 sm:p-6 rounded-xs border border-[#C8B89A] flex items-center justify-center overflow-hidden w-full h-[220px] sm:h-[270px] lg:h-[290px] group">
                       {/* Radiant rays background */}
-                      <div className="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-300 via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-300 via-transparent to-transparent pointer-events-none" />
 
-                      {/* Iconic IEEE Diamond Emblem */}
-                      <div className="relative mb-1.5 sm:mb-3">
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="w-10 h-10 sm:w-16 sm:h-16 fill-current text-[#D4AF37] drop-shadow-md relative z-10"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.8l6.2 6.2-6.2 6.2-6.2-6.2L12 5.8z" />
-                        </svg>
-                      </div>
+                      {/* Archival dashed inner border */}
+                      <div className="absolute inset-1.5 border border-dashed border-[#C8B89A]/50 rounded-xs pointer-events-none z-10" />
 
-                      <div className="text-lg sm:text-2xl font-bold font-display tracking-widest text-white mb-0.5">
-                        IEEE SLRTCE
-                      </div>
-                      <div className="text-[10px] sm:text-xs font-serif italic text-amber-300 mb-1.5 sm:mb-2">
-                        Advancing Technology for Humanity
-                      </div>
+                      {/* IEEE Logo filling the whole part */}
+                      <div className="relative w-full h-full flex items-center justify-center z-10">
+                        {/* Soft ambient white backing for crystal clear contrast and legibility */}
+                        <div className="absolute w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-white/90 blur-xl opacity-65 pointer-events-none" />
 
-                      <p className="text-[0.65rem] sm:text-[0.72rem] text-blue-100/80 max-w-xs leading-relaxed font-sans line-clamp-3 sm:line-clamp-none">
-                        Empowering student researchers with international technical standards, IEEE Xplore access, and global engineering networks.
-                      </p>
+                        <img
+                          src="/LOGO-IEEE.png"
+                          alt="IEEE SLRTCE Student Branch Logo"
+                          className="relative z-10 w-full h-full max-h-[190px] sm:max-h-[235px] lg:max-h-[250px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] select-none transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
 
                       {/* Vintage Corner Cancellation Postmark */}
-                      <div className="absolute -bottom-3 -right-3 w-16 h-16 sm:w-22 sm:h-22 rounded-full border-2 border-dashed border-[#D4AF37]/60 flex flex-col items-center justify-center rotate-[-15deg] bg-[#0A2A5E]/95 p-1 pointer-events-none shadow-sm text-center">
+                      <div className="absolute -bottom-3 -right-3 w-16 h-16 sm:w-22 sm:h-22 rounded-full border-2 border-dashed border-[#D4AF37]/60 flex flex-col items-center justify-center rotate-[-15deg] bg-[#0A2A5E]/95 p-1 pointer-events-none shadow-sm text-center z-20">
                         <span className="text-[0.4rem] sm:text-[0.48rem] font-mono font-bold text-amber-300 tracking-tighter">BOMBAY SEC.</span>
                         <span className="text-[0.35rem] sm:text-[0.4rem] font-mono text-white/80">OFFICIAL</span>
                         <span className="text-[0.35rem] sm:text-[0.4rem] font-mono text-amber-300">2026</span>
