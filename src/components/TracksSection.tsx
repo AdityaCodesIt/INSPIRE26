@@ -245,7 +245,7 @@ const StampCardContent = ({
             <div className="pt-2 border-t border-[#E2D8C7] flex items-center justify-between text-[0.62rem] sm:text-[0.68rem] text-slate-600 font-sans">
               <span className="flex items-center gap-1 font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-tricolor-green inline-block" />
-                Viksit Bharat @2047
+                INSPIRE Colloquium
               </span>
               <span className="text-[#FF6B00] font-semibold flex items-center gap-1 hover:underline">
                 Flip back ↺

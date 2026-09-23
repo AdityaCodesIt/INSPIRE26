@@ -164,7 +164,7 @@ const Footer = ({ children }: FooterProps) => {
               <div className="flex items-center space-x-2">
                 <img src="/slrtce-logo.png" alt="SLRTCE Logo" className="h-6 sm:h-7 w-auto object-contain" />
                 <div className="h-4 sm:h-5 w-px bg-white/30" />
-                <img src="/ieee-slrtce-logo.png" alt="IEEE SLRTCE Student Branch Logo" className="h-6 sm:h-7 w-auto object-contain" />
+                <img src="/ieee-custom-logo-white.png" alt="IEEE SLRTCE Student Branch Logo" className="h-6 sm:h-7 w-auto object-contain mix-blend-screen" />
               </div>
 
               {/* Middle: IEEE Copyright Line */}

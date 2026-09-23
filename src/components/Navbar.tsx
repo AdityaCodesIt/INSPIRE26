@@ -233,7 +233,9 @@ const Navbar = () => {
             </div>
 
             <a 
-              href="#register" 
+              href="https://registration-page-vercel.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[11px] xl:text-xs px-3 xl:px-4 py-1 xl:py-1 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
             >
               Register Now →
@@ -243,8 +245,9 @@ const Navbar = () => {
           {/* Mobile Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden z-10">
             <a 
-              href="#register" 
-              onClick={(e) => handleNavClick(e, '#register', 'contact')}
+              href="https://registration-page-vercel.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-colors shadow-sm whitespace-nowrap cursor-pointer"
             >
               Register

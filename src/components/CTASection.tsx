@@ -22,7 +22,9 @@ const CTASection = () => {
 
         {/* CTA Button */}
         <motion.a
-          href="#register-form"
+          href="https://registration-page-vercel.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-bold z-20 shadow-2xl px-12 py-3.5 rounded-full text-base tracking-wide transition-all transform hover:scale-105"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
