@@ -177,7 +177,6 @@ const Footer = ({ children }: FooterProps) => {
                 <div className="flex gap-1.5">
                   {[
                     { label: 'LinkedIn', icon: 'in', href: 'https://www.linkedin.com/company/ieee-slrtce/' },
-                    { label: 'Twitter', icon: 'X', href: 'https://twitter.com' },
                     { label: 'Instagram', icon: 'ig', href: 'https://www.instagram.com/ieeeslrtce/' },
                   ].map((social) => (
                     <a
