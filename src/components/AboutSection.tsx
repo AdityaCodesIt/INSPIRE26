@@ -96,7 +96,7 @@ const AboutSection = () => {
 
                   {/* Description Paragraph */}
                   <p className="font-sans text-[#334E68] text-xs sm:text-[0.88rem] md:text-[0.96rem] leading-relaxed mt-3 sm:mt-4 text-justify">
-                    An academic, research, and innovation-oriented platform designed to encourage students to explore research, develop innovative ideas, and present technology-driven solutions to real-world problems.
+                    A Research & Idea Colloquium bringing together students and researchers to showcase innovative ideas, research projects, prototypes, and technology-driven solutions to real-world challenges.
                   </p>
                 </div>
 
@@ -107,7 +107,7 @@ const AboutSection = () => {
 
                   {/* Subtitle */}
                   <p className="font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.98rem] text-[#0A2540] tracking-[0.16em] uppercase mb-3 sm:mb-4">
-                    INSPIRE2026 REPRESENTS
+                    INSPIRE 2026 REPRESENTS
                   </p>
 
                   {/* Full Form Text */}
@@ -248,7 +248,7 @@ const AboutSection = () => {
                       DATE
                     </span>
                     <span className="block font-sans font-black text-xs sm:text-[0.88rem] md:text-[0.94rem] text-[#0A2540] tracking-wide mt-0.5 uppercase">
-                      3 OCT 2026
+                      3rd OCT 2026
                     </span>
                   </div>
                 </div>

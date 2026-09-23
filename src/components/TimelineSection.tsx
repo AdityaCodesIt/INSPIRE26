@@ -32,7 +32,7 @@ const stages: Stage[] = [
     date: 'Deadline: 30th Sep 2026',
     venue: 'Official Colloquium Portal',
     summary:
-      'Official declaration of PPT evaluation results and technical review scores for shortlisted teams advancing to on-campus defense.',
+      'Official declaration of PPT evaluation results and technical review scores. A total of 60 teams from UG/Diploma, 15 teams from PG, and 25 teams from PPG will be selected to advance to the on-campus defense.',
     positionClasses:
       'lg:top-[30.4vw] lg:left-[44%] xl:left-[46%] 2xl:left-[48%]',
   },
@@ -58,7 +58,7 @@ const stages: Stage[] = [
     summary:
       'Shortlisted teams will present a focused 12-minute technical presentation before an expert academic review panel on campus.',
     positionClasses:
-      'lg:top-[72vw] lg:left-[64%] xl:left-[66%] 2xl:left-[68%]',
+      'lg:top-[72vw] lg:left-[62%] xl:left-[64%] 2xl:left-[66%]',
   },
   {
     id: 5,

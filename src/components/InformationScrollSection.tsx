@@ -119,7 +119,7 @@ const InformationScrollSection = () => {
     const navbarHeight = getNavbarHeight();
     const viewportH = window.innerHeight - navbarHeight;
 
-    return rect.top <= navbarHeight + 5 && rect.bottom >= navbarHeight + viewportH + 40;
+    return rect.top <= navbarHeight + 20 && rect.bottom >= navbarHeight + viewportH - 20;
   }, [getNavbarHeight, isMobile]);
 
   // Scroll the window so the outer wrapper position matches the target panel (Desktop only)
@@ -221,7 +221,7 @@ const InformationScrollSection = () => {
     return () => window.removeEventListener('wheel', onWheel);
   }, [goToPanel, isStickyPinned, isMobile]);
 
-  // Sync panel state when user scrolls back from outside (Desktop only)
+  // Sync panel state when user scrolls (Desktop only)
   useEffect(() => {
     if (isMobile) return;
 
@@ -232,6 +232,7 @@ const InformationScrollSection = () => {
 
       const rect = outer.getBoundingClientRect();
       const navbarHeight = getNavbarHeight();
+      const viewportH = window.innerHeight - navbarHeight;
 
       // If user has scrolled above the section (back to Hero), reset to panel 0
       if (rect.top > navbarHeight + 50) {
@@ -239,6 +240,17 @@ const InformationScrollSection = () => {
           setActivePanel(0);
           activePanelRef.current = 0;
           accumulatedDeltaRef.current = 0;
+        }
+      } else if (rect.top <= navbarHeight + 10 && rect.bottom >= navbarHeight + viewportH - 10) {
+        // Pinned sticky range: calculate active panel directly from scroll position
+        const totalScrollable = outer.offsetHeight - viewportH;
+        if (totalScrollable > 0) {
+          const scrollProgress = Math.max(0, Math.min(1, (navbarHeight - rect.top) / totalScrollable));
+          const targetPanel = Math.min(PANEL_COUNT - 1, Math.floor(scrollProgress * PANEL_COUNT));
+          if (targetPanel !== activePanelRef.current) {
+            setActivePanel(targetPanel);
+            activePanelRef.current = targetPanel;
+          }
         }
       }
     };
@@ -333,7 +345,7 @@ const InformationScrollSection = () => {
           {/* PANEL 0: OUR COLLEGE (Deep Midnight Navy with Gold & Cream) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-blue.jpg')",
             }}
@@ -355,13 +367,13 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="max-w-[1360px] xl:max-w-[1480px] 2xl:max-w-[1560px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6 lg:gap-8 xl:gap-10 relative z-10 max-h-[calc(100vh-115px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
-              {/* Left Column: Actual College Photo with Vintage Archival Treatment (Shifted further right) */}
-              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative shrink-0">
+              {/* Left Column: Actual College Photo with Vintage Archival Treatment */}
+              <div className="w-full lg:w-[38%] xl:w-[40%] flex justify-center lg:justify-start relative shrink-0">
 
-                {/* Photo Container - Well-balanced Square on mobile */}
-                <div className="relative w-56 xs:w-64 sm:w-68 md:w-76 lg:w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[420px] lg:max-w-[400px] xl:max-w-[460px] aspect-square shrink-0">
+                {/* Photo Container - Well-balanced Square */}
+                <div className="relative w-56 xs:w-64 sm:w-68 md:w-76 lg:w-[300px] xl:w-[350px] 2xl:w-[390px] aspect-square shrink-0">
                   {/* Subtle drop shadow for depth */}
                   <div className="absolute inset-2 bg-black/30 blur-2xl z-0 rounded-sm"></div>
 
@@ -406,8 +418,8 @@ const InformationScrollSection = () => {
               </div>
 
               {/* Right Column: Wide Landscape Postal Ticket with Top-Right ESTB 2010 Stamp */}
-              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-0 xl:translate-y-2 px-2 sm:px-0">
-                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-0 sm:rotate-[1.5deg] lg:rotate-[2deg] transition-transform duration-500">
+              <div className="w-full lg:w-[62%] xl:w-[60%] flex justify-center lg:justify-end relative px-2 sm:px-0">
+                <div className="relative w-full max-w-[700px] xl:max-w-[800px] 2xl:max-w-[880px] rotate-0 sm:rotate-[1deg] lg:rotate-[1deg] transition-transform duration-500">
 
                   {/* Concentric Perforated Stamp Borders - Visible on all devices */}
                   <div>
@@ -532,7 +544,7 @@ const InformationScrollSection = () => {
           {/* PANEL 1: OUR BRANCH (Deep Forest Teal/Emerald with Archival Monograph) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-teal.jpg')",
             }}
@@ -554,15 +566,15 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1520px] xl:max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-6 lg:gap-8 relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="max-w-[1360px] xl:max-w-[1480px] 2xl:max-w-[1560px] w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6 lg:gap-8 xl:gap-10 relative z-10 max-h-[calc(100vh-115px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
               {/* Left Column: Stylized Computer Engineering Artwork Sticker */}
-              <div className="w-full lg:w-[46%] xl:w-[46%] flex justify-center lg:justify-start lg:translate-x-4 xl:translate-x-8 relative shrink-0">
+              <div className="w-full lg:w-[38%] xl:w-[40%] flex justify-center lg:justify-start relative shrink-0">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="relative flex items-center justify-center select-none rotate-[-4deg] lg:rotate-[-6deg]"
+                  className="relative flex items-center justify-center select-none rotate-[-4deg] lg:rotate-[-4deg]"
                 >
                   {/* Subtle Ambient Backlight Glow */}
                   <div className="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-red-500/20 to-cyan-400/20 blur-xl sm:blur-2xl opacity-70 pointer-events-none" />
@@ -570,14 +582,14 @@ const InformationScrollSection = () => {
                   <img
                     src="/CompEng-sticker.png"
                     alt="Department of Computer Engineering"
-                    className="relative z-10 w-56 xs:w-64 sm:w-72 md:w-80 lg:w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[440px] lg:max-w-[500px] xl:max-w-[560px] h-auto max-h-[26vh] sm:max-h-[36vh] lg:max-h-[58vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
+                    className="relative z-10 w-56 xs:w-64 sm:w-72 md:w-80 lg:w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[420px] xl:max-w-[480px] h-auto max-h-[26vh] sm:max-h-[34vh] lg:max-h-[46vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
                   />
                 </motion.div>
               </div>
 
               {/* Right Column: Wide Landscape Postal Ticket for Computer Engineering Department */}
-              <div className="w-full lg:w-[54%] xl:w-[54%] flex justify-center lg:justify-end lg:translate-x-2 xl:translate-x-4 translate-y-0 lg:translate-y-0 xl:translate-y-2 px-2 sm:px-0">
-                <div className="relative w-full max-w-[800px] lg:max-w-[820px] xl:max-w-[940px] rotate-0 sm:rotate-[1.5deg] lg:rotate-[1.5deg] transition-transform duration-500">
+              <div className="w-full lg:w-[62%] xl:w-[60%] flex justify-center lg:justify-end relative px-2 sm:px-0">
+                <div className="relative w-full max-w-[700px] xl:max-w-[800px] 2xl:max-w-[880px] rotate-0 sm:rotate-[1deg] lg:rotate-[1deg] transition-transform duration-500">
 
                   {/* Concentric Perforated Stamp Borders - Visible on all devices */}
                   <div>
@@ -624,9 +636,6 @@ const InformationScrollSection = () => {
                       <div className="flex items-center justify-between border-b border-[#C8B89A]/50 pb-1 sm:pb-2">
                         <span className="font-mono text-[0.5rem] sm:text-[0.7rem] uppercase tracking-wider sm:tracking-widest text-[#1A4338]/80 font-bold truncate pr-1">
                           ✦ DEPARTMENT OF COMPUTER ENGINEERING · SLRTCE
-                        </span>
-                        <span className="font-mono text-[0.44rem] sm:text-[0.66rem] font-bold px-1.5 sm:px-2 py-0.5 rounded-[2px] bg-[#1A4338]/10 text-[#1A4338] border border-[#C8B89A]/60 shrink-0 whitespace-nowrap">
-                          ACADEMIC DISCIPLINE
                         </span>
                       </div>
 
@@ -710,7 +719,7 @@ const InformationScrollSection = () => {
           {/* PANEL 2: IEEE SLRTCE STUDENT BRANCH (Deep Indigo/Violet with Philatelic Seal) */}
           {/* ========================================================================= */}
           <div
-            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-22 pb-6 sm:pb-10 relative overflow-hidden bg-cover bg-center"
+            className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: "url('/backgrounds/bg-purple.jpg')",
             }}
@@ -732,7 +741,7 @@ const InformationScrollSection = () => {
             </div>
 
             {/* Content Layout */}
-            <div className="max-w-[1360px] w-full mx-auto grid grid-cols-12 gap-2 sm:gap-6 lg:gap-12 items-center relative z-10 max-h-[calc(100vh-125px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="max-w-[1360px] xl:max-w-[1480px] w-full mx-auto grid grid-cols-12 gap-3 sm:gap-6 lg:gap-8 xl:gap-12 items-center relative z-10 max-h-[calc(100vh-115px)] overflow-x-hidden overflow-y-auto lg:overflow-visible py-1 px-1 sm:px-0 pb-12 sm:pb-6 lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {/* Left Column: Gazette Information */}
               <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
                 {/* Postal Tag */}
@@ -786,9 +795,9 @@ const InformationScrollSection = () => {
                   <div className="stamp-card !p-2 sm:!p-3.5 bg-[#FCF9F2] text-[#0A2A5E] shadow-2xl rotate-[-1.5deg] transition-transform duration-500 hover:rotate-0">
                     {/* Top Perforation Header */}
                     <div className="flex items-center justify-between border-b border-[#C8B89A]/40 pb-0.5 sm:pb-1 mb-1 px-1 text-[0.52rem] sm:text-[0.65rem] font-mono font-bold tracking-widest text-[#0A2A5E]/80">
-                      <span>COMMEMORATIVE ISSUE</span>
-                      <span className="text-[#D4AF37]">IEEE EST. 1884</span>
-                      <span>MUMBAI</span>
+                      <span>IEEE SLRTCE</span>
+                      <span className="text-[#D4AF37]">IEEE EST. 2026</span>
+                      <span>MAHARASHTRA</span>
                     </div>
 
                     {/* Stamp Center Medallion: Filled completely with IEEE Logo */}
@@ -835,7 +844,7 @@ const InformationScrollSection = () => {
         <div className="absolute bottom-0 left-0 w-full z-30 px-4 sm:px-8 lg:px-16 py-2.5 bg-[#07172E]/92 backdrop-blur-md border-t border-[#C8B89A]/30 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <span className="text-[0.68rem] sm:text-xs font-mono text-[#FBF7EE]/80">
-              [ EXHIBIT 0{activePanel + 1} OF 03 ]
+              [ 0{activePanel + 1} OF 03 ]
             </span>
             <div className="flex space-x-1.5">
               {[0, 1, 2].map((idx) => (

@@ -206,14 +206,8 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Center Timer */}
-          <div className="absolute left-[49%] sm:left-[50%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-none">
-            <div 
-              className={`transition-all duration-300 ease-out flex items-center shrink-0 ${
-                activeSection !== 'home'
-                  ? 'opacity-100 scale-100 pointer-events-auto overflow-visible px-1'
-                  : 'opacity-0 scale-95 pointer-events-none overflow-hidden'
-              }`}
-            >
+          <div className="absolute left-[49%] sm:left-[50%] -translate-x-1/2 lg:hidden z-10 flex items-center justify-center pointer-events-auto">
+            <div className="flex items-center shrink-0 overflow-visible px-1">
               <TimerPanel />
             </div>
           </div>
@@ -233,7 +227,7 @@ const Navbar = () => {
             </div>
 
             <a 
-              href="https://registration-page-vercel.vercel.app/"
+              href="https://inspire-colloquium-registration-page.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[11px] xl:text-xs px-3 xl:px-4 py-1 xl:py-1 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap"
@@ -245,7 +239,7 @@ const Navbar = () => {
           {/* Mobile Actions */}
           <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden z-10">
             <a 
-              href="https://registration-page-vercel.vercel.app/"
+              href="https://inspire-colloquium-registration-page.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#FF6B00] hover:bg-[#E65A00] text-white font-bold text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-colors shadow-sm whitespace-nowrap cursor-pointer"

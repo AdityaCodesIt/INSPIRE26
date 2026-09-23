@@ -136,10 +136,11 @@ const Footer = ({ children }: FooterProps) => {
                     <Mail className="w-2.5 h-2.5 text-amber-400 shrink-0" />
                     <span>colloquium.ieee@slrtce.in</span>
                   </a>
-                  <span className="hidden sm:inline text-white/25">•</span>
-                  <a href="tel:+919876543210" className="hover:text-amber-300 transition-colors flex items-center gap-1.5 leading-tight">
-                    <Phone className="w-2.5 h-2.5 text-amber-400 shrink-0" />
-                    <span>+91 98765 43210</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-[11px] sm:text-xs text-amber-100/85 mt-0.5">
+                  <a href="mailto:ieee@slrtce.in" className="hover:text-amber-300 transition-colors flex items-center gap-1.5 leading-tight">
+                    <Mail className="w-2.5 h-2.5 text-amber-400 shrink-0" />
+                    <span>ieee@slrtce.in</span>
                   </a>
                 </div>
               </div>
@@ -176,8 +177,8 @@ const Footer = ({ children }: FooterProps) => {
               <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className="flex gap-1.5">
                   {[
-                    { label: 'LinkedIn', icon: 'in', href: 'https://www.linkedin.com/company/ieee-slrtce/' },
-                    { label: 'Instagram', icon: 'ig', href: 'https://www.instagram.com/ieeeslrtce/' },
+                    { label: 'LinkedIn', icon: 'in', href: 'https://www.linkedin.com/company/ieee-slrtce-student-branch/' },
+                    { label: 'Instagram', icon: 'ig', href: 'https://www.instagram.com/ieee.slrtce' },
                   ].map((social) => (
                     <a
                       key={social.label}

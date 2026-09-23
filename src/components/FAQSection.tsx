@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronDown, MessageSquare, Sparkles } from 'lucide-react';
 
 interface FAQItem {
@@ -12,7 +12,7 @@ const faqs: FAQItem[] = [
   {
     question: 'What is INSPIRE 2026 and what is a Colloquium?',
     answer:
-      'A colloquium is an academic platform where researchers present technical work to an expert audience. INSPIRE 2026 is an IEEE SLRTCE research colloquium aligning student innovations with UNSDGs.',
+      'INSPIRE 2026 is a Research & Idea Colloquium that brings together undergraduate students, postgraduate students, and researchers to explore research, develop innovative ideas, and present technology-driven solutions to real-world challenges. \n\nIt provides a platform to showcase research work, innovative concepts, prototypes, experimental projects, and interdisciplinary ideas, while encouraging participants to connect knowledge with meaningful technological and societal impact aligned with the UNSDGs.',
     category: 'General',
   },
   {
@@ -42,19 +42,19 @@ const faqs: FAQItem[] = [
   {
     question: 'What should be submitted in Round 1?',
     answer:
-      'Participants must submit a structured abstract detailing their problem statement, proposed solution, track, and UNSDG alignment for initial screening.',
+      'For Round 1, PhD participants must submit a structured abstract, while PG and UG/Diploma participants must submit a structured abstract along with a PPT, covering the problem statement, proposed solution, track, and UNSDG alignment for initial screening.',
     category: 'Registration & Competition',
   },
   {
     question: 'Is there any registration fee?',
     answer:
-      'Initial abstract submission is free, but shortlisted teams must pay a ₹300 per team registration fee to confirm participation.',
+      'Initial submission is free, but shortlisted teams must pay a ₹300 per team registration fee to confirm participation.',
     category: 'Registration & Competition',
   },
   {
     question: 'What is the competition format and structure?',
     answer:
-      'INSPIRE 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
+      'INSPIRE 2026 is a 3-stage research colloquium:\n• Round 1 (Abstract/PPT Submission): Screening to select the Top 25 PPG, Top 25 PG, and Top 50 UG/Diploma teams.\n• Round 2 (Internal Round): Shortlisted teams deliver a strict 12-minute presentation evaluated on technical depth, methodology, and innovation. The top 25% from each category qualify for the finale.\n• Round 3 (External Round): Finalists present to an invited panel of external industry experts and academicians to determine the final award winners.',
     category: 'Registration & Competition',
   },
   {
@@ -90,10 +90,9 @@ const FAQSection = () => {
   return (
     <section
       id="faq"
-      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-indigo-950/30 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
+      className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center bg-scroll md:bg-fixed border-t border-b border-indigo-950/30 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
       style={{
         backgroundImage: "url('/backgrounds/bg-purple.jpg')",
-        backgroundAttachment: 'fixed',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
@@ -205,20 +204,23 @@ const FAQSection = () => {
                       />
                     </button>
 
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div
+                          className={`transition-opacity duration-200 ease-out ${
+                            isOpen ? 'opacity-100 delay-75' : 'opacity-0'
+                          }`}
                         >
                           <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
                             {faq.answer}
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        </div>
+                      </div>
+                    </div>
                   </motion.div>
                 );
               })

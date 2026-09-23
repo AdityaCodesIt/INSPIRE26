@@ -134,10 +134,9 @@ const WhoCanParticipateSection = () => {
   return (
     <section
       id="eligibility"
-      className="py-12 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-teal-950/20 w-full min-h-[90vh] flex flex-col justify-center"
+      className="py-12 md:py-24 relative overflow-hidden bg-cover bg-center bg-scroll md:bg-fixed border-t border-b border-teal-950/20 w-full min-h-[90vh] flex flex-col justify-center"
       style={{
         backgroundImage: "url('/backgrounds/bg-saffron.jpg')",
-        backgroundAttachment: 'fixed',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
@@ -175,8 +174,23 @@ const WhoCanParticipateSection = () => {
 
         <div className="w-full max-w-5xl flex flex-col gap-6 md:gap-10 items-center">
 
-          {/* ROW 1: UG & Diploma Students (Moved to Row 1 as requested) */}
+          {/* ROW 1: Ideathon (UG & Diploma Students) */}
           <div className="flex flex-col items-center w-full">
+            {/* Bullet Heading: Ideathon */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-2.5 sm:gap-3.5 self-start mb-4 sm:mb-6"
+            >
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] ring-4 ring-amber-400/20 shrink-0" />
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                Ideathon
+              </h3>
+              <div className="h-[2px] bg-gradient-to-r from-amber-400/60 via-amber-400/20 to-transparent flex-1 ml-2 min-w-[60px] sm:min-w-[120px] max-w-[200px]" />
+            </motion.div>
+
             <ParticipantBox
               imgSrc="/images/participants/ug_new_character.png"
               bgImage="/images/participants/ug_new_bg.png"
@@ -190,68 +204,85 @@ const WhoCanParticipateSection = () => {
                 align: 'left'
               }}
             />
-            <motion.h3
+            <motion.h4
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="mt-12 sm:mt-16 md:mt-20 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.14em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
             >
               UG / Diploma
-            </motion.h3>
+            </motion.h4>
           </div>
 
-          {/* ROW 2: Two Boxes (PG & PPG) (Moved to Row 2 as requested) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-14 md:gap-20 w-full max-w-5xl mt-8 sm:mt-12 md:mt-16">
-            {/* Left: Postgraduate (PG) */}
-            <div className="flex flex-col items-center w-full">
-              <ParticipantBox
-                imgSrc="/images/participants/pg_new_character.png"
-                bgImage="/images/participants/pg_new_bg.png"
-                className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
-                isOpen={activeCard === 'pg'}
-                onToggle={() => handleToggle('pg')}
-                info={{
-                  title: 'Postgraduate (PG) Scholars',
-                  degree: 'M.E. / M.Tech / M.S. / MCA',
-                  teamSize: 'Individual Submission',
-                  align: 'left'
-                }}
-              />
-              <motion.h3
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
-              >
-                PG
-              </motion.h3>
-            </div>
+          {/* ROW 2: Research (PG & PhD Scholars) */}
+          <div className="w-full flex flex-col items-center mt-6 sm:mt-10 md:mt-12">
+            {/* Bullet Heading: Research */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-2.5 sm:gap-3.5 self-start mb-4 sm:mb-6"
+            >
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] ring-4 ring-amber-400/20 shrink-0" />
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                Research
+              </h3>
+              <div className="h-[2px] bg-gradient-to-r from-amber-400/60 via-amber-400/20 to-transparent flex-1 ml-2 min-w-[60px] sm:min-w-[120px] max-w-[200px]" />
+            </motion.div>
 
-            {/* Right: PhD Scholars (PPG) */}
-            <div className="flex flex-col items-center w-full">
-              <ParticipantBox
-                imgSrc="/images/participants/ppg_new_character.png"
-                bgImage="/images/participants/bg_new_scientist.png"
-                className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
-                flipImage={false}
-                imgClassName="absolute bottom-2 -left-2 sm:-left-4 md:-left-8 w-[48%] sm:w-[42%] md:w-[38%] h-auto max-h-[78%] object-contain"
-                isOpen={activeCard === 'ppg'}
-                onToggle={() => handleToggle('ppg')}
-                info={{
-                  title: 'PhD Scholars',
-                  degree: 'Ph.D. / Researchers / Fellows',
-                  teamSize: 'Individual Submission',
-                  align: 'right'
-                }}
-              />
-              <motion.h3
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
-              >
-                PhD
-              </motion.h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-14 md:gap-20 w-full max-w-5xl">
+              {/* Left: Postgraduate (PG) */}
+              <div className="flex flex-col items-center w-full">
+                <ParticipantBox
+                  imgSrc="/images/participants/pg_new_character.png"
+                  bgImage="/images/participants/pg_new_bg.png"
+                  className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
+                  isOpen={activeCard === 'pg'}
+                  onToggle={() => handleToggle('pg')}
+                  info={{
+                    title: 'Postgraduate (PG) Scholars',
+                    degree: 'M.E. / M.Tech / M.S. / MCA',
+                    teamSize: 'Individual Submission',
+                    align: 'left'
+                  }}
+                />
+                <motion.h4
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                >
+                  PG
+                </motion.h4>
+              </div>
+
+              {/* Right: PhD Scholars (PPG) */}
+              <div className="flex flex-col items-center w-full">
+                <ParticipantBox
+                  imgSrc="/images/participants/ppg_new_character.png"
+                  bgImage="/images/participants/bg_new_scientist.png"
+                  className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
+                  flipImage={false}
+                  imgClassName="absolute bottom-2 -left-2 sm:-left-4 md:-left-8 w-[48%] sm:w-[42%] md:w-[38%] h-auto max-h-[78%] object-contain"
+                  isOpen={activeCard === 'ppg'}
+                  onToggle={() => handleToggle('ppg')}
+                  info={{
+                    title: 'PhD Scholars',
+                    degree: 'Ph.D. / Researchers / Fellows',
+                    teamSize: 'Individual Submission',
+                    align: 'right'
+                  }}
+                />
+                <motion.h4
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                >
+                  PhD
+                </motion.h4>
+              </div>
             </div>
           </div>
 
