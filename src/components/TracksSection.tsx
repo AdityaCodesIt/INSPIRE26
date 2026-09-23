@@ -79,7 +79,7 @@ const StampCardContent = ({
                 loading="lazy"
               />
               {/* Tactile Texture overlay */}
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stucco.png')] opacity-20 mix-blend-overlay pointer-events-none z-20" />
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stucco.png')] opacity-20  pointer-events-none z-20" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none z-20" />
 
               {/* Track Index Badge */}
@@ -543,7 +543,7 @@ const TracksSection = () => {
       id="tracks"
       className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center border-t border-b border-black/10 text-white scroll-mt-[65px] w-full max-w-full"
       style={{
-        backgroundImage: "url('/backgrounds/bg-cyan.jpg')",
+        backgroundImage: "url('/backgrounds/bg-cyan.webp')",
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
@@ -552,7 +552,7 @@ const TracksSection = () => {
     >
       {/* Tactile Fine Grain Texture Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        className="absolute inset-0 pointer-events-none  opacity-60 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
           backgroundRepeat: 'repeat',

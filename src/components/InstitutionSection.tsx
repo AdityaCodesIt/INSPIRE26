@@ -46,17 +46,17 @@ const InstitutionSection = () => {
                     {/* Background */}
                     <div
                       className="absolute inset-0 opacity-40 bg-cover bg-center brightness-105"
-                      style={{ backgroundImage: `url('/backgrounds/bg-maroon.jpg')` }}
+                      style={{ backgroundImage: `url('/backgrounds/bg-maroon.webp')` }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none z-10" />
 
                     <div className="relative z-20 w-full h-full flex flex-col items-center justify-center text-center">
-                      <div className="bg-[#0A2540]/80 backdrop-blur-md p-8 md:p-16 rounded-2xl border border-white/20 shadow-2xl max-w-5xl">
-                        <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-white mb-6 drop-shadow-lg tracking-wider uppercase">
+                      <div className="bg-[#0A2540]/80 md:backdrop-blur-md p-8 md:p-16 rounded-2xl border border-white/20 shadow-2xl max-w-5xl">
+                        <h2 className="text-3xl md:text-5xl lg:text-7xl font-black text-white mb-6 md:drop-shadow-lg tracking-wider uppercase">
                           IEEE SLRTCE Student Branch
                         </h2>
                         <div className="w-24 h-1 md:h-2 bg-amber-400 mx-auto mb-8 rounded-full" />
-                        <p className="text-lg md:text-2xl lg:text-3xl text-white/95 leading-relaxed font-light drop-shadow-md">
+                        <p className="text-lg md:text-2xl lg:text-3xl text-white/95 leading-relaxed font-light md:drop-shadow-md">
                           {card.description}
                         </p>
                       </div>
@@ -77,13 +77,13 @@ const InstitutionSection = () => {
                   <div className="w-full flex flex-col items-center justify-center z-10 max-w-4xl mx-auto">
                     {i === 1 ? (
                       <img 
-                        src="/department-logo.png" 
+                        src="/department-logo.webp" 
                         alt="Department of Computer Engineering" 
-                        className="max-w-full h-auto max-h-[30vh] md:max-h-[40vh] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500 mb-8 md:mb-12" 
+                        className="max-w-full h-auto max-h-[30vh] md:max-h-[40vh] object-contain md:drop-shadow-2xl hover:scale-105 transition-transform duration-500 mb-8 md:mb-12" 
                       />
                     ) : (
                       <>
-                        <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 rounded-2xl flex items-center justify-center text-3xl md:text-5xl mb-8 backdrop-blur-md border border-white/20 shadow-lg mx-auto">
+                        <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 rounded-2xl flex items-center justify-center text-3xl md:text-5xl mb-8 md:backdrop-blur-md border border-white/20 shadow-lg mx-auto">
                           {card.icon}
                         </div>
                         <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-10 font-display tracking-tight">{card.title}</h2>

@@ -5,39 +5,39 @@ import type { Variants } from 'framer-motion';
 // All critical website assets to preload locally before entering
 const ASSETS_TO_PRELOAD = [
   // Backgrounds & Textures
-  '/hero-heritage-bg.jpg',
-  '/hero-bg.png',
-  '/backgrounds/bg-blue.jpg',
-  '/backgrounds/bg-teal.jpg',
-  '/backgrounds/bg-purple.jpg',
-  '/backgrounds/bg-gold.jpg',
-  '/backgrounds/bg-cyan.jpg',
-  '/backgrounds/bg-saffron.jpg',
-  '/backgrounds/bg-lemon-yellow.jpg',
-  '/backgrounds/bg-maroon.jpg',
-  '/cta-college-bg.jpg',
-  '/paper-texture-clean.jpg',
-  '/backgrounds/paper-texture-clean.jpg',
+  '/hero-heritage-bg.webp',
+  '/hero-bg.webp',
+  '/backgrounds/bg-blue.webp',
+  '/backgrounds/bg-teal.webp',
+  '/backgrounds/bg-purple.webp',
+  '/backgrounds/bg-gold.webp',
+  '/backgrounds/bg-cyan.webp',
+  '/backgrounds/bg-saffron.webp',
+  '/backgrounds/bg-lemon-yellow.webp',
+  '/backgrounds/bg-maroon.webp',
+  '/cta-college-bg.webp',
+  '/paper-texture-clean.webp',
+  '/backgrounds/paper-texture-clean.webp',
   '/backgrounds/noise-texture.svg',
 
   // Logos & Core Graphics
-  '/slrtce-actual-photo.jpg',
-  '/CompEng-sticker.png',
-  '/LOGO-IEEE.png',
-  '/slrtce-logo.png',
-  '/ieee-custom-logo-white.png',
-  '/ieee-slrtce-logo.png',
-  '/department-logo.png',
-  '/apj-abdul-kalam-transparent.png',
-  '/heritage-combined-transparent.png',
+  '/slrtce-actual-photo.webp',
+  '/CompEng-sticker.webp',
+  '/LOGO-IEEE.webp',
+  '/slrtce-logo.webp',
+  '/ieee-custom-logo-white.webp',
+  '/ieee-slrtce-logo.webp',
+  '/department-logo.webp',
+  '/apj-abdul-kalam-transparent.webp',
+  '/heritage-combined-transparent.webp',
 
   // Characters & Badges
   '/images/participants/ug_new_character.png',
-  '/images/participants/ug_new_bg.png',
+  '/images/participants/ug_new_bg.webp',
   '/images/participants/pg_new_character.png',
   '/images/participants/pg_new_bg.png',
-  '/images/participants/ppg_new_character.png',
-  '/images/participants/bg_new_scientist.png',
+  '/images/participants/ppg_new_character.webp',
+  '/images/participants/bg_new_scientist.webp',
 
   // Theme Tracks
   '/themes/ai_ml.jpg',
@@ -49,6 +49,12 @@ const ASSETS_TO_PRELOAD = [
   '/themes/fintech.jpg',
   '/themes/blockchain.jpg',
   '/themes/emerging.jpg',
+  // SDG Icons (1 to 17)
+  ...Array.from({ length: 17 }, (_, i) => `/sdg/sdg-${i + 1}.svg`),
+  
+  // External Patterns
+  '//www.transparenttextures.com/patterns/handmade-paper.png',
+  '//www.transparenttextures.com/patterns/stucco.png',
 ];
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
@@ -74,11 +80,23 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     };
 
     // 1. Preload Images
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+    
     ASSETS_TO_PRELOAD.forEach((src) => {
+      // Standard image cache preload
       const img = new Image();
       img.src = src;
       img.onload = updateProgress;
       img.onerror = updateProgress; // Resolve even on missing file so loader never hangs
+      
+      // Aggressive preload for mobile devices to prevent scrolling lag
+      if (isMobile) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      }
     });
 
     // 2. Preload Web Fonts
@@ -109,7 +127,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     // Smooth 0 to 100 progress counter loop
     let animationFrameId: number;
     let startTime: number | null = null;
-    const MIN_ANIMATION_DURATION = 2000; // Minimum 2s for aesthetic reveal
+    const MIN_ANIMATION_DURATION = isMobile ? 0 : 2000; // Minimum 2s for aesthetic reveal on desktop only
     let isFinished = false;
 
     const tick = (now: number) => {
@@ -194,7 +212,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-cover bg-center overflow-hidden bg-[#F5EDCF] select-none"
-          style={{ backgroundImage: "url('/hero-heritage-bg.jpg')" }}
+          style={{ backgroundImage: "url('/hero-heritage-bg.webp')" }}
         >
           {/* Subtle light overlay to ensure text contrast */}
           <div className="absolute inset-0 bg-white/25 pointer-events-none" />
@@ -210,7 +228,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
                   variants={letterVariants}
                   initial="hidden"
                   animate="visible"
-                  className="text-4xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black text-[#0A2540] tracking-wider sm:tracking-widest drop-shadow-sm leading-none"
+                  className="text-4xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black text-[#0A2540] tracking-wider sm:tracking-widest md:drop-shadow-sm leading-none"
                   style={{ fontFamily: "'Montserrat', sans-serif" }}
                 >
                   {char}
@@ -223,7 +241,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.8 }}
-              className="text-teal-800 tracking-[0.25em] sm:tracking-[0.4em] text-[11px] sm:text-base md:text-lg uppercase font-bold drop-shadow-xs font-sans mb-8 sm:mb-10"
+              className="text-teal-800 tracking-[0.25em] sm:tracking-[0.4em] text-[11px] sm:text-base md:text-lg uppercase font-bold md:drop-shadow-xs font-sans mb-8 sm:mb-10"
             >
               A Research &amp; Idea Colloquium
             </motion.div>

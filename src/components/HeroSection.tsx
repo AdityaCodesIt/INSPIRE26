@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.png';
+import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.webp';
 import { Calendar, MapPin, Lightbulb, Cpu, Trophy, Users, Globe } from 'lucide-react';
 
 const HeroSection = () => {
@@ -12,7 +12,12 @@ const HeroSection = () => {
   const lanyardPath = useMotionTemplate`M 1000 -500 L ${badgeXOffset} ${badgeYOffset}`;
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
   const sceneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,7 +55,7 @@ const HeroSection = () => {
       <div
         className="absolute inset-0 pointer-events-none z-0 bg-[#F9E7B7] bg-no-repeat bg-center bg-cover"
         style={{
-          backgroundImage: "url('/hero-bg.png')",
+          backgroundImage: "url('/hero-bg.webp')",
         }}
       />
 
@@ -67,6 +72,8 @@ const HeroSection = () => {
           role="presentation"
           fetchPriority="high"
           decoding="async"
+          width="1683"
+          height="935"
           className="w-full h-auto max-h-[140px] sm:max-h-[180px] md:max-h-[220px] lg:max-h-[250px] object-cover object-bottom translate-y-1 sm:translate-y-2 opacity-85"
         />
       </motion.div>
@@ -93,7 +100,7 @@ const HeroSection = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
               }}
-              className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold uppercase tracking-widest mb-2 sm:mb-3 text-black drop-shadow-sm"
+              className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold uppercase tracking-widest mb-2 sm:mb-3 text-black md:drop-shadow-sm"
             >
               IEEE SLRTCE presents
             </motion.div>
@@ -105,7 +112,7 @@ const HeroSection = () => {
                     hidden: { opacity: 0, x: -30 },
                     visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
                   }}
-                  className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-black text-brand-navy drop-shadow-xl leading-tight uppercase font-sans text-center md:text-left"
+                  className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-black text-brand-navy md:drop-shadow-xl leading-tight uppercase font-sans text-center md:text-left"
                 >
                   INSPIRE
                 </motion.span>
@@ -114,7 +121,7 @@ const HeroSection = () => {
                     hidden: { opacity: 0, x: -30 },
                     visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
                   }}
-                  className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-semibold text-brand-navy drop-shadow-xl leading-tight uppercase font-sans text-center md:text-left"
+                  className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-semibold text-brand-navy md:drop-shadow-xl leading-tight uppercase font-sans text-center md:text-left"
                 >
                   Colloquium
                 </motion.span>
@@ -190,11 +197,11 @@ const HeroSection = () => {
 
               <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-brand-navy mt-1">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 drop-shadow-md" strokeWidth={2.5} />
+                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 md:drop-shadow-md" strokeWidth={2.5} />
                   <span>3rd October 2026</span>
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 drop-shadow-md" strokeWidth={2.5} />
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 md:drop-shadow-md" strokeWidth={2.5} />
                   <a
                     href="https://www.google.com/maps/search/Shree+L.R.+Tiwari+College+of+Engineering"
                     target="_blank"
@@ -212,9 +219,9 @@ const HeroSection = () => {
           <motion.div
             ref={sceneRef}
             className="w-full md:w-[48%] lg:w-1/2 flex items-center justify-center z-10 mt-2 sm:mt-4 md:mt-0 relative h-full min-h-[360px]"
-            initial={{ opacity: 1, y: -800 }}
+            initial={{ opacity: 0, y: isMobile ? 50 : -800 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, type: "spring", bounce: 0.25, delay: 0.4 }}
+            transition={{ duration: 1.2, type: "spring", bounce: isMobile ? 0 : 0.25, delay: 0.4 }}
           >
             {/* Fixed Anchor Lanyard String */}
             <svg className="absolute top-0 left-1/2 w-[2000px] h-full -translate-x-1/2 pointer-events-none z-0 overflow-visible">
@@ -226,16 +233,18 @@ const HeroSection = () => {
                 strokeLinecap="round"
                 fill="none"
               />
-              <text fontSize="11" fill="rgba(255,255,255,0.7)" fontWeight="900" letterSpacing="6">
-                <textPath href="#lanyard-path" startOffset="50%" textAnchor="middle">
-                  SLRTCE • SLRTCE • SLRTCE
-                </textPath>
-              </text>
+              {!isMobile && (
+                <text fontSize="11" fill="rgba(255,255,255,0.7)" fontWeight="900" letterSpacing="6">
+                  <textPath href="#lanyard-path" startOffset="50%" textAnchor="middle">
+                    SLRTCE • SLRTCE • SLRTCE
+                  </textPath>
+                </text>
+              )}
             </svg>
 
             {/* The Badge Itself */}
             <motion.div
-              className={`relative w-[300px] sm:w-[340px] md:w-[330px] lg:w-[350px] xl:w-[370px] h-auto bg-brand-navy rounded-2xl border-4 border-black shadow-2xl mt-2 md:mt-0 z-10 flex flex-col items-center p-2.5 sm:p-3.5 lg:p-4 ${isMobile ? '' : 'cursor-grab active:cursor-grabbing'}`}
+              className={`relative w-[300px] sm:w-[340px] md:w-[330px] lg:w-[350px] xl:w-[370px] h-auto bg-brand-navy rounded-2xl border-4 border-black shadow-lg md:shadow-2xl mt-2 md:mt-0 z-10 flex flex-col items-center p-2.5 sm:p-3.5 lg:p-4 ${isMobile ? '' : 'cursor-grab active:cursor-grabbing'}`}
               drag={!isMobile}
               dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
               dragElastic={1}
@@ -243,7 +252,7 @@ const HeroSection = () => {
               whileHover={!isMobile ? { scale: 1.02 } : {}}
               whileDrag={!isMobile ? { scale: 1.05, rotate: 2 } : {}}
               transition={{ type: "spring", stiffness: 150, damping: 12, mass: 1.5 }}
-              style={{ x: dragX, y: dragY, transformStyle: "preserve-3d", perspective: "1000px" }}
+              style={{ x: dragX, y: dragY }}
             >
 
               {/* SLRTCE Border Text */}
@@ -330,7 +339,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* Timer Bar (Navbar Stamp Format) */}
-                <div className="w-full drop-shadow-[0_2px_5px_rgba(0,0,0,0.18)] mb-2.5 select-none mx-auto rounded-lg overflow-hidden">
+                <div className="w-full md:drop-shadow-[0_2px_5px_rgba(0,0,0,0.18)] mb-2.5 select-none mx-auto rounded-lg overflow-hidden">
                   <div className="rounded-lg flex flex-col justify-center bg-[#F8E7BE] px-3 sm:px-4 py-1.5 sm:py-2 w-full border border-black/5 select-none relative">
 
                     {/* Top Header Row */}
@@ -339,11 +348,7 @@ const HeroSection = () => {
                         [ REGISTRATION DEADLINE ]
                       </div>
                       <div className="flex items-center gap-1.5 ml-auto">
-                        <motion.div
-                          animate={{ opacity: [1, 0.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="w-1.5 h-1.5 rounded-full bg-red-600 shadow-xs"
-                        />
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-600 shadow-xs animate-pulse" />
                         <span className="text-[8px] sm:text-[9px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
                       </div>
                     </div>

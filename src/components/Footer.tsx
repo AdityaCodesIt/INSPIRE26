@@ -83,13 +83,13 @@ const Footer = ({ children }: FooterProps) => {
       id="contact" 
       className="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-cover bg-center border-t border-amber-950/40 text-white"
       style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(20, 15, 10, 0.35), rgba(5, 5, 5, 0.65)), url('/cta-college-bg.jpg')",
+        backgroundImage: "linear-gradient(to bottom, rgba(20, 15, 10, 0.35), rgba(5, 5, 5, 0.65)), url('/cta-college-bg.webp')",
         backgroundAttachment: 'fixed',
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
       <div 
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+        className="absolute inset-0 pointer-events-none  opacity-60 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
           backgroundRepeat: 'repeat',
@@ -112,7 +112,7 @@ const Footer = ({ children }: FooterProps) => {
 
         {/* Translucent Blue Footer Body — Compact & Full-Width */}
         <div 
-          className="w-full -mt-1 sm:-mt-1.5 pt-2 sm:pt-2.5 pb-2.5 sm:pb-3 text-white backdrop-blur-[4px]"
+          className="w-full -mt-1 sm:-mt-1.5 pt-2 sm:pt-2.5 pb-2.5 sm:pb-3 text-white md:backdrop-blur-[4px]"
           style={{
             backgroundColor: 'rgba(10, 42, 94, 0.45)',
           }}
@@ -163,9 +163,9 @@ const Footer = ({ children }: FooterProps) => {
             <div className="mt-2 pt-2 border-t border-white/15 flex flex-col md:flex-row justify-between items-center gap-2 sm:gap-3">
               {/* Left: Branding Logos */}
               <div className="flex items-center space-x-2">
-                <img src="/slrtce-logo.png" alt="SLRTCE Logo" className="h-6 sm:h-7 w-auto object-contain" />
+                <img src="/slrtce-logo.webp" alt="SLRTCE Logo" width="171" height="171" className="h-6 sm:h-7 w-auto object-contain" />
                 <div className="h-4 sm:h-5 w-px bg-white/30" />
-                <img src="/ieee-custom-logo-white.png" alt="IEEE SLRTCE Student Branch Logo" className="h-6 sm:h-7 w-auto object-contain mix-blend-screen" />
+                <img src="/ieee-custom-logo-white.webp" alt="IEEE SLRTCE Student Branch Logo" width="498" height="501" className="h-6 sm:h-7 w-auto object-contain mix-blend-screen" />
               </div>
 
               {/* Middle: IEEE Copyright Line */}

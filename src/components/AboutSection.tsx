@@ -1,29 +1,18 @@
-import { motion } from 'framer-motion';
-
+// removed motion import
 const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative z-10 w-full max-w-full min-h-[calc(100vh-65px)] flex items-center justify-center py-10 sm:py-18 md:py-28 lg:py-36 px-2.5 sm:px-6 md:px-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[65px]"
+      className="relative z-10 w-full max-w-full min-h-[calc(100vh-65px)] flex items-center justify-center py-10 sm:py-18 md:py-28 lg:py-36 px-2.5 sm:px-6 md:px-10 bg-cover bg-center overflow-hidden border-t border-b border-amber-950/20 scroll-mt-[65px] bg-scroll md:bg-fixed"
       style={{
-        backgroundImage: "url('/backgrounds/bg-gold.jpg')",
-        backgroundAttachment: 'fixed',
+        backgroundImage: "url('/backgrounds/bg-gold.webp')",
       }}
     >
       {/* Subtle Warm Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
 
       {/* Main Ticket Container Wrapper - Increased Size with Physical Stub Notches */}
-      <motion.div
-        className="w-full max-w-[1420px] xl:max-w-[1500px] 2xl:max-w-[1580px] mx-auto relative z-10"
-        style={{
-          filter: 'drop-shadow(0 25px 35px rgba(0, 0, 0, 0.45)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2))',
-        }}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
+      <div className="w-full max-w-[1420px] xl:max-w-[1500px] 2xl:max-w-[1580px] mx-auto relative z-10 md:drop-shadow-[0_25px_35px_rgba(0,0,0,0.45)]">
         {/* The Authentic INSPIRE 2026 Colloquium Landscape Ticket with True Transparent Edge Cutouts */}
         <div className="ticket-border w-full rounded-[24px] sm:rounded-[36px] overflow-hidden bg-[#F2F6FA] relative">
 
@@ -65,16 +54,16 @@ const AboutSection = () => {
 
             {/* Clean Paper Fiber Texture (Grayscale to keep 100% original color) */}
             <div
-              className="absolute inset-0 bg-repeat opacity-80 mix-blend-multiply pointer-events-none z-0 grayscale"
+              className="absolute inset-0 bg-repeat opacity-30 pointer-events-none z-0 grayscale"
               style={{
-                backgroundImage: "url('/paper-texture-clean.jpg')",
+                backgroundImage: "url('/paper-texture-clean.webp')",
                 backgroundSize: '380px',
               }}
             />
 
             {/* Paper Micro-Grain Noise (Neutral) */}
             <div
-              className="absolute inset-0 bg-repeat opacity-50 mix-blend-overlay pointer-events-none z-0"
+              className="absolute inset-0 bg-repeat opacity-50  pointer-events-none z-0"
               style={{
                 backgroundImage: "url('/backgrounds/noise-texture.svg')",
               }}
@@ -316,7 +305,7 @@ const AboutSection = () => {
           </div>
 
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

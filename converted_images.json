@@ -1,0 +1,356 @@
+[
+  {
+    "original": "apj-abdul-kalam-transparent.png",
+    "new": "apj-abdul-kalam-transparent.webp",
+    "original_path": "public/apj-abdul-kalam-transparent.png",
+    "new_path": "public/apj-abdul-kalam-transparent.webp"
+  },
+  {
+    "original": "CompEng-old.png",
+    "new": "CompEng-old.webp",
+    "original_path": "public/CompEng-old.png",
+    "new_path": "public/CompEng-old.webp"
+  },
+  {
+    "original": "CompEng-sticker.png",
+    "new": "CompEng-sticker.webp",
+    "original_path": "public/CompEng-sticker.png",
+    "new_path": "public/CompEng-sticker.webp"
+  },
+  {
+    "original": "CompEng.png",
+    "new": "CompEng.webp",
+    "original_path": "public/CompEng.png",
+    "new_path": "public/CompEng.webp"
+  },
+  {
+    "original": "cta-college-bg.jpg",
+    "new": "cta-college-bg.webp",
+    "original_path": "public/cta-college-bg.jpg",
+    "new_path": "public/cta-college-bg.webp"
+  },
+  {
+    "original": "department-logo.jpg",
+    "new": "department-logo.webp",
+    "original_path": "public/department-logo.jpg",
+    "new_path": "public/department-logo.webp"
+  },
+  {
+    "original": "department-logo.png",
+    "new": "department-logo.webp",
+    "original_path": "public/department-logo.png",
+    "new_path": "public/department-logo.webp"
+  },
+  {
+    "original": "heritage-combined-transparent.png",
+    "new": "heritage-combined-transparent.webp",
+    "original_path": "public/heritage-combined-transparent.png",
+    "new_path": "public/heritage-combined-transparent.webp"
+  },
+  {
+    "original": "hero-badge-1.png",
+    "new": "hero-badge-1.webp",
+    "original_path": "public/hero-badge-1.png",
+    "new_path": "public/hero-badge-1.webp"
+  },
+  {
+    "original": "hero-badge-2.png",
+    "new": "hero-badge-2.webp",
+    "original_path": "public/hero-badge-2.png",
+    "new_path": "public/hero-badge-2.webp"
+  },
+  {
+    "original": "hero-badge-3.png",
+    "new": "hero-badge-3.webp",
+    "original_path": "public/hero-badge-3.png",
+    "new_path": "public/hero-badge-3.webp"
+  },
+  {
+    "original": "hero-badge-4.png",
+    "new": "hero-badge-4.webp",
+    "original_path": "public/hero-badge-4.png",
+    "new_path": "public/hero-badge-4.webp"
+  },
+  {
+    "original": "hero-badge-5.png",
+    "new": "hero-badge-5.webp",
+    "original_path": "public/hero-badge-5.png",
+    "new_path": "public/hero-badge-5.webp"
+  },
+  {
+    "original": "hero-badge-6.png",
+    "new": "hero-badge-6.webp",
+    "original_path": "public/hero-badge-6.png",
+    "new_path": "public/hero-badge-6.webp"
+  },
+  {
+    "original": "hero-bg.png",
+    "new": "hero-bg.webp",
+    "original_path": "public/hero-bg.png",
+    "new_path": "public/hero-bg.webp"
+  },
+  {
+    "original": "hero-heritage-bg.jpg",
+    "new": "hero-heritage-bg.webp",
+    "original_path": "public/hero-heritage-bg.jpg",
+    "new_path": "public/hero-heritage-bg.webp"
+  },
+  {
+    "original": "hero-map.png",
+    "new": "hero-map.webp",
+    "original_path": "public/hero-map.png",
+    "new_path": "public/hero-map.webp"
+  },
+  {
+    "original": "ieee-custom-logo-color-v2.png",
+    "new": "ieee-custom-logo-color-v2.webp",
+    "original_path": "public/ieee-custom-logo-color-v2.png",
+    "new_path": "public/ieee-custom-logo-color-v2.webp"
+  },
+  {
+    "original": "ieee-custom-logo-color.png",
+    "new": "ieee-custom-logo-color.webp",
+    "original_path": "public/ieee-custom-logo-color.png",
+    "new_path": "public/ieee-custom-logo-color.webp"
+  },
+  {
+    "original": "ieee-slrtce-logo.png",
+    "new": "ieee-slrtce-logo.webp",
+    "original_path": "public/ieee-slrtce-logo.png",
+    "new_path": "public/ieee-slrtce-logo.webp"
+  },
+  {
+    "original": "LOGO-IEEE.png",
+    "new": "LOGO-IEEE.webp",
+    "original_path": "public/LOGO-IEEE.png",
+    "new_path": "public/LOGO-IEEE.webp"
+  },
+  {
+    "original": "slrtce-actual-photo.jpg",
+    "new": "slrtce-actual-photo.webp",
+    "original_path": "public/slrtce-actual-photo.jpg",
+    "new_path": "public/slrtce-actual-photo.webp"
+  },
+  {
+    "original": "vikas-logo-blue.png",
+    "new": "vikas-logo-blue.webp",
+    "original_path": "public/vikas-logo-blue.png",
+    "new_path": "public/vikas-logo-blue.webp"
+  },
+  {
+    "original": "vikas-logo-transparent.png",
+    "new": "vikas-logo-transparent.webp",
+    "original_path": "public/vikas-logo-transparent.png",
+    "new_path": "public/vikas-logo-transparent.webp"
+  },
+  {
+    "original": "bg-blue.jpg",
+    "new": "bg-blue.webp",
+    "original_path": "public/backgrounds/bg-blue.jpg",
+    "new_path": "public/backgrounds/bg-blue.webp"
+  },
+  {
+    "original": "bg-cyan.jpg",
+    "new": "bg-cyan.webp",
+    "original_path": "public/backgrounds/bg-cyan.jpg",
+    "new_path": "public/backgrounds/bg-cyan.webp"
+  },
+  {
+    "original": "bg-gold.jpg",
+    "new": "bg-gold.webp",
+    "original_path": "public/backgrounds/bg-gold.jpg",
+    "new_path": "public/backgrounds/bg-gold.webp"
+  },
+  {
+    "original": "bg-leaf-green.jpg",
+    "new": "bg-leaf-green.webp",
+    "original_path": "public/backgrounds/bg-leaf-green.jpg",
+    "new_path": "public/backgrounds/bg-leaf-green.webp"
+  },
+  {
+    "original": "bg-lemon-yellow.jpg",
+    "new": "bg-lemon-yellow.webp",
+    "original_path": "public/backgrounds/bg-lemon-yellow.jpg",
+    "new_path": "public/backgrounds/bg-lemon-yellow.webp"
+  },
+  {
+    "original": "bg-maroon.jpg",
+    "new": "bg-maroon.webp",
+    "original_path": "public/backgrounds/bg-maroon.jpg",
+    "new_path": "public/backgrounds/bg-maroon.webp"
+  },
+  {
+    "original": "bg-purple.jpg",
+    "new": "bg-purple.webp",
+    "original_path": "public/backgrounds/bg-purple.jpg",
+    "new_path": "public/backgrounds/bg-purple.webp"
+  },
+  {
+    "original": "bg-saffron.jpg",
+    "new": "bg-saffron.webp",
+    "original_path": "public/backgrounds/bg-saffron.jpg",
+    "new_path": "public/backgrounds/bg-saffron.webp"
+  },
+  {
+    "original": "bg-sand.jpg",
+    "new": "bg-sand.webp",
+    "original_path": "public/backgrounds/bg-sand.jpg",
+    "new_path": "public/backgrounds/bg-sand.webp"
+  },
+  {
+    "original": "bg-teal.jpg",
+    "new": "bg-teal.webp",
+    "original_path": "public/backgrounds/bg-teal.jpg",
+    "new_path": "public/backgrounds/bg-teal.webp"
+  },
+  {
+    "original": "bg-yellow.jpg",
+    "new": "bg-yellow.webp",
+    "original_path": "public/backgrounds/bg-yellow.jpg",
+    "new_path": "public/backgrounds/bg-yellow.webp"
+  },
+  {
+    "original": "Aditya_frame_Bg.png",
+    "new": "Aditya_frame_Bg.webp",
+    "original_path": "public/frame/Aditya_frame_Bg.png",
+    "new_path": "public/frame/Aditya_frame_Bg.webp"
+  },
+  {
+    "original": "Ankush_frame_Bg.png",
+    "new": "Ankush_frame_Bg.webp",
+    "original_path": "public/frame/Ankush_frame_Bg.png",
+    "new_path": "public/frame/Ankush_frame_Bg.webp"
+  },
+  {
+    "original": "Divakar_frame_Bg.png",
+    "new": "Divakar_frame_Bg.webp",
+    "original_path": "public/frame/Divakar_frame_Bg.png",
+    "new_path": "public/frame/Divakar_frame_Bg.webp"
+  },
+  {
+    "original": "bg_new_scientist.png",
+    "new": "bg_new_scientist.webp",
+    "original_path": "public/images/participants/bg_new_scientist.png",
+    "new_path": "public/images/participants/bg_new_scientist.webp"
+  },
+  {
+    "original": "img1_new.png",
+    "new": "img1_new.webp",
+    "original_path": "public/images/participants/img1_new.png",
+    "new_path": "public/images/participants/img1_new.webp"
+  },
+  {
+    "original": "img2.png",
+    "new": "img2.webp",
+    "original_path": "public/images/participants/img2.png",
+    "new_path": "public/images/participants/img2.webp"
+  },
+  {
+    "original": "img4.png",
+    "new": "img4.webp",
+    "original_path": "public/images/participants/img4.png",
+    "new_path": "public/images/participants/img4.webp"
+  },
+  {
+    "original": "img5.png",
+    "new": "img5.webp",
+    "original_path": "public/images/participants/img5.png",
+    "new_path": "public/images/participants/img5.webp"
+  },
+  {
+    "original": "ppg_new_character.png",
+    "new": "ppg_new_character.webp",
+    "original_path": "public/images/participants/ppg_new_character.png",
+    "new_path": "public/images/participants/ppg_new_character.webp"
+  },
+  {
+    "original": "ug_new_bg.png",
+    "new": "ug_new_bg.webp",
+    "original_path": "public/images/participants/ug_new_bg.png",
+    "new_path": "public/images/participants/ug_new_bg.webp"
+  },
+  {
+    "original": "bc_5 2.jpg",
+    "new": "bc_5 2.webp",
+    "original_path": "public/themes/bc_5 2.jpg",
+    "new_path": "public/themes/bc_5 2.webp"
+  },
+  {
+    "original": "bc_5.jpg",
+    "new": "bc_5.webp",
+    "original_path": "public/themes/bc_5.jpg",
+    "new_path": "public/themes/bc_5.webp"
+  },
+  {
+    "original": "blockchain_3.jpg",
+    "new": "blockchain_3.webp",
+    "original_path": "public/themes/blockchain_3.jpg",
+    "new_path": "public/themes/blockchain_3.webp"
+  },
+  {
+    "original": "emerge_glowing_core 2.jpg",
+    "new": "emerge_glowing_core 2.webp",
+    "original_path": "public/themes/emerge_glowing_core 2.jpg",
+    "new_path": "public/themes/emerge_glowing_core 2.webp"
+  },
+  {
+    "original": "emerge_glowing_core.jpg",
+    "new": "emerge_glowing_core.webp",
+    "original_path": "public/themes/emerge_glowing_core.jpg",
+    "new_path": "public/themes/emerge_glowing_core.webp"
+  },
+  {
+    "original": "emerging_deepmind_1.jpg",
+    "new": "emerging_deepmind_1.webp",
+    "original_path": "public/themes/emerging_deepmind_1.jpg",
+    "new_path": "public/themes/emerging_deepmind_1.webp"
+  },
+  {
+    "original": "emerging_future_city.jpg",
+    "new": "emerging_future_city.webp",
+    "original_path": "public/themes/emerging_future_city.jpg",
+    "new_path": "public/themes/emerging_future_city.webp"
+  },
+  {
+    "original": "em_12 2.jpg",
+    "new": "em_12 2.webp",
+    "original_path": "public/themes/em_12 2.jpg",
+    "new_path": "public/themes/em_12 2.webp"
+  },
+  {
+    "original": "em_12.jpg",
+    "new": "em_12.webp",
+    "original_path": "public/themes/em_12.jpg",
+    "new_path": "public/themes/em_12.webp"
+  },
+  {
+    "original": "fintech_digital_money.jpg",
+    "new": "fintech_digital_money.webp",
+    "original_path": "public/themes/fintech_digital_money.jpg",
+    "new_path": "public/themes/fintech_digital_money.webp"
+  },
+  {
+    "original": "render_14 2.jpg",
+    "new": "render_14 2.webp",
+    "original_path": "public/themes/render_14 2.jpg",
+    "new_path": "public/themes/render_14 2.webp"
+  },
+  {
+    "original": "render_14.jpg",
+    "new": "render_14.webp",
+    "original_path": "public/themes/render_14.jpg",
+    "new_path": "public/themes/render_14.webp"
+  },
+  {
+    "original": "old-indian-coin.jpg",
+    "new": "old-indian-coin.webp",
+    "original_path": "public/timeline/old-indian-coin.jpg",
+    "new_path": "public/timeline/old-indian-coin.webp"
+  },
+  {
+    "original": "heritage-combined-transparent.png",
+    "new": "heritage-combined-transparent.webp",
+    "original_path": "src/assets/heritage/heritage-combined-transparent.png",
+    "new_path": "src/assets/heritage/heritage-combined-transparent.webp"
+  }
+]

@@ -42,37 +42,48 @@
   .stamp-card {
     background: #F5F0E6;
     position: relative;
-    /* Internal border */
     border: 1px dashed rgba(200, 184, 154, 0.4);
     
-    /* Modern composite mask to cut holes ONLY on the edges */
-    -webkit-mask-image: 
-      linear-gradient(black, black),
-      radial-gradient(circle, transparent 5px, black 5.5px);
-    -webkit-mask-size: 
-      calc(100% - 18px) calc(100% - 18px),
-      16px 16px;
-    -webkit-mask-position: 
-      center,
-      -8px -8px;
-    -webkit-mask-repeat: 
-      no-repeat,
-      round;
-    -webkit-mask-composite: source-over;
+    /* Hardware acceleration to prevent mobile lag */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    
+    /* Simplified border-radius for mobile to prevent massive lag */
+    border-radius: 12px;
+  }
 
-    mask-image: 
-      linear-gradient(black, black),
-      radial-gradient(circle, transparent 5px, black 5.5px);
-    mask-size: 
-      calc(100% - 18px) calc(100% - 18px),
-      16px 16px;
-    mask-position: 
-      center,
-      -8px -8px;
-    mask-repeat: 
-      no-repeat,
-      round;
-    mask-composite: add;
+  @media (min-width: 768px) {
+    .stamp-card {
+      border-radius: 0;
+      /* Modern composite mask to cut holes ONLY on the edges */
+      -webkit-mask-image: 
+        linear-gradient(black, black),
+        radial-gradient(circle, transparent 5px, black 5.5px);
+      -webkit-mask-size: 
+        calc(100% - 18px) calc(100% - 18px),
+        16px 16px;
+      -webkit-mask-position: 
+        center,
+        -8px -8px;
+      -webkit-mask-repeat: 
+        no-repeat,
+        round;
+      -webkit-mask-composite: source-over;
+
+      mask-image: 
+        linear-gradient(black, black),
+        radial-gradient(circle, transparent 5px, black 5.5px);
+      mask-size: 
+        calc(100% - 18px) calc(100% - 18px),
+        16px 16px;
+      mask-position: 
+        center,
+        -8px -8px;
+      mask-repeat: 
+        no-repeat,
+        round;
+      mask-composite: add;
+    }
   }
 
   /* Miniature Postage Stamp Card */
@@ -142,36 +153,38 @@
   }
 
   /* Ticket Border Effect - True Transparent Semicircle Cutouts */
-  .ticket-border {
-    -webkit-mask-image: 
-      radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
-      radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
-    -webkit-mask-size: 51% 100%;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: left, right;
-    mask-image: 
-      radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
-      radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
-    mask-size: 51% 100%;
-    mask-repeat: no-repeat;
-    mask-position: left, right;
-  }
+  @media (min-width: 768px) {
+    .ticket-border {
+      -webkit-mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
+        radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
+      -webkit-mask-size: 51% 100%;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: left, right;
+      mask-image: 
+        radial-gradient(circle at 0% 50%, transparent 16px, black 16.5px),
+        radial-gradient(circle at 100% 50%, transparent 16px, black 16.5px);
+      mask-size: 51% 100%;
+      mask-repeat: no-repeat;
+      mask-position: left, right;
+    }
 
-  /* Vertical Ticket Shape */
-  .vertical-ticket {
-    -webkit-mask-image: 
-      radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
-      radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
-    -webkit-mask-size: 100% 51%;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: top left, bottom left;
-    
-    mask-image: 
-      radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
-      radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
-    mask-size: 100% 51%;
-    mask-repeat: no-repeat;
-    mask-position: top left, bottom left;
+    /* Vertical Ticket Shape */
+    .vertical-ticket {
+      -webkit-mask-image: 
+        radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
+        radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
+      -webkit-mask-size: 100% 51%;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: top left, bottom left;
+      
+      mask-image: 
+        radial-gradient(circle at 50% 0%, transparent 20px, black 20.5px),
+        radial-gradient(circle at 50% 100%, transparent 20px, black 20.5px);
+      mask-size: 100% 51%;
+      mask-repeat: no-repeat;
+      mask-position: top left, bottom left;
+    }
   }
 
   @media (min-width: 640px) {

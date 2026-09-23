@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useSpring, useMotionValueEvent, useTransform } from 'framer-motion';
 
 interface Stage {
   id: number;
@@ -83,8 +83,14 @@ const TimelineSection = () => {
   const desktopPathRef = useRef<SVGPathElement>(null);
 
   const [desktopMarker, setDesktopMarker] = useState<{ x: number; y: number }>({ x: 38, y: -145 });
-  const [mobileMarkerY, setMobileMarkerY] = useState<number>(0);
-  const [scrollFraction, setScrollFraction] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(true); // Default true to prevent desktop logic on mobile load
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Responsive scroll tracking calibrated to viewport progression
   const { scrollYProgress } = useScroll({
@@ -99,12 +105,11 @@ const TimelineSection = () => {
     restDelta: 0.001,
   });
 
-  // Calculate waypoint marker positions along the SVG path
+  // Calculate waypoint marker positions along the SVG path ONLY on Desktop to save mobile CPU
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
+    if (isMobile) return; // KILL SWITCH: No React state updates on scroll for mobile!
+    
     const clamped = Math.min(1, Math.max(0, latest));
-    setScrollFraction(clamped);
-
-    // Desktop marker calculation
     if (desktopPathRef.current) {
       try {
         const total = desktopPathRef.current.getTotalLength();
@@ -114,13 +119,11 @@ const TimelineSection = () => {
         }
       } catch { }
     }
-
-    // Mobile vertical marker
-    setMobileMarkerY(clamped * 940);
   });
 
   // Initial waypoint calculation on mount
   useEffect(() => {
+    if (isMobile) return;
     const timer = setTimeout(() => {
       if (desktopPathRef.current) {
         try {
@@ -130,21 +133,36 @@ const TimelineSection = () => {
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
 
-  // Bidirectional active milestone calculation: activates when scrolling down, reverses when scrolling up
-  const isStageActive = (index: number) => {
-    if (index === 0) return scrollFraction > 0.005; // Active inside schedule section, dims when scrolled above
+  // Framer Motion native transforms (These do not trigger React re-renders!)
+  const mobileMarkerY = useTransform(smoothProgress, [0, 1], [0, 940]);
+  
+  // Mobile Opacity Transforms for each stage
+  const mobileOpacities = [
+    useTransform(smoothProgress, [0, 0.05], [0.35, 1]), // Stage 1
+    useTransform(smoothProgress, [0.15, 0.20], [0.35, 1]), // Stage 2
+    useTransform(smoothProgress, [0.35, 0.40], [0.35, 1]), // Stage 3
+    useTransform(smoothProgress, [0.60, 0.65], [0.35, 1]), // Stage 4
+    useTransform(smoothProgress, [0.80, 0.85], [0.35, 1]), // Stage 5
+  ];
 
-    // Desktop: strictly track marker Y position along the curve
+  // Mobile Transform Y for each stage
+  const mobileTransforms = [
+    useTransform(smoothProgress, [0, 0.05], [24, 0]),
+    useTransform(smoothProgress, [0.15, 0.20], [24, 0]),
+    useTransform(smoothProgress, [0.35, 0.40], [24, 0]),
+    useTransform(smoothProgress, [0.60, 0.65], [24, 0]),
+    useTransform(smoothProgress, [0.80, 0.85], [24, 0]),
+  ];
+
+  // Desktop active calculation uses state
+  const isDesktopStageActive = (index: number) => {
     if (desktopMarker && typeof desktopMarker.y === 'number') {
       const yThresholds = [0, 220, 480, 880, 1260];
       return desktopMarker.y >= yThresholds[index];
     }
-
-    // Mobile vertical scroll progression
-    const scrollThresholds = [0, 0.20, 0.40, 0.65, 0.85];
-    return scrollFraction >= scrollThresholds[index];
+    return false;
   };
 
   return (
@@ -153,8 +171,8 @@ const TimelineSection = () => {
       id="schedule"
       className="relative z-10 flex w-full flex-col items-center overflow-x-clip bg-cover bg-center bg-no-repeat border-b border-orange-900/15 text-brand-navy scroll-mt-[65px] px-5 pt-[10vh] pb-16 sm:px-[6vw] sm:pt-[14vh] sm:pb-24 lg:pb-36 xl:pb-40 bg-[#FAF6EE]"
       style={{
-        backgroundImage: "url('/backgrounds/bg-lemon-yellow.jpg')",
-        backgroundAttachment: 'fixed',
+        backgroundImage: "url('/backgrounds/bg-lemon-yellow.webp')",
+        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -162,7 +180,7 @@ const TimelineSection = () => {
     >
       {/* Tactile Fine Grain Texture Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-50 z-0"
+        className="absolute inset-0 pointer-events-none opacity-50 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
           backgroundRepeat: 'repeat',
@@ -171,8 +189,6 @@ const TimelineSection = () => {
       {/* Subtle Vignette and Smooth Top Seam Blend for Depth */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/20 via-transparent to-black/10 z-0" />
       <div className="absolute top-0 left-0 right-0 h-20 pointer-events-none bg-gradient-to-b from-black/25 via-black/10 to-transparent z-0" />
-
-
 
       {/* Archival Typography Watermark: ORGANIZED BY IEEE SLRTCE STUDENT BRANCH */}
       <div className="absolute right-4 sm:right-8 lg:right-12 xl:right-16 top-6 sm:top-10 lg:top-12 select-none pointer-events-none z-0 text-right">
@@ -183,7 +199,7 @@ const TimelineSection = () => {
         </h3>
       </div>
 
-      {/* Top Left Header Section (Restored exactly to original) */}
+      {/* Top Left Header Section */}
       <div className="w-full max-w-[82rem] mb-6 lg:mb-10 relative z-10 self-start text-left">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -202,7 +218,7 @@ const TimelineSection = () => {
         </motion.div>
       </div>
 
-      {/* Main Roadmap Container - Sized with ample bottom clearance so Stage 5 stays cleanly inside */}
+      {/* Main Roadmap Container */}
       <div className="relative mt-[4vh] w-full max-w-[82rem] lg:mt-0 lg:h-[114vw] xl:h-[112vw] 2xl:h-[110vw]">
 
         {/* ========================================================================= */}
@@ -218,7 +234,7 @@ const TimelineSection = () => {
             className="h-full w-full overflow-visible"
             fill="none"
           >
-            {/* Inactive Dashed Base Path with increased thickness */}
+            {/* Inactive Dashed Base Path */}
             <path
               d={HACKSPIRE_DESKTOP_PATH}
               stroke="#264A9B"
@@ -229,7 +245,7 @@ const TimelineSection = () => {
               fill="none"
             />
 
-            {/* Active Solid Deep Royal/Navy Blue Path with increased thickness */}
+            {/* Active Solid Path */}
             <motion.path
               ref={desktopPathRef}
               d={HACKSPIRE_DESKTOP_PATH}
@@ -240,7 +256,7 @@ const TimelineSection = () => {
               style={{ pathLength: smoothProgress }}
             />
 
-            {/* Initial Start Point Anchor Node: White inside with blue border */}
+            {/* Initial Start Point Anchor Node */}
             <circle
               cx="38"
               cy="-145"
@@ -248,10 +264,9 @@ const TimelineSection = () => {
               fill="white"
               stroke="#264A9B"
               strokeWidth="4"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
             />
 
-            {/* Final Destination Terminal Node at Stage 5: White inside with blue border */}
+            {/* Final Destination Terminal Node */}
             <circle
               cx="1255"
               cy="1395"
@@ -259,11 +274,10 @@ const TimelineSection = () => {
               fill="white"
               stroke="#264A9B"
               strokeWidth="4"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
             />
 
             {/* Leading Bullseye Waypoint Marker */}
-            {desktopMarker && (
+            {desktopMarker && !isMobile && (
               <g
                 style={{ opacity: 1 }}
                 transform={`translate(${desktopMarker.x}, ${desktopMarker.y})`}
@@ -273,7 +287,6 @@ const TimelineSection = () => {
                   fill="white"
                   stroke="#264A9B"
                   strokeWidth="4"
-                  style={{ filter: 'drop-shadow(0 0 12px rgba(38, 74, 155, 0.45))' }}
                 />
                 <circle r="4" fill="#264A9B" />
               </g>
@@ -311,57 +324,60 @@ const TimelineSection = () => {
               fill="none"
               style={{ pathLength: smoothProgress }}
             />
-            <g
-              style={{ opacity: 1 }}
-              transform={`translate(12, ${mobileMarkerY})`}
+            <motion.g
+              style={{ opacity: 1, y: mobileMarkerY }}
             >
               <circle
+                cx="12"
+                cy="0"
                 r="7"
                 fill="white"
                 stroke="#264A9B"
                 strokeWidth="3.5"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(38, 74, 155, 0.45))' }}
               />
-            </g>
+            </motion.g>
           </svg>
         </div>
 
         {/* ========================================================================= */}
-        {/* MILESTONES (Positioned Away from Line with Reduced Description Size)      */}
+        {/* MILESTONES                                                                */}
         {/* ========================================================================= */}
         <div className="relative z-20 mt-10 flex flex-col items-center gap-10 lg:mt-0 lg:block lg:h-full lg:gap-0">
           {stages.map((stage, idx) => {
-            const active = isStageActive(idx);
-
+            // For desktop we use React state classes because it's only 1 evaluation. 
+            // For mobile, we use Framer Motion useTransform to bypass React renders completely!
+            const desktopActive = isDesktopStageActive(idx);
+            
             return (
-              <div
+              <motion.div
                 key={stage.id}
-                className={`relative z-20 flex w-full max-w-[28rem] items-start pl-10 sm:max-w-[32rem] lg:absolute lg:max-w-[32rem] lg:pl-0 xl:max-w-[36rem] 2xl:max-w-[40rem] transition-all duration-700 ease-out ${stage.positionClasses
-                  }`}
-                style={{
-                  opacity: active ? 1 : 0.35,
-                  transform: active ? 'translate(0px, 0px)' : 'translate(0px, 24px)',
-                }}
+                className={`relative z-20 flex w-full max-w-[28rem] items-start pl-10 sm:max-w-[32rem] lg:absolute lg:max-w-[32rem] lg:pl-0 xl:max-w-[36rem] 2xl:max-w-[40rem] ${
+                  isMobile ? '' : 'transition-all duration-700 ease-out'
+                } ${stage.positionClasses}`}
+                style={
+                  isMobile 
+                  ? { opacity: mobileOpacities[idx], y: mobileTransforms[idx] } 
+                  : { opacity: desktopActive ? 1 : 0.35, y: desktopActive ? 0 : 24 }
+                }
               >
-                {/* Mobile Waypoint Dot Node: White inside with blue border */}
+                {/* Mobile Waypoint Dot Node */}
                 <span
                   className="absolute top-5 left-0 z-10 flex h-6 w-6 -translate-x-0.5 items-center justify-center lg:hidden"
                   aria-hidden="true"
                 >
-                  <span
+                  <motion.span
                     className="h-3.5 w-3.5 rounded-full border-[3px] bg-white transition-all duration-300"
                     style={{
-                      borderColor: active ? '#264A9B' : '#D4D4D4',
-                      boxShadow: active ? '0 0 10px rgba(38, 74, 155, 0.45)' : 'none',
+                      borderColor: '#264A9B', // Fixed to avoid state dependency
                     }}
                   />
                 </span>
 
-                {/* Numeral: Increased font size + expanded length-wise horizontally */}
+                {/* Numeral */}
                 <div className="shrink-0 self-start pr-2.5 sm:pr-4">
                   <h3
-                    className="font-sans text-[4.8rem] leading-[0.88] font-black sm:text-[6.2rem] md:text-[7.2rem] lg:text-[8rem] xl:text-[9.4rem] 2xl:text-[10.6rem] transition-colors duration-500 select-none inline-block origin-left transform scale-x-135 sm:scale-x-140"
-                    style={{ color: active ? 'rgb(17, 17, 17)' : '#9E9E9E' }}
+                    className="font-sans text-[4.8rem] leading-[0.88] font-black sm:text-[6.2rem] md:text-[7.2rem] lg:text-[8rem] xl:text-[9.4rem] 2xl:text-[10.6rem] select-none inline-block origin-left transform scale-x-135 sm:scale-x-140"
+                    style={{ color: 'rgb(17, 17, 17)' }}
                   >
                     {stage.numeral}
                   </h3>
@@ -369,21 +385,19 @@ const TimelineSection = () => {
 
                 {/* Milestone Text Box */}
                 <div className="flex flex-col px-2 pt-1.5 sm:px-4 lg:py-2 flex-1 min-w-0">
-                  {/* Stage Title: Increased font size & navy color #123B6D */}
                   <h4
-                    className={`pt-1 font-sans text-lg font-bold leading-tight sm:text-2xl sm:leading-tight lg:pt-0 lg:text-2xl xl:text-3xl 2xl:text-4xl transition-colors duration-500 ${active ? 'text-[#123B6D]' : 'text-[#123B6D]/45'
-                      }`}
+                    className="pt-1 font-sans text-lg font-bold leading-tight sm:text-2xl sm:leading-tight lg:pt-0 lg:text-2xl xl:text-3xl 2xl:text-4xl text-[#123B6D]"
                   >
                     {stage.title}
                   </h4>
 
-                  {/* Gradient Underline: Expanded length-wise */}
+                  {/* Gradient Underline */}
                   <div
                     className="mt-2 h-0.5 w-[min(75vw,20rem)] bg-gradient-to-r from-[#123B6D] via-[#264A9B] to-transparent sm:w-[min(60vw,24rem)] lg:w-[22rem] xl:w-[26rem] 2xl:w-[30rem]"
                     aria-hidden="true"
                   />
 
-                  {/* Date, Timing & Badges: Increased font sizes */}
+                  {/* Date, Timing & Badges */}
                   <div className="mt-2 flex flex-col gap-1.5 sm:gap-2">
                     <div className="flex flex-wrap items-center gap-2.5">
                       <p className="font-secondary text-base font-bold tracking-wide text-black/85 sm:text-lg xl:text-xl">
@@ -413,13 +427,13 @@ const TimelineSection = () => {
                       </div>
                     )}
 
-                    {/* Description Paragraph: Increased font size and expanded length-wise */}
+                    {/* Description Paragraph */}
                     <p className="font-sans text-sm sm:text-base lg:text-base xl:text-[1.05rem] text-black/75 font-normal leading-relaxed max-w-[340px] sm:max-w-[420px] lg:max-w-[380px] xl:max-w-[450px] 2xl:max-w-[500px]">
                       {stage.summary}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

@@ -158,20 +158,7 @@ const InformationScrollSection = () => {
     }, TOTAL_LOCK_TIME);
   }, [scrollToPanel, isMobile]);
 
-  // Auto-slide between panels every 5 seconds on mobile view
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const timer = setTimeout(() => {
-      setActivePanel((prev) => {
-        const next = (prev + 1) % PANEL_COUNT;
-        activePanelRef.current = next;
-        return next;
-      });
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [isMobile, activePanel]);
+  // Auto-slide logic for mobile view has been removed as per user request
 
   // Wheel interception: intercept scroll when pinned, snap panels cleanly (Desktop only)
   useEffect(() => {
@@ -310,7 +297,7 @@ const InformationScrollSection = () => {
         {/* ========================================================================= */}
         {/* Top Sub-Nav Ribbon: "COLLEGE", "DEPARTMENT", "IEEE CHAPTER" */}
         {/* ========================================================================= */}
-        <div className="absolute top-0 left-0 w-full z-30 px-3 sm:px-8 pt-8 sm:pt-9 md:pt-10 pb-2.5 sm:pb-3 flex items-center justify-center bg-[#07172E]/95 backdrop-blur-md border-b border-[#C8B89A]/30 shadow-md">
+        <div className="absolute top-0 left-0 w-full z-30 px-3 sm:px-8 pt-8 sm:pt-9 md:pt-10 pb-2.5 sm:pb-3 flex items-center justify-center bg-[#07172E]/95 md:backdrop-blur-md border-b border-[#C8B89A]/30 shadow-md">
           <div className="flex items-center space-x-4 sm:space-x-12 md:space-x-16 font-sans text-[11px] sm:text-sm">
             {[
               { title: 'COLLEGE', idx: 0 },
@@ -332,6 +319,32 @@ const InformationScrollSection = () => {
         </div>
 
         {/* ========================================================================= */}
+        {/* Mobile Slide Navigation Buttons */}
+        {/* ========================================================================= */}
+        {isMobile && (
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-12 z-40 lg:hidden pointer-events-none">
+            <button
+              onClick={() => goToPanel((activePanelRef.current - 1 + PANEL_COUNT) % PANEL_COUNT, false)}
+              className="pointer-events-auto bg-[#07172E]/90 text-[#D4AF37] p-2.5 rounded-full md:backdrop-blur-md border border-[#C8B89A]/40 hover:bg-[#07172E] transition-colors shadow-2xl"
+              aria-label="Previous panel"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => goToPanel((activePanelRef.current + 1) % PANEL_COUNT, false)}
+              className="pointer-events-auto bg-[#07172E]/90 text-[#D4AF37] p-2.5 rounded-full md:backdrop-blur-md border border-[#C8B89A]/40 hover:bg-[#07172E] transition-colors shadow-2xl"
+              aria-label="Next panel"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
         {/* Horizontal Track: 300vw wide, snaps using CSS transform */}
         {/* ========================================================================= */}
         <div
@@ -347,12 +360,12 @@ const InformationScrollSection = () => {
           <div
             className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
-              backgroundImage: "url('/backgrounds/bg-blue.jpg')",
+              backgroundImage: "url('/backgrounds/bg-blue.webp')",
             }}
           >
             {/* Tactile Fine Grain Texture Overlay */}
             <div
-              className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+              className="absolute inset-0 pointer-events-none  opacity-60 z-0"
               style={{
                 backgroundImage: "url('/backgrounds/noise-texture.svg')",
                 backgroundRepeat: 'repeat',
@@ -386,7 +399,7 @@ const InformationScrollSection = () => {
                     {/* The Actual Photo - Square */}
                     <div className="relative w-full h-full aspect-square overflow-hidden border border-[#C8B89A]/50 rotate-[-1deg] bg-slate-900">
                       <img
-                        src="/slrtce-actual-photo.jpg"
+                        src="/slrtce-actual-photo.webp"
                         alt="Shree L. R. Tiwari College of Engineering"
                         className="w-full h-full object-cover filter contrast-[1.05] saturate-[0.9] sepia-[0.05]"
                       />
@@ -395,10 +408,10 @@ const InformationScrollSection = () => {
                     </div>
 
                     {/* Tape 1 - Top Center */}
-                    <div className="absolute -top-2 sm:-top-3.5 left-1/2 -translate-x-1/2 w-20 sm:w-28 h-4 sm:h-8 bg-[#D4C9A8]/85 shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(2% 0, 98% 0, 100% 100%, 0 100%)' }}></div>
+                    <div className="absolute -top-2 sm:-top-3.5 left-1/2 -translate-x-1/2 w-20 sm:w-28 h-4 sm:h-8 bg-[#D4C9A8]/85 shadow-sm z-20 opacity-90 md:backdrop-blur-sm" style={{ clipPath: 'polygon(2% 0, 98% 0, 100% 100%, 0 100%)' }}></div>
 
                     {/* Tape 2 - Bottom Left */}
-                    <div className="absolute -bottom-2 sm:-bottom-4 -left-1 sm:-left-2 w-14 sm:w-20 h-3.5 sm:h-7 bg-[#D4C9A8]/85 rotate-[25deg] shadow-sm z-20 opacity-90 backdrop-blur-sm" style={{ clipPath: 'polygon(0 0, 100% 5%, 95% 100%, 5% 95%)' }}></div>
+                    <div className="absolute -bottom-2 sm:-bottom-4 -left-1 sm:-left-2 w-14 sm:w-20 h-3.5 sm:h-7 bg-[#D4C9A8]/85 rotate-[25deg] shadow-sm z-20 opacity-90 md:backdrop-blur-sm" style={{ clipPath: 'polygon(0 0, 100% 5%, 95% 100%, 5% 95%)' }}></div>
                   </div>
 
                   {/* Torn-Paper Label: SLRTCE */}
@@ -454,7 +467,7 @@ const InformationScrollSection = () => {
                   <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-3 sm:px-7 lg:px-9 py-2.5 sm:py-5 lg:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
 
                     {/* Ticket Texture Overlay */}
-                    <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.jpg')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.webp')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
 
                     {/* Main Content Layout (Vertical Stack of Horizontal Rows) */}
                     <div className="relative z-10 flex flex-col justify-between pl-0 sm:pl-4 pr-3 sm:pr-8">
@@ -546,12 +559,12 @@ const InformationScrollSection = () => {
           <div
             className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
-              backgroundImage: "url('/backgrounds/bg-teal.jpg')",
+              backgroundImage: "url('/backgrounds/bg-teal.webp')",
             }}
           >
             {/* Tactile Fine Grain Texture Overlay */}
             <div
-              className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+              className="absolute inset-0 pointer-events-none  opacity-60 z-0"
               style={{
                 backgroundImage: "url('/backgrounds/noise-texture.svg')",
                 backgroundRepeat: 'repeat',
@@ -580,9 +593,11 @@ const InformationScrollSection = () => {
                   <div className="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-red-500/20 to-cyan-400/20 blur-xl sm:blur-2xl opacity-70 pointer-events-none" />
 
                   <img
-                    src="/CompEng-sticker.png"
+                    src="/CompEng-sticker.webp"
                     alt="Department of Computer Engineering"
-                    className="relative z-10 w-56 xs:w-64 sm:w-72 md:w-80 lg:w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[420px] xl:max-w-[480px] h-auto max-h-[26vh] sm:max-h-[34vh] lg:max-h-[46vh] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
+                    width="1024"
+                    height="1007"
+                    className="relative z-10 w-56 xs:w-64 sm:w-72 md:w-80 lg:w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[420px] lg:max-w-[420px] xl:max-w-[480px] h-auto max-h-[26vh] sm:max-h-[34vh] lg:max-h-[46vh] object-contain md:drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] pointer-events-none"
                   />
                 </motion.div>
               </div>
@@ -624,7 +639,7 @@ const InformationScrollSection = () => {
                   <div className="stamp-card w-full bg-[#F5F0E6] text-[#1A4338] relative z-10 px-3 sm:px-7 lg:px-9 py-2.5 sm:py-5 lg:py-6 shadow-2xl rounded-xl sm:rounded-2xl">
 
                     {/* Ticket Texture Overlay */}
-                    <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.jpg')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-[url('/backgrounds/paper-texture-clean.webp')] opacity-25 mix-blend-multiply pointer-events-none z-0 rounded-2xl"></div>
 
                     {/* Main Content Layout */}
                     <div className="relative z-10 flex flex-col justify-between pl-0 sm:pl-4 pr-3 sm:pr-8">
@@ -721,12 +736,12 @@ const InformationScrollSection = () => {
           <div
             className="w-screen h-full flex-shrink-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-12 xl:px-16 pt-14 lg:pt-16 pb-8 lg:pb-10 relative overflow-hidden bg-cover bg-center"
             style={{
-              backgroundImage: "url('/backgrounds/bg-purple.jpg')",
+              backgroundImage: "url('/backgrounds/bg-purple.webp')",
             }}
           >
             {/* Tactile Fine Grain Texture Overlay */}
             <div
-              className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0"
+              className="absolute inset-0 pointer-events-none  opacity-60 z-0"
               style={{
                 backgroundImage: "url('/backgrounds/noise-texture.svg')",
                 backgroundRepeat: 'repeat',
@@ -814,9 +829,9 @@ const InformationScrollSection = () => {
                         <div className="absolute w-24 h-24 sm:w-48 sm:h-48 rounded-full bg-white/90 blur-xl opacity-65 pointer-events-none" />
 
                         <img
-                          src="/LOGO-IEEE.png"
+                          src="/LOGO-IEEE.webp"
                           alt="IEEE SLRTCE Student Branch Logo"
-                          className="relative z-10 w-full h-full max-h-[105px] xs:max-h-[125px] sm:max-h-[235px] lg:max-h-[250px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] select-none transition-transform duration-300 group-hover:scale-105"
+                          className="relative z-10 w-full h-full max-h-[105px] xs:max-h-[125px] sm:max-h-[235px] lg:max-h-[250px] object-contain md:drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] select-none transition-transform duration-300 group-hover:scale-105"
                         />
                       </div>
                     </div>
@@ -841,7 +856,7 @@ const InformationScrollSection = () => {
         {/* ========================================================================= */}
         {/* Bottom Archival Status Bar */}
         {/* ========================================================================= */}
-        <div className="absolute bottom-0 left-0 w-full z-30 px-4 sm:px-8 lg:px-16 py-2.5 bg-[#07172E]/92 backdrop-blur-md border-t border-[#C8B89A]/30 flex items-center justify-between">
+        <div className="absolute bottom-0 left-0 w-full z-30 px-4 sm:px-8 lg:px-16 py-2.5 bg-[#07172E]/92 md:backdrop-blur-md border-t border-[#C8B89A]/30 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <span className="text-[0.68rem] sm:text-xs font-mono text-[#FBF7EE]/80">
               [ 0{activePanel + 1} OF 03 ]

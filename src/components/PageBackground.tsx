@@ -9,16 +9,15 @@ const PageBackground: React.FC = () => {
 
       {/* Subtle Watercolor Edges - Placeholders */}
       <motion.div
-        className="absolute bottom-0 left-0 w-full h-64 opacity-15"
+        className="absolute bottom-0 left-0 w-full h-64 opacity-15 md:blur-3xl"
         style={{
-          background: 'linear-gradient(to top, #1F4287, transparent)',
-          filter: 'blur(30px)'
+          background: 'linear-gradient(to top, #1F4287, transparent)'
         }}
       />
 
       {/* Edge decorative monuments placeholder */}
-      <div className="absolute bottom-10 left-10 opacity-[0.05] grayscale mix-blend-multiply w-48 h-48 rounded-full bg-theme-navy/10 blur-xl"></div>
-      <div className="absolute top-40 right-10 opacity-[0.05] grayscale mix-blend-multiply w-64 h-64 rounded-full bg-theme-saffron/10 blur-xl"></div>
+      <div className="absolute bottom-10 left-10 opacity-[0.05] grayscale w-48 h-48 rounded-full bg-theme-navy/10 md:blur-xl"></div>
+      <div className="absolute top-40 right-10 opacity-[0.05] grayscale w-64 h-64 rounded-full bg-theme-saffron/10 md:blur-xl"></div>
     </div>
   );
 };

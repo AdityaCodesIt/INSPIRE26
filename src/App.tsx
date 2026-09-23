@@ -6,6 +6,7 @@ import InformationScrollSection from './components/InformationScrollSection';
 import AboutSection from './components/AboutSection';
 import WhoCanParticipateSection from './components/WhoCanParticipateSection';
 import { SplashScreen } from './components/SplashScreen';
+import SmoothScroll from './components/SmoothScroll';
 
 const TracksSection = lazy(() => import('./components/TracksSection'));
 const TimelineSection = lazy(() => import('./components/TimelineSection'));
@@ -18,7 +19,7 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   return (
-    <>
+    <SmoothScroll>
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       
       <div className={`min-h-screen flex flex-col relative font-sans selection:bg-theme-saffron/30 ${showSplash ? 'h-screen overflow-hidden' : ''}`}>
@@ -42,7 +43,7 @@ function App() {
           </Suspense>
         </main>
       </div>
-    </>
+    </SmoothScroll>
   );
 }
 

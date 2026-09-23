@@ -10,6 +10,8 @@ interface CategoryInfo {
 
 interface ParticipantBoxProps {
   imgSrc: string;
+  imgWidth?: number;
+  imgHeight?: number;
   className?: string;
   bgImage?: string;
   info: CategoryInfo;
@@ -22,6 +24,8 @@ interface ParticipantBoxProps {
 
 const ParticipantBox = ({
   imgSrc,
+  imgWidth,
+  imgHeight,
   className,
   bgImage,
   info,
@@ -93,7 +97,9 @@ const ParticipantBox = ({
           transition={{ type: 'spring', stiffness: 100, damping: 15 }}
           src={imgSrc}
           alt={info.title}
-          className={`relative z-20 drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)] pointer-events-none ${imgClassName || 'w-full h-full object-contain p-6 sm:p-12'}`}
+          width={imgWidth}
+          height={imgHeight}
+          className={`relative z-20 md:drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)] pointer-events-none ${imgClassName || 'w-full h-full object-contain p-6 sm:p-12'}`}
         />
 
         {/* Info Text (Revealed on hover/tap) */}
@@ -106,14 +112,14 @@ const ParticipantBox = ({
           className={textClass}
         >
           <div className="p-2 sm:p-3 md:p-4 w-full">
-            <h3 className="text-base sm:text-xl md:text-2xl lg:text-[1.85rem] xl:text-[2.1rem] font-black text-white mb-1.5 md:mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] leading-tight tracking-tight">
+            <h3 className="text-base sm:text-xl md:text-2xl lg:text-[1.85rem] xl:text-[2.1rem] font-black text-white mb-1.5 md:mb-2 md:drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] leading-tight tracking-tight">
               {info.title}
             </h3>
-            <p className="text-xs sm:text-sm md:text-base lg:text-[1.1rem] xl:text-[1.2rem] text-amber-300 font-extrabold mb-2.5 md:mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+            <p className="text-xs sm:text-sm md:text-base lg:text-[1.1rem] xl:text-[1.2rem] text-amber-300 font-extrabold mb-2.5 md:mb-3 md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
               {info.degree}
             </p>
             <div>
-              <span className="text-[9.5px] sm:text-[11px] md:text-xs lg:text-[13px] xl:text-[13.5px] text-white bg-black/65 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full inline-block font-bold border border-white/30 shadow-md backdrop-blur-sm whitespace-nowrap">
+              <span className="text-[9.5px] sm:text-[11px] md:text-xs lg:text-[13px] xl:text-[13.5px] text-white bg-black/65 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full inline-block font-bold border border-white/30 shadow-md md:backdrop-blur-sm whitespace-nowrap">
                 Team Size: {info.teamSize}
               </span>
             </div>
@@ -136,12 +142,12 @@ const WhoCanParticipateSection = () => {
       id="eligibility"
       className="py-12 md:py-24 relative overflow-hidden bg-cover bg-center bg-scroll md:bg-fixed border-t border-b border-teal-950/20 w-full min-h-[90vh] flex flex-col justify-center"
       style={{
-        backgroundImage: "url('/backgrounds/bg-saffron.jpg')",
+        backgroundImage: "url('/backgrounds/bg-saffron.webp')",
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-40 z-0"
+        className="absolute inset-0 pointer-events-none  opacity-40 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
           backgroundRepeat: 'repeat',
@@ -160,11 +166,11 @@ const WhoCanParticipateSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-md mb-2">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight md:drop-shadow-md mb-2">
               Who Can Participate?
             </h2>
             <div className="w-16 sm:w-20 h-1 sm:h-1.5 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full mb-3" />
-            <p className="text-xs sm:text-base text-white/90 font-sans leading-relaxed font-medium drop-shadow-sm">
+            <p className="text-xs sm:text-base text-white/90 font-sans leading-relaxed font-medium md:drop-shadow-sm">
               Review our eligibility criteria below to find the right category for you and your team.{' '}
               <span className="md:hidden font-bold text-amber-200">Tap on any card to view details.</span>
               <span className="hidden md:inline font-bold text-amber-200">Hover on card to see more detail.</span>
@@ -185,7 +191,7 @@ const WhoCanParticipateSection = () => {
               className="flex items-center gap-2.5 sm:gap-3.5 self-start mb-4 sm:mb-6"
             >
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] ring-4 ring-amber-400/20 shrink-0" />
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 Ideathon
               </h3>
               <div className="h-[2px] bg-gradient-to-r from-amber-400/60 via-amber-400/20 to-transparent flex-1 ml-2 min-w-[60px] sm:min-w-[120px] max-w-[200px]" />
@@ -193,7 +199,9 @@ const WhoCanParticipateSection = () => {
 
             <ParticipantBox
               imgSrc="/images/participants/ug_new_character.png"
-              bgImage="/images/participants/ug_new_bg.png"
+              bgImage="/images/participants/ug_new_bg.webp"
+              imgWidth={500}
+              imgHeight={500}
               className="w-full max-w-3xl h-[280px] sm:h-[350px] md:h-[420px]"
               isOpen={activeCard === 'ug'}
               onToggle={() => handleToggle('ug')}
@@ -208,7 +216,7 @@ const WhoCanParticipateSection = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-12 sm:mt-16 md:mt-20 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.14em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+              className="mt-12 sm:mt-16 md:mt-20 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.14em] uppercase text-center md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
             >
               UG / Diploma
             </motion.h4>
@@ -225,7 +233,7 @@ const WhoCanParticipateSection = () => {
               className="flex items-center gap-2.5 sm:gap-3.5 self-start mb-4 sm:mb-6"
             >
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)] ring-4 ring-amber-400/20 shrink-0" />
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-black text-white tracking-[0.16em] uppercase md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 Research
               </h3>
               <div className="h-[2px] bg-gradient-to-r from-amber-400/60 via-amber-400/20 to-transparent flex-1 ml-2 min-w-[60px] sm:min-w-[120px] max-w-[200px]" />
@@ -237,6 +245,8 @@ const WhoCanParticipateSection = () => {
                 <ParticipantBox
                   imgSrc="/images/participants/pg_new_character.png"
                   bgImage="/images/participants/pg_new_bg.png"
+                  imgWidth={500}
+                  imgHeight={500}
                   className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
                   isOpen={activeCard === 'pg'}
                   onToggle={() => handleToggle('pg')}
@@ -251,7 +261,7 @@ const WhoCanParticipateSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
                 >
                   PG
                 </motion.h4>
@@ -260,8 +270,10 @@ const WhoCanParticipateSection = () => {
               {/* Right: PhD Scholars (PPG) */}
               <div className="flex flex-col items-center w-full">
                 <ParticipantBox
-                  imgSrc="/images/participants/ppg_new_character.png"
-                  bgImage="/images/participants/bg_new_scientist.png"
+                  imgSrc="/images/participants/ppg_new_character.webp"
+                  bgImage="/images/participants/bg_new_scientist.webp"
+                  imgWidth={500}
+                  imgHeight={500}
                   className="w-full h-[250px] sm:h-[300px] md:h-[350px]"
                   flipImage={false}
                   imgClassName="absolute bottom-2 -left-2 sm:-left-4 md:-left-8 w-[48%] sm:w-[42%] md:w-[38%] h-auto max-h-[78%] object-contain"
@@ -278,7 +290,7 @@ const WhoCanParticipateSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                  className="mt-10 sm:mt-10 md:mt-12 text-xl sm:text-3xl md:text-4xl font-cinzel font-black text-white tracking-[0.16em] uppercase text-center md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
                 >
                   PhD
                 </motion.h4>

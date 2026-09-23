@@ -178,11 +178,11 @@ const PrizePoolSection = () => {
       id="awards"
       className="pt-16 md:pt-24 pb-2 md:pb-4 relative overflow-hidden bg-cover bg-center border-t border-b border-rose-950/40 text-white scroll-mt-[65px] w-full max-w-full flex flex-col"
       style={{
-        backgroundImage: "url('/backgrounds/bg-maroon.jpg')",
+        backgroundImage: "url('/backgrounds/bg-maroon.webp')",
         backgroundAttachment: 'fixed',
       }}
     >
-      <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-60 z-0" style={{ backgroundImage: "url('/backgrounds/noise-texture.svg')", backgroundRepeat: 'repeat' }} />
+      <div className="absolute inset-0 pointer-events-none  opacity-60 z-0" style={{ backgroundImage: "url('/backgrounds/noise-texture.svg')", backgroundRepeat: 'repeat' }} />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/25 via-transparent to-black/35 z-0" />
 
       {/* Interactive Hanging Lamp from Ceiling - Zero Gap */}
@@ -295,13 +295,13 @@ const PrizePoolSection = () => {
                 opacity: lightIntensity,
               }}
             >
-              <h2 className="text-[4.2rem] xs:text-[4.8rem] sm:text-[5.2rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
+              <h2 className="text-[4.2rem] xs:text-[4.8rem] sm:text-[5.2rem] md:text-[5.5rem] lg:text-[6.5rem] font-black text-[#F9E7B7] md:drop-shadow-[0_0_20px_rgba(249,231,183,0.85)] drop-shadow-[0_0_40px_rgba(255,235,59,0.45)] drop-shadow-[0_0_70px_rgba(249,231,183,0.25)] tracking-tighter leading-none mb-2 flex items-center justify-center">
                 <span>15000</span>
-                <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none drop-shadow-[0_0_20px_rgba(249,231,183,0.85)]">
+                <span className="text-[0.6em] font-black text-[#F9E7B7] ml-1.5 md:ml-2.5 self-center tracking-normal leading-none md:drop-shadow-[0_0_20px_rgba(249,231,183,0.85)]">
                   +
                 </span>
               </h2>
-              <p className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-[0.2em] sm:tracking-widest text-center w-full drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-[0.2em] sm:tracking-widest text-center w-full md:drop-shadow-[0_0_15px_rgba(255,255,255,0.75)] drop-shadow-[0_0_30px_rgba(249,231,183,0.4)]">
                 Prize Pool
               </p>
             </motion.div>
@@ -333,7 +333,7 @@ const PrizePoolSection = () => {
 
           {/* Category Awards Notice - Positioned directly below Card 2 & Card 3 */}
           <div className="relative md:absolute md:top-[77.5%] md:left-[72%] md:-translate-x-1/2 w-full max-w-[94%] sm:max-w-[480px] md:max-w-[540px] pointer-events-auto z-20 mt-4 md:mt-0">
-            <div className="flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[#200007]/80 border border-[#F9E7B7]/30 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_15px_rgba(249,231,183,0.1)] text-center">
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-[#200007]/80 border border-[#F9E7B7]/30 md:backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_15px_rgba(249,231,183,0.1)] text-center">
               <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] shrink-0" />
               <p className="text-[11px] sm:text-sm text-[#F9E7B7] font-medium tracking-wide">
                 Awards in each of the three categories:{' '}

@@ -1,10 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const isMobile = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 1024, []);
 
   const navLinks = [
     { name: 'Home', id: 'home', href: '#home' },
@@ -95,7 +96,7 @@ const Navbar = () => {
   };
 
   const TimerPanel = () => (
-    <div className="stamp-card-wrapper drop-shadow-[0_2px_5px_rgba(0,0,0,0.18)] shrink-0 whitespace-nowrap select-none px-1 py-0.5">
+    <div className="stamp-card-wrapper md:drop-shadow-[0_2px_5px_rgba(0,0,0,0.18)] shrink-0 whitespace-nowrap select-none px-1 py-0.5">
       <div className="stamp-card-mini flex flex-col justify-center bg-[#F8E7BE] px-2.5 sm:px-3 py-1 sm:py-1.5 w-auto border border-black/5 shrink-0 whitespace-nowrap select-none">
         
         {/* Top Header Row */}
@@ -104,11 +105,7 @@ const Navbar = () => {
             [ REGISTRATION DEADLINE ]
           </div>
           <div className="flex items-center gap-1 ml-auto">
-            <motion.div 
-              animate={{ opacity: [1, 0.2, 1] }} 
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-1 rounded-full bg-red-600 shadow-xs"
-            />
+            <div className="w-1 h-1 rounded-full bg-red-600 shadow-xs animate-pulse" />
             <span className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
           </div>
         </div>
@@ -168,8 +165,10 @@ const Navbar = () => {
               className="group hover:opacity-80 transition-opacity"
             >
               <img
-                src="/slrtce-logo.png"
+                src="/slrtce-logo.webp"
                 alt="SLRTCE Logo"
+                width="171"
+                height="171"
                 className="h-8 sm:h-9 w-auto object-contain"
               />
             </a>
@@ -180,9 +179,11 @@ const Navbar = () => {
               className="group hover:opacity-80 transition-opacity"
             >
               <img
-                src="/ieee-custom-logo-white.png"
+                src="/ieee-custom-logo-white.webp"
                 alt="IEEE SLRTCE Custom Logo"
-                className="h-9 sm:h-10 w-auto object-contain mix-blend-screen opacity-90"
+                width="498"
+                height="501"
+                className="h-9 sm:h-10 w-auto object-contain opacity-90"
               />
             </a>
           </div>
@@ -292,32 +293,33 @@ const Navbar = () => {
             className="w-full h-6 sm:h-7 md:h-8 block"
             style={{
               clipPath: 'polygon(0 4px, 100% 4px, 100% 120px, 0 120px)',
-              filter: 'drop-shadow(0 3px 3px rgba(0, 0, 0, 0.12)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
           >
-            <defs>
-              {/* High-frequency cellulose pulp displacement filter for real fibrous paper tear */}
-              <filter id="torn-paper-roughness" x="-2%" y="-15%" width="104%" height="150%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.14 0.22" numOctaves="5" seed="83" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-              </filter>
-            </defs>
+            {/* Only apply heavy SVG filters on desktop */}
+            {!isMobile && (
+              <defs>
+                <filter id="torn-paper-roughness" x="-2%" y="-15%" width="104%" height="150%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.14 0.22" numOctaves="5" seed="83" result="noise" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                </filter>
+              </defs>
+            )}
 
-            {/* Layer 1: Exposed Unbleached Paper Core Deckle Fringe (raw paper pulp extending 2-4px past blue sheet) */}
+            {/* Layer 1: Exposed Unbleached Paper Core Deckle Fringe */}
             <path
               d="M 1440,0 L 1440,19.5 L 1422,22 L 1410,19.5 L 1395,23.5 L 1386,20 L 1370,22.5 L 1358,27.5 L 1345,25 L 1334,19.5 L 1320,19 L 1308,22.5 L 1295,29 L 1282,33 L 1275,29 L 1264,33.5 L 1252,27.5 L 1240,21 L 1228,19.5 L 1215,22.5 L 1202,18 L 1190,20 L 1178,25.5 L 1165,30 L 1152,26 L 1140,30.5 L 1132,27 L 1120,22 L 1108,19.5 L 1095,18.5 L 1082,21 L 1070,19 L 1058,23.5 L 1045,27 L 1032,21 L 1020,19 L 1008,18 L 995,20.5 L 982,24 L 970,29 L 958,34 L 950,30.5 L 938,36 L 928,31.5 L 916,26 L 904,22 L 892,19 L 880,18 L 868,20.5 L 856,19 L 844,21 L 832,17.5 L 820,16 L 808,18 L 796,21 L 784,19 L 772,23.5 L 760,28.5 L 748,31 L 740,28 L 728,32.5 L 716,26 L 704,22 L 692,19 L 680,18 L 668,20 L 656,17.5 L 644,19 L 632,22.5 L 620,25.5 L 608,23 L 596,27.5 L 584,24 L 572,20 L 560,19 L 548,21.5 L 536,25.5 L 524,30.5 L 512,35 L 504,31 L 492,36 L 480,31 L 468,26 L 456,22 L 444,19 L 432,18.5 L 420,20 L 408,23.5 L 396,28 L 384,25 L 372,21 L 360,19.5 L 348,18 L 336,20 L 324,23 L 312,28 L 300,31 L 292,27.5 L 280,32 L 268,25 L 256,21 L 244,18 L 232,17 L 220,19 L 208,22.5 L 196,26 L 184,30 L 176,26 L 164,31 L 152,26 L 140,21 L 128,19 L 116,20.5 L 104,18 L 92,20 L 80,23 L 68,19 L 56,21 L 44,18.5 L 32,20 L 20,22.5 L 0,19.5 L 0,0 Z"
               fill="#F8E7BE"
               opacity="0.95"
-              filter="url(#torn-paper-roughness)"
+              filter={isMobile ? undefined : 'url(#torn-paper-roughness)'}
             />
 
-            {/* Layer 2: Main Dark Blue Navy Paper (#0A2A5E) - Pure fill, zero top stroke */}
+            {/* Layer 2: Main Dark Blue Navy Paper */}
             <path
               d="M 1440,0 L 1440,16 L 1422,18.5 L 1410,16.5 L 1395,20 L 1386,17 L 1370,19.5 L 1358,23.5 L 1345,22 L 1334,17 L 1320,16 L 1308,19.5 L 1295,25 L 1282,28.5 L 1275,26 L 1264,29.5 L 1252,24 L 1240,18 L 1228,16.5 L 1215,19 L 1202,15 L 1190,17 L 1178,22 L 1165,26 L 1152,23 L 1140,26.5 L 1132,24 L 1120,19 L 1108,17 L 1095,15.5 L 1082,18 L 1070,16 L 1058,20 L 1045,23 L 1032,18 L 1020,16 L 1008,15 L 995,17.5 L 982,20.5 L 970,25 L 958,30 L 950,27 L 938,32 L 928,28 L 916,23 L 904,19 L 892,16 L 880,15 L 868,17.5 L 856,16 L 844,18 L 832,14.5 L 820,13 L 808,15 L 796,17.5 L 784,16 L 772,20 L 760,24.5 L 748,27.5 L 740,25 L 728,29 L 716,23 L 704,19 L 692,16 L 680,15 L 668,17 L 656,14.5 L 644,16 L 632,19 L 620,22 L 608,20 L 596,23.5 L 584,21 L 572,17 L 560,16 L 548,18.5 L 536,22 L 524,27 L 512,30.5 L 504,27.5 L 492,32.5 L 480,28 L 468,23 L 456,19 L 444,16 L 432,15.5 L 420,17 L 408,20.5 L 396,24.5 L 384,22 L 372,18 L 360,16.5 L 348,15 L 336,17 L 324,19.5 L 312,24.5 L 300,27.5 L 292,24.5 L 280,28.5 L 268,22 L 256,18 L 244,15 L 232,14 L 220,16 L 208,19 L 196,22.5 L 184,26.5 L 176,23 L 164,27.5 L 152,23 L 140,18 L 128,16 L 116,17.5 L 104,15 L 92,17 L 80,19.5 L 68,16 L 56,18 L 44,15.5 L 32,17 L 20,19 L 0,16.5 L 0,0 Z"
               fill="#0A2A5E"
-              filter="url(#torn-paper-roughness)"
+              filter={isMobile ? undefined : 'url(#torn-paper-roughness)'}
             />
 
           </svg>

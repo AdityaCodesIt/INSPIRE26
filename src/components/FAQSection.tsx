@@ -92,12 +92,12 @@ const FAQSection = () => {
       id="faq"
       className="py-16 md:py-24 relative overflow-hidden bg-cover bg-center bg-scroll md:bg-fixed border-t border-b border-indigo-950/30 text-white scroll-mt-[65px] w-full max-w-full min-h-[calc(100vh-65px)] flex flex-col justify-center"
       style={{
-        backgroundImage: "url('/backgrounds/bg-purple.jpg')",
+        backgroundImage: "url('/backgrounds/bg-purple.webp')",
       }}
     >
       {/* Tactile Fine Grain Texture Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-55 z-0"
+        className="absolute inset-0 pointer-events-none opacity-30 z-0"
         style={{
           backgroundImage: "url('/backgrounds/noise-texture.svg')",
           backgroundRepeat: 'repeat',
@@ -139,9 +139,9 @@ const FAQSection = () => {
           </motion.div>
         </div>
 
-        {/* Stamp Card FAQ Container (Light Golden) */}
+        {/* FAQ Container (Light Golden) */}
         <div 
-          className="max-w-3xl mx-auto stamp-card px-3 sm:px-8 md:px-10 py-7 sm:py-10 md:py-12 shadow-2xl relative"
+          className="max-w-3xl mx-auto rounded-2xl px-3 sm:px-8 md:px-10 py-7 sm:py-10 md:py-12 shadow-lg relative"
           style={{ background: 'linear-gradient(135deg, #FFF3D4 0%, #E8D08B 100%)' }}
         >
           {/* Category Filter Pills */}
@@ -204,23 +204,11 @@ const FAQSection = () => {
                       />
                     </button>
 
-                    <div
-                      className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
-                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        <div
-                          className={`transition-opacity duration-200 ease-out ${
-                            isOpen ? 'opacity-100 delay-75' : 'opacity-0'
-                          }`}
-                        >
-                          <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
-                            {faq.answer}
-                          </div>
-                        </div>
+                    {isOpen && (
+                      <div className="px-3.5 sm:px-6 pb-4 sm:pb-5 pt-1.5 sm:pt-2 border-t border-[#C8B89A]/30 text-xs sm:text-sm text-[#0A2540]/80 leading-relaxed pl-3.5 sm:pl-12 whitespace-pre-line font-medium">
+                        {faq.answer}
                       </div>
-                    </div>
+                    )}
                   </motion.div>
                 );
               })
@@ -244,7 +232,7 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto mt-12 p-6 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+          className="max-w-3xl mx-auto mt-12 p-6 rounded-2xl bg-white/10 border border-white/15 md:backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
         >
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-xl bg-amber-400/20 border border-amber-400/30 flex items-center justify-center shrink-0">
