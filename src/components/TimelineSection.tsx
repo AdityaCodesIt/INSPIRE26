@@ -18,7 +18,7 @@ const stages: Stage[] = [
     id: 1,
     numeral: '1',
     title: 'Registration & Submission',
-    date: 'Deadline: 26th Sep 2026',
+    date: 'Deadline: 29th Sep 2026',
     venue: 'Official Colloquium Portal',
     summary:
       'Initial submission of a structured research or innovative idea, including its abstract, concept, and proposed methodology, aligned with any of the 9 tracks and relevant UN Sustainable Development Goals (SDGs).',
@@ -29,7 +29,7 @@ const stages: Stage[] = [
     id: 2,
     numeral: '2',
     title: 'Submission Evaluation and Result',
-    date: 'Deadline: 28th Sep 2026',
+    date: 'Deadline: 30th Sep 2026',
     venue: 'Official Colloquium Portal',
     summary:
       'Official declaration of PPT evaluation results and technical review scores for shortlisted teams advancing to on-campus defense.',

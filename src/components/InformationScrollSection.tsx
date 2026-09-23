@@ -90,6 +90,19 @@ const InformationScrollSection = () => {
   const isLockedRef = useRef(false);
   const accumulatedDeltaRef = useRef(0);
   const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < 1024 : false
+  );
+
+  // Detect mobile screen (< 1024px)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Dynamically get the exact navbar height
   const getNavbarHeight = useCallback(() => {
@@ -97,8 +110,9 @@ const InformationScrollSection = () => {
     return header ? header.getBoundingClientRect().height : 65;
   }, []);
 
-  // Check if the sticky content is currently pinned in the viewport
+  // Check if the sticky content is currently pinned in the viewport (Desktop only)
   const isStickyPinned = useCallback(() => {
+    if (isMobile) return false;
     const outer = outerRef.current;
     if (!outer) return false;
     const rect = outer.getBoundingClientRect();
@@ -106,9 +120,9 @@ const InformationScrollSection = () => {
     const viewportH = window.innerHeight - navbarHeight;
 
     return rect.top <= navbarHeight + 5 && rect.bottom >= navbarHeight + viewportH + 40;
-  }, [getNavbarHeight]);
+  }, [getNavbarHeight, isMobile]);
 
-  // Scroll the window so the outer wrapper position matches the target panel
+  // Scroll the window so the outer wrapper position matches the target panel (Desktop only)
   const scrollToPanel = useCallback((panelIndex: number) => {
     const outer = outerRef.current;
     if (!outer) return;
@@ -123,7 +137,7 @@ const InformationScrollSection = () => {
   }, [getNavbarHeight]);
 
   // Navigate to a target panel with responsive animation and lock
-  const goToPanel = useCallback((targetIndex: number) => {
+  const goToPanel = useCallback((targetIndex: number, shouldScrollWindow: boolean = true) => {
     if (targetIndex < 0 || targetIndex >= PANEL_COUNT) return;
     if (isLockedRef.current) return;
 
@@ -133,16 +147,36 @@ const InformationScrollSection = () => {
     setActivePanel(targetIndex);
     activePanelRef.current = targetIndex;
 
-    scrollToPanel(targetIndex);
+    // Only sync window scroll position on desktop sticky scroll, never on mobile
+    if (shouldScrollWindow && !isMobile) {
+      scrollToPanel(targetIndex);
+    }
 
     setTimeout(() => {
       isLockedRef.current = false;
       accumulatedDeltaRef.current = 0;
     }, TOTAL_LOCK_TIME);
-  }, [scrollToPanel]);
+  }, [scrollToPanel, isMobile]);
 
-  // Wheel interception: intercept scroll when pinned, snap panels cleanly
+  // Auto-slide between panels every 5 seconds on mobile view
   useEffect(() => {
+    if (!isMobile) return;
+
+    const timer = setTimeout(() => {
+      setActivePanel((prev) => {
+        const next = (prev + 1) % PANEL_COUNT;
+        activePanelRef.current = next;
+        return next;
+      });
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isMobile, activePanel]);
+
+  // Wheel interception: intercept scroll when pinned, snap panels cleanly (Desktop only)
+  useEffect(() => {
+    if (isMobile) return;
+
     const onWheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) < 5) return;
 
@@ -185,10 +219,12 @@ const InformationScrollSection = () => {
 
     window.addEventListener('wheel', onWheel, { passive: false });
     return () => window.removeEventListener('wheel', onWheel);
-  }, [goToPanel, isStickyPinned, getNavbarHeight]);
+  }, [goToPanel, isStickyPinned, isMobile]);
 
-  // Sync panel state when user scrolls back from outside (e.g., from Hero or from About)
+  // Sync panel state when user scrolls back from outside (Desktop only)
   useEffect(() => {
+    if (isMobile) return;
+
     const handleScroll = () => {
       if (isLockedRef.current) return;
       const outer = outerRef.current;
@@ -209,7 +245,7 @@ const InformationScrollSection = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [getNavbarHeight]);
+  }, [getNavbarHeight, isMobile]);
 
   // Touch handlers for mobile / tablet horizontal swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -224,39 +260,40 @@ const InformationScrollSection = () => {
     const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
     const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
 
-    // Horizontal swipe threshold: 40px
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0 && activePanelRef.current < PANEL_COUNT - 1) {
-        goToPanel(activePanelRef.current + 1);
-      } else if (deltaX > 0 && activePanelRef.current > 0) {
-        goToPanel(activePanelRef.current - 1);
+    // Horizontal swipe threshold: 40px (predominantly horizontal so vertical page scroll is unaffected)
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      if (deltaX < 0) {
+        // Swiping LEFT -> next panel
+        goToPanel((activePanelRef.current + 1) % PANEL_COUNT, false);
+      } else if (deltaX > 0) {
+        // Swiping RIGHT -> previous panel
+        goToPanel((activePanelRef.current - 1 + PANEL_COUNT) % PANEL_COUNT, false);
       }
     }
   };
 
-
-
   return (
-    // OUTER WRAPPER: Tall enough so the browser can't skip past it.
-    // The sticky inner content pins to the viewport while user scrolls through this height.
+    // OUTER WRAPPER:
+    // On desktop: tall enough for sticky scroll snapping.
+    // On mobile: normal natural height (no snap scroll, no pinning!).
     <div
       id="overview"
       ref={outerRef}
       style={{
-        height: `calc((100vh - 56px) * ${PANEL_COUNT + 1})`,
+        height: isMobile ? 'auto' : `calc((100vh - 56px) * ${PANEL_COUNT + 1})`,
       }}
-      className="relative scroll-mt-[56px] bg-[#07172E]"
+      className="relative scroll-mt-[56px] bg-[#07172E] w-full min-h-[calc(100dvh-56px)] lg:min-h-0"
     >
-      {/* STICKY INNER: Pins below navbar while the outer wrapper scrolls */}
+      {/* INNER: Sticky on desktop below navbar, relative (completely unpinned) on mobile */}
       <div
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         style={{
-          position: 'sticky',
-          top: '56px',
-          height: 'calc(100vh - 56px)',
+          position: isMobile ? 'relative' : 'sticky',
+          top: isMobile ? '0' : '56px',
+          height: isMobile ? 'auto' : 'calc(100vh - 56px)',
         }}
-        className="w-full min-h-0 lg:min-h-[500px] max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30"
+        className="w-full relative lg:sticky lg:top-[56px] min-h-[calc(100dvh-56px)] lg:min-h-[500px] lg:h-[calc(100vh-56px)] max-h-none lg:max-h-[1080px] overflow-hidden select-none border-t border-b border-[#C8B89A]/30 flex flex-col justify-center"
       >
         {/* ========================================================================= */}
         {/* Top Sub-Nav Ribbon: "COLLEGE", "DEPARTMENT", "IEEE CHAPTER" */}
@@ -270,7 +307,7 @@ const InformationScrollSection = () => {
             ].map((tab) => (
               <button
                 key={tab.idx}
-                onClick={() => goToPanel(tab.idx)}
+                onClick={() => goToPanel(tab.idx, false)}
                 className={`transition-all duration-200 cursor-pointer pb-0.5 sm:pb-1 border-b-2 font-medium tracking-wide ${activePanel === tab.idx
                   ? 'border-[#D4AF37] text-white font-bold'
                   : 'border-transparent text-white/60 hover:text-white/90 hover:border-white/30'
@@ -529,7 +566,7 @@ const InformationScrollSection = () => {
                 >
                   {/* Subtle Ambient Backlight Glow */}
                   <div className="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-red-500/20 to-cyan-400/20 blur-xl sm:blur-2xl opacity-70 pointer-events-none" />
-                  
+
                   <img
                     src="/CompEng-sticker.png"
                     alt="Department of Computer Engineering"
@@ -560,7 +597,7 @@ const InformationScrollSection = () => {
                   <div className="absolute top-1 sm:-top-5 lg:-top-7 right-1 sm:-right-4 lg:-right-5 z-30 flex items-center justify-center pointer-events-none">
                     <div className="w-12 h-12 sm:w-24 sm:h-24 rounded-full bg-[#B71C1C] text-white flex flex-col items-center justify-center shadow-2xl border-2 border-white/90 rotate-[-8deg] hover:rotate-0 transition-transform duration-300 pointer-events-auto">
                       <div className="w-[calc(100%-4px)] h-[calc(100%-4px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)] rounded-full border border-dashed border-white/70 flex flex-col items-center justify-center p-0.5 sm:p-1 text-center">
-          
+
                         <span className="text-xs sm:text-2xl font-serif font-black tracking-tight leading-none text-white my-0.5">
                           NBA
                         </span>
@@ -600,7 +637,7 @@ const InformationScrollSection = () => {
                             Department of Computer Engineering
                           </h2>
                         </div>
-                      
+
                       </div>
 
                       {/* 2. Department Info Paragraph */}
