@@ -140,11 +140,11 @@ const TimelineSection = () => {
   
   // Mobile Opacity Transforms for each stage
   const mobileOpacities = [
-    useTransform(smoothProgress, [0, 0.05], [0.6, 1]), // Stage 1
-    useTransform(smoothProgress, [0.15, 0.20], [0.6, 1]), // Stage 2
-    useTransform(smoothProgress, [0.35, 0.40], [0.6, 1]), // Stage 3
-    useTransform(smoothProgress, [0.60, 0.65], [0.6, 1]), // Stage 4
-    useTransform(smoothProgress, [0.80, 0.85], [0.6, 1]), // Stage 5
+    useTransform(smoothProgress, [0, 0.05], [1, 1]), // Stage 1
+    useTransform(smoothProgress, [0.15, 0.20], [1, 1]), // Stage 2
+    useTransform(smoothProgress, [0.35, 0.40], [1, 1]), // Stage 3
+    useTransform(smoothProgress, [0.60, 0.65], [1, 1]), // Stage 4
+    useTransform(smoothProgress, [0.80, 0.85], [1, 1]), // Stage 5
   ];
 
   // Mobile Transform Y for each stage
@@ -357,7 +357,7 @@ const TimelineSection = () => {
                 style={
                   isMobile 
                   ? { opacity: mobileOpacities[idx], y: mobileTransforms[idx] } 
-                  : { opacity: desktopActive ? 1 : 0.6, y: desktopActive ? 0 : 24 }
+                  : { opacity: desktopActive ? 1 : 1, y: desktopActive ? 0 : 24 }
                 }
               >
                 {/* Mobile Waypoint Dot Node */}
