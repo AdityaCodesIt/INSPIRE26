@@ -23,7 +23,7 @@ const SmoothScroll = ({ children }: SmoothScrollProps) => {
       touchMultiplier: 2,
       normalizeWheel: true,
       syncTouch: true,
-    });
+    } as any);
 
     let animationFrameId: number;
     
